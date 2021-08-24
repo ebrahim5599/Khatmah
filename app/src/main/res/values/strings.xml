@@ -2,4 +2,8 @@
     <string name="app_name">Khatmah</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+    <string name="message">Message</string>
+    <string name="your_progress">YOUR PROGRESS</string>
+    <string name="daily_portion">DAILY PORTION</string>
+    <string name="Free_Reading">FREE READING</string>
 </resources>
