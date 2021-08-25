@@ -50,7 +50,7 @@ public class MainActivity extends FragmentActivity {
                 return getString(R.string.your_progress);
             case 2:
                 return getString(R.string.daily_portion);
-            case 3:
+            case 0:
                 return getString(R.string.Free_Reading);
             default: return "";
         }
