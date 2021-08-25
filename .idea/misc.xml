@@ -3,8 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/khatmah/app/src/main/res/layout/activity_main.xml" value="0.17300724637681159" />
+        <entry key="..\:/khatmah/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/khatmah/app/src/main/res/layout/daily_portion_fragment.xml" value="0.13020833333333334" />
         <entry key="..\:/khatmah/app/src/main/res/layout/fragment_main.xml" value="0.13020833333333334" />
+        <entry key="..\:/khatmah/app/src/main/res/layout/free_reading_fragment.xml" value="0.1793478260869565" />
+        <entry key="..\:/khatmah/app/src/main/res/layout/progress_fragment.xml" value="0.1793478260869565" />
+        <entry key="..\:/khatmah/app/src/main/res/layout/progress_fragment2.xml" value="0.1793478260869565" />
+        <entry key="..\:/khatmah/app/src/main/res/menu/main.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>
