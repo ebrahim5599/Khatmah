@@ -6,25 +6,26 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
-import androidx.fragment.app.FragmentActivity;
-import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-
+import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.islamic.khatmah.ui.main.SectionsPagerAdapter;
 
-public class MainActivity extends FragmentActivity {
-
+public class MainActivity extends AppCompatActivity {
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         ViewPager2 viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
@@ -40,19 +41,26 @@ public class MainActivity extends FragmentActivity {
                         .setAction("Action", null).show();
             }
         });
-        // new Comment
-        // Hi.
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+
+    }
+
+    //set the tabBar Text
     private String setTextOfTheTab(int position) {
-        switch (position){
-            case 1:
-                return getString(R.string.your_progress);
+        switch (position) {
             case 2:
+                return getString(R.string.your_progress);
+            case 1:
                 return getString(R.string.daily_portion);
             case 0:
                 return getString(R.string.Free_Reading);
-            default: return "";
+            default:
+                return "";
         }
     }
 }
