@@ -2,9 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
-        android:icon="@drawable/ic_baseline_settings_24"
+        android:id="@+id/action_more"
+        android:icon="@drawable/ic_round_more"
         android:orderInCategory="100"
         android:title="@string/action_settings"
-        app:showAsAction="always"/>
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/item_setting"
+                android:title="@string/action_settings" />
+            <item
+                android:id="@+id/item_about_us"
+                android:title="@string/about_us" />
+<!--            <item-->
+<!--                android:id="@+id/item_shopping"-->
+<!--                android:title="@string/shopping" />-->
+<!--            <item-->
+<!--                android:id="@+id/all_categories"-->
+<!--                android:title="@string/all_trips" />-->
+        </menu>
+    </item>
 </menu>
