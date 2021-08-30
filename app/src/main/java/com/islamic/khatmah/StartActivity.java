@@ -32,20 +32,20 @@ public class StartActivity extends AppCompatActivity {
         btn1=findViewById(R.id.button1);
 
         btn1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(l1.getVisibility() == View.GONE && l2.getVisibility()==View.GONE && btn2.getVisibility()==View.GONE){
+            @Override
+            public void onClick(View v) {
+                if(l1.getVisibility() == View.GONE && l2.getVisibility()==View.GONE && btn2.getVisibility()==View.GONE){
 
-                        l1.setVisibility(View.VISIBLE);
-                        l2.setVisibility(View.VISIBLE);
-                        btn2.setVisibility(View.VISIBLE);
-                    }else{
-                        l1.setVisibility(View.GONE);
-                        l2.setVisibility(View.GONE);
-                        btn2.setVisibility(View.GONE);
-                    }
+                    l1.setVisibility(View.VISIBLE);
+                    l2.setVisibility(View.VISIBLE);
+                    btn2.setVisibility(View.VISIBLE);
+                }else{
+                    l1.setVisibility(View.GONE);
+                    l2.setVisibility(View.GONE);
+                    btn2.setVisibility(View.GONE);
                 }
-            });
+            }
+        });
         btn3=findViewById(R.id.button);
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override

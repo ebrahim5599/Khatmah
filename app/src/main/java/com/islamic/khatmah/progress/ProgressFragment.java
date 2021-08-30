@@ -23,7 +23,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.islamic.khatmah.R;
 
 public class ProgressFragment extends Fragment {
-
     private ProgressViewModel mViewModel;
     private TextView txtAllProgressRatio,txtWeeklyProgressRatio,txtAllProgressRatioParts;
     private ProgressBar weaklyProgressBar ,allProgressBar,allProgressBarParts;
@@ -168,7 +167,7 @@ public class ProgressFragment extends Fragment {
 //                                        .replace(R.id.frameLayout, new Prayer(), "findThisFragment")
 //                                        .addToBackStack(null)
 //                                        .commit();
-                                Intent intent = new Intent(getActivity(),Prayer.class);
+                                Intent intent = new Intent(getActivity(),PrayerActivity.class);
                                 startActivity(intent);
 
                             })
