@@ -14,9 +14,9 @@
             android:name=".AlertActivity"
             android:exported="true" />
         <activity
-            android:name=".StartActivity"
+            android:name=".StartActivity"/>
 
-            android:name=".progress.Prayer"
+           <activity android:name=".progress.Prayer"
 
             android:exported="true" />
         <activity
