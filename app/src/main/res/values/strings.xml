@@ -5,31 +5,4 @@
     <string name="Free_Reading">FREE READING</string>
     <string name="action_settings">Setting</string>
     <string name="about_us">About Us</string>
-
-    <string name="الحديث" translatable="false">قال رسول الله :\"من قرأ حرفا من كتاب الله فله به حسنة؛ والحسنة بعشر أمثالها؛ لا أقول ألم حرف و لكن ألف حرف و لام حرف وميم حرف\".</string>
-    <string name="البدايه" translatable="false">مرحبا بك في تطبيق ختمة</string>
-    <string name="الجزء" translatable="false"> البدء من الجزء الأول</string>
-    <string name="مخصص" translatable="false">بداية مخصصة</string>
-    <string name="الصفحه" translatable="false">الصفحة</string>
-    <string name="الجزء2" translatable="false">الجزء</string>
-    <string name="السوره" translatable="false">السورة</string>
-    <string name="next" translatable="false">التالي</string>
-    <string name="setnum" translatable="false">حدد عدد الصفحات المراد قراءتها في اليوم.</string>
-    <string name="setalert" translatable="false">تفعيل التنبيه</string>
-    <string name="بسم" translatable="false">بسم اللّه نبدأ</string>
-    <string name="pref_previously_started" translatable="false" />
-
-    <string name="conter" />
-    <string name="setCounter">Set Counter</string>
-    <string name="resetCounter">Reset</string>
-    <string name="finishReding">Finish</string>
-    <string name="txtWeeklyProgress">Weekly Progress</string>
-    <string name="txtWeeklyProgressRatio">" 0 %"</string>
-    <string name="txtAllProgress">All Progress</string>
-    <string name="txtAllProgressRatio">0 %</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-
 </resources>

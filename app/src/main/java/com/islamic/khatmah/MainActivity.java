@@ -1,23 +1,19 @@
 package com.islamic.khatmah;
 
-
-
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
-
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
@@ -29,22 +25,8 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
-        if (!previouslyStarted) {
-            SharedPreferences.Editor edit = prefs.edit();
-            edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
-            edit.apply();
-            moveToSecondary();
-        }
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this);
 
@@ -92,10 +74,5 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return "";
         }
-    }
-    public void moveToSecondary(){
-        // use an intent to travel from one activity to another.
-        Intent intent = new Intent(this,StartActivity.class);
-        startActivity(intent);
     }
 }

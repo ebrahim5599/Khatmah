@@ -10,14 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Khatmah">
         <activity
-
-            android:name=".AlertActivity"
-            android:exported="true" />
-        <activity
-            android:name=".StartActivity"
-
-            android:name=".progress.Prayer"
-
+            android:name=".quran_activity.QuranActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
