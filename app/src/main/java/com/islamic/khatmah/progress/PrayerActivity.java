@@ -1,12 +1,12 @@
 package com.islamic.khatmah.progress;
 
-import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
 
 import com.islamic.khatmah.R;
 
-public class Prayer extends AppCompatActivity {
+public class PrayerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

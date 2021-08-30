@@ -19,17 +19,17 @@
     <string name="بسم" translatable="false">بسم اللّه نبدأ</string>
     <string name="pref_previously_started" translatable="false" />
 
-    <string name="conter" />
-    <string name="setCounter">Set Counter</string>
-    <string name="resetCounter">Reset</string>
-    <string name="finishReding">Finish</string>
-    <string name="txtWeeklyProgress">Weekly Progress</string>
-    <string name="txtWeeklyProgressRatio">" 0 %"</string>
-    <string name="txtAllProgress">All Progress</string>
-    <string name="txtAllProgressRatio">0 %</string>
+    <string name="conter" translatable="false" />
+    <string name="setCounter" translatable="false">Set Counter</string>
+    <string name="resetCounter" translatable="false">Reset</string>
+    <string name="finishReding" translatable="false">Finish</string>
+    <string name="txtWeeklyProgress" translatable="false">Weekly Progress</string>
+    <string name="txtWeeklyProgressRatio" translatable="false">" 0 %"</string>
+    <string name="txtAllProgress" translatable="false">All Progress</string>
+    <string name="txtAllProgressRatio" translatable="false">0 %</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="dummy_button" translatable="false">Dummy Button</string>
+    <string name="dummy_content" translatable="false">DUMMY\nCONTENT</string>
 
 </resources>

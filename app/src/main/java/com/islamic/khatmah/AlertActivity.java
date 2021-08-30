@@ -4,9 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,15 +12,14 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
 public class AlertActivity extends AppCompatActivity {
+
     ImageButton alarm_btn;
     int sHour, sMinute;
-
     TextView txt_time ;
     Button btn_start;
 
@@ -43,7 +40,7 @@ public class AlertActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                    popTimePiker();
+                popTimePiker();
 
 
             }
