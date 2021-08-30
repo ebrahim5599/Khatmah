@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Khatmah">
         <activity
+            android:name=".AlertActivity"
+            android:exported="true" />
+        <activity
+            android:name=".StartActivity"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.Khatmah.NoActionBar">
