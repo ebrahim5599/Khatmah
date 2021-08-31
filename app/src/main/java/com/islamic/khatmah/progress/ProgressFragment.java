@@ -151,7 +151,7 @@ public class ProgressFragment extends Fragment {
                     weaklyProgressBar.setProgress(0);
                     txtWeeklyProgressRatio.setText("0 %");
                 }
-            }, 1000);
+            }, 500);
 
 
         }
@@ -185,7 +185,7 @@ public class ProgressFragment extends Fragment {
                     allProgressBarParts.setProgress(0);
                     txtAllProgressRatioParts.setText("0 %");
                 }
-            }, 1000);
+            }, 500);
         }
 
     }
