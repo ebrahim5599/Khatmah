@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -133,6 +134,8 @@ public class ProgressFragment extends Fragment {
         txtAllProgressRatioParts.setText(String.valueOf((allProgressBar.getProgress()/20))+" parts \n \n"+String.valueOf((int) (((allProgressBar.getProgress()/20)/30.0)*100))+ " %");
         if (weaklyProgressBar.getProgress()==weaklyProgressBar.getMax()){
             txtWeeklyProgressRatio.setText(String.valueOf(weaklyProgressBar.getMax())+" pages \n \n"+String.valueOf(100)+ " %");
+            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setMessage("Congratulations, you have completed the weekly reading")
                     .setPositiveButton(
@@ -150,6 +153,7 @@ public class ProgressFragment extends Fragment {
                     dialog.show();
                     weaklyProgressBar.setProgress(0);
                     txtWeeklyProgressRatio.setText("0 %");
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
             }, 500);
 
@@ -158,6 +162,8 @@ public class ProgressFragment extends Fragment {
         if (allProgressBar.getProgress()==allProgressBar.getMax()){
             txtAllProgressRatio.setText(String.valueOf(604)+" pages \n \n"+String.valueOf(100)+ " %");
             txtAllProgressRatioParts.setText(String.valueOf(30)+" parts \n \n"+String.valueOf(100)+ " %");
+            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setMessage("Congratulations, you have completed the your reading \n Do you want to read a prayer?")
                     .setPositiveButton(
@@ -184,6 +190,7 @@ public class ProgressFragment extends Fragment {
                     txtAllProgressRatio.setText("0 %");
                     allProgressBarParts.setProgress(0);
                     txtAllProgressRatioParts.setText("0 %");
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
             }, 500);
         }
