@@ -6,7 +6,10 @@
       "englishName": "Al-Faatiha",
       "englishNameTranslation": "The Opening",
       "numberOfAyahs": 7,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 1,
+      "end": 1,
+      "juz" : 1
     },
     {
       "number": 2,
@@ -14,7 +17,10 @@
       "englishName": "Al-Baqara",
       "englishNameTranslation": "The Cow",
       "numberOfAyahs": 286,
-      "revelationType": "Medinan"
+      "revelationType": "Medinan",
+      "start": 2,
+      "end": 49,
+      "juz" : 1
     },
     {
       "number": 3,
@@ -22,7 +28,10 @@
       "englishName": "Aal-i-Imraan",
       "englishNameTranslation": "The Family of Imraan",
       "numberOfAyahs": 200,
-      "revelationType": "Medinan"
+      "revelationType": "Medinan",
+      "start": 50,
+      "end": 76,
+      "juz" : 3
     },
     {
       "number": 4,
@@ -30,7 +39,10 @@
       "englishName": "An-Nisaa",
       "englishNameTranslation": "The Women",
       "numberOfAyahs": 176,
-      "revelationType": "Medinan"
+      "revelationType": "Medinan",
+      "start": 77,
+      "end": 106,
+      "juz" : 4
     },
     {
       "number": 5,
@@ -38,7 +50,10 @@
       "englishName": "Al-Maaida",
       "englishNameTranslation": "The Table",
       "numberOfAyahs": 120,
-      "revelationType": "Medinan"
+      "revelationType": "Medinan",
+      "start": 106,
+      "end": 127,
+      "juz" : 6
     },
     {
       "number": 6,
@@ -46,7 +61,10 @@
       "englishName": "Al-An'aam",
       "englishNameTranslation": "The Cattle",
       "numberOfAyahs": 165,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 128,
+      "end": 150,
+      "juz" : 7
     },
     {
       "number": 7,
@@ -54,7 +72,10 @@
       "englishName": "Al-A'raaf",
       "englishNameTranslation": "The Heights",
       "numberOfAyahs": 206,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 151,
+      "end": 176,
+      "juz" : 7
     },
     {
       "number": 8,
@@ -62,7 +83,10 @@
       "englishName": "Al-Anfaal",
       "englishNameTranslation": "The Spoils of War",
       "numberOfAyahs": 75,
-      "revelationType": "Medinan"
+      "revelationType": "Medinan",
+      "start": 177,
+      "end": 186,
+      "juz" : 9
     },
     {
       "number": 9,
@@ -70,7 +94,10 @@
       "englishName": "At-Tawba",
       "englishNameTranslation": "The Repentance",
       "numberOfAyahs": 129,
-      "revelationType": "Medinan"
+      "revelationType": "Medinan",
+      "start": 187,
+      "end": 207,
+      "juz" : 10
     },
     {
       "number": 10,
@@ -78,7 +105,9 @@
       "englishName": "Yunus",
       "englishNameTranslation": "Jonas",
       "numberOfAyahs": 109,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 208,
+      "end": 221
     },
     {
       "number": 11,
@@ -86,7 +115,9 @@
       "englishName": "Hud",
       "englishNameTranslation": "Hud",
       "numberOfAyahs": 123,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 221,
+      "end": 235
     },
     {
       "number": 12,
@@ -94,7 +125,9 @@
       "englishName": "Yusuf",
       "englishNameTranslation": "Joseph",
       "numberOfAyahs": 111,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 235,
+      "end": 284
     },
     {
       "number": 13,
@@ -102,7 +135,9 @@
       "englishName": "Ar-Ra'd",
       "englishNameTranslation": "The Thunder",
       "numberOfAyahs": 43,
-      "revelationType": "Medinan"
+      "revelationType": "Medinan",
+      "start": 249,
+      "end": 255
     },
     {
       "number": 14,
@@ -110,7 +145,9 @@
       "englishName": "Ibrahim",
       "englishNameTranslation": "Abraham",
       "numberOfAyahs": 52,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 255,
+      "end": 261
     },
     {
       "number": 15,
@@ -118,7 +155,9 @@
       "englishName": "Al-Hijr",
       "englishNameTranslation": "The Rock",
       "numberOfAyahs": 99,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 262,
+      "end": 267
     },
     {
       "number": 16,
@@ -126,7 +165,9 @@
       "englishName": "An-Nahl",
       "englishNameTranslation": "The Bee",
       "numberOfAyahs": 128,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 267,
+      "end": 281
     },
     {
       "number": 17,
@@ -134,7 +175,9 @@
       "englishName": "Al-Israa",
       "englishNameTranslation": "The Night Journey",
       "numberOfAyahs": 111,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 282,
+      "end": 293
     },
     {
       "number": 18,
@@ -142,7 +185,9 @@
       "englishName": "Al-Kahf",
       "englishNameTranslation": "The Cave",
       "numberOfAyahs": 110,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 293,
+      "end": 304
     },
     {
       "number": 19,
@@ -150,7 +195,9 @@
       "englishName": "Maryam",
       "englishNameTranslation": "Mary",
       "numberOfAyahs": 98,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 305,
+      "end": 312
     },
     {
       "number": 20,
@@ -158,7 +205,9 @@
       "englishName": "Taa-Haa",
       "englishNameTranslation": "Taa-Haa",
       "numberOfAyahs": 135,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 312,
+      "end": 321
     },
     {
       "number": 21,
@@ -166,7 +215,9 @@
       "englishName": "Al-Anbiyaa",
       "englishNameTranslation": "The Prophets",
       "numberOfAyahs": 112,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 322,
+      "end": 331
     },
     {
       "number": 22,
@@ -174,7 +225,9 @@
       "englishName": "Al-Hajj",
       "englishNameTranslation": "The Pilgrimage",
       "numberOfAyahs": 78,
-      "revelationType": "Medinan"
+      "revelationType": "Medinan",
+      "start": 332,
+      "end": 341
     },
     {
       "number": 23,
@@ -182,7 +235,9 @@
       "englishName": "Al-Muminoon",
       "englishNameTranslation": "The Believers",
       "numberOfAyahs": 118,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 342,
+      "end": 349
     },
     {
       "number": 24,
@@ -190,7 +245,9 @@
       "englishName": "An-Noor",
       "englishNameTranslation": "The Light",
       "numberOfAyahs": 64,
-      "revelationType": "Medinan"
+      "revelationType": "Medinan",
+      "start": 350,
+      "end": 359
     },
     {
       "number": 25,
@@ -198,7 +255,9 @@
       "englishName": "Al-Furqaan",
       "englishNameTranslation": "The Criterion",
       "numberOfAyahs": 77,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 359,
+      "end": 366
     },
     {
       "number": 26,
@@ -206,7 +265,9 @@
       "englishName": "Ash-Shu'araa",
       "englishNameTranslation": "The Poets",
       "numberOfAyahs": 227,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 367,
+      "end": 376
     },
     {
       "number": 27,
@@ -214,7 +275,9 @@
       "englishName": "An-Naml",
       "englishNameTranslation": "The Ant",
       "numberOfAyahs": 93,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 377,
+      "end": 385
     },
     {
       "number": 28,
@@ -222,7 +285,9 @@
       "englishName": "Al-Qasas",
       "englishNameTranslation": "The Stories",
       "numberOfAyahs": 88,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 385,
+      "end": 396
     },
     {
       "number": 29,
@@ -230,7 +295,9 @@
       "englishName": "Al-Ankaboot",
       "englishNameTranslation": "The Spider",
       "numberOfAyahs": 69,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 396,
+      "end": 404
     },
     {
       "number": 30,
@@ -238,7 +305,9 @@
       "englishName": "Ar-Room",
       "englishNameTranslation": "The Romans",
       "numberOfAyahs": 60,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 404,
+      "end": 410
     },
     {
       "number": 31,
@@ -246,7 +315,9 @@
       "englishName": "Luqman",
       "englishNameTranslation": "Luqman",
       "numberOfAyahs": 34,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 411,
+      "end": 414
     },
     {
       "number": 32,
@@ -254,7 +325,10 @@
       "englishName": "As-Sajda",
       "englishNameTranslation": "The Prostration",
       "numberOfAyahs": 30,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "number": 33,
+      "start": 415,
+      "end": 417
     },
     {
       "number": 33,
@@ -262,7 +336,9 @@
       "englishName": "Al-Ahzaab",
       "englishNameTranslation": "The Clans",
       "numberOfAyahs": 73,
-      "revelationType": "Medinan"
+      "revelationType": "Medinan",
+      "start": 418,
+      "end": 427
     },
     {
       "number": 34,
@@ -270,7 +346,9 @@
       "englishName": "Saba",
       "englishNameTranslation": "Sheba",
       "numberOfAyahs": 54,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 428,
+      "end": 434
     },
     {
       "number": 35,
@@ -278,7 +356,9 @@
       "englishName": "Faatir",
       "englishNameTranslation": "The Originator",
       "numberOfAyahs": 45,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 434,
+      "end": 440
     },
     {
       "number": 36,
@@ -286,7 +366,9 @@
       "englishName": "Yaseen",
       "englishNameTranslation": "Yaseen",
       "numberOfAyahs": 83,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 440,
+      "end": 445
     },
     {
       "number": 37,
@@ -294,7 +376,9 @@
       "englishName": "As-Saaffaat",
       "englishNameTranslation": "Those drawn up in Ranks",
       "numberOfAyahs": 182,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 446,
+      "end": 452
     },
     {
       "number": 38,
@@ -310,7 +394,9 @@
       "englishName": "Az-Zumar",
       "englishNameTranslation": "The Groups",
       "numberOfAyahs": 75,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 458,
+      "end": 467
     },
     {
       "number": 40,
@@ -318,7 +404,9 @@
       "englishName": "Ghafir",
       "englishNameTranslation": "The Forgiver",
       "numberOfAyahs": 85,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 467,
+      "end": 476
     },
     {
       "number": 41,
@@ -326,7 +414,9 @@
       "englishName": "Fussilat",
       "englishNameTranslation": "Explained in detail",
       "numberOfAyahs": 54,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 477,
+      "end": 482
     },
     {
       "number": 42,
@@ -334,7 +424,9 @@
       "englishName": "Ash-Shura",
       "englishNameTranslation": "Consultation",
       "numberOfAyahs": 53,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 483,
+      "end": 489
     },
     {
       "number": 43,
@@ -342,7 +434,9 @@
       "englishName": "Az-Zukhruf",
       "englishNameTranslation": "Ornaments of gold",
       "numberOfAyahs": 89,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 489,
+      "end": 495
     },
     {
       "number": 44,
@@ -350,7 +444,9 @@
       "englishName": "Ad-Dukhaan",
       "englishNameTranslation": "The Smoke",
       "numberOfAyahs": 59,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 496,
+      "end": 498
     },
     {
       "number": 45,
@@ -358,7 +454,9 @@
       "englishName": "Al-Jaathiya",
       "englishNameTranslation": "Crouching",
       "numberOfAyahs": 37,
-      "revelationType": "Meccan"
+      "revelationType": "Meccan",
+      "start": 499,
+      "end": 502
     },
     {
       "number": 46,

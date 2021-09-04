@@ -17,6 +17,10 @@
             android:name=".StartActivity"
             android:exported="true" />
         <activity
+
+            android:name=".ui.main.StartActivityTwo"
+            android:exported="true" />
+        <activity
             android:name=".AlertActivity"
             android:exported="true" />
         <activity
