@@ -26,7 +26,8 @@ import com.islamic.khatmah.ui.main.SectionsPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
-
+    public static SharedPreferences sharedPreferences;
+    public static SharedPreferences.Editor editor;
 //    @Override
 //    protected void onResume() {
 //        super.onResume();
@@ -55,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_main);
+
+        // sharedPreference.
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = sharedPreferences.edit();
+
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);

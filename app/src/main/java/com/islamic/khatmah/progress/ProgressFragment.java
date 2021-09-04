@@ -24,10 +24,10 @@ import com.islamic.khatmah.R;
 
 public class ProgressFragment extends Fragment {
     private ProgressViewModel mViewModel;
-    private TextView txtAllProgressRatio,txtWeeklyProgressRatio,txtAllProgressRatioParts;
-    private ProgressBar weaklyProgressBar ,allProgressBar,allProgressBarParts;
+    private TextView txtAllProgressRatio, txtWeeklyProgressRatio, txtAllProgressRatioParts;
+    private ProgressBar weaklyProgressBar, allProgressBar, allProgressBarParts;
     private int pages = 0, weaklyProgress = 0, allProgress = 0;
-    Button  btnSetCounter ,btnResetCounter ,btnFinishReading;
+    Button btnSetCounter, btnResetCounter, btnFinishReading;
     EditText edtTextCounter;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
@@ -39,7 +39,9 @@ public class ProgressFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.progress_fragment, container, false);
+
+        View view = inflater.inflate(R.layout.progress_fragment, container, false);
+
         txtWeeklyProgressRatio = view.findViewById(R.id.txtWeeklyProgressRatio);
         txtAllProgressRatio = view.findViewById(R.id.txtAllProgressRatio);
         txtAllProgressRatioParts = view.findViewById(R.id.txtAllProgressRatio2);
@@ -47,17 +49,18 @@ public class ProgressFragment extends Fragment {
         allProgressBar = view.findViewById(R.id.allProgressBar);
         allProgressBarParts = view.findViewById(R.id.allProgressBar2);
         edtTextCounter = view.findViewById(R.id.edtTextCounter);
+
         ///// load shared Preferences
         pref = getActivity().getPreferences(MODE_PRIVATE);
-        pages = pref.getInt("pages",0);
+        pages = pref.getInt("pages", 0);
         setMaxBars(pages);
         edtTextCounter.setText(String.valueOf(pages));
-        weaklyProgressBar.setProgress(pref.getInt("weaklyProgress",0));
-        allProgressBar.setProgress(pref.getInt("allProgress",0));
-        allProgressBarParts.setProgress(pref.getInt("allProgress",0)/20);
-        txtWeeklyProgressRatio.setText(String.valueOf(weaklyProgressBar.getProgress())+" pages \n \n"+String.valueOf((int)(((float) weaklyProgressBar.getProgress())/weaklyProgressBar.getMax()*100))+ " %");
-        txtAllProgressRatio.setText(String.valueOf(allProgressBar.getProgress())+" pages \n \n"+String.valueOf((int) (((float) allProgressBar.getProgress())/allProgressBar.getMax()*100))+ " %");
-        txtAllProgressRatioParts.setText(String.valueOf((allProgressBar.getProgress()/20))+" parts \n \n"+String.valueOf((int) (((allProgressBar.getProgress()/20)/30.0)*100))+ " %");
+        weaklyProgressBar.setProgress(pref.getInt("weaklyProgress", 0));
+        allProgressBar.setProgress(pref.getInt("allProgress", 0));
+        allProgressBarParts.setProgress(pref.getInt("allProgress", 0) / 20);
+        txtWeeklyProgressRatio.setText(String.valueOf(weaklyProgressBar.getProgress()) + " pages \n \n" + String.valueOf((int) (((float) weaklyProgressBar.getProgress()) / weaklyProgressBar.getMax() * 100)) + " %");
+        txtAllProgressRatio.setText(String.valueOf(allProgressBar.getProgress()) + " pages \n \n" + String.valueOf((int) (((float) allProgressBar.getProgress()) / allProgressBar.getMax() * 100)) + " %");
+        txtAllProgressRatioParts.setText(String.valueOf((allProgressBar.getProgress() / 20)) + " parts \n \n" + String.valueOf((int) (((allProgressBar.getProgress() / 20) / 30.0) * 100)) + " %");
 
         /////
         btnSetCounter = view.findViewById(R.id.btnSetCounter);
@@ -68,7 +71,7 @@ public class ProgressFragment extends Fragment {
                 setMaxBars(pages);
                 pref = getActivity().getPreferences(MODE_PRIVATE);
                 editor = pref.edit();
-                editor.putInt("pages",pages);
+                editor.putInt("pages", pages);
                 editor.commit();
             }
         });
@@ -81,7 +84,7 @@ public class ProgressFragment extends Fragment {
                 resetBars();
                 pref = getActivity().getPreferences(MODE_PRIVATE);
                 editor = pref.edit();
-                editor.putInt("pages",pages);
+                editor.putInt("pages", pages);
                 editor.commit();
             }
         });
@@ -92,7 +95,7 @@ public class ProgressFragment extends Fragment {
                 updateBars(pages);
             }
         });
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             super.onViewStateRestored(savedInstanceState);
             pages = savedInstanceState.getInt("pages");
             weaklyProgress = savedInstanceState.getInt("weaklyProgress");
@@ -110,7 +113,7 @@ public class ProgressFragment extends Fragment {
     }
 
     private void setMaxBars(int pages) {
-        weaklyProgressBar.setMax(pages*7);
+        weaklyProgressBar.setMax(pages * 7);
         allProgressBar.setMax(604);
         allProgressBarParts.setMax(30);
     }
@@ -120,19 +123,19 @@ public class ProgressFragment extends Fragment {
 //        allProgressBar.setProgress(allPrograss+pages);
         weaklyProgressBar.incrementProgressBy(pages);
         allProgressBar.incrementProgressBy(pages);
-        allProgressBarParts.setProgress((pref.getInt("allProgress",0)+pages)/20);
-        weaklyProgress+=pages;
-        allProgress+=pages;
+        allProgressBarParts.setProgress((pref.getInt("allProgress", 0) + pages) / 20);
+        weaklyProgress += pages;
+        allProgress += pages;
         pref = getActivity().getPreferences(MODE_PRIVATE);
         editor = pref.edit();
-        editor.putInt("weaklyProgress",weaklyProgressBar.getProgress());
-        editor.putInt("allProgress",allProgressBar.getProgress());
+        editor.putInt("weaklyProgress", weaklyProgressBar.getProgress());
+        editor.putInt("allProgress", allProgressBar.getProgress());
         editor.commit();
-        txtWeeklyProgressRatio.setText(String.valueOf(weaklyProgressBar.getProgress())+" pages \n \n"+String.valueOf((int)(((float) weaklyProgressBar.getProgress())/weaklyProgressBar.getMax()*100))+ " %");
-        txtAllProgressRatio.setText(String.valueOf(allProgressBar.getProgress())+" pages \n \n"+String.valueOf((int) (((float) allProgressBar.getProgress())/allProgressBar.getMax()*100))+ " %");
-        txtAllProgressRatioParts.setText(String.valueOf((allProgressBar.getProgress()/20))+" parts \n \n"+String.valueOf((int) (((allProgressBar.getProgress()/20)/30.0)*100))+ " %");
-        if (weaklyProgressBar.getProgress()==weaklyProgressBar.getMax()){
-            txtWeeklyProgressRatio.setText(String.valueOf(weaklyProgressBar.getMax())+" pages \n \n"+String.valueOf(100)+ " %");
+        txtWeeklyProgressRatio.setText(String.valueOf(weaklyProgressBar.getProgress()) + " pages \n \n" + String.valueOf((int) (((float) weaklyProgressBar.getProgress()) / weaklyProgressBar.getMax() * 100)) + " %");
+        txtAllProgressRatio.setText(String.valueOf(allProgressBar.getProgress()) + " pages \n \n" + String.valueOf((int) (((float) allProgressBar.getProgress()) / allProgressBar.getMax() * 100)) + " %");
+        txtAllProgressRatioParts.setText(String.valueOf((allProgressBar.getProgress() / 20)) + " parts \n \n" + String.valueOf((int) (((allProgressBar.getProgress() / 20) / 30.0) * 100)) + " %");
+        if (weaklyProgressBar.getProgress() == weaklyProgressBar.getMax()) {
+            txtWeeklyProgressRatio.setText(String.valueOf(weaklyProgressBar.getMax()) + " pages \n \n" + String.valueOf(100) + " %");
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setMessage("Congratulations, you have completed the weekly reading")
                     .setPositiveButton(
@@ -155,9 +158,9 @@ public class ProgressFragment extends Fragment {
 
 
         }
-        if (allProgressBar.getProgress()==allProgressBar.getMax()){
-            txtAllProgressRatio.setText(String.valueOf(604)+" pages \n \n"+String.valueOf(100)+ " %");
-            txtAllProgressRatioParts.setText(String.valueOf(30)+" parts \n \n"+String.valueOf(100)+ " %");
+        if (allProgressBar.getProgress() == allProgressBar.getMax()) {
+            txtAllProgressRatio.setText(String.valueOf(604) + " pages \n \n" + String.valueOf(100) + " %");
+            txtAllProgressRatioParts.setText(String.valueOf(30) + " parts \n \n" + String.valueOf(100) + " %");
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setMessage("Congratulations, you have completed the your reading \n Do you want to read a prayer?")
                     .setPositiveButton(
@@ -167,7 +170,7 @@ public class ProgressFragment extends Fragment {
 //                                        .replace(R.id.frameLayout, new Prayer(), "findThisFragment")
 //                                        .addToBackStack(null)
 //                                        .commit();
-                                Intent intent = new Intent(getActivity(),PrayerActivity.class);
+                                Intent intent = new Intent(getActivity(), PrayerActivity.class);
                                 startActivity(intent);
 
                             })

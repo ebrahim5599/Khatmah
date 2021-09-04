@@ -6,4 +6,6 @@
     <string name="Free_Reading">القراءة</string>
     <string name="action_settings">الاعدادات</string>
     <string name="about_us">عنا</string>
+    <string name="portion_completed">إذا أتممت قراءة الصفحة إضغط على علامة صح.</string>
+    <string name="ok">حسنا</string>
 </resources>

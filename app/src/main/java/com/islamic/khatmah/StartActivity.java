@@ -1,5 +1,7 @@
 package com.islamic.khatmah;
 
+import static com.islamic.khatmah.MainActivity.editor;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.view.LayoutInflater;
@@ -17,49 +20,51 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class StartActivity extends AppCompatActivity {
-    Button btn1,btn2,btn3;
-    LinearLayout l1,l2;
+    Button btn1, btn2, btn3;
+    LinearLayout l1, l2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-        l1=findViewById(R.id.l1);
-        l2=findViewById(R.id.l2);
-        btn2=findViewById(R.id.button2);
-        btn1=findViewById(R.id.button1);
+        l1 = findViewById(R.id.l1);
+        l2 = findViewById(R.id.l2);
+        btn2 = findViewById(R.id.button2);
+        btn1 = findViewById(R.id.button1);
+
 
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(l1.getVisibility() == View.GONE && l2.getVisibility()==View.GONE && btn2.getVisibility()==View.GONE){
+                if (l1.getVisibility() == View.GONE && l2.getVisibility() == View.GONE && btn2.getVisibility() == View.GONE) {
 
                     l1.setVisibility(View.VISIBLE);
                     l2.setVisibility(View.VISIBLE);
                     btn2.setVisibility(View.VISIBLE);
-                }else{
+
+                } else {
                     l1.setVisibility(View.GONE);
                     l2.setVisibility(View.GONE);
                     btn2.setVisibility(View.GONE);
                 }
             }
         });
-        btn3=findViewById(R.id.button);
+        btn3 = findViewById(R.id.button);
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(StartActivity.this, AlertActivity.class));
+                // shared preference
+                editor.putInt("CURRENT_PAGE",1);
+                editor.commit();
+                Toast.makeText(getApplicationContext(), "سورة الفاتحة", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-            }
-        });
-        btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(StartActivity.this, AlertActivity.class));
-            }
-        });
 
         //spinner 1.
         Spinner first_spinner = (Spinner) findViewById(R.id.الصفحة);
@@ -81,8 +86,17 @@ public class StartActivity extends AppCompatActivity {
         third_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         third_spinner.setAdapter(third_adapter);
 
-    }
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(StartActivity.this, AlertActivity.class));
+                String current_page = first_spinner.getSelectedItem().toString();
+                editor.putInt("CURRENT_PAGE",Integer.parseInt(current_page));
+                editor.commit();
+            }
+        });
 
+    }
 
 
 }
