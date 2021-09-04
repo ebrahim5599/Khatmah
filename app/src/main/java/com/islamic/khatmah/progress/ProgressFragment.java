@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -52,7 +53,11 @@ public class ProgressFragment extends Fragment {
 
         ///// load shared Preferences
         pref = getActivity().getPreferences(MODE_PRIVATE);
-        pages = pref.getInt("pages", 0);
+
+        pages = pref.getInt("pages",0);
+//        SharedPreferences preferences = getContext().getSharedPreferences("pref",getContext().MODE_PRIVATE);
+//        pages = preferences.getInt("pages", 0);
+
         setMaxBars(pages);
         edtTextCounter.setText(String.valueOf(pages));
         weaklyProgressBar.setProgress(pref.getInt("weaklyProgress", 0));
@@ -131,11 +136,15 @@ public class ProgressFragment extends Fragment {
         editor.putInt("weaklyProgress", weaklyProgressBar.getProgress());
         editor.putInt("allProgress", allProgressBar.getProgress());
         editor.commit();
-        txtWeeklyProgressRatio.setText(String.valueOf(weaklyProgressBar.getProgress()) + " pages \n \n" + String.valueOf((int) (((float) weaklyProgressBar.getProgress()) / weaklyProgressBar.getMax() * 100)) + " %");
-        txtAllProgressRatio.setText(String.valueOf(allProgressBar.getProgress()) + " pages \n \n" + String.valueOf((int) (((float) allProgressBar.getProgress()) / allProgressBar.getMax() * 100)) + " %");
-        txtAllProgressRatioParts.setText(String.valueOf((allProgressBar.getProgress() / 20)) + " parts \n \n" + String.valueOf((int) (((allProgressBar.getProgress() / 20) / 30.0) * 100)) + " %");
-        if (weaklyProgressBar.getProgress() == weaklyProgressBar.getMax()) {
-            txtWeeklyProgressRatio.setText(String.valueOf(weaklyProgressBar.getMax()) + " pages \n \n" + String.valueOf(100) + " %");
+
+        txtWeeklyProgressRatio.setText(String.valueOf(weaklyProgressBar.getProgress())+" pages \n \n"+String.valueOf((int)(((float) weaklyProgressBar.getProgress())/weaklyProgressBar.getMax()*100))+ " %");
+        txtAllProgressRatio.setText(String.valueOf(allProgressBar.getProgress())+" pages \n \n"+String.valueOf((int) (((float) allProgressBar.getProgress())/allProgressBar.getMax()*100))+ " %");
+        txtAllProgressRatioParts.setText(String.valueOf((allProgressBar.getProgress()/20))+" parts \n \n"+String.valueOf((int) (((allProgressBar.getProgress()/20)/30.0)*100))+ " %");
+        if (weaklyProgressBar.getProgress()==weaklyProgressBar.getMax()){
+            txtWeeklyProgressRatio.setText(String.valueOf(weaklyProgressBar.getMax())+" pages \n \n"+String.valueOf(100)+ " %");
+            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setMessage("Congratulations, you have completed the weekly reading")
                     .setPositiveButton(
@@ -153,14 +162,19 @@ public class ProgressFragment extends Fragment {
                     dialog.show();
                     weaklyProgressBar.setProgress(0);
                     txtWeeklyProgressRatio.setText("0 %");
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
             }, 500);
 
 
         }
-        if (allProgressBar.getProgress() == allProgressBar.getMax()) {
-            txtAllProgressRatio.setText(String.valueOf(604) + " pages \n \n" + String.valueOf(100) + " %");
-            txtAllProgressRatioParts.setText(String.valueOf(30) + " parts \n \n" + String.valueOf(100) + " %");
+
+        if (allProgressBar.getProgress()==allProgressBar.getMax()){
+            txtAllProgressRatio.setText(String.valueOf(604)+" pages \n \n"+String.valueOf(100)+ " %");
+            txtAllProgressRatioParts.setText(String.valueOf(30)+" parts \n \n"+String.valueOf(100)+ " %");
+            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setMessage("Congratulations, you have completed the your reading \n Do you want to read a prayer?")
                     .setPositiveButton(
@@ -187,6 +201,7 @@ public class ProgressFragment extends Fragment {
                     txtAllProgressRatio.setText("0 %");
                     allProgressBarParts.setProgress(0);
                     txtAllProgressRatioParts.setText("0 %");
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
             }, 500);
         }

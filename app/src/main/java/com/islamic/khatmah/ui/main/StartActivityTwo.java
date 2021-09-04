@@ -1,31 +1,17 @@
-package com.islamic.khatmah;
+package com.islamic.khatmah.ui.main;
 
-import static com.islamic.khatmah.MainActivity.editor;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.transition.AutoTransition;
-import android.transition.TransitionManager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
-
-import android.widget.Toast;
-
 import android.widget.TextView;
+
+import com.islamic.khatmah.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,61 +21,27 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class StartActivity extends AppCompatActivity {
-    Button btn_StartFromPoint,btn_next,btn_StartFromBegin;
-    LinearLayout l1,l2;
-    Spinner spinnerJuz,spinnerPage,spinnerSurah;
+public class StartActivityTwo extends AppCompatActivity {
+
+    Button btnSearch;
     ArrayList<String> aaa;
+    Spinner spinnerJuz,spinnerPage,spinnerSurah;
     ArrayList<String> juz,surah,page;
+    //    ArrayList<Integer> page;
     JSONObject jsonObject;
     JSONArray jsonArray;
+    TextView schedule,schedule2;
 
-  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
-
-        l1=findViewById(R.id.l1);
-        l2=findViewById(R.id.l2);
-        btn_next=findViewById(R.id.button2);
-        btn_StartFromPoint=findViewById(R.id.button1);
-        spinnerJuz = findViewById(R.id.الجزء);
-        spinnerPage = findViewById(R.id.الصفحة);
-        spinnerSurah = findViewById(R.id.السورة);
-
-
-        btn_StartFromPoint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(l1.getVisibility() == View.GONE && l2.getVisibility()==View.GONE && btn_next.getVisibility()==View.GONE){
-                    l1.setVisibility(View.VISIBLE);
-                    l2.setVisibility(View.VISIBLE);
-                    btn_next.setVisibility(View.VISIBLE);
-                }else{
-                    l1.setVisibility(View.GONE);
-                    l2.setVisibility(View.GONE);
-                    btn_next.setVisibility(View.GONE);
-                }
-            }
-        });
-      
-        btn_StartFromBegin=findViewById(R.id.button);
-        btn_StartFromBegin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(StartActivity.this, AlertActivity.class));
-
-            }
-        });
-        btn_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(StartActivity.this, AlertActivity.class));
-            }
-        });
-
+        setContentView(R.layout.activity_main);
+        schedule = findViewById(R.id.schedule);
+        schedule2 = findViewById(R.id.schedule2);
+        spinnerJuz = findViewById(R.id.spinnerJuz);
+        spinnerPage = findViewById(R.id.spinnerPage);
+        spinnerSurah = findViewById(R.id.spinnerSurah);
+        ////
         aaa = new ArrayList<>();
         aaa.add("111");
         aaa.add("222");
@@ -177,15 +129,14 @@ public class StartActivity extends AppCompatActivity {
             jsonException.printStackTrace();
             Log.i("fffff",String.valueOf( jsonException));
         }
-        /*
+        ////
         btnSearch = findViewById(R.id.btnSearch);
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 schedule.setText(spinnerPage.getSelectedItem().toString());
             }
-        });*/
-
+        });
 
 
     }
@@ -203,8 +154,5 @@ public class StartActivity extends AppCompatActivity {
             return null;
         }
         return json;
-
     }
-
-
 }

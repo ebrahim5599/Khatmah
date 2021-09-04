@@ -1,5 +1,6 @@
 package com.islamic.khatmah;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,51 +27,58 @@ import com.islamic.khatmah.ui.main.SectionsPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
+
     public static SharedPreferences sharedPreferences;
     public static SharedPreferences.Editor editor;
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-//        boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
-//        if (!previouslyStarted) {
-//            SharedPreferences.Editor edit = prefs.edit();
-//            edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
-//            edit.apply();
-//            moveToSecondary();
-//        }
-//    }
+
+    String prevStarted = "yes";
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sharedpreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        if (!sharedpreferences.getBoolean(prevStarted, false)) {
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putBoolean(prevStarted, Boolean.TRUE);
+            editor.apply();
+            moveToSecondary();
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+      /*  Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                .getBoolean("isFirstRun", true);
+        if (isFirstRun) {
+            //show Start activity
+            startActivity(new Intent(MainActivity.this, StartActivity.class));
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
+        }*/
 
-        if (!previouslyStarted) {
-            SharedPreferences.Editor edit = prefs.edit();
-            edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
-            edit.apply();
-            moveToSecondary();
-        }
 
-        setContentView(R.layout.activity_main);
 
         // sharedPreference.
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = sharedPreferences.edit();
 
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this);
+        
+        getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
+                .putBoolean("isFirstRun", false).commit();
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ViewPager2 viewPager = findViewById(R.id.view_pager);
-        viewPager.setAdapter(sectionsPagerAdapter);
-        TabLayout tabs = findViewById(R.id.tabs);
-        new TabLayoutMediator(tabs, viewPager,
-                (tab, position) -> tab.setText(setTextOfTheTab(position))
-        ).attach();
+            setContentView(R.layout.activity_main);
+            SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this);
+
+            toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            ViewPager2 viewPager = findViewById(R.id.view_pager);
+            viewPager.setAdapter(sectionsPagerAdapter);
+            TabLayout tabs = findViewById(R.id.tabs);
+            new TabLayoutMediator(tabs, viewPager,
+                    (tab, position) -> tab.setText(setTextOfTheTab(position))
+            ).attach();
+
+
 
     }
 
