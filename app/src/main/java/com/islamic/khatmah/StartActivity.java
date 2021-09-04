@@ -1,5 +1,7 @@
 package com.islamic.khatmah;
 
+import static com.islamic.khatmah.MainActivity.editor;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.util.Log;
@@ -19,6 +22,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+
+import android.widget.Toast;
+
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -37,10 +43,13 @@ public class StartActivity extends AppCompatActivity {
     ArrayList<String> juz,surah,page;
     JSONObject jsonObject;
     JSONArray jsonArray;
+
+  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
         l1=findViewById(R.id.l1);
         l2=findViewById(R.id.l2);
         btn_next=findViewById(R.id.button2);
@@ -49,11 +58,12 @@ public class StartActivity extends AppCompatActivity {
         spinnerPage = findViewById(R.id.الصفحة);
         spinnerSurah = findViewById(R.id.السورة);
 
+
         btn_StartFromPoint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(l1.getVisibility() == View.GONE && l2.getVisibility()==View.GONE && btn_next.getVisibility()==View.GONE){
 
+                if(l1.getVisibility() == View.GONE && l2.getVisibility()==View.GONE && btn_next.getVisibility()==View.GONE){
                     l1.setVisibility(View.VISIBLE);
                     l2.setVisibility(View.VISIBLE);
                     btn_next.setVisibility(View.VISIBLE);
@@ -64,6 +74,7 @@ public class StartActivity extends AppCompatActivity {
                 }
             }
         });
+      
         btn_StartFromBegin=findViewById(R.id.button);
         btn_StartFromBegin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,6 +203,7 @@ public class StartActivity extends AppCompatActivity {
             return null;
         }
         return json;
+
     }
 
 

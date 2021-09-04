@@ -2,6 +2,7 @@ package com.islamic.khatmah.free_reading;
 
 public class SurahClass {
 
+        private int page_number;
         private String number;
         private String name;
         private String type;
@@ -20,7 +21,23 @@ public class SurahClass {
             this.type = type;
         }
 
-        public String getNumber() {
+    public SurahClass(int page_number, String number, String name, String type, String number_of_verses) {
+        this.page_number = page_number;
+        this.number = number;
+        this.name = name;
+        this.type = type;
+        this.number_of_verses = number_of_verses;
+    }
+
+    public int getPage_number() {
+        return page_number;
+    }
+
+    public void setPage_number(int page_number) {
+        this.page_number = page_number;
+    }
+
+    public String getNumber() {
             return number;
         }
 

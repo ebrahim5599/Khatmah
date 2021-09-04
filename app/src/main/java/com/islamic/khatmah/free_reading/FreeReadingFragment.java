@@ -1,7 +1,5 @@
 package com.islamic.khatmah.free_reading;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -17,7 +15,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.pojo.Surah;
@@ -106,6 +103,7 @@ public class FreeReadingFragment extends Fragment {
                 surahAdapter = new SurahAdapter(getContext(),list);
                 recyclerView.setAdapter(surahAdapter);
                 surahAdapter.notifyDataSetChanged();
+
             }
 
         } catch (JSONException jsonException) {

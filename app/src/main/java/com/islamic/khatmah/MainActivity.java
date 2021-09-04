@@ -27,6 +27,10 @@ import com.islamic.khatmah.ui.main.SectionsPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
+
+    public static SharedPreferences sharedPreferences;
+    public static SharedPreferences.Editor editor;
+
     String prevStarted = "yes";
     @Override
     protected void onResume() {
@@ -40,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
 
+
+        // sharedPreference.
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = sharedPreferences.edit();
+
+        
         getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
                 .putBoolean("isFirstRun", false).commit();
 
@@ -66,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
             new TabLayoutMediator(tabs, viewPager,
                     (tab, position) -> tab.setText(setTextOfTheTab(position))
             ).attach();
+
 
 
     }
