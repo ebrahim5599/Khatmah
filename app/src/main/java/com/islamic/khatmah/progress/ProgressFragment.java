@@ -51,6 +51,8 @@ public class ProgressFragment extends Fragment {
         ///// load shared Preferences
         pref = getActivity().getPreferences(MODE_PRIVATE);
         pages = pref.getInt("pages",0);
+//        SharedPreferences preferences = getContext().getSharedPreferences("pref",getContext().MODE_PRIVATE);
+//        pages = preferences.getInt("pages", 0);
         setMaxBars(pages);
         edtTextCounter.setText(String.valueOf(pages));
         weaklyProgressBar.setProgress(pref.getInt("weaklyProgress",0));

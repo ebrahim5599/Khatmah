@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,6 +27,8 @@ public class AlertActivity extends AppCompatActivity {
     Button btn_start;
     Spinner spinnerJuz,spinnerPages;
     Switch aSwitch;
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
 
 
     @Override
@@ -50,8 +53,26 @@ public class AlertActivity extends AppCompatActivity {
                     ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(AlertActivity.this, android.R.layout.simple_list_item_1,pages);
                     adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinnerPages.setAdapter(adapter2);
+                    spinnerPages.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            pref = AlertActivity.this.getPreferences(MODE_PRIVATE);
+                            editor = pref.edit();
+                            editor.putInt("pages", (Integer.parseInt(spinnerPages.getSelectedItem().toString())));
+                            editor.commit();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
                 }else {
                     spinnerPages.setVisibility(View.GONE);
+                    pref = AlertActivity.this.getPreferences(MODE_PRIVATE);
+                    editor = pref.edit();
+                    editor.putInt("pages",Integer.parseInt(spinnerJuz.getSelectedItem().toString())*20);
+                    editor.commit();
                 }
             }
 
