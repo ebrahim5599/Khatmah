@@ -2,9 +2,14 @@ package com.islamic.khatmah;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,8 +20,12 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import com.islamic.khatmah.daily_portion.DailyPortionFragment;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class AlertActivity extends AppCompatActivity {
@@ -92,6 +101,7 @@ public class AlertActivity extends AppCompatActivity {
                 if (aSwitch.isChecked()){
                     txt_time.setVisibility(View.VISIBLE);
                     popTimePiker();
+                    createNotificationchannel();
                 }else {
                     txt_time.setVisibility(View.GONE);
                 }
@@ -120,7 +130,18 @@ public class AlertActivity extends AppCompatActivity {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa", Locale.US);
                 String Time = simpleDateFormat.format(cal.getTime());
                 txt_time.setText(Time);
+                if (cal.getTime().compareTo(new Date()) < 0)
+                    cal.add(Calendar.DAY_OF_MONTH, 1);
+                Intent intent= new Intent(AlertActivity.this, Reminder.class);
+                PendingIntent pendingIntent= PendingIntent.getBroadcast(AlertActivity.this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                AlarmManager alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);
+                long timeButtonClick=System.currentTimeMillis();
+                long timeAlert = 1000 * 60 * sMinute + 1000 * 60 * 60 * sHour;
+                alarmManager.set(AlarmManager.RTC_WAKEUP,timeAlert,pendingIntent);
+                if (alarmManager != null) {
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
+                }
 
             }
         };
@@ -128,5 +149,17 @@ public class AlertActivity extends AppCompatActivity {
         timePickerDialog.setTitle("Select Time");
         timePickerDialog.show();
 
+    }
+    private void createNotificationchannel(){
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+            CharSequence name ="KhatmaChannel";
+            String description="ختمه";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel= new NotificationChannel("notify",name,importance);
+            channel.setDescription(description);
+            channel.enableVibration(true);
+            NotificationManager notificationManager=getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }
