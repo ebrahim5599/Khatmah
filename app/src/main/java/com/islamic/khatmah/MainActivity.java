@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
             editor.putBoolean(prevStarted, Boolean.TRUE);
             editor.apply();
             moveToSecondary();
-        }else{
-            finish();
         }
     }
 
