@@ -4,8 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AlertActivity"
-    android:background="#37474f">
+    android:background="#37474f"
+    tools:context=".AlertActivity">
+
+    <Spinner
+        android:id="@+id/spinnerPages"
+        android:layout_width="149dp"
+        android:layout_height="58dp"
+        android:backgroundTintMode="multiply"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/spinnerJuz"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/spinnerJuz"
+        app:layout_constraintTop_toTopOf="@+id/spinnerJuz" />
 
     <TextView
         android:id="@+id/txt_set_num"
@@ -20,14 +31,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spin_num"
-        android:layout_width="181dp"
-        android:layout_height="54dp"
+        android:id="@+id/spinnerJuz"
+        android:layout_width="149dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="20dp"
         android:backgroundTintMode="multiply"
-        app:layout_constraintEnd_toEndOf="@+id/txt_set_num"
-        app:layout_constraintHorizontal_bias="0.222"
-        app:layout_constraintStart_toStartOf="@+id/txt_set_num"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_set_num" />
 
     <TextView
@@ -40,7 +50,7 @@
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spin_num" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerJuz" />
 
     <Switch
         android:id="@+id/switch1"
@@ -51,7 +61,7 @@
         app:layout_constraintEnd_toStartOf="@+id/set_alert"
         app:layout_constraintHorizontal_bias="0.453"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spin_num" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerJuz" />
 
     <Button
         android:id="@+id/btn_start"
