@@ -82,6 +82,7 @@ public class AlertActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(AlertActivity.this, MainActivity.class));
                 finish();
+                //
             }
         });
     }
