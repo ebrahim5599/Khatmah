@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.pojo.Surah;
@@ -81,26 +82,29 @@ public class FreeReadingFragment extends Fragment {
 //        });
 
         recyclerView = view.findViewById(R.id.surahRV);
+
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(llm);
+
         list = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(JsonDataFromAsset());
             JSONArray jsonArray = jsonObject.getJSONArray("data");
-            for (int i =0;i<jsonArray.length();i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject surahData = jsonArray.getJSONObject(i);
                 list.add(new Surah(surahData.getInt("number"),
                         surahData.getString("name"),
                         surahData.getString("englishName"),
                         surahData.getString("englishNameTranslation"),
                         surahData.getInt("numberOfAyahs"),
-                        surahData.getString("revelationType")
+                        surahData.getString("revelationType"),
+                        surahData.getInt("start")
                 ));
             }
-            if (list.size()!=0){
-                surahAdapter = new SurahAdapter(getContext(),list);
+            if (list.size() != 0) {
+                surahAdapter = new SurahAdapter(getContext(), list);
                 recyclerView.setAdapter(surahAdapter);
                 surahAdapter.notifyDataSetChanged();
 
@@ -120,7 +124,7 @@ public class FreeReadingFragment extends Fragment {
             byte[] bufferData = new byte[sizeOfFile];
             inputStream.read(bufferData);
             inputStream.close();
-            json = new String(bufferData,"UTF-8");
+            json = new String(bufferData, "UTF-8");
         } catch (IOException e) {
             e.printStackTrace();
             return null;

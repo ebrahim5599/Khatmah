@@ -21,6 +21,9 @@ public class Surah {
     @SerializedName("revelationType")
     private String revelationType;
 
+    @SerializedName("page_number")
+    private int page_number;
+
     public Surah(int number, String name, String englishName, String englishNameTranslation, int numberOfAyahs, String revelationType) {
         this.number = number;
         this.name = name;
@@ -28,6 +31,16 @@ public class Surah {
         this.englishNameTranslation = englishNameTranslation;
         this.numberOfAyahs = numberOfAyahs;
         this.revelationType = revelationType;
+    }
+
+    public Surah(int number, String name, String englishName, String englishNameTranslation, int numberOfAyahs, String revelationType, int page_number) {
+        this.number = number;
+        this.name = name;
+        this.englishName = englishName;
+        this.englishNameTranslation = englishNameTranslation;
+        this.numberOfAyahs = numberOfAyahs;
+        this.revelationType = revelationType;
+        this.page_number = page_number;
     }
 
     public int getNumber() {
@@ -78,5 +91,11 @@ public class Surah {
         this.revelationType = revelationType;
     }
 
+    public void setPage_number(int page_number) {
+        this.page_number = page_number;
+    }
 
+    public int getPage_number() {
+        return page_number;
+    }
 }
