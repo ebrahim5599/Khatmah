@@ -1,6 +1,8 @@
 package com.islamic.khatmah.free_reading;
+
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.pojo.Surah;
+import com.islamic.khatmah.quran_activity.QuranActivity;
 
 
 import java.util.List;
 
-public class SurahAdapter extends RecyclerView.Adapter<SurahAdapter.ViewHolder>{
+public class SurahAdapter extends RecyclerView.Adapter<SurahAdapter.ViewHolder> {
     private Context context;
     private List<Surah> list;
 
@@ -27,7 +30,7 @@ public class SurahAdapter extends RecyclerView.Adapter<SurahAdapter.ViewHolder>{
     @NonNull
     @Override
     public SurahAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.surah_layout,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.surah_layout, parent, false);
         return new ViewHolder(view);
     }
 
@@ -36,7 +39,8 @@ public class SurahAdapter extends RecyclerView.Adapter<SurahAdapter.ViewHolder>{
         holder.surahNo.setText(String.valueOf(list.get(position).getNumber()));
         holder.arabicName.setText(list.get(position).getName());
         holder.englishName.setText(list.get(position).getEnglishName());
-        holder.totalAya.setText("Aya : "+String.valueOf(list.get(position).getNumberOfAyahs()));
+        holder.totalAya.setText("Aya : " + String.valueOf(list.get(position).getNumberOfAyahs()));
+        holder.page_number = list.get(position).getPage_number();
     }
 
     @Override
@@ -45,23 +49,39 @@ public class SurahAdapter extends RecyclerView.Adapter<SurahAdapter.ViewHolder>{
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView surahNo,arabicName,englishName,totalAya;
+        private int page_number;
+        private TextView surahNo, arabicName, englishName, totalAya;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             surahNo = itemView.findViewById(R.id.surah_number);
             arabicName = itemView.findViewById(R.id.arabic_name);
             englishName = itemView.findViewById(R.id.english_name);
             totalAya = itemView.findViewById(R.id.total_aya);
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent intent = new Intent(context, SurahDetailActivity.class);
-//                    intent.putExtra("position",getAdapterPosition()+1);
-//                    context.startActivity(intent);
-//                }
-//            });
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, QuranActivity.class);
+                    intent.putExtra("PAGE_NUMBER",page_number);
+                    context.startActivity(intent);
+                }
+            });
 
         }
+    }
+
+    // TODO: this method converts English numbers to Indian number [Arabic].
+        private String ArbNum(int number) {
+
+        String stNum = String.valueOf(number);
+        String result ="";
+
+        for (int i = 0; i < stNum.length(); i++) {
+            char num = String.valueOf(stNum).charAt(i);
+            int ArabicNum = num + 1584;
+            result += (char) ArabicNum;
+        }
+        return result;
     }
 }
 //
