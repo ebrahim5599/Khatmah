@@ -1,5 +1,8 @@
 package com.islamic.khatmah;
 
+import static com.islamic.khatmah.MainActivity.CURRENT_JUZ;
+import static com.islamic.khatmah.MainActivity.CURRENT_PAGE;
+import static com.islamic.khatmah.MainActivity.CURRENT_SURAH;
 import static com.islamic.khatmah.MainActivity.editor;
 
 import androidx.annotation.NonNull;
@@ -36,24 +39,24 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 public class StartActivity extends AppCompatActivity {
-    Button btn_StartFromPoint,btn_next,btn_StartFromBegin;
-    LinearLayout l1,l2;
-    Spinner spinnerJuz,spinnerPage,spinnerSurah;
+    Button btn_StartFromPoint, btn_next, btn_StartFromBegin;
+    LinearLayout l1, l2;
+    Spinner spinnerJuz, spinnerPage, spinnerSurah;
     ArrayList<String> aaa;
-    ArrayList<String> juz,surah,page;
+    ArrayList<String> juz, surah, page;
     JSONObject jsonObject;
     JSONArray jsonArray;
 
-  
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        l1=findViewById(R.id.l1);
-        l2=findViewById(R.id.l2);
-        btn_next=findViewById(R.id.button2);
-        btn_StartFromPoint=findViewById(R.id.button1);
+        l1 = findViewById(R.id.l1);
+        l2 = findViewById(R.id.l2);
+        btn_next = findViewById(R.id.button2);
+        btn_StartFromPoint = findViewById(R.id.button1);
         spinnerJuz = findViewById(R.id.الجزء);
         spinnerPage = findViewById(R.id.الصفحة);
         spinnerSurah = findViewById(R.id.السورة);
@@ -63,19 +66,19 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(l1.getVisibility() == View.GONE && l2.getVisibility()==View.GONE && btn_next.getVisibility()==View.GONE){
+                if (l1.getVisibility() == View.GONE && l2.getVisibility() == View.GONE && btn_next.getVisibility() == View.GONE) {
                     l1.setVisibility(View.VISIBLE);
                     l2.setVisibility(View.VISIBLE);
                     btn_next.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     l1.setVisibility(View.GONE);
                     l2.setVisibility(View.GONE);
                     btn_next.setVisibility(View.GONE);
                 }
             }
         });
-      
-        btn_StartFromBegin=findViewById(R.id.button);
+
+        btn_StartFromBegin = findViewById(R.id.button);
         btn_StartFromBegin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,10 +86,15 @@ public class StartActivity extends AppCompatActivity {
 
             }
         });
+
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(StartActivity.this, AlertActivity.class));
+                editor.putInt(CURRENT_PAGE, Integer.parseInt(spinnerPage.getSelectedItem().toString()));
+                editor.putString(CURRENT_SURAH, spinnerSurah.getSelectedItem().toString());
+                editor.putString(CURRENT_JUZ, spinnerJuz.getSelectedItem().toString());
+                editor.commit();
             }
         });
 
@@ -106,11 +114,11 @@ public class StartActivity extends AppCompatActivity {
             jsonArray = jsonObject.getJSONArray("data");
 //            Log.i("ffffff",String.valueOf( 11111));
 //            Log.i("ffffff",String.valueOf( jsonArray.length()));
-            for (int j =0;j<9;j++){
+            for (int j = 0; j < 9; j++) {
                 JSONObject surahData = jsonArray.getJSONObject(j);
                 juz.add(surahData.getString("juz"));
             }
-            if (juz.size()!=0){
+            if (juz.size() != 0) {
                 ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, juz);
                 adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinnerJuz.setAdapter(adapter1);
@@ -118,11 +126,11 @@ public class StartActivity extends AppCompatActivity {
                     @Override
                     public void onItemSelected(AdapterView<?> arg0, View view, int arg2, long arg3) {
                         surah = new ArrayList<>();
-                        for (int s =0;s<juz.size();s++){
+                        for (int s = 0; s < juz.size(); s++) {
                             JSONObject surahData = null;
                             try {
                                 surahData = jsonArray.getJSONObject(s);
-                                if (spinnerJuz.getSelectedItem() == surahData.getString("juz")){
+                                if (spinnerJuz.getSelectedItem() == surahData.getString("juz")) {
                                     surah.add(surahData.getString("name"));
                                 }
                             } catch (JSONException e) {
@@ -130,7 +138,7 @@ public class StartActivity extends AppCompatActivity {
                             }
 
                         }
-                        if (surah.size()!=0){
+                        if (surah.size() != 0) {
                             ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, surah);
                             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                             spinnerSurah.setAdapter(adapter2);
@@ -138,11 +146,11 @@ public class StartActivity extends AppCompatActivity {
                                 @Override
                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                     page = new ArrayList<>();
-                                    for (int p =0;p<juz.size();p++){
+                                    for (int p = 0; p < juz.size(); p++) {
                                         JSONObject surahData = null;
                                         try {
                                             surahData = jsonArray.getJSONObject(p);
-                                            if (spinnerSurah.getSelectedItem() == surahData.getString("name")){
+                                            if (spinnerSurah.getSelectedItem() == surahData.getString("name")) {
                                                 page.add(String.valueOf(surahData.getInt("start")));
                                             }
                                         } catch (JSONException e) {
@@ -150,7 +158,7 @@ public class StartActivity extends AppCompatActivity {
                                         }
 
                                     }
-                                    if (page.size()!=0) {
+                                    if (page.size() != 0) {
                                         ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, page);
                                         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                         spinnerPage.setAdapter(adapter3);
@@ -175,7 +183,7 @@ public class StartActivity extends AppCompatActivity {
             }
         } catch (JSONException jsonException) {
             jsonException.printStackTrace();
-            Log.i("fffff",String.valueOf( jsonException));
+            Log.i("fffff", String.valueOf(jsonException));
         }
         /*
         btnSearch = findViewById(R.id.btnSearch);
@@ -187,8 +195,8 @@ public class StartActivity extends AppCompatActivity {
         });*/
 
 
-
     }
+
     private String JsonDataFromAsset() {
         String json = null;
         try {
@@ -197,7 +205,7 @@ public class StartActivity extends AppCompatActivity {
             byte[] bufferData = new byte[sizeOfFile];
             inputStream.read(bufferData);
             inputStream.close();
-            json = new String(bufferData,"UTF-8");
+            json = new String(bufferData, "UTF-8");
         } catch (IOException e) {
             e.printStackTrace();
             return null;

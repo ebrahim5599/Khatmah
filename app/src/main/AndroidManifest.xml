@@ -11,9 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Khatmah">
+
         <activity
-            android:name=".daily_portion.DailyPortionActivity" android:theme="@style/Theme.Khatmah.NoActionBar"
-            android:exported="true" />
+            android:name=".daily_portion.DailyPortionActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Khatmah.NoActionBar" />
         <activity
             android:name=".progress.PrayerActivity"
             android:exported="true" />
@@ -21,7 +23,6 @@
             android:name=".StartActivity"
             android:exported="true" />
         <activity
-
             android:name=".ui.main.StartActivityTwo"
             android:exported="true" />
         <activity
@@ -40,7 +41,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".Reminder"/>
+
+        <receiver android:name=".Reminder" />
     </application>
 
 </manifest>

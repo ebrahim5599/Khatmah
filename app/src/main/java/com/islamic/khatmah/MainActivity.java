@@ -1,8 +1,12 @@
 package com.islamic.khatmah;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -15,6 +19,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,13 +28,27 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.islamic.khatmah.quran_activity.QuranPageAdapter;
 import com.islamic.khatmah.ui.main.SectionsPagerAdapter;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
 
     public static SharedPreferences sharedPreferences;
     public static SharedPreferences.Editor editor;
+    public static final String CURRENT_PAGE = "current page";
+    public static final String CURRENT_SURAH = "current surah";
+    public static final String CURRENT_JUZ = "current juz";
+    public static final String PAGES_PER_DAY = "pages per day";
+    public static final String DATA_EXIST = "data exist";
+    public static boolean fileNotFound = false;
+    public static ArrayList<Bitmap> bitmaps;
+    public static ArrayList<String> pages;
+
 
     String prevStarted = "yes";
     @Override
@@ -42,6 +61,10 @@ public class MainActivity extends AppCompatActivity {
             editor.apply();
             moveToSecondary();
         }
+
+//        if(! sharedPreferences.getBoolean(DATA_EXIST, false)){
+//            startActivity(new Intent(getApplicationContext(), DownloadDialogActivity.class));
+//        }
     }
 
 
@@ -56,12 +79,12 @@ public class MainActivity extends AppCompatActivity {
 
         }*/
 
-
-
+        Log.i("Life", "onCreate()");
         // sharedPreference.
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = sharedPreferences.edit();
-
+//        editor.putBoolean(DATA_EXIST, false);
+//        editor.commit();
         
         getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
                 .putBoolean("isFirstRun", false).commit();
@@ -78,7 +101,12 @@ public class MainActivity extends AppCompatActivity {
                     (tab, position) -> tab.setText(setTextOfTheTab(position))
             ).attach();
 
-
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    preparingQuranPages();
+                }
+            }).start();
 
     }
 
@@ -121,5 +149,15 @@ public class MainActivity extends AppCompatActivity {
         // use an intent to travel from one activity to another.
         Intent intent = new Intent(this,StartActivity.class);
         startActivity(intent);
+    }
+
+    private void preparingQuranPages(){
+
+        InputStream is;
+        try {
+            is = getBaseContext().openFileInput(String.valueOf(604));
+        } catch (FileNotFoundException e) {
+            fileNotFound = true;
+        }
     }
 }
