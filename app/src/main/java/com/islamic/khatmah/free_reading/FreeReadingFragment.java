@@ -198,6 +198,7 @@ public class FreeReadingFragment extends Fragment {
             HttpURLConnection httpURLConnection = null;
             InputStream is;
             Bitmap bitmap;
+
             ArrayList<Bitmap> bitmaps = new ArrayList<>();
             for (int i = 1; i < 605; i++) {
                 try {
