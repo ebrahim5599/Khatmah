@@ -33,12 +33,11 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
     private ArrayList<Bitmap> bitmap;
     private Context context;
     private Bitmap bit;
-    private String url;
 
-    QuranPageAdapter(String url, ViewPager2 viewPager2) {
-        this.url = url;
-        this.viewPager2 = viewPager2;
-    }
+//    QuranPageAdapter(String url, ViewPager2 viewPager2) {
+//        this.url = url;
+//        this.viewPager2 = viewPager2;
+//    }
 
     QuranPageAdapter(Context context, ViewPager2 viewPager2) {
         this.context = context;
@@ -63,7 +62,7 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
                 holder.setBitmap(bit);
             } catch (FileNotFoundException e) {
                 fileNotFound = true;
-                holder.setUrl(url+position);
+                holder.setUrl("https://quran-images-api.herokuapp.com/show/page/"+(position+1));
             }
 
     }
@@ -77,7 +76,6 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
 
     class PageViewHolder extends RecyclerView.ViewHolder{
         private ImageView imageView;
-        private String url;
         private Bitmap bitmap;
 
         public PageViewHolder(@NonNull View itemView) {
@@ -86,7 +84,6 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
         }
 
         void setUrl(String url){
-            this.url = url;
             Picasso.get().load(url).into(imageView);
         }
 

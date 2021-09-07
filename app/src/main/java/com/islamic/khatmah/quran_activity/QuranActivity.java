@@ -34,12 +34,12 @@ public class QuranActivity extends AppCompatActivity {
         j = n.getIntExtra("PAGE_NUMBER",0);
         ViewPager2 viewPager = findViewById(R.id.viewPager);
 
-        if(MainActivity.fileNotFound == false){
+//        if(MainActivity.fileNotFound == false){
             viewPager.setAdapter(new QuranPageAdapter(getBaseContext(), viewPager));
-        }else{
-            String url = "https://quran-images-api.herokuapp.com/show/page/";
-            viewPager.setAdapter(new QuranPageAdapter(url, viewPager));
-        }
+//        }else{
+//            String url = "https://quran-images-api.herokuapp.com/show/page/";
+//            viewPager.setAdapter(new QuranPageAdapter(url, viewPager));
+//        }
 
         viewPager.setCurrentItem(j-1, true);
     }

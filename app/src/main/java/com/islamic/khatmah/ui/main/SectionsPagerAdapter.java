@@ -28,10 +28,8 @@ public class SectionsPagerAdapter extends FragmentStateAdapter {
                 return FreeReadingFragment.newInstance();
             case 1:
                 return DailyPortionFragment.newInstance();
-            case 2:
-                return ProgressFragment.newInstance();
             default:
-                return null;
+                return ProgressFragment.newInstance();
         }
     }
 
