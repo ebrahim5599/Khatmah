@@ -1,11 +1,14 @@
 package com.islamic.khatmah.daily_portion;
 
+import static com.islamic.khatmah.MainActivity.CURRENT_PAGE;
 import static com.islamic.khatmah.MainActivity.editor;
+import static com.islamic.khatmah.MainActivity.sharedPreferences;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,7 +22,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class DailyPortionActivity extends AppCompatActivity {
+public class DailyPortionActivity extends AppCompatActivity{
 
     private int j;
 
@@ -62,13 +65,16 @@ public class DailyPortionActivity extends AppCompatActivity {
                 Picasso.get().load("https://quran-images-api.herokuapp.com/show/page/"+j).into(img);
             }
         });
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        editor.putInt("CURRENT_PAGE", j);
-        editor.commit();
+//        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+        editor.putInt(CURRENT_PAGE, j);
+        editor.apply();
+
     }
 
 }
