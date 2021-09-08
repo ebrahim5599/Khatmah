@@ -22,6 +22,7 @@ import com.islamic.khatmah.R;
 import com.islamic.khatmah.free_reading.FreeReadingFragment;
 import com.squareup.picasso.Picasso;
 
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
