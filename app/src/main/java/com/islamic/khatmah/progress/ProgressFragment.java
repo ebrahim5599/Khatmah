@@ -30,7 +30,7 @@ public class ProgressFragment extends Fragment {
     private ProgressBar weaklyProgressBar, allProgressBar, allProgressBarParts;
     private int pages = 0, weaklyProgress = 0, allProgress = 0;
     Button btnSetCounter, btnResetCounter, btnFinishReading;
-    EditText edtTextCounter;
+    TextView txtCounter;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
     SharedPreferences preferences;
@@ -50,12 +50,12 @@ public class ProgressFragment extends Fragment {
         weaklyProgressBar = view.findViewById(R.id.weeklyProgressBar);
         allProgressBar = view.findViewById(R.id.allProgressBar);
         allProgressBarParts = view.findViewById(R.id.allProgressBar2);
-        edtTextCounter = view.findViewById(R.id.edtTextCounter);
+        txtCounter = view.findViewById(R.id.edtTextCounter);
 
         ///// load shared Preferences
         preferences = getActivity().getSharedPreferences("preferences_file", MODE_PRIVATE);
 //        editor = preferences.edit();
-        pref = getActivity().getPreferences(MODE_PRIVATE);
+//        pref = getActivity().getPreferences(MODE_PRIVATE);
 //
 //        pages = pref.getInt("pages",0);
 //        SharedPreferences preferences = getContext().getSharedPreferences("pref",getContext().MODE_PRIVATE);
@@ -63,7 +63,7 @@ public class ProgressFragment extends Fragment {
         pages = preferences.getInt("PAGES_PER_DAY",1);
 
         setMaxBars(pages);
-        edtTextCounter.setText(String.valueOf(pages));
+        txtCounter.setText(String.valueOf(pages));
         weaklyProgressBar.setProgress(pref.getInt("weaklyProgress", 0));
         allProgressBar.setProgress(pref.getInt("allProgress", 0));
         allProgressBarParts.setProgress(pref.getInt("allProgress", 0) / 20);
@@ -84,19 +84,19 @@ public class ProgressFragment extends Fragment {
 //                editor.commit();
 //            }
 //        });
-//        btnResetCounter = view.findViewById(R.id.btnResetConter);
-//        btnResetCounter.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                pages = 0;
-//                edtTextCounter.setText("0");
-//                resetBars();
-//                pref = getActivity().getPreferences(MODE_PRIVATE);
-//                editor = pref.edit();
-//                editor.putInt("pages", pages);
-//                editor.commit();
-//            }
-//        });
+        btnResetCounter = view.findViewById(R.id.btnResetConter);
+        btnResetCounter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pages = 0;
+                txtCounter.setText("1");
+                resetBars();
+                preferences = getActivity().getSharedPreferences("preferences_file",MODE_PRIVATE);
+                editor = preferences.edit();
+                editor.putInt("pages", pages);
+                editor.commit();
+            }
+        });
         btnFinishReading = view.findViewById(R.id.btnFinishReding);
         btnFinishReading.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,12 +104,12 @@ public class ProgressFragment extends Fragment {
                 updateBars(pages);
             }
         });
-//        if (savedInstanceState != null) {
-//            super.onViewStateRestored(savedInstanceState);
-//            pages = savedInstanceState.getInt("pages");
-//            weaklyProgress = savedInstanceState.getInt("weaklyProgress");
-//            allProgress = savedInstanceState.getInt("allProgress");
-//        }
+        if (savedInstanceState != null) {
+            super.onViewStateRestored(savedInstanceState);
+            pages = savedInstanceState.getInt("pages");
+            weaklyProgress = savedInstanceState.getInt("weaklyProgress");
+            allProgress = savedInstanceState.getInt("allProgress");
+        }
         return view;
 
     }
