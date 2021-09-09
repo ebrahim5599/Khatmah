@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
-
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
@@ -55,9 +54,7 @@ public class MainActivity extends AppCompatActivity {
             moveToSecondary();
         }
 
-//        if(! sharedPreferences.getBoolean(DATA_EXIST, false)){
-//            startActivity(new Intent(getApplicationContext(), DownloadDialogActivity.class));
-//        }
+        Log.i("Life", "onResume()");
     }
 
 
@@ -76,8 +73,6 @@ public class MainActivity extends AppCompatActivity {
         // sharedPreference.
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = sharedPreferences.edit();
-//        editor.putBoolean(DATA_EXIST, false);
-//        editor.commit();
         
         getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
                 .putBoolean("isFirstRun", false).commit();
@@ -115,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         int itemId = item.getItemId();
         if (itemId == R.id.item_setting) {
             Toast.makeText(this, "Setting", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getBaseContext(), StartActivity.class));
             return true;
         } else if (itemId == R.id.item_about_us) {
 

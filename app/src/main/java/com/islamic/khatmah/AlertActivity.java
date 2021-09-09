@@ -23,8 +23,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.islamic.khatmah.daily_portion.DailyPortionFragment;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -38,8 +36,6 @@ public class AlertActivity extends AppCompatActivity {
     Button btn_start;
     Spinner spinnerJuz, spinnerPages;
     Switch aSwitch;
-//    SharedPreferences pref;
-//    SharedPreferences.Editor editor;
 
 
     @Override

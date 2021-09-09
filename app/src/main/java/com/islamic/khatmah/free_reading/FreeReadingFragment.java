@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.pojo.Surah;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
