@@ -5,7 +5,9 @@ import static com.islamic.khatmah.MainActivity.fileNotFound;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -21,6 +23,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.islamic.khatmah.services.DownloadIntentService;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.pojo.Surah;
 
@@ -28,6 +32,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -52,11 +57,15 @@ public class FreeReadingFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
 //        mViewModel = new ViewModelProvider(this).get(FreeReadingViewModel.class);
         View view = inflater.inflate(R.layout.free_reading_fragment, container, false);
-
-        if (fileNotFound) {
+        InputStream is = null;
+        try {
+//            int randomNum = (int) (Math.random() * 604);
+            is = getContext().openFileInput(""+604);
+            Bitmap bit = BitmapFactory.decodeStream(is);
+        } catch (FileNotFoundException e) {
+            Intent intent = new Intent(getContext(), DownloadIntentService.class);
             new AlertDialog.Builder(getContext())
                     .setTitle("Download")
                     .setMessage("For a better experience, there are some files that must be downloaded in order for the application to work without an Internet connection.")
@@ -65,7 +74,8 @@ public class FreeReadingFragment extends Fragment {
                     .setPositiveButton("Download", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // Continue with delete operation
-                            downloadAllPics();
+//                            downloadAllPics();
+                            DownloadIntentService.enqueueWork(getActivity(), intent);
                         }
                     })
                     // A null listener allows the button to dismiss the dialog and take no further action.
@@ -73,39 +83,25 @@ public class FreeReadingFragment extends Fragment {
                     .setIcon(R.drawable.ic_baseline_cloud_download_24)
                     .show();
         }
-
-//        int i = 1;
-//        ArrayList<SurahClass> surahArrayList = new ArrayList<SurahClass>();
-//        surahArrayList.add(new SurahClass(ArbNum(i++),"الفاتحة","مكية",ArbNum(7)+" آيات"));
-//        surahArrayList.add(new SurahClass(ArbNum(i++),"البقرة","مدنية",ArbNum(286)+" آية"));
-//        surahArrayList.add(new SurahClass(ArbNum(i++),"آل عمران","مدنية",ArbNum(200)+" آية"));
-//        surahArrayList.add(new SurahClass(ArbNum(i++),"النساء","مدنية",ArbNum(176)+" آية"));
-//        surahArrayList.add(new SurahClass(ArbNum(i++),"المائدة","مدنية",ArbNum(120)+" آية"));
-//        surahArrayList.add(new SurahClass(ArbNum(i++),"الأنعام","مكية",ArbNum(165)+" آية"));
-//        surahArrayList.add(new SurahClass(ArbNum(i++),"الأعراف","مكية",ArbNum(206)+" آية"));
-//        surahArrayList.add(new SurahClass(ArbNum(i++),"الأنفال","مدنية",ArbNum(75)+" آية"));
-//        surahArrayList.add(new SurahClass(ArbNum(i++),"التوبة","مدنية",ArbNum(129)+" آية"));
-//        surahArrayList.add(new SurahClass(ArbNum(i++),"يونس","مكية",ArbNum(109)+" آية"));
-//        surahArrayList.add(new SurahClass(ArbNum(i++),"هود","مكية",ArbNum(123)+" آية"));
-//
-//
-//        // Find a reference to the {@link ListView} in the layout
-//        ListView listView = view.findViewById(R.id.listView);
-//        // Create a new adapter that takes an empty list of surah as input
-//        surahAdapter = new SurahAdapter(getContext(),surahArrayList);
-//        // Set the adapter on the {@link ListView}
-//        // so the list can be populated in the user interface
-//        listView.setAdapter(surahAdapter);
-//
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-////                Toast.makeText(getContext(), surahArrayList.get(i).getName(), Toast.LENGTH_SHORT).show();
-//                Intent quranActivityIntent = new Intent(getContext(), QuranActivity.class);
-//                quranActivityIntent.putExtra("SURAH_NAME", surahArrayList.get(i).getName());
-//                startActivity(quranActivityIntent);
-//            }
-//        });
+//        if (fileNotFound) {
+//            Intent intent = new Intent(getContext(), DownloadIntentService.class);
+//            new AlertDialog.Builder(getContext())
+//                    .setTitle("Download")
+//                    .setMessage("For a better experience, there are some files that must be downloaded in order for the application to work without an Internet connection.")
+//                    // Specifying a listener allows you to take an action before dismissing the dialog.
+//                    // The dialog is automatically dismissed when a dialog button is clicked.
+//                    .setPositiveButton("Download", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            // Continue with delete operation
+////                            downloadAllPics();
+//                            DownloadIntentService.enqueueWork(getActivity(),intent);
+//                        }
+//                    })
+//                    // A null listener allows the button to dismiss the dialog and take no further action.
+//                    .setNegativeButton("Cancel", null)
+//                    .setIcon(R.drawable.ic_baseline_cloud_download_24)
+//                    .show();
+//        }
 
         recyclerView = view.findViewById(R.id.surahRV);
 
@@ -158,94 +154,132 @@ public class FreeReadingFragment extends Fragment {
         return json;
     }
 
-//    private String ArbNum(int number) {
-//
-//        String stNum = String.valueOf(number);
-//        String result ="";
-//
-//        for (int i = 0; i < stNum.length(); i++) {
-//            char num = String.valueOf(stNum).charAt(i);
-//            int ArabicNum = num + 1584;
-//            result += (char) ArabicNum;
+
+//    private void downloadAllPics() {
+//        for(int i = 1; i < 605; i+=4){
+//            new ThreadDownload(i);
+//            new ThreadDownload(i+1);
+//            new ThreadDownload(i+2);
+//            new ThreadDownload(i+4);
 //        }
-//        return result;
+//        new DownloadAllPics().execute("https://quran-images-api.herokuapp.com/download/page/");
 //    }
 
-    private void downloadAllPics() {
-        new DownloadAllPics().execute("https://quran-images-api.herokuapp.com/download/page/");
-    }
 
-    private class DownloadAllPics extends AsyncTask<String, Integer, ArrayList<Bitmap>> {
-
-        @Override
-        protected ArrayList<Bitmap> doInBackground(String... urls) {
-
-            URL url;
-            HttpURLConnection httpURLConnection = null;
-            InputStream is;
-            Bitmap bitmap;
-            for (int i = 1; i < 605; i++) {
-                try {
-                    url = new URL(urls[0] + i);
-                    httpURLConnection = (HttpURLConnection) url.openConnection();
-                    httpURLConnection.connect();
-                    is = httpURLConnection.getInputStream();
-                    bitmap = BitmapFactory.decodeStream(is);
-                    FileOutputStream os = getContext().openFileOutput(String.valueOf(i), MODE_PRIVATE);
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
-
-                    publishProgress((int) (((i) / (float) 604) * 100));
-
-                    os.flush();
-                    os.close();
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                    Log.i("Catch", e.toString());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    is = null;
-                    httpURLConnection.disconnect();
-                }
-            }
-//            for (int i = 1; i < 605; i++) {
-//                FileOutputStream os = null;
-//                try {
-//                    os = getContext().openFileOutput(String.valueOf(i), MODE_PRIVATE);
-//                    bitmaps.get(i).compress(Bitmap.CompressFormat.PNG, 100, os);
+//    private class ThreadDownload extends Thread {
+//        private int picNum;
+//
+//        //The constructor receives three parameters to initialize local variables: thread ID, start position and end position
+//        public ThreadDownload(int picNum) {
+//            this.picNum = picNum;
+//        }
+//
+//        @Override
+//        public void run() {
+//            try {
+//                URL url = new URL("https://quran-images-api.herokuapp.com/show/page/" + picNum);
+//                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//                conn.setConnectTimeout(5000);
+//                conn.setReadTimeout(5000);
+////                System.out.println("thread"+threadId+"Download start location"+startIndex+" End position:"+endIndex);
+//
+//                //Set request header and request some resources to download
+////                conn.setRequestProperty("Range", "bytes:"+startIndex+"-"+endIndex);
+//                //Server response code 206 indicates that some resources are successfully requested
+//                if (conn.getResponseCode() == 206) {
+//                    InputStream inputStream = conn.getInputStream();
+//                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+//                    //Find write start position
+//
+//
+//                    FileOutputStream os = getContext().openFileOutput(String.valueOf(picNum), MODE_PRIVATE);
+//                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
+//                    inputStream.close();
 //                    os.flush();
 //                    os.close();
-//                    mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//                    conn.disconnect();
+//                }
+////                else{
+//////                    System.out.println("Server response code:"+conn.getResponseCode());
+////                }
+//            } catch (IOException e) {
+//                //
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+
+//    private class DownloadAllPics extends AsyncTask<String, Integer, ArrayList<Bitmap>> {
 //
-//                    mProgressDialog.setProgress((int) (((i) / (float) 604) * 100));
+//        @Override
+//        protected ArrayList<Bitmap> doInBackground(String... urls) {
+//
+//            URL url;
+//            HttpURLConnection httpURLConnection = null;
+//            InputStream is;
+//            Bitmap bitmap;
+//            for (int i = 1; i < 605; i++) {
+//                try {
+//                    url = new URL(urls[0] + i);
+//                    httpURLConnection = (HttpURLConnection) url.openConnection();
+//                    httpURLConnection.connect();
+//                    is = httpURLConnection.getInputStream();
+//                    bitmap = BitmapFactory.decodeStream(is);
+//                    FileOutputStream os = getContext().openFileOutput(String.valueOf(i), MODE_PRIVATE);
+//                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
+//
+//                    publishProgress((int) (((i) / (float) 604) * 100));
+//
+//                    os.flush();
+//                    os.close();
+//                } catch (MalformedURLException e) {
+//                    e.printStackTrace();
+//                    Log.i("Catch", e.toString());
 //                } catch (IOException e) {
 //                    e.printStackTrace();
+//                } finally {
+//                    is = null;
+//                    httpURLConnection.disconnect();
 //                }
 //            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            mProgressDialog = new ProgressDialog(getContext());
-            mProgressDialog.setTitle("Download the quran images");
-            mProgressDialog.setMessage("Loading...");
-            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.show();
-
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            mProgressDialog.setProgress(values[0]);
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<Bitmap> bitmaps) {
-            mProgressDialog.dismiss();
-            fileNotFound = false;
-        }
-    }
+////            for (int i = 1; i < 605; i++) {
+////                FileOutputStream os = null;
+////                try {
+////                    os = getContext().openFileOutput(String.valueOf(i), MODE_PRIVATE);
+////                    bitmaps.get(i).compress(Bitmap.CompressFormat.PNG, 100, os);
+////                    os.flush();
+////                    os.close();
+////                    mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+////
+////                    mProgressDialog.setProgress((int) (((i) / (float) 604) * 100));
+////                } catch (IOException e) {
+////                    e.printStackTrace();
+////                }
+////            }
+//
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPreExecute() {
+//            mProgressDialog = new ProgressDialog(getContext());
+//            mProgressDialog.setTitle("Download the quran images");
+//            mProgressDialog.setMessage("Loading...");
+//            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+//            mProgressDialog.setCancelable(false);
+//            mProgressDialog.show();
+//
+//        }
+//
+//        @Override
+//        protected void onProgressUpdate(Integer... values) {
+//            mProgressDialog.setProgress(values[0]);
+//        }
+//
+//        @Override
+//        protected void onPostExecute(ArrayList<Bitmap> bitmaps) {
+//            mProgressDialog.dismiss();
+//            fileNotFound = false;
+//        }
+//    }
 }

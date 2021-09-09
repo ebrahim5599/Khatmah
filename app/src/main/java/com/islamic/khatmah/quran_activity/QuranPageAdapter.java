@@ -22,13 +22,14 @@ import java.io.InputStream;
 
 public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.PageViewHolder>{
 
+
     private ViewPager2 viewPager2;
     private Context context;
     private Bitmap bit;
 
     QuranPageAdapter(Context context, ViewPager2 viewPager2) {
+
         this.context = context;
-        this.viewPager2 = viewPager2;
     }
 
     @NonNull
@@ -45,7 +46,7 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
             InputStream is = null;
             try {
                 is = context.openFileInput(String.valueOf(position+1));
-                bit = BitmapFactory.decodeStream(is);
+                Bitmap bit = BitmapFactory.decodeStream(is);
                 holder.setBitmap(bit);
             } catch (FileNotFoundException e) {
                 fileNotFound = true;
