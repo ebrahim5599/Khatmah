@@ -178,11 +178,14 @@ public class DailyPortionAdapter extends RecyclerView.Adapter<DailyPortionAdapte
     private Bitmap bit;
     private int j;
     private int number_of_pages;
+    private boolean checked = false;
+    private static int counter;
 
     public DailyPortionAdapter(Context context,int j, ViewPager2 viewPager2) {
         this.context = context;
         this.viewPager2 = viewPager2;
         this.j = j;
+        counter = 0;
     }
 
     @NonNull
@@ -204,13 +207,37 @@ public class DailyPortionAdapter extends RecyclerView.Adapter<DailyPortionAdapte
             fileNotFound = true;
             holder.setUrl("https://quran-images-api.herokuapp.com/show/page/"+(position+j));
         }
-//        holder.fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                viewPager2.setCurrentItem(holder.getAdapterPosition()+1);
-////                holder.fab.setBackground();
-//            }
-//        });
+
+        // Check button listener.
+        holder.check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(checked == false){
+                    holder.check.setImageResource(R.drawable.checked);
+                    checked = true;
+                    counter++;
+                    viewPager2.setCurrentItem(holder.getAdapterPosition()+1);
+                    // save number of next page to start from it next time.
+//                        editor.putInt(CURRENT_PAGE, getAdapterPosition()+2);
+//                        editor.commit();
+                }else{
+                    holder.check.setImageResource(R.drawable.unchecked);
+                    checked = false;
+                    counter--;
+                }
+                holder.counter_text.setText(counter+"/"+number_of_pages);
+            }
+        });
+        // ItemView listener. [Make layout Visible / Gone]
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(holder.layout.getVisibility()==View.GONE)
+                    holder.layout.setVisibility(View.VISIBLE);
+                else
+                    holder.layout.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
@@ -223,60 +250,16 @@ public class DailyPortionAdapter extends RecyclerView.Adapter<DailyPortionAdapte
 
     class PageViewHolder extends RecyclerView.ViewHolder{
         private ImageView imageView;
-        private Bitmap bitmap;
         private LinearLayout layout;
         private ImageButton check;
-        private boolean checked = false;
         private TextView counter_text;
-        private int counter = 0;
-        FloatingActionButton fab;
 
         public PageViewHolder(@NonNull View itemView) {
             super(itemView);
             this.imageView = itemView.findViewById(R.id.img);
-//            fab = itemView.findViewById(R.id.fab);
-//            fab.setBackgroundColor(Color.WHITE);
-//            fab.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    fab.setBackgroundColor(Color.parseColor("#BF360C"));
-//                }
-//            });
             layout = itemView.findViewById(R.id.read_linear);
             counter_text = itemView.findViewById(R.id.counter_text);
-
             check = itemView.findViewById(R.id.read);
-            check.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(checked == false){
-                        check.setImageResource(R.drawable.checked);
-                        checked = true;
-                        counter++;
-                        viewPager2.setCurrentItem(getAdapterPosition()+1);
-                        // save number of next page to start from it next time.
-//                        editor.putInt(CURRENT_PAGE, getAdapterPosition()+2);
-//                        editor.commit();
-                    }else{
-                        check.setImageResource(R.drawable.unchecked);
-                        checked = false;
-                        counter--;
-                    }
-                    counter_text.setText(counter+"/"+number_of_pages);
-                }
-            });
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                if(layout.getVisibility()==View.GONE){
-                    layout.setVisibility(View.VISIBLE);
-                }else{
-                    layout.setVisibility(View.GONE);
-                }
-
-                }
-            });
         }
 
         void setUrl(String url){
@@ -286,7 +269,6 @@ public class DailyPortionAdapter extends RecyclerView.Adapter<DailyPortionAdapte
         }
 
         void setBitmap(Bitmap bitmap){
-            this.bitmap = bitmap;
             imageView.setImageBitmap(bitmap);
 //            editor.putInt(CURRENT_PAGE, getAdapterPosition());
 //            editor.commit();
