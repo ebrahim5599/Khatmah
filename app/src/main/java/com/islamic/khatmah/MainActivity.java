@@ -1,34 +1,26 @@
 package com.islamic.khatmah;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.islamic.khatmah.quran_activity.QuranPageAdapter;
 import com.islamic.khatmah.ui.main.SectionsPagerAdapter;
 
 import java.io.FileNotFoundException;
@@ -62,9 +54,7 @@ public class MainActivity extends AppCompatActivity {
             moveToSecondary();
         }
 
-//        if(! sharedPreferences.getBoolean(DATA_EXIST, false)){
-//            startActivity(new Intent(getApplicationContext(), DownloadDialogActivity.class));
-//        }
+        Log.i("Life", "onResume()");
     }
 
 
@@ -83,8 +73,6 @@ public class MainActivity extends AppCompatActivity {
         // sharedPreference.
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = sharedPreferences.edit();
-//        editor.putBoolean(DATA_EXIST, false);
-//        editor.commit();
         
         getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
                 .putBoolean("isFirstRun", false).commit();
@@ -122,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         int itemId = item.getItemId();
         if (itemId == R.id.item_setting) {
             Toast.makeText(this, "Setting", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getBaseContext(), StartActivity.class));
             return true;
         } else if (itemId == R.id.item_about_us) {
 
