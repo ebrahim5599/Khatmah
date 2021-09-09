@@ -1,11 +1,7 @@
 package com.islamic.khatmah.free_reading;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.islamic.khatmah.MainActivity.DATA_EXIST;
-import static com.islamic.khatmah.MainActivity.bitmaps;
-import static com.islamic.khatmah.MainActivity.editor;
 import static com.islamic.khatmah.MainActivity.fileNotFound;
-import static com.islamic.khatmah.MainActivity.pages;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -188,8 +184,6 @@ public class FreeReadingFragment extends Fragment {
             HttpURLConnection httpURLConnection = null;
             InputStream is;
             Bitmap bitmap;
-
-            ArrayList<Bitmap> bitmaps = new ArrayList<>();
             for (int i = 1; i < 605; i++) {
                 try {
                     url = new URL(urls[0] + i);
@@ -197,7 +191,6 @@ public class FreeReadingFragment extends Fragment {
                     httpURLConnection.connect();
                     is = httpURLConnection.getInputStream();
                     bitmap = BitmapFactory.decodeStream(is);
-
                     FileOutputStream os = getContext().openFileOutput(String.valueOf(i), MODE_PRIVATE);
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
 
@@ -205,8 +198,6 @@ public class FreeReadingFragment extends Fragment {
 
                     os.flush();
                     os.close();
-
-
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                     Log.i("Catch", e.toString());
@@ -217,8 +208,22 @@ public class FreeReadingFragment extends Fragment {
                     httpURLConnection.disconnect();
                 }
             }
+//            for (int i = 1; i < 605; i++) {
+//                FileOutputStream os = null;
+//                try {
+//                    os = getContext().openFileOutput(String.valueOf(i), MODE_PRIVATE);
+//                    bitmaps.get(i).compress(Bitmap.CompressFormat.PNG, 100, os);
+//                    os.flush();
+//                    os.close();
+//                    mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//
+//                    mProgressDialog.setProgress((int) (((i) / (float) 604) * 100));
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
 
-            return bitmaps;
+            return null;
         }
 
         @Override
@@ -227,7 +232,6 @@ public class FreeReadingFragment extends Fragment {
             mProgressDialog.setTitle("Download the quran images");
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            mProgressDialog.setIndeterminate(false);
             mProgressDialog.setCancelable(false);
             mProgressDialog.show();
 
