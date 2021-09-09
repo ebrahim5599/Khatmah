@@ -19,18 +19,16 @@ import com.squareup.picasso.Picasso;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.PageViewHolder>{
 
-    private final Context context;
 
-//    QuranPageAdapter(String url, ViewPager2 viewPager2) {
-//        this.url = url;
-//        this.viewPager2 = viewPager2;
-//    }
+    private ViewPager2 viewPager2;
+    private Context context;
+    private Bitmap bit;
 
-    QuranPageAdapter(Context context) {
+    QuranPageAdapter(Context context, ViewPager2 viewPager2) {
+
         this.context = context;
     }
 
