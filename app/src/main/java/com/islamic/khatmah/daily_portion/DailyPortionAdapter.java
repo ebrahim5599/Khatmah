@@ -143,6 +143,7 @@
 package com.islamic.khatmah.daily_portion;
 
 import static com.islamic.khatmah.MainActivity.PAGES_PER_DAY;
+import static com.islamic.khatmah.MainActivity.editor;
 import static com.islamic.khatmah.MainActivity.fileNotFound;
 import static com.islamic.khatmah.MainActivity.sharedPreferences;
 
@@ -203,6 +204,7 @@ public class DailyPortionAdapter extends RecyclerView.Adapter<DailyPortionAdapte
             is = context.openFileInput(String.valueOf(position+j));
             bit = BitmapFactory.decodeStream(is);
             holder.setBitmap(bit);
+
         } catch (FileNotFoundException e) {
             fileNotFound = true;
             holder.setUrl("https://quran-images-api.herokuapp.com/show/page/"+(position+j));
@@ -215,7 +217,9 @@ public class DailyPortionAdapter extends RecyclerView.Adapter<DailyPortionAdapte
                 if(checked == false){
                     holder.check.setImageResource(R.drawable.checked);
                     checked = true;
+                    holder.counter_text.setText(counter+"");
                     counter++;
+
                     viewPager2.setCurrentItem(holder.getAdapterPosition()+1);
                     // save number of next page to start from it next time.
 //                        editor.putInt(CURRENT_PAGE, getAdapterPosition()+2);
@@ -223,11 +227,12 @@ public class DailyPortionAdapter extends RecyclerView.Adapter<DailyPortionAdapte
                 }else{
                     holder.check.setImageResource(R.drawable.unchecked);
                     checked = false;
-                    counter--;
+//                    counter--;
                 }
-                holder.counter_text.setText(counter+"/"+number_of_pages);
+                holder.counter_text.setText(counter+"");
             }
         });
+
         // ItemView listener. [Make layout Visible / Gone]
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
