@@ -11,8 +11,10 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -37,12 +39,21 @@ public class AlertActivity extends AppCompatActivity {
     Spinner spinnerJuz, spinnerPages;
     Switch aSwitch;
 
+    SharedPreferences preferences;
+
+
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
+//                preferences.edit().putInt("page",Integer.parseInt(spinnerPage.getSelectedItem().toString()));
+//                preferences.edit().putString("surah",spinnerSurah.getSelectedItem().toString());
+//                preferences.edit().putString("zuj",spinnerJuz.getSelectedItem().toString());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alert);
-
+        preferences = getSharedPreferences("preferences_file", MODE_PRIVATE);
+        editor = preferences.edit();
         aSwitch = findViewById(R.id.switch1);
         //spinner set number of pages.
         spinnerJuz = (Spinner) findViewById(R.id.spinnerJuz);
@@ -68,8 +79,10 @@ public class AlertActivity extends AppCompatActivity {
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 //                            pref = AlertActivity.this.getPreferences(MODE_PRIVATE);
 //                            editor = pref.edit();
-                            editor.putInt(PAGES_PER_DAY, Integer.parseInt(spinnerPages.getSelectedItem().toString()));
-                            editor.commit();
+                            editor.putInt("PAGES_PER_DAY",Integer.parseInt(spinnerPages.getSelectedItem().toString()));
+                           editor.commit();
+//                            editor.putInt(PAGES_PER_DAY, Integer.parseInt(spinnerPages.getSelectedItem().toString()));
+//
                         }
 
                         @Override
@@ -81,8 +94,11 @@ public class AlertActivity extends AppCompatActivity {
                     spinnerPages.setVisibility(View.GONE);
 //                    pref = AlertActivity.this.getPreferences(MODE_PRIVATE);
 //                    editor = pref.edit();
-                    editor.putInt(PAGES_PER_DAY, (int) (Double.parseDouble(spinnerJuz.getSelectedItem().toString()) * 20));
-                    editor.commit();
+//                    editor.putInt(PAGES_PER_DAY, (int) (Double.parseDouble(spinnerJuz.getSelectedItem().toString()) * 20));
+//                    editor.commit();
+                    preferences.edit().putInt("PAGES_PER_DAY",Integer.parseInt(spinnerPages.getSelectedItem().toString())).commit();
+                    preferences.notifyAll();
+
                 }
             }
 

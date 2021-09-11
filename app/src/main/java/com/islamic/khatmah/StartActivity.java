@@ -50,11 +50,11 @@ public class StartActivity extends AppCompatActivity {
     JSONArray jsonArray;
     int juzNum = 0, pageNum = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-
         l1 = findViewById(R.id.l1);
         l2 = findViewById(R.id.l2);
         btn_next = findViewById(R.id.button2);
