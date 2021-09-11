@@ -32,4 +32,6 @@
     <string name="dummy_button" translatable="false">Dummy Button</string>
     <string name="dummy_content" translatable="false">DUMMY\nCONTENT</string>
 
+    <string name="portion_completed">If you have finished reading the page, click on the check mark.</string>
+    <string name="ok">Okay</string>
 </resources>
