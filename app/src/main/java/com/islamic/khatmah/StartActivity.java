@@ -44,11 +44,11 @@ public class StartActivity extends AppCompatActivity {
     Spinner spinnerJuz, spinnerPage, spinnerSurah;
     ArrayList<String> aaa;
 
-    ArrayList<String> juz,surah,page,juzTemp,pageTemp;
+    ArrayList<String> juz, surah, page, juzTemp, pageTemp;
 
     JSONObject jsonObject;
     JSONArray jsonArray;
-    int juzNum = 0,pageNum = 0;
+    int juzNum = 0, pageNum = 0;
 
 
     @Override
@@ -120,14 +120,14 @@ public class StartActivity extends AppCompatActivity {
 //            Log.i("ffffff",String.valueOf( 11111));
 //            Log.i("ffffff",String.valueOf( jsonArray.length()));
 
-            for (int j =0;j<jsonArray.length();j++){
-                Log.i("ff12fff",String.valueOf(jsonArray.length()));
+            for (int j = 0; j < jsonArray.length(); j++) {
+                Log.i("ff12fff", String.valueOf(jsonArray.length()));
 
                 JSONObject surahData = jsonArray.getJSONObject(j);
-                if (juzNum != surahData.getInt("juz")){
+                if (juzNum != surahData.getInt("juz")) {
                     juz.add(String.valueOf(surahData.getInt("juz")));
                 }
-                if (pageNum != surahData.getInt("start")){
+                if (pageNum != surahData.getInt("start")) {
                     page.add(String.valueOf(surahData.getInt("start")));
                 }
                 juzTemp.add(surahData.getString("juz"));
@@ -137,8 +137,8 @@ public class StartActivity extends AppCompatActivity {
                 pageNum = surahData.getInt("start");
             }
 
-            if (juz.size()!=0 && surah.size()!=0 && page.size()!=0){
-                Log.i("ff12fff",String.valueOf(juz.size()));
+            if (juz.size() != 0 && surah.size() != 0 && page.size() != 0) {
+                Log.i("ff12fff", String.valueOf(juz.size()));
                 //adapters
 
                 ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, juz);
@@ -155,16 +155,16 @@ public class StartActivity extends AppCompatActivity {
                     @Override
                     public void onItemSelected(AdapterView<?> arg0, View view, int arg2, long arg3) {
 
-                        for (int s =0;s<jsonArray.length();s++){
+                        for (int s = 0; s < jsonArray.length(); s++) {
                             JSONObject surahData = null;
                             try {
                                 surahData = jsonArray.getJSONObject(s);
-                                if (spinnerJuz.getSelectedItem() == surahData.getString("juz")){
-                                    Log.i("llll",String.valueOf(s));
+                                if (spinnerJuz.getSelectedItem() == surahData.getString("juz")) {
+                                    Log.i("llll", String.valueOf(s));
                                     spinnerSurah.setSelection(s);
                                     //spinnerPage.setSelection(s);
-                                    for (int i = 0 ;i< juz.size();i++){
-                                        if (pageTemp.get(s) == page.get(i)){
+                                    for (int i = 0; i < juz.size(); i++) {
+                                        if (pageTemp.get(s) == page.get(i)) {
                                             spinnerPage.setSelection(i);
                                         }
                                     }
@@ -218,21 +218,21 @@ public class StartActivity extends AppCompatActivity {
                 spinnerSurah.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> arg0, View view, int arg2, long arg3) {
-                        for (int s =0;s<jsonArray.length();s++){
+                        for (int s = 0; s < jsonArray.length(); s++) {
                             JSONObject surahData = null;
                             try {
                                 surahData = jsonArray.getJSONObject(s);
-                                if (spinnerSurah.getSelectedItem() == surahData.getString("name")){
+                                if (spinnerSurah.getSelectedItem() == surahData.getString("name")) {
                                     //spinnerJuz.setSelection(s);
                                     //spinnerPage.setSelection(s);
-                                    for (int i = 0 ;i< juz.size();i++){
-                                        if (juzTemp.get(s) == juz.get(i)){
+                                    for (int i = 0; i < juz.size(); i++) {
+                                        if (juzTemp.get(s) == juz.get(i)) {
                                             spinnerJuz.setSelection(i);
                                         }
                                     }
 
-                                    for (int i = 0 ;i< juz.size();i++){
-                                        if (pageTemp.get(s) == page.get(i)){
+                                    for (int i = 0; i < juz.size(); i++) {
+                                        if (pageTemp.get(s) == page.get(i)) {
                                             spinnerPage.setSelection(i);
                                         }
 
@@ -259,16 +259,16 @@ public class StartActivity extends AppCompatActivity {
                 spinnerPage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> arg0, View view, int arg2, long arg3) {
-                        for (int s =0;s<jsonArray.length();s++){
+                        for (int s = 0; s < jsonArray.length(); s++) {
                             JSONObject surahData = null;
                             try {
                                 surahData = jsonArray.getJSONObject(s);
-                                if (Integer.parseInt(spinnerPage.getSelectedItem().toString())== surahData.getInt("start")){
-                                    Log.i("kk",surahData.getString("start"));
+                                if (Integer.parseInt(spinnerPage.getSelectedItem().toString()) == surahData.getInt("start")) {
+                                    Log.i("kk", surahData.getString("start"));
                                     //spinnerJuz.setSelection(s);
                                     spinnerSurah.setSelection(s);
-                                    for (int i = 0 ;i< juz.size();i++){
-                                        if (juzTemp.get(s) == juz.get(i)){
+                                    for (int i = 0; i < juz.size(); i++) {
+                                        if (juzTemp.get(s) == juz.get(i)) {
                                             spinnerJuz.setSelection(i);
                                         }
                                     }
@@ -291,7 +291,7 @@ public class StartActivity extends AppCompatActivity {
         } catch (JSONException jsonException) {
             jsonException.printStackTrace();
 
-            Log.i("ff1fff",String.valueOf( jsonException));
+            Log.i("ff1fff", String.valueOf(jsonException));
 
         }
         /*
