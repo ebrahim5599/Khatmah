@@ -23,12 +23,15 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.islamic.khatmah.ui.main.SectionsPagerAdapter;
 
+import java.util.Calendar;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
+
 
     public static SharedPreferences sharedPreferences;
     public static SharedPreferences.Editor editor;
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     String prevStarted = "yes";
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -54,20 +58,22 @@ public class MainActivity extends AppCompatActivity {
             moveToSecondary();
         }
 
+
         Log.i("Life", "onResume()");
     }
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      /*  Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+       Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
                 .getBoolean("isFirstRun", true);
         if (isFirstRun) {
             //show Start activity
             startActivity(new Intent(MainActivity.this, StartActivity.class));
 
-        }*/
+        }
 
         Log.i("Life", "onCreate()");
         // sharedPreference.

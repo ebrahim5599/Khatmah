@@ -1,14 +1,18 @@
 package com.islamic.khatmah;
 
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 public class Reminder extends BroadcastReceiver {
+    int MID=0;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -18,11 +22,16 @@ public class Reminder extends BroadcastReceiver {
                 .setSmallIcon(R.drawable.ic_baseline_add_alert_24)
                 .setContentTitle("Khatmah Reminder")
                 .setContentText("تذكير بمعاد الورد اليومي")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(pendingIntent);
         NotificationManagerCompat notificationManger= NotificationManagerCompat.from(context);
-        notificationManger.notify(100,builder.build());
+        notificationManger.notify(MID,builder.build());
+         MID++;
+    }
+
 
     }
 
-}
+
+
+
