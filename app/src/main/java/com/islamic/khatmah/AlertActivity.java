@@ -130,19 +130,17 @@ public class AlertActivity extends AppCompatActivity {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa", Locale.US);
                 String Time = simpleDateFormat.format(cal.getTime());
                 txt_time.setText(Time);
+
                 if (cal.getTime().compareTo(new Date()) < 0)
                     cal.add(Calendar.DAY_OF_MONTH, 1);
                 Intent intent= new Intent(AlertActivity.this, Reminder.class);
                 PendingIntent pendingIntent= PendingIntent.getBroadcast(AlertActivity.this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-                AlarmManager alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);
-                long timeButtonClick=System.currentTimeMillis();
                 long timeAlert = 1000 * 60 * sMinute + 1000 * 60 * 60 * sHour;
+                AlarmManager alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);
                 alarmManager.set(AlarmManager.RTC_WAKEUP,timeAlert,pendingIntent);
-                if (alarmManager != null) {
-                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-
+                if(alarmManager!=null){
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, timeAlert, AlarmManager.INTERVAL_DAY, pendingIntent);
                 }
-
             }
         };
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, cal.get(Calendar.HOUR), cal.get(Calendar.MINUTE), false);
@@ -154,7 +152,7 @@ public class AlertActivity extends AppCompatActivity {
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
             CharSequence name ="KhatmaChannel";
             String description="ختمه";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel= new NotificationChannel("notify",name,importance);
             channel.setDescription(description);
             channel.enableVibration(true);

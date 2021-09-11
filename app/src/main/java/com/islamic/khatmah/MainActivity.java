@@ -25,9 +25,12 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.islamic.khatmah.ui.main.SectionsPagerAdapter;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
-    String prevStarted = "yes";
+
+   /* String prevStarted = "yes";
     @Override
     protected void onResume() {
         super.onResume();
@@ -37,21 +40,19 @@ public class MainActivity extends AppCompatActivity {
             editor.putBoolean(prevStarted, Boolean.TRUE);
             editor.apply();
             moveToSecondary();
-        }else{
-            finish();
         }
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      /*  Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+       Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
                 .getBoolean("isFirstRun", true);
         if (isFirstRun) {
             //show Start activity
             startActivity(new Intent(MainActivity.this, StartActivity.class));
 
-        }*/
+        }
 
 
         getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
