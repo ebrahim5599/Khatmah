@@ -75,7 +75,7 @@
       "revelationType": "Meccan",
       "start": 151,
       "end": 176,
-      "juz" : 7
+      "juz" : 8
     },
     {
       "number": 8,
@@ -108,7 +108,7 @@
       "revelationType": "Meccan",
       "start": 208,
       "end": 221,
-      "juz" : 10
+      "juz" : 11
     },
     {
       "number": 11,
@@ -218,7 +218,7 @@
       "revelationType": "Meccan",
       "start": 312,
       "end": 321,
-      "juz" : 15
+      "juz" : 16
     },
     {
       "number": 21,
@@ -229,7 +229,7 @@
       "revelationType": "Meccan",
       "start": 322,
       "end": 331,
-      "juz" : 16
+      "juz" : 17
     },
     {
       "number": 22,
@@ -240,7 +240,7 @@
       "revelationType": "Medinan",
       "start": 332,
       "end": 341,
-      "juz" : 16
+      "juz" : 17
     },
     {
       "number": 23,
@@ -251,7 +251,7 @@
       "revelationType": "Meccan",
       "start": 342,
       "end": 349,
-      "juz" : 17
+      "juz" : 18
     },
     {
       "number": 24,
@@ -284,7 +284,7 @@
       "revelationType": "Meccan",
       "start": 367,
       "end": 376,
-      "juz" : 18
+      "juz" : 19
     },
     {
       "number": 27,
@@ -306,7 +306,7 @@
       "revelationType": "Meccan",
       "start": 385,
       "end": 396,
-      "juz" : 19
+      "juz" : 20
     },
     {
       "number": 29,
@@ -317,7 +317,7 @@
       "revelationType": "Meccan",
       "start": 396,
       "end": 404,
-      "juz" : 19
+      "juz" : 20
     },
     {
       "number": 30,
@@ -328,7 +328,7 @@
       "revelationType": "Meccan",
       "start": 404,
       "end": 410,
-      "juz" : 20
+      "juz" : 21
     },
     {
       "number": 31,
@@ -339,7 +339,7 @@
       "revelationType": "Meccan",
       "start": 411,
       "end": 414,
-      "juz" : 20
+      "juz" : 21
     },
     {
       "number": 32,
@@ -351,7 +351,7 @@
       "number": 33,
       "start": 415,
       "end": 417,
-      "juz" : 20
+      "juz" : 21
     },
     {
       "number": 33,
@@ -362,7 +362,7 @@
       "revelationType": "Medinan",
       "start": 418,
       "end": 427,
-      "juz" : 20
+      "juz" : 21
     },
     {
       "number": 34,
@@ -373,7 +373,7 @@
       "revelationType": "Meccan",
       "start": 428,
       "end": 434,
-      "juz" : 21
+      "juz" : 22
     },
     {
       "number": 35,
@@ -504,6 +504,7 @@
       "numberOfAyahs": 35,
       "revelationType": "Meccan",
       "start": 502,
+      "end": 506,
       "juz" : 26
     },
     {
@@ -514,6 +515,7 @@
       "numberOfAyahs": 38,
       "revelationType": "Medinan",
       "start": 507,
+      "end": 510,
       "juz" : 26
     },
     {
@@ -524,6 +526,7 @@
       "numberOfAyahs": 29,
       "revelationType": "Medinan",
       "start": 511,
+      "end": 515,
       "juz" : 26
     },
     {
@@ -534,6 +537,7 @@
       "numberOfAyahs": 18,
       "revelationType": "Medinan",
       "start": 515,
+      "end": 517,
       "juz" : 26
     },
     {
@@ -544,6 +548,7 @@
       "numberOfAyahs": 45,
       "revelationType": "Meccan",
       "start": 518,
+      "end": 520,
       "juz" : 26
     },
     {
@@ -554,6 +559,7 @@
       "numberOfAyahs": 60,
       "revelationType": "Meccan",
       "start": 520,
+      "end": 523,
       "juz" : 26
     },
     {
@@ -564,6 +570,7 @@
       "numberOfAyahs": 49,
       "revelationType": "Meccan",
       "start": 523,
+      "end": 525,
       "juz" : 27
     },
     {
@@ -574,6 +581,7 @@
       "numberOfAyahs": 62,
       "revelationType": "Meccan",
       "start": 526,
+      "end": 528,
       "juz" : 27
     },
     {
@@ -584,6 +592,7 @@
       "numberOfAyahs": 55,
       "revelationType": "Meccan",
       "start": 528,
+      "end": 531,
       "juz" : 27
     },
     {
@@ -594,6 +603,7 @@
       "numberOfAyahs": 78,
       "revelationType": "Medinan",
       "start": 531,
+      "end": 534,
       "juz" : 27
     },
     {
@@ -604,6 +614,7 @@
       "numberOfAyahs": 96,
       "revelationType": "Meccan",
       "start": 534,
+      "end": 537,
       "juz" : 27
     },
     {
@@ -614,6 +625,7 @@
       "numberOfAyahs": 29,
       "revelationType": "Medinan",
       "start": 537,
+      "end": 541,
       "juz" : 27
     },
     {
@@ -624,6 +636,7 @@
       "numberOfAyahs": 22,
       "revelationType": "Medinan",
       "start": 542,
+      "end": 545,
       "juz" : 28
     },
     {
@@ -634,6 +647,7 @@
       "numberOfAyahs": 24,
       "revelationType": "Medinan",
       "start": 545,
+      "end": 548,
       "juz" : 28
     },
     {
@@ -644,6 +658,7 @@
       "numberOfAyahs": 13,
       "revelationType": "Medinan",
       "start": 549,
+      "end": 551,
       "juz" : 28
     },
     {
@@ -654,6 +669,7 @@
       "numberOfAyahs": 14,
       "revelationType": "Medinan",
       "start": 551,
+      "end": 552,
       "juz" : 28
     },
     {
@@ -664,7 +680,8 @@
       "numberOfAyahs": 11,
       "revelationType": "Medinan",
       "start": 553,
-      "juz" : 29
+      "end": 554,
+      "juz" : 28
     },
     {
       "number": 63,
@@ -674,6 +691,7 @@
       "numberOfAyahs": 11,
       "revelationType": "Medinan",
       "start": 554,
+      "end": 555,
       "juz" : 28
     },
     {
@@ -684,6 +702,7 @@
       "numberOfAyahs": 18,
       "revelationType": "Medinan",
       "start": 556,
+      "end": 557,
       "juz" : 28
     },
     {
@@ -694,6 +713,7 @@
       "numberOfAyahs": 12,
       "revelationType": "Medinan",
       "start": 558,
+      "end": 559,
       "juz" : 28
     },
     {
@@ -704,6 +724,7 @@
       "numberOfAyahs": 12,
       "revelationType": "Medinan",
       "start": 560,
+      "end": 561,
       "juz" : 28
     },
     {
@@ -714,6 +735,7 @@
       "numberOfAyahs": 30,
       "revelationType": "Meccan",
       "start": 562,
+      "end": 564,
       "juz" : 29
     },
     {
@@ -724,6 +746,7 @@
       "numberOfAyahs": 52,
       "revelationType": "Meccan",
       "start": 564,
+      "end": 566,
       "juz" : 29
     },
     {
@@ -734,6 +757,7 @@
       "numberOfAyahs": 52,
       "revelationType": "Meccan",
       "start": 566,
+      "end": 568,
       "juz" : 29
     },
     {
@@ -744,6 +768,7 @@
       "numberOfAyahs": 44,
       "revelationType": "Meccan",
       "start": 568,
+      "end": 570,
       "juz" : 29
     },
     {
@@ -754,6 +779,7 @@
       "numberOfAyahs": 28,
       "revelationType": "Meccan",
       "start": 570,
+      "end": 571,
       "juz" : 29
     },
     {
@@ -764,6 +790,7 @@
       "numberOfAyahs": 28,
       "revelationType": "Meccan",
       "start": 572,
+      "end": 573,
       "juz" : 29
     },
     {
@@ -774,6 +801,7 @@
       "numberOfAyahs": 20,
       "revelationType": "Meccan",
       "start": 574,
+      "end": 575,
       "juz" : 29
     },
     {
@@ -784,6 +812,7 @@
       "numberOfAyahs": 56,
       "revelationType": "Meccan",
       "start": 575,
+      "end": 577,
       "juz" : 29
     },
     {
@@ -794,7 +823,8 @@
       "numberOfAyahs": 40,
       "revelationType": "Meccan",
       "start": 577,
-      "juz" : 2
+      "end": 578,
+      "juz" : 29
     },
     {
       "number": 76,
@@ -804,6 +834,7 @@
       "numberOfAyahs": 31,
       "revelationType": "Medinan",
       "start": 578,
+      "end": 580,
       "juz" : 29
     },
     {
@@ -814,6 +845,7 @@
       "numberOfAyahs": 50,
       "revelationType": "Meccan",
       "start": 580,
+      "end": 581,
       "juz" : 29
     },
     {
@@ -824,6 +856,7 @@
       "numberOfAyahs": 40,
       "revelationType": "Meccan",
       "start": 582,
+      "end": 583,
       "juz" : 30
     },
     {
@@ -834,6 +867,7 @@
       "numberOfAyahs": 46,
       "revelationType": "Meccan",
       "start": 583,
+      "end": 584,
       "juz" : 30
     },
     {
@@ -844,6 +878,7 @@
       "numberOfAyahs": 42,
       "revelationType": "Meccan",
       "start": 585,
+      "end": 585,
       "juz" : 30
     },
     {
@@ -854,6 +889,7 @@
       "numberOfAyahs": 29,
       "revelationType": "Meccan",
       "start": 586,
+      "end": 586,
       "juz" : 30
     },
     {
@@ -864,6 +900,7 @@
       "numberOfAyahs": 19,
       "revelationType": "Meccan",
       "start": 587,
+      "end": 587,
       "juz" : 30
     },
     {
@@ -874,6 +911,7 @@
       "numberOfAyahs": 36,
       "revelationType": "Meccan",
       "start": 587,
+      "end": 589,
       "juz" : 30
     },
     {
@@ -884,6 +922,7 @@
       "numberOfAyahs": 25,
       "revelationType": "Meccan",
       "start": 589,
+      "end": 589,
       "juz" : 30
     },
     {
@@ -894,6 +933,7 @@
       "numberOfAyahs": 22,
       "revelationType": "Meccan",
       "start": 590,
+      "end": 590,
       "juz" : 30
     },
     {
@@ -904,6 +944,7 @@
       "numberOfAyahs": 17,
       "revelationType": "Meccan",
       "start": 591,
+      "end": 591,
       "juz" : 30
     },
     {
@@ -914,6 +955,7 @@
       "numberOfAyahs": 19,
       "revelationType": "Meccan",
       "start": 591,
+      "end": 592,
       "juz" : 30
     },
     {
@@ -924,6 +966,7 @@
       "numberOfAyahs": 26,
       "revelationType": "Meccan",
       "start": 592,
+      "end": 592,
       "juz" : 30
     },
     {
@@ -934,6 +977,7 @@
       "numberOfAyahs": 30,
       "revelationType": "Meccan",
       "start": 593,
+      "end": 594,
       "juz" : 30
     },
     {
@@ -944,6 +988,7 @@
       "numberOfAyahs": 20,
       "revelationType": "Meccan",
       "start": 594,
+      "end": 594,
       "juz" : 30
     },
     {
@@ -954,6 +999,7 @@
       "numberOfAyahs": 15,
       "revelationType": "Meccan",
       "start": 595,
+      "end": 595,
       "juz" : 30
     },
     {
@@ -964,6 +1010,7 @@
       "numberOfAyahs": 21,
       "revelationType": "Meccan",
       "start": 595,
+      "end": 596,
       "juz" : 30
     },
     {
@@ -974,6 +1021,7 @@
       "numberOfAyahs": 11,
       "revelationType": "Meccan",
       "start": 596,
+      "end": 596,
       "juz" : 30
     },
     {
@@ -984,6 +1032,7 @@
       "numberOfAyahs": 8,
       "revelationType": "Meccan",
       "start": 596,
+      "end": 596,
       "juz" : 30
     },
     {
@@ -994,6 +1043,7 @@
       "numberOfAyahs": 8,
       "revelationType": "Meccan",
       "start": 597,
+      "end": 597,
       "juz" : 30
     },
     {
@@ -1004,6 +1054,7 @@
       "numberOfAyahs": 19,
       "revelationType": "Meccan",
       "start": 597,
+      "end": 597,
       "juz" : 30
     },
     {
@@ -1014,6 +1065,7 @@
       "numberOfAyahs": 5,
       "revelationType": "Meccan",
       "start": 598,
+      "end": 598,
       "juz" : 30
     },
     {
@@ -1024,6 +1076,7 @@
       "numberOfAyahs": 8,
       "revelationType": "Medinan",
       "start": 598,
+      "end": 599,
       "juz" : 30
     },
     {
@@ -1034,6 +1087,7 @@
       "numberOfAyahs": 8,
       "revelationType": "Medinan",
       "start": 599,
+      "end": 599,
       "juz" : 30
     },
     {
@@ -1044,6 +1098,7 @@
       "numberOfAyahs": 11,
       "revelationType": "Meccan",
       "start": 599,
+      "end": 600,
       "juz" : 30
     },
     {
@@ -1054,6 +1109,7 @@
       "numberOfAyahs": 11,
       "revelationType": "Meccan",
       "start": 600,
+      "end": 600,
       "juz" : 30
     },
     {
@@ -1064,6 +1120,7 @@
       "numberOfAyahs": 8,
       "revelationType": "Meccan",
       "start": 600,
+      "end": 600,
       "juz" : 30
     },
     {
@@ -1074,6 +1131,7 @@
       "numberOfAyahs": 3,
       "revelationType": "Meccan",
       "start": 601,
+      "end": 601,
       "juz" : 30
     },
     {
@@ -1084,6 +1142,7 @@
       "numberOfAyahs": 9,
       "revelationType": "Meccan",
       "start": 601,
+      "end": 601,
       "juz" : 30
     },
     {
@@ -1094,6 +1153,7 @@
       "numberOfAyahs": 5,
       "revelationType": "Meccan",
       "start": 601,
+      "end": 601,
       "juz" : 30
     },
     {
@@ -1104,6 +1164,7 @@
       "numberOfAyahs": 4,
       "revelationType": "Meccan",
       "start": 602,
+      "end": 602,
       "juz" : 30
     },
     {
@@ -1114,6 +1175,7 @@
       "numberOfAyahs": 7,
       "revelationType": "Meccan",
       "start": 602,
+      "end": 602,
       "juz" : 30
     },
     {
@@ -1124,6 +1186,7 @@
       "numberOfAyahs": 3,
       "revelationType": "Meccan",
       "start": 602,
+      "end": 602,
       "juz" : 30
     },
     {
@@ -1134,6 +1197,7 @@
       "numberOfAyahs": 6,
       "revelationType": "Meccan",
       "start": 603,
+      "end": 603,
       "juz" : 30
     },
     {
@@ -1144,6 +1208,7 @@
       "numberOfAyahs": 3,
       "revelationType": "Medinan",
       "start": 603,
+      "end": 603,
       "juz" : 30
     },
     {
@@ -1154,6 +1219,7 @@
       "numberOfAyahs": 5,
       "revelationType": "Meccan",
       "start": 603,
+      "end": 603,
       "juz" : 30
     },
     {
@@ -1164,6 +1230,7 @@
       "numberOfAyahs": 4,
       "revelationType": "Meccan",
       "start": 604,
+      "end": 604,
       "juz" : 30
     },
     {
@@ -1174,6 +1241,7 @@
       "numberOfAyahs": 5,
       "revelationType": "Meccan",
       "start": 604,
+      "end": 604,
       "juz" : 30
     },
     {
@@ -1184,6 +1252,7 @@
       "numberOfAyahs": 6,
       "revelationType": "Meccan",
       "start": 604,
+      "end": 604,
       "juz" : 30
     }
   ]

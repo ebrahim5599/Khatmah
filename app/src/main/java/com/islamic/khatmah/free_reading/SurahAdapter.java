@@ -57,6 +57,7 @@ public class SurahAdapter extends RecyclerView.Adapter<SurahAdapter.ViewHolder> 
             holder.cardView.setCardBackgroundColor(Color.WHITE);
         }
         holder.surahNo.setText(String.valueOf(list.get(position).getNumber()));
+//        holder.surahNo.setText(ArbNum(list.get(position).getNumber()));
         holder.arabicName.setText(list.get(position).getName());
         holder.englishName.setText(list.get(position).getEnglishName());
         holder.totalAya.setText("Aya : " + String.valueOf(list.get(position).getNumberOfAyahs()));
@@ -71,10 +72,10 @@ public class SurahAdapter extends RecyclerView.Adapter<SurahAdapter.ViewHolder> 
             anim.setDuration(FADE_DURATION);
             viewToAnimate.startAnimation(anim);
 
-            //animation 2
-            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
-            viewToAnimate.startAnimation(animation);
-            lastPosition = position;
+//            //animation 2
+//            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
+//            viewToAnimate.startAnimation(animation);
+//            lastPosition = position;
         } else {
             Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
             viewToAnimate.startAnimation(animation);
@@ -101,10 +102,11 @@ public class SurahAdapter extends RecyclerView.Adapter<SurahAdapter.ViewHolder> 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    selectedPosition = getAdapterPosition();
+//                    selectedPosition = getAdapterPosition();
                     notifyDataSetChanged();
                     Intent intent = new Intent(context, QuranActivity.class);
                     intent.putExtra("PAGE_NUMBER",page_number);
+                    intent.putExtra("POSITION",getAdapterPosition());
                     context.startActivity(intent);
                 }
             });

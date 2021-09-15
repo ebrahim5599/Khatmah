@@ -12,6 +12,8 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -35,7 +37,7 @@ public class AlertActivity extends AppCompatActivity {
     ImageButton alarm_btn;
     int sHour, sMinute;
     TextView txt_time;
-    Button btn_start;
+    TextView btn_start;
     Spinner spinnerJuz, spinnerPages;
     Switch aSwitch;
 
@@ -52,12 +54,15 @@ public class AlertActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alert);
+
         preferences = getSharedPreferences("preferences_file", MODE_PRIVATE);
         editor = preferences.edit();
         aSwitch = findViewById(R.id.switch1);
         //spinner set number of pages.
         spinnerJuz = (Spinner) findViewById(R.id.spinnerJuz);
         spinnerPages = (Spinner) findViewById(R.id.spinnerPages);
+        spinnerJuz.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+        spinnerPages.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
 
         String[] juz = {"less than one", "1", "1.5", "2", "2.5", "3"};
         String[] pages = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
@@ -69,6 +74,7 @@ public class AlertActivity extends AppCompatActivity {
         spinnerJuz.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView)parent.getChildAt(0)).setTextColor(Color.WHITE); // to make spinner text in white color.
                 if (spinnerJuz.getSelectedItem() == juz[0]) {
                     spinnerPages.setVisibility(View.VISIBLE);
                     ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(AlertActivity.this, android.R.layout.simple_list_item_1, pages);
@@ -77,12 +83,9 @@ public class AlertActivity extends AppCompatActivity {
                     spinnerPages.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                            pref = AlertActivity.this.getPreferences(MODE_PRIVATE);
-//                            editor = pref.edit();
-                            editor.putInt("PAGES_PER_DAY",Integer.parseInt(spinnerPages.getSelectedItem().toString()));
-                           editor.commit();
-//                            editor.putInt(PAGES_PER_DAY, Integer.parseInt(spinnerPages.getSelectedItem().toString()));
-//
+                            ((TextView)parent.getChildAt(0)).setTextColor(Color.WHITE); // to make spinner text in white color.
+                            editor.putInt("PAGES_PER_DAY", Integer.parseInt(spinnerPages.getSelectedItem().toString()));
+                            editor.commit();
                         }
 
                         @Override
@@ -92,12 +95,8 @@ public class AlertActivity extends AppCompatActivity {
                     });
                 } else {
                     spinnerPages.setVisibility(View.GONE);
-//                    pref = AlertActivity.this.getPreferences(MODE_PRIVATE);
-//                    editor = pref.edit();
-//                    editor.putInt(PAGES_PER_DAY, (int) (Double.parseDouble(spinnerJuz.getSelectedItem().toString()) * 20));
-//                    editor.commit();
-                    preferences.edit().putInt("PAGES_PER_DAY",Integer.parseInt(spinnerPages.getSelectedItem().toString())).commit();
-                    preferences.notifyAll();
+                    preferences.edit().putInt("PAGES_PER_DAY", Integer.parseInt(spinnerPages.getSelectedItem().toString())).commit();
+//                    preferences.notifyAll();
 
                 }
             }
@@ -120,7 +119,7 @@ public class AlertActivity extends AppCompatActivity {
                     popTimePiker();
                     createNotificationchannel();
                 } else {
-                    txt_time.setVisibility(View.GONE);
+                    txt_time.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -153,14 +152,14 @@ public class AlertActivity extends AppCompatActivity {
                 if (cal.getTime().compareTo(new Date()) < 0)
                     cal.add(Calendar.DAY_OF_MONTH, 1);
 
-                Intent intent= new Intent(AlertActivity.this, Reminder.class);
-                PendingIntent pendingIntent= PendingIntent.getBroadcast(AlertActivity.this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                Intent intent = new Intent(AlertActivity.this, Reminder.class);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(AlertActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 long timeAlert = 1000 * 60 * sMinute + 1000 * 60 * 60 * sHour;
-                AlarmManager alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);
-                
-              alarmManager.set(AlarmManager.RTC_WAKEUP,timeAlert,pendingIntent);
-                if(alarmManager!=null){
-                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, timeAlert, AlarmManager.INTERVAL_DAY, pendingIntent);
+                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+                alarmManager.set(AlarmManager.RTC_WAKEUP, timeAlert, pendingIntent);
+                if (alarmManager != null) {
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, timeAlert, AlarmManager.INTERVAL_DAY, pendingIntent);
 
 //                 Intent intent = new Intent(AlertActivity.this, Reminder.class);
 //                 PendingIntent pendingIntent = PendingIntent.getBroadcast(AlertActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);

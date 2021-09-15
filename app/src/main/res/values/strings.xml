@@ -7,7 +7,7 @@
     <string name="about_us">About Us</string>
 
     <string name="الحديث" translatable="false">قال رسول الله :\"من قرأ حرفا من كتاب الله فله به حسنة؛ والحسنة بعشر أمثالها؛ لا أقول ألم حرف و لكن ألف حرف و لام حرف وميم حرف\".</string>
-    <string name="البدايه" translatable="false">مرحبا بك في تطبيق ختمة</string>
+    <string name="welcome_message">Welcome to Khatmah app</string>
     <string name="الجزء" translatable="false"> البدء من الجزء الأول</string>
     <string name="مخصص" translatable="false">بداية مخصصة</string>
     <string name="الصفحه" translatable="false">الصفحة</string>

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +19,12 @@ import com.islamic.khatmah.R;
 import com.squareup.picasso.Picasso;
 
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.PageViewHolder>{
@@ -26,9 +32,19 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
 
     private Context context;
     private Bitmap bit;
+    private JSONObject jsonObject;
+    private JSONArray jsonArray;
+    private int position;
 
     QuranPageAdapter(Context context) {
         this.context = context;
+//        this.position = position;
+        try {
+            jsonObject = new JSONObject(JsonDataFromAsset("surah.json"));
+            jsonArray = jsonObject.getJSONArray("data");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @NonNull
@@ -43,6 +59,8 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
     public void onBindViewHolder(@NonNull PageViewHolder holder, int position) {
 
             InputStream is = null;
+            JSONObject pageData = null;
+
             try {
                 is = context.openFileInput(String.valueOf(position+1));
                 Bitmap bit = BitmapFactory.decodeStream(is);
@@ -52,6 +70,47 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
                 holder.setUrl("https://quran-images-api.herokuapp.com/show/page/"+(position+1));
             }
 
+            holder.page_number.setText(convertToArbNum(holder.getAdapterPosition()+1));
+            holder.juz_number.setText("الجزء "+convertToArbNum((int) Math.min(((holder.getAdapterPosition() - 1) / 20)+1, 30)));
+
+        try {
+            pageData = jsonArray.getJSONObject(position);
+            holder.surah_name.setText(pageData.getString("name"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    // this method converts English numbers to Indian number [Arabic].
+    private String convertToArbNum(int number) {
+
+        String stNum = String.valueOf(number);
+        String result = "";
+
+        for (int i = 0; i < stNum.length(); i++) {
+            char num = stNum.charAt(i);
+            int ArabicNum = num + 1584;
+            result += (char) ArabicNum;
+        }
+        return result;
+    }
+
+    // this method to fetch surah name from JSON file.
+    private String JsonDataFromAsset(String fileName) {
+        String json = null;
+        try {
+            InputStream inputStream = context.getAssets().open(fileName);
+            int sizeOfFile = inputStream.available();
+            byte[] bufferData = new byte[sizeOfFile];
+            inputStream.read(bufferData);
+            inputStream.close();
+            json = new String(bufferData, "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return json;
     }
 
     @Override
@@ -64,10 +123,14 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
     class PageViewHolder extends RecyclerView.ViewHolder{
         private ImageView imageView;
         private Bitmap bitmap;
+        private TextView page_number, juz_number, surah_name;
 
         public PageViewHolder(@NonNull View itemView) {
             super(itemView);
             this.imageView = itemView.findViewById(R.id.image_container);
+            this.page_number = itemView.findViewById(R.id.page_number_textview);
+            this.juz_number = itemView.findViewById(R.id.juz_number_textview);
+            this.surah_name = itemView.findViewById(R.id.surah_name_textView);
         }
 
         void setUrl(String url){

@@ -8,6 +8,7 @@ import com.islamic.khatmah.R;
 public class QuranActivity extends AppCompatActivity {
 
     int j;
+    int click_position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +17,8 @@ public class QuranActivity extends AppCompatActivity {
 
         Intent n = getIntent();
         j = n.getIntExtra("PAGE_NUMBER",0);
+        click_position = n.getIntExtra("POSITION",0);
+
         ViewPager2 viewPager = findViewById(R.id.viewPager);
 
             viewPager.setAdapter(new QuranPageAdapter(getBaseContext()));

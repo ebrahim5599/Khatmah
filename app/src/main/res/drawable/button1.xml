@@ -3,7 +3,11 @@
 
     <item>
         <shape>
-            <corners android:radius="32dp"/>
+            <corners android:bottomRightRadius="0dp"
+                android:bottomLeftRadius="0dp"
+                android:topRightRadius="32dp"
+                android:topLeftRadius="32dp"/>
+
             <stroke android:color="#E4C843" android:width="2dp"/>
         </shape>
     </item>

@@ -54,6 +54,7 @@ public class ProgressFragment extends Fragment {
 
         ///// load shared Preferences
         preferences = getActivity().getSharedPreferences("preferences_file", MODE_PRIVATE);
+        pref = getActivity().getPreferences(MODE_PRIVATE);
 //        editor = preferences.edit();
 //        pref = getActivity().getPreferences(MODE_PRIVATE);
 //
@@ -135,7 +136,7 @@ public class ProgressFragment extends Fragment {
         allProgressBarParts.setProgress((pref.getInt("allProgress", 0) + pages) / 20);
         weaklyProgress += pages;
         allProgress += pages;
-        pref = getActivity().getPreferences(MODE_PRIVATE);
+
         editor = pref.edit();
         editor.putInt("weaklyProgress", weaklyProgressBar.getProgress());
         editor.putInt("allProgress", allProgressBar.getProgress());
