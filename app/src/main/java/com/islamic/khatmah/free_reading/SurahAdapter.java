@@ -50,12 +50,12 @@ public class SurahAdapter extends RecyclerView.Adapter<SurahAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull SurahAdapter.ViewHolder holder, int position) {
-        if (selectedPosition == position) {
-            holder.cardView.setCardBackgroundColor(Color.GRAY);
-        }
-        else {
-            holder.cardView.setCardBackgroundColor(Color.WHITE);
-        }
+//        if (selectedPosition == position) {
+//            holder.cardView.setCardBackgroundColor(Color.GRAY);
+//        }
+//        else {
+//            holder.cardView.setCardBackgroundColor(Color.WHITE);
+//        }
         holder.surahNo.setText(String.valueOf(list.get(position).getNumber()));
 //        holder.surahNo.setText(ArbNum(list.get(position).getNumber()));
         holder.arabicName.setText(list.get(position).getName());
@@ -102,11 +102,11 @@ public class SurahAdapter extends RecyclerView.Adapter<SurahAdapter.ViewHolder> 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    selectedPosition = getAdapterPosition();
+                    selectedPosition = getAdapterPosition();
                     notifyDataSetChanged();
                     Intent intent = new Intent(context, QuranActivity.class);
                     intent.putExtra("PAGE_NUMBER",page_number);
-                    intent.putExtra("POSITION",getAdapterPosition());
+                    intent.putExtra("POSITION", selectedPosition);
                     context.startActivity(intent);
                 }
             });

@@ -5,6 +5,7 @@ import static com.islamic.khatmah.MainActivity.fileNotFound;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,11 +35,11 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
     private Bitmap bit;
     private JSONObject jsonObject;
     private JSONArray jsonArray;
-    private int position;
+    private int pos;
 
-    QuranPageAdapter(Context context) {
+    QuranPageAdapter(Context context, int pos) {
         this.context = context;
-//        this.position = position;
+        this.pos = pos;
         try {
             jsonObject = new JSONObject(JsonDataFromAsset("surah.json"));
             jsonArray = jsonObject.getJSONArray("data");
@@ -74,8 +75,19 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
             holder.juz_number.setText("الجزء "+convertToArbNum((int) Math.min(((holder.getAdapterPosition() - 1) / 20)+1, 30)));
 
         try {
-            pageData = jsonArray.getJSONObject(position);
+            pageData = jsonArray.getJSONObject(pos);
+            if(holder.getAdapterPosition()+1 >= pageData.getInt("end")){
+                pos++;
+                pageData = jsonArray.getJSONObject(pos);
+                Log.i("test","1st case");
+            }
+            if(holder.getAdapterPosition()+1 < pageData.getInt("start")){
+                pos--;
+                pageData = jsonArray.getJSONObject(pos);
+                Log.i("test","2nd case");
+            }
             holder.surah_name.setText(pageData.getString("name"));
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
