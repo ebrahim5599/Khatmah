@@ -28,6 +28,7 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
     private Bitmap bit;
 
     QuranPageAdapter(Context context) {
+
         this.context = context;
     }
 
