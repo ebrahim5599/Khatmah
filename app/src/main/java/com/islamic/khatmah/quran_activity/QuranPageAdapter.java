@@ -22,12 +22,10 @@ import java.io.InputStream;
 
 public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.PageViewHolder>{
 
-
-    private ViewPager2 viewPager2;
     private Context context;
     private Bitmap bit;
 
-    QuranPageAdapter(Context context, ViewPager2 viewPager2) {
+    QuranPageAdapter(Context context) {
 
         this.context = context;
     }
