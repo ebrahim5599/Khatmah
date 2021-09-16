@@ -61,8 +61,7 @@ public class FreeReadingFragment extends Fragment {
         View view = inflater.inflate(R.layout.free_reading_fragment, container, false);
         InputStream is = null;
         try {
-//            int randomNum = (int) (Math.random() * 604);
-            is = getContext().openFileInput(""+604);
+            is = getContext().openFileInput("" + 604);
             Bitmap bit = BitmapFactory.decodeStream(is);
         } catch (FileNotFoundException e) {
             Intent intent = new Intent(getContext(), DownloadIntentService.class);

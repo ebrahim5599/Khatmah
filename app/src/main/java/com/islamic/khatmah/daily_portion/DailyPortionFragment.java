@@ -129,7 +129,7 @@ public class DailyPortionFragment extends Fragment{
 //        mViewModel = new ViewModelProvider(this).get(DailyPortionViewModel.class);
         View view = inflater.inflate(R.layout.daily_portion_fragment, container, false);
 
-        // Define TextViews.
+        // Define TextViews...
         page_number = view.findViewById(R.id.page_number);
         surah_name  = view.findViewById(R.id.surah_name);
         juz_number  = view.findViewById(R.id.juz_number);
@@ -146,7 +146,7 @@ public class DailyPortionFragment extends Fragment{
         });
         return view;
     }
-
+//
     @Override
     public void onResume() {
         super.onResume();

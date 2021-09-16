@@ -8,4 +8,5 @@
     <string name="about_us">عنا</string>
     <string name="portion_completed">إذا أتممت قراءة الصفحة إضغط على علامة صح.</string>
     <string name="ok">حسنا</string>
+    <string name="welcome_message">مرحبا بك في تطبيق ختمة</string>
 </resources>
