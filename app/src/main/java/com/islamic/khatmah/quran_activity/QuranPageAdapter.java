@@ -28,7 +28,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.PageViewHolder>{
+public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.PageViewHolder> {
 
 
     private Context context;
@@ -41,8 +41,10 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
         this.context = context;
         this.pos = pos;
         try {
-            jsonObject = new JSONObject(JsonDataFromAsset("surah.json"));
-            jsonArray = jsonObject.getJSONArray("data");
+//            jsonObject = new JSONObject(JsonDataFromAsset("surah.json"));
+//            jsonArray = jsonObject.getJSONArray("data");
+            jsonObject = new JSONObject(JsonDataFromAsset("page_details.json"));
+            jsonArray = jsonObject.getJSONArray("page_details");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -52,45 +54,62 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
     @Override
     public PageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new PageViewHolder(LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.page_container,parent,false
+                R.layout.page_container, parent, false
         ));
     }
 
     @Override
     public void onBindViewHolder(@NonNull PageViewHolder holder, int position) {
 
-            InputStream is = null;
-            JSONObject pageData = null;
-
-            try {
-                is = context.openFileInput(String.valueOf(position+1));
-                Bitmap bit = BitmapFactory.decodeStream(is);
-                holder.setBitmap(bit);
-            } catch (FileNotFoundException e) {
-                fileNotFound = true;
-                holder.setUrl("https://quran-images-api.herokuapp.com/show/page/"+(position+1));
-            }
-
-            holder.page_number.setText(convertToArbNum(holder.getAdapterPosition()+1));
-            holder.juz_number.setText("الجزء "+convertToArbNum((int) Math.min(((holder.getAdapterPosition() - 1) / 20)+1, 30)));
+        InputStream is = null;
+        JSONObject pageData = null;
 
         try {
-            pageData = jsonArray.getJSONObject(pos);
-            if(holder.getAdapterPosition()+1 >= pageData.getInt("end")){
-                pos++;
-                pageData = jsonArray.getJSONObject(pos);
-                Log.i("test","1st case");
-            }
-            if(holder.getAdapterPosition()+1 < pageData.getInt("start")){
-                pos--;
-                pageData = jsonArray.getJSONObject(pos);
-                Log.i("test","2nd case");
-            }
-            holder.surah_name.setText(pageData.getString("name"));
-
-        } catch (JSONException e) {
-            e.printStackTrace();
+            is = context.openFileInput(String.valueOf(position + 1));
+            Bitmap bit = BitmapFactory.decodeStream(is);
+            holder.setBitmap(bit);
+        } catch (FileNotFoundException e) {
+            fileNotFound = true;
+            holder.setUrl("https://quran-images-api.herokuapp.com/show/page/" + (position + 1));
         }
+
+        holder.page_number.setText(convertToArbNum(holder.getAdapterPosition() + 1));
+        holder.juz_number.setText("الجزء " + convertToArbNum((int) Math.min(((holder.getAdapterPosition() - 1) / 20) + 1, 30)));
+
+//        if (pos == 113 || pos == 112 || pos == 111)
+//            pos = 98;
+//        if (pos == 110 || pos == 109 || pos == 108)
+//            pos = 97;
+//        if (pos == 107 || pos == 106 || pos == 105)
+//            pos = 96;
+//        if (pos == 104 || pos == 103 || pos == 102)
+//            pos = 95;
+//        if (pos == 101 || pos == 100)
+//            pos = 94;
+//        if (pos == 99 || pos == 98)
+//            pos = 93;
+//        if (pos == 97 || pos == 96)
+//            pos = 92;
+//        if (pos == 95 || pos == 94)
+//            pos = 91;
+
+            try {
+
+                pageData = jsonArray.getJSONObject(pos);
+                if (holder.getAdapterPosition() + 1 > pageData.getInt("end")) {
+                    pos++;
+                    Log.i("test", "1st case");
+                }
+                if (holder.getAdapterPosition() + 1 < pageData.getInt("start")) {
+                    pos--;
+                    Log.i("test", "2nd case");
+                }
+                pageData = jsonArray.getJSONObject(pos);
+                holder.surah_name.setText(pageData.getString("name"));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
     }
 
@@ -131,8 +150,7 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
     }
 
 
-
-    class PageViewHolder extends RecyclerView.ViewHolder{
+    class PageViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageView;
         private Bitmap bitmap;
         private TextView page_number, juz_number, surah_name;
@@ -145,11 +163,11 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
             this.surah_name = itemView.findViewById(R.id.surah_name_textView);
         }
 
-        void setUrl(String url){
+        void setUrl(String url) {
             Picasso.get().load(url).into(imageView);
         }
 
-        void setBitmap(Bitmap bitmap){
+        void setBitmap(Bitmap bitmap) {
             this.bitmap = bitmap;
             imageView.setImageBitmap(bitmap);
         }
