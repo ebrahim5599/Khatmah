@@ -11,8 +11,10 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -37,12 +39,21 @@ public class AlertActivity extends AppCompatActivity {
     Spinner spinnerJuz, spinnerPages;
     Switch aSwitch;
 
+    SharedPreferences preferences;
+
+
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
+//                preferences.edit().putInt("page",Integer.parseInt(spinnerPage.getSelectedItem().toString()));
+//                preferences.edit().putString("surah",spinnerSurah.getSelectedItem().toString());
+//                preferences.edit().putString("zuj",spinnerJuz.getSelectedItem().toString());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alert);
-
+        preferences = getSharedPreferences("preferences_file", MODE_PRIVATE);
+        editor = preferences.edit();
         aSwitch = findViewById(R.id.switch1);
         //spinner set number of pages.
         spinnerJuz = (Spinner) findViewById(R.id.spinnerJuz);
@@ -68,8 +79,10 @@ public class AlertActivity extends AppCompatActivity {
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 //                            pref = AlertActivity.this.getPreferences(MODE_PRIVATE);
 //                            editor = pref.edit();
-                            editor.putInt(PAGES_PER_DAY, Integer.parseInt(spinnerPages.getSelectedItem().toString()));
-                            editor.commit();
+                            editor.putInt("PAGES_PER_DAY",Integer.parseInt(spinnerPages.getSelectedItem().toString()));
+                           editor.commit();
+//                            editor.putInt(PAGES_PER_DAY, Integer.parseInt(spinnerPages.getSelectedItem().toString()));
+//
                         }
 
                         @Override
@@ -81,8 +94,11 @@ public class AlertActivity extends AppCompatActivity {
                     spinnerPages.setVisibility(View.GONE);
 //                    pref = AlertActivity.this.getPreferences(MODE_PRIVATE);
 //                    editor = pref.edit();
-                    editor.putInt(PAGES_PER_DAY, (int) (Double.parseDouble(spinnerJuz.getSelectedItem().toString()) * 20));
-                    editor.commit();
+//                    editor.putInt(PAGES_PER_DAY, (int) (Double.parseDouble(spinnerJuz.getSelectedItem().toString()) * 20));
+//                    editor.commit();
+                    preferences.edit().putInt("PAGES_PER_DAY",Integer.parseInt(spinnerPages.getSelectedItem().toString())).commit();
+                    preferences.notifyAll();
+
                 }
             }
 
@@ -133,19 +149,30 @@ public class AlertActivity extends AppCompatActivity {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa", Locale.US);
                 String Time = simpleDateFormat.format(cal.getTime());
                 txt_time.setText(Time);
+
                 if (cal.getTime().compareTo(new Date()) < 0)
                     cal.add(Calendar.DAY_OF_MONTH, 1);
-                Intent intent = new Intent(AlertActivity.this, Reminder.class);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(AlertActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                long timeButtonClick = System.currentTimeMillis();
+
+                Intent intent= new Intent(AlertActivity.this, Reminder.class);
+                PendingIntent pendingIntent= PendingIntent.getBroadcast(AlertActivity.this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
                 long timeAlert = 1000 * 60 * sMinute + 1000 * 60 * 60 * sHour;
-                alarmManager.set(AlarmManager.RTC_WAKEUP, timeAlert, pendingIntent);
-                if (alarmManager != null) {
-                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+                AlarmManager alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);
+                
+              alarmManager.set(AlarmManager.RTC_WAKEUP,timeAlert,pendingIntent);
+                if(alarmManager!=null){
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, timeAlert, AlarmManager.INTERVAL_DAY, pendingIntent);
+
+//                 Intent intent = new Intent(AlertActivity.this, Reminder.class);
+//                 PendingIntent pendingIntent = PendingIntent.getBroadcast(AlertActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//                 AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+//                 long timeAlert = 1000 * 60 * sMinute + 1000 * 60 * 60 * sHour;
+//                 long timeButtonClick = System.currentTimeMillis();
+//                 alarmManager.set(AlarmManager.RTC_WAKEUP, timeAlert, pendingIntent);
+//                 if (alarmManager != null) {
+//                     alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
 
                 }
-
             }
         };
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, cal.get(Calendar.HOUR), cal.get(Calendar.MINUTE), false);
@@ -154,12 +181,14 @@ public class AlertActivity extends AppCompatActivity {
 
     }
 
+
     private void createNotificationchannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "KhatmaChannel";
             String description = "ختمه";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel("notify", name, importance);
+
             channel.setDescription(description);
             channel.enableVibration(true);
             NotificationManager notificationManager = getSystemService(NotificationManager.class);

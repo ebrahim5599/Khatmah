@@ -34,7 +34,7 @@
                 android:layout_marginRight="2dp"
                 android:layout_weight="2"
                 android:gravity="center"
-                android:text="- / 3"
+                android:text="سورة آل عمران"
                 android:textColor="@color/white" />
 
 
@@ -54,7 +54,7 @@
                 android:layout_marginLeft="2dp"
                 android:layout_weight="2"
                 android:gravity="center"
-                android:text="0 %"
+                android:text="50"
                 android:textColor="@color/white" />
         </LinearLayout>
 

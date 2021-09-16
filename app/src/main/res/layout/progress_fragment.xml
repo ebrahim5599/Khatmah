@@ -5,7 +5,6 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0C0C0C"
     tools:context=".progress.ProgressFragment">
 
     <TextView
@@ -31,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/allProgressBar" />
 
-    <EditText
+    <TextView
         android:id="@+id/edtTextCounter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,18 +45,6 @@
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnSetCounter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
-        android:text="@string/setCounter"
-        app:layout_constraintBottom_toBottomOf="@+id/edtTextCounter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/edtTextCounter"
-        app:layout_constraintTop_toTopOf="@+id/edtTextCounter"
-        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnResetConter"

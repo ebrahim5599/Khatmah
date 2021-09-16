@@ -17,10 +17,12 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.islamic.khatmah.R;
 import com.squareup.picasso.Picasso;
 
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.PageViewHolder>{
+
 
     private Context context;
     private Bitmap bit;

@@ -47,7 +47,9 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".Reminder" />
+
+        <receiver android:name=".Reminder" android:enabled="true" />
+
     </application>
 
 </manifest>
