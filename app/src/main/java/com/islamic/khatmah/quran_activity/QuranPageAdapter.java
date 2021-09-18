@@ -27,6 +27,7 @@ import org.json.JSONObject;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.PageViewHolder> {
 
@@ -36,13 +37,13 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
     private JSONObject jsonObject;
     private JSONArray jsonArray;
     private int pos;
+    private ArrayList<String> surahName;
 
-    QuranPageAdapter(Context context, int pos) {
+    QuranPageAdapter(Context context, ArrayList<String> surahName) {
         this.context = context;
+        this.surahName = surahName;
         this.pos = pos;
         try {
-//            jsonObject = new JSONObject(JsonDataFromAsset("surah.json"));
-//            jsonArray = jsonObject.getJSONArray("data");
             jsonObject = new JSONObject(JsonDataFromAsset("page_details.json"));
             jsonArray = jsonObject.getJSONArray("page_details");
         } catch (JSONException e) {
@@ -75,24 +76,8 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
 
         holder.page_number.setText(convertToArbNum(holder.getAdapterPosition() + 1));
         holder.juz_number.setText("الجزء " + convertToArbNum((int) Math.min(((holder.getAdapterPosition() - 1) / 20) + 1, 30)));
-
-//        if (pos == 113 || pos == 112 || pos == 111)
-//            pos = 98;
-//        if (pos == 110 || pos == 109 || pos == 108)
-//            pos = 97;
-//        if (pos == 107 || pos == 106 || pos == 105)
-//            pos = 96;
-//        if (pos == 104 || pos == 103 || pos == 102)
-//            pos = 95;
-//        if (pos == 101 || pos == 100)
-//            pos = 94;
-//        if (pos == 99 || pos == 98)
-//            pos = 93;
-//        if (pos == 97 || pos == 96)
-//            pos = 92;
-//        if (pos == 95 || pos == 94)
-//            pos = 91;
-
+        holder.surah_name.setText(surahName.get(position));
+/*
             try {
 
                 pageData = jsonArray.getJSONObject(pos);
@@ -110,7 +95,7 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
+*/
     }
 
     // this method converts English numbers to Indian number [Arabic].

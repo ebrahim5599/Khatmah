@@ -72,7 +72,7 @@
 
     <ProgressBar
         android:id="@+id/weeklyProgressBar"
-        style="@style/CircularDeterminateProgressBar"
+        style="@style/DailyPortionProgressBar"
         android:layout_width="127dp"
         android:layout_height="120dp"
         android:layout_marginTop="4dp"

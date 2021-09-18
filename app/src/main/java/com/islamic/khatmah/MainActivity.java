@@ -23,10 +23,16 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.islamic.khatmah.ui.main.SectionsPagerAdapter;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.Calendar;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -43,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     public static boolean fileNotFound = false;
     public static ArrayList<Bitmap> bitmaps;
     public static ArrayList<String> pages;
-
+    public static ArrayList<String> surahName;
 
     String prevStarted = "yes";
 
@@ -99,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     preparingQuranPages();
+                    preparingSurahNames();
                 }
             }).start();
 
@@ -154,5 +161,40 @@ public class MainActivity extends AppCompatActivity {
         } catch (FileNotFoundException e) {
             fileNotFound = true;
         }
+    }
+
+    private void preparingSurahNames(){
+        surahName = new ArrayList<>();
+        JSONObject jsonObject, pageData;
+        JSONArray jsonArray;
+
+        try {
+            jsonObject = new JSONObject(Objects.requireNonNull(JsonDataFromAsset("page_details.json")));
+            jsonArray = jsonObject.getJSONArray("page_details");
+            surahName.add(jsonArray.getJSONObject(0).getString("name"));
+            for (int k = 1; k < jsonArray.length(); k++) {
+                pageData = jsonArray.getJSONObject(k);
+                for (int i = pageData.getInt("start"); i <= pageData.getInt("end"); i++)
+                    surahName.add(pageData.getString("name"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String JsonDataFromAsset(String fileName) {
+        String json = null;
+        try {
+            InputStream inputStream = getBaseContext().getAssets().open(fileName);
+            int sizeOfFile = inputStream.available();
+            byte[] bufferData = new byte[sizeOfFile];
+            inputStream.read(bufferData);
+            inputStream.close();
+            json = new String(bufferData, "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return json;
     }
 }
