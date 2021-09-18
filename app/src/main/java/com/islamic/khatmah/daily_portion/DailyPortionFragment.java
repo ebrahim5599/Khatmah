@@ -85,6 +85,7 @@
 
  package com.islamic.khatmah.daily_portion;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.islamic.khatmah.MainActivity.CURRENT_JUZ;
 import static com.islamic.khatmah.MainActivity.CURRENT_PAGE;
 import static com.islamic.khatmah.MainActivity.CURRENT_SURAH;
@@ -113,10 +114,11 @@ public class DailyPortionFragment extends Fragment{
 
 //    private DailyPortionViewModel mViewModel;
 
-    private TextView page_number, surah_name, juz_number, number_of_pages;
+    private TextView page_number, surah_name, juz_number, number_of_pages, hadithTextView;
     private int current_page, pages_per_day;
     private String current_surah, current_juz;
-    private SharedPreferences.OnSharedPreferenceChangeListener preferenceChangeListener;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
     public static DailyPortionFragment newInstance() {
         return new DailyPortionFragment();
@@ -129,11 +131,16 @@ public class DailyPortionFragment extends Fragment{
 //        mViewModel = new ViewModelProvider(this).get(DailyPortionViewModel.class);
         View view = inflater.inflate(R.layout.daily_portion_fragment, container, false);
 
+        preferences = getActivity().getSharedPreferences("preferences_file", MODE_PRIVATE);
+        editor = preferences.edit();
+
         // Define TextViews...
         page_number = view.findViewById(R.id.page_number);
         surah_name  = view.findViewById(R.id.surah_name);
         juz_number  = view.findViewById(R.id.juz_number);
         number_of_pages = view.findViewById(R.id.number_of_pages);
+        hadithTextView = view.findViewById(R.id.daily_hadith_container);
+        hadithTextView.setText("عن عائشة رضي اللَّه عنها قالَتْ: قالَ رسولُ اللَّهِ ﷺ: "+"\"الَّذِي يَقْرَأُ القُرْآنَ وَهُو ماهِرٌ بِهِ معَ السَّفَرةِ الكِرَامِ البَرَرَةِ، وَالَّذِي يقرَأُ القُرْآنَ ويَتَتَعْتَعُ فِيهِ وَهُو عليهِ شَاقٌّ لَهُ أَجْران متفقٌ عَلَيْه.\"");
 
         Button start_btn = view.findViewById(R.id.start);
         start_btn.setOnClickListener(new View.OnClickListener() {
@@ -155,7 +162,7 @@ public class DailyPortionFragment extends Fragment{
         current_page = sharedPreferences.getInt(CURRENT_PAGE,1);
         current_surah = sharedPreferences.getString(CURRENT_SURAH, "سورة الفاتحة");
         current_juz = sharedPreferences.getString(CURRENT_JUZ,"الجزء الأول");
-        pages_per_day = sharedPreferences.getInt(PAGES_PER_DAY,1);
+        pages_per_day = preferences.getInt(PAGES_PER_DAY,1);
 
         // TextViews setText().
         page_number.setText(current_page+"");

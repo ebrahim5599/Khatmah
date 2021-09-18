@@ -57,10 +57,12 @@ public class AlertActivity extends AppCompatActivity {
 
         preferences = getSharedPreferences("preferences_file", MODE_PRIVATE);
         editor = preferences.edit();
+
         aSwitch = findViewById(R.id.switch1);
         //spinner set number of pages.
         spinnerJuz = (Spinner) findViewById(R.id.spinnerJuz);
         spinnerPages = (Spinner) findViewById(R.id.spinnerPages);
+
         spinnerJuz.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
         spinnerPages.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
 
@@ -84,7 +86,7 @@ public class AlertActivity extends AppCompatActivity {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             ((TextView)parent.getChildAt(0)).setTextColor(Color.WHITE); // to make spinner text in white color.
-                            editor.putInt("PAGES_PER_DAY", Integer.parseInt(spinnerPages.getSelectedItem().toString()));
+                            editor.putInt(PAGES_PER_DAY, Integer.parseInt(spinnerPages.getSelectedItem().toString()));
                             editor.commit();
                         }
 
@@ -95,7 +97,7 @@ public class AlertActivity extends AppCompatActivity {
                     });
                 } else {
                     spinnerPages.setVisibility(View.GONE);
-                    preferences.edit().putInt("PAGES_PER_DAY", Integer.parseInt(spinnerPages.getSelectedItem().toString())).commit();
+                    preferences.edit().putInt(PAGES_PER_DAY, Integer.parseInt(spinnerPages.getSelectedItem().toString())).commit();
 //                    preferences.notifyAll();
 
                 }

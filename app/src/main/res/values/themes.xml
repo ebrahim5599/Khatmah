@@ -28,6 +28,11 @@
         <item name="android:progressDrawable">@drawable/circle</item>
     </style>
 
+    <style name="DailyPortionProgressBar">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/daily_circle</item>
+    </style>
+
     <style name="SCircularDeterminateProgressBar">
         <item name="android:indeterminateOnly">false</item>
         <item name="android:progressDrawable">@drawable/small_circle</item>

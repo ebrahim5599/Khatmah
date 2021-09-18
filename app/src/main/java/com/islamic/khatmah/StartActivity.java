@@ -61,7 +61,6 @@ public class StartActivity extends AppCompatActivity {
         spinnerJuz = findViewById(R.id.juz_spinner);
         spinnerPage = findViewById(R.id.page_spinner);
         spinnerSurah = findViewById(R.id.surah_spinner);
-//        spinnerChoose = findViewById(R.id.choose_spinner);
 
 
         // Start from first juz listener.
