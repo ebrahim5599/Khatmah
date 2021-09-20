@@ -127,6 +127,8 @@ public class DailyPortionActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         SharedPreferences mainSharedPref = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
+        mainSharedPref.getInt(Constant.WEEKLY_PROGRESS,0);
+        mainSharedPref.edit().putInt(Constant.WEEKLY_PROGRESS,5).apply();
         SharedPreferences preferences = getSharedPreferences(Constant.PROGRESS_SHARED_PREFERENCES, 0);
         int counter = preferences.getInt(Constant.PROGRESS_COUNT, 0);
         if (counter >= number_of_pages) {
