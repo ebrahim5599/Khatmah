@@ -3,7 +3,6 @@ package com.islamic.khatmah;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
@@ -21,15 +20,13 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.ui.main.SectionsPagerAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
-import java.util.Calendar;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -45,10 +42,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String CURRENT_SURAH = "current surah";
     public static final String CURRENT_JUZ = "current juz";
     public static final String PAGES_PER_DAY = "pages per day";
-    public static final String DATA_EXIST = "data exist";
-    public static boolean fileNotFound = false;
-    public static ArrayList<Bitmap> bitmaps;
-    public static ArrayList<String> pages;
     public static ArrayList<String> surahName;
 
     String prevStarted = "yes";
@@ -56,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        SharedPreferences sharedpreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        SharedPreferences sharedpreferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         if (!sharedpreferences.getBoolean(prevStarted, false)) {
             SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.putBoolean(prevStarted, Boolean.TRUE);
@@ -73,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+       boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
                 .getBoolean("isFirstRun", true);
         if (isFirstRun) {
             //show Start activity
@@ -87,12 +80,12 @@ public class MainActivity extends AppCompatActivity {
         editor = sharedPreferences.edit();
         
         getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
-                .putBoolean("isFirstRun", false).commit();
+                .putBoolean("isFirstRun", false).apply();
 
             setContentView(R.layout.activity_main);
             SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this);
 
-            toolbar = (Toolbar) findViewById(R.id.toolbar);
+            toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
             ViewPager2 viewPager = findViewById(R.id.view_pager);
             viewPager.setAdapter(sectionsPagerAdapter);
@@ -104,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    preparingQuranPages();
                     preparingSurahNames();
                 }
             }).start();
@@ -153,15 +145,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void preparingQuranPages(){
 
-        InputStream is;
-        try {
-            is = getBaseContext().openFileInput(String.valueOf(604));
-        } catch (FileNotFoundException e) {
-            fileNotFound = true;
-        }
-    }
 
     private void preparingSurahNames(){
         surahName = new ArrayList<>();
@@ -183,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String JsonDataFromAsset(String fileName) {
-        String json = null;
+        String json ;
         try {
             InputStream inputStream = getBaseContext().getAssets().open(fileName);
             int sizeOfFile = inputStream.available();

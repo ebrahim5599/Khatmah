@@ -1,11 +1,8 @@
 package com.islamic.khatmah.quran_activity;
 
-import static com.islamic.khatmah.MainActivity.fileNotFound;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +11,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.islamic.khatmah.R;
 import com.squareup.picasso.Picasso;
@@ -70,7 +66,6 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
             Bitmap bit = BitmapFactory.decodeStream(is);
             holder.setBitmap(bit);
         } catch (FileNotFoundException e) {
-            fileNotFound = true;
             holder.setUrl("https://quran-images-api.herokuapp.com/show/page/" + (position + 1));
         }
 
