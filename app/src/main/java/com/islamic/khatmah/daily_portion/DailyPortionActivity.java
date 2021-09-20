@@ -101,6 +101,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.islamic.khatmah.MainActivity;
 import com.islamic.khatmah.R;
@@ -115,12 +116,20 @@ public class DailyPortionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_portion);
+
+        // Receive intent from DailyPortionFragment.
         Intent n = getIntent();
         currentPageNum = n.getIntExtra("PAGE_NUMBER", 0);
+
+        // Load sharedPreferences [number of pages per day].
         number_of_pages = sharedPreferences.getInt(PAGES_PER_DAY, 10);
         boolean[] isChecked = loadArray(Constant.ARRAY_NAME, this);
+
+        // Create viewPager.
         ViewPager2 viewPager = findViewById(R.id.viewPager2);
         viewPager.setAdapter(new DailyPortionAdapter(this, currentPageNum, isChecked));
+
+
 
     }
 
