@@ -3,6 +3,8 @@ package com.islamic.khatmah.daily_portion;
 import static com.islamic.khatmah.MainActivity.PAGES_PER_DAY;
 import static com.islamic.khatmah.MainActivity.sharedPreferences;
 import android.util.Log;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -16,6 +18,7 @@ public class DailyPortionAdapter extends FragmentStateAdapter {
     public DailyPortionAdapter(@NonNull FragmentActivity fragmentActivity, int currentPageNum, boolean[] isChecked) {
         super(fragmentActivity);
         this.currentPageNum = currentPageNum;
+
         pagesPerDay = sharedPreferences.getInt(PAGES_PER_DAY, 1);
         Log.d("pages_per_day", "" + pagesPerDay);
         DailyPortionAdapter.isChecked = isChecked;
@@ -31,4 +34,5 @@ public class DailyPortionAdapter extends FragmentStateAdapter {
     public int getItemCount() {
         return pagesPerDay;
     }
+
 }

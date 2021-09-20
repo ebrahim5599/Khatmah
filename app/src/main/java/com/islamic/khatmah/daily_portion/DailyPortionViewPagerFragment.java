@@ -1,5 +1,6 @@
 package com.islamic.khatmah.daily_portion;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -17,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.islamic.khatmah.MainActivity;
 import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.R;
 import com.squareup.picasso.Picasso;
@@ -34,7 +36,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
     private static final String ARG_COUNTER = "param5";
     private LinearLayout layout;
     private ImageButton checkButton;
-    private TextView counter_text;
+    private TextView counter_text, juz_number, surah_name, page_number;
 
     private static int counter = 0;
     private static boolean[] isChecked;
@@ -73,15 +75,26 @@ public class DailyPortionViewPagerFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        counter_text.setText(String.valueOf(counter));
+//        counter_text.setText(String.valueOf(counter));
         progressBar.setProgress(counter);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_daily_portion_view_pager_fragment, container, false);
+
+        // Create references for views.
+        juz_number = view.findViewById(R.id.juz_number_daily_portion);
+        surah_name = view.findViewById(R.id.surah_name_daily_portion);
+        page_number= view.findViewById(R.id.page_number_daily_portion);
+
+        juz_number.setText("الجزء " + convertToArbNum((int) Math.min(((position+currentPageNum - 2) / 20) + 1, 30)));
+        surah_name.setText(MainActivity.surahName.get(position+currentPageNum-1));
+        page_number.setText("صفحة  "+convertToArbNum(position+currentPageNum));
+
         InputStream is;
         ImageView img = view.findViewById(R.id.img);
         layout = view.findViewById(R.id.read_linear);
@@ -90,7 +103,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
         int resources = isChecked[position] ? R.drawable.checked : R.drawable.unchecked;
         progressBar = view.findViewById(R.id.progress);
         checkButton.setImageResource(resources);
-        counter_text.setText(String.valueOf(counter));
+//        counter_text.setText(String.valueOf(counter));
         progressBar.setMax(pagesPerDay);
 
         progressBar.setProgress(counter);
@@ -118,7 +131,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
             }
             editor.putInt(Constant.PROGRESS_COUNT, counter).apply();
             storeArray(isChecked, Constant.ARRAY_NAME, getContext());
-            counter_text.setText(String.valueOf(counter));
+//            counter_text.setText(String.valueOf(counter));
             progressBar.setProgress(counter);
         });
 
@@ -145,5 +158,17 @@ public class DailyPortionViewPagerFragment extends Fragment {
         return editor.commit();
     }
 
+    // this method converts English numbers to Indian number [Arabic].
+    private String convertToArbNum(int number) {
 
+        String stNum = String.valueOf(number);
+        String result = "";
+
+        for (int i = 0; i < stNum.length(); i++) {
+            char num = stNum.charAt(i);
+            int ArabicNum = num + 1584;
+            result += (char) ArabicNum;
+        }
+        return result;
+    }
 }

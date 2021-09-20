@@ -114,7 +114,7 @@ public class DailyPortionFragment extends Fragment{
 
 //    private DailyPortionViewModel mViewModel;
 
-    private TextView page_number, surah_name, juz_number, number_of_pages, hadithTextView;
+    private TextView page_number, surah_name, juz_number, number_of_pages,precentage, hadithTextView;
     private int current_page, pages_per_day;
     private String current_surah, current_juz;
     private SharedPreferences preferences;
@@ -139,6 +139,7 @@ public class DailyPortionFragment extends Fragment{
         surah_name  = view.findViewById(R.id.surah_name);
         juz_number  = view.findViewById(R.id.juz_number);
         number_of_pages = view.findViewById(R.id.number_of_pages);
+        precentage = view.findViewById(R.id.precentage);
         hadithTextView = view.findViewById(R.id.daily_hadith_container);
         hadithTextView.setText("عن عائشة رضي اللَّه عنها قالَتْ: قالَ رسولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: "+"\"الَّذِي يَقْرَأُ القُرْآنَ وَهُو ماهِرٌ بِهِ معَ السَّفَرةِ الكِرَامِ البَرَرَةِ، وَالَّذِي يقرَأُ القُرْآنَ ويَتَتَعْتَعُ فِيهِ وَهُو عليهِ شَاقٌّ لَهُ أَجْران متفقٌ عَلَيْه.\"");
 
@@ -165,11 +166,25 @@ public class DailyPortionFragment extends Fragment{
         pages_per_day = preferences.getInt(PAGES_PER_DAY,1);
 
         // TextViews setText().
-        page_number.setText(current_page+"");
+        page_number.setText(convertToArbNum(current_page));
         surah_name.setText(current_surah);
         juz_number.setText(current_juz);
-        number_of_pages.setText(pages_per_day+"");
+        number_of_pages.setText(convertToArbNum(pages_per_day));
+        precentage.setText("%"+convertToArbNum(0));
 
     }
 
+    // this method converts English numbers to Indian number [Arabic].
+    private String convertToArbNum(int number) {
+
+        String stNum = String.valueOf(number);
+        String result = "";
+
+        for (int i = 0; i < stNum.length(); i++) {
+            char num = stNum.charAt(i);
+            int ArabicNum = num + 1584;
+            result += (char) ArabicNum;
+        }
+        return result;
+    }
 }

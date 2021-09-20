@@ -1,143 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".progress.ProgressFragment">
 
-    <TextView
-        android:id="@+id/txtAllProgressRatio2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="68dp"
-        android:text="@string/txtAllProgressRatio"
-        android:textColor="#D68B1B"
-        app:layout_constraintEnd_toStartOf="@+id/allProgressBar2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAllProgressRatio" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:id="@+id/frameLayout"
+        android:orientation="vertical">
 
-    <ProgressBar
-        android:id="@+id/allProgressBar2"
-        style="@style/CircularDeterminateProgressBar"
-        android:layout_width="130dp"
-        android:layout_height="111dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="44dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/allProgressBar" />
+        <TextView
+            android:id="@+id/txtWeeklyProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/txtWeeklyProgress"
+            android:textColor="#D68B1B"
+            android:textColorHint="#D68B1B"
+            android:textSize="30sp"/>
 
-    <TextView
-        android:id="@+id/edtTextCounter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:backgroundTint="#434040"
-        android:hint="Your counter"
-        android:text="@string/conter"
-        android:textColor="#AC8852"
-        android:textColorHighlight="#C68F3D"
-        android:textColorHint="#D68B1B"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ProgressBar
+            android:id="@+id/weeklyProgressBar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"/>
 
-    <Button
-        android:id="@+id/btnResetConter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginBottom="4dp"
-        android:text="@string/resetCounter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/btnFinishReding"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="136dp"
-        android:text="@string/finishReding"
-        app:layout_constraintBottom_toBottomOf="@+id/btnResetConter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.163"
-        app:layout_constraintStart_toEndOf="@+id/btnResetConter"
-        app:layout_constraintTop_toTopOf="@+id/btnResetConter"
-        app:layout_constraintVertical_bias="0.0" />
+            <TextView
+                android:id="@+id/txtWeeklyProgressRatio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_alignParentStart="true"
+                android:text="@string/txtWeeklyProgressRatio"
+                android:textColor="#D68B1B" />
 
+            <TextView
+                android:id="@+id/txtWeeklyProgressPages"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_alignParentEnd="true"
+                android:text="0 pages"
+                android:textColor="#D68B1B" />
+        </RelativeLayout>
 
-    <ProgressBar
-        android:id="@+id/weeklyProgressBar"
-        style="@style/DailyPortionProgressBar"
-        android:layout_width="132dp"
-        android:layout_height="132dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="44dp"
-        android:background="@drawable/art"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtWeeklyProgress" />
+        <TextView
+            android:id="@+id/txtAllProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/txtAllProgress"
+            android:textColor="#D68B1B"
+            android:textSize="30sp"/>
 
-    <ProgressBar
-        android:id="@+id/allProgressBar"
-        style="@style/CircularDeterminateProgressBar"
-        android:layout_width="130dp"
-        android:layout_height="111dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="44dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAllProgress" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/txtAllProgressRatio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="36dp"
-        android:text="@string/txtAllProgressRatio"
-        android:textColor="#D68B1B"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAllProgress" />
+            <ProgressBar
+                android:id="@+id/allProgressBar"
+                style="@style/DailyPortionProgressBar"
+                android:layout_width="156dp"
+                android:layout_height="156dp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/art" />
 
-    <TextView
-        android:id="@+id/txtWeeklyProgress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/txtWeeklyProgress"
-        android:textColor="#D68B1B"
-        android:textColorHint="#D68B1B"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.164"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtTextCounter" />
+            <TextView
+                android:id="@+id/txtAllProgressRatio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/txtAllProgressRatio"
+                android:textColor="#D68B1B" />
+        </RelativeLayout>
 
-    <TextView
-        android:id="@+id/txtAllProgress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="@string/txtAllProgress"
-        android:textColor="#D68B1B"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.124"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtWeeklyProgressRatio" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/txtWeeklyProgressRatio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/txtWeeklyProgressRatio"
-        android:textColor="#D68B1B"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtWeeklyProgress" />
+            <ProgressBar
+                android:id="@+id/allProgressBar2"
+                style="@style/DailyPortionProgressBar"
+                android:layout_width="156dp"
+                android:layout_height="156dp"
+                android:layout_marginTop="16dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/art" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/txtAllProgressRatio2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/txtAllProgressRatio"
+                android:textColor="#D68B1B" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnResetConter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="2dp"
+                android:text="@string/resetCounter" />
+
+            <Button
+                android:id="@+id/btnFinishReding"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="2dp"
+                android:text="@string/finishReding" />
+        </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
