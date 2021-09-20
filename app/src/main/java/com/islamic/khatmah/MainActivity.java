@@ -20,7 +20,6 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.ui.main.SectionsPagerAdapter;
 
 import org.json.JSONArray;
@@ -35,7 +34,6 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
 
-
     public static SharedPreferences sharedPreferences;
     public static SharedPreferences.Editor editor;
     public static final String CURRENT_PAGE = "current page";
@@ -49,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        SharedPreferences sharedpreferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences sharedpreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         if (!sharedpreferences.getBoolean(prevStarted, false)) {
             SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.putBoolean(prevStarted, Boolean.TRUE);
