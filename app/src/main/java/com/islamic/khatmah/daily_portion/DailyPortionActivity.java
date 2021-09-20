@@ -126,13 +126,14 @@ public class DailyPortionActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        SharedPreferences preferences = getSharedPreferences(Constant.PROGRESS_SHARED_PREFERENCES,0);
-        int counter = preferences.getInt(Constant.PROGRESS_COUNT,0);
-        if(counter >= number_of_pages){
-            preferences.edit().putInt(Constant.PROGRESS_COUNT,0).apply();
+        SharedPreferences mainSharedPref = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences(Constant.PROGRESS_SHARED_PREFERENCES, 0);
+        int counter = preferences.getInt(Constant.PROGRESS_COUNT, 0);
+        if (counter >= number_of_pages) {
+            preferences.edit().putInt(Constant.PROGRESS_COUNT, 0).apply();
             boolean[] arr = new boolean[number_of_pages];
-            storeArray(arr,Constant.ARRAY_NAME,this);
-        }else{
+            storeArray(arr, Constant.ARRAY_NAME, this);
+        } else {
             //TODO: if the user hasn't finished his portion
         }
         DailyPortionActivity.super.onBackPressed();
