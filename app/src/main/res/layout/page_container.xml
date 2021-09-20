@@ -6,31 +6,40 @@
     <ImageView
         android:id="@+id/image_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:fontFamily="@font/arabic_type"
+        android:textColor="@color/purple_700"
+        android:textSize="19sp"/>
 
     <TextView
         android:id="@+id/juz_number_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:padding="8dp"
         android:text="الجزء 3"
-        android:layout_alignParentRight="true"/>
+        android:textColor="@color/purple_700"
+        android:fontFamily="@font/arabic_type"
+        android:textSize="19sp"/>
 
     <TextView
         android:id="@+id/surah_name_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:fontFamily="@font/arabic_type"
         android:padding="8dp"
         android:text="القرآن الكريم"
-        android:layout_alignParentLeft="true"/>
+        android:textColor="@color/purple_700"
+        android:textSize="19sp" />
 
     <TextView
         android:id="@+id/page_number_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="50"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:padding="8dp"
+        android:text="50" />
 
 </RelativeLayout>
