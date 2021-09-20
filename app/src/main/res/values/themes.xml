@@ -55,6 +55,7 @@
         <item name="android:paddingBottom">5dp</item>
         <item name="android:popupBackground">#DFFFFFFF</item>
     </style>
+
 <!--    <style name="ThemeOverlay.Khatmah.FullscreenContainer" parent="">-->
 <!--        <item name="fullscreenBackgroundColor">@color/light_blue_600</item>-->
 <!--        <item name="fullscreenTextColor">@color/light_blue_A200</item>-->
