@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,130 +9,268 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="16dp"
-        android:id="@+id/frameLayout"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/txtWeeklyProgress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="@string/txtWeeklyProgress"
-            android:textColor="#D68B1B"
-            android:textColorHint="#D68B1B"
-            android:textSize="30sp"/>
-
-        <ProgressBar
-            android:id="@+id/weeklyProgressBar"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"/>
+            android:layout_margin="8dp"
+            android:padding="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/txtWeeklyProgressRatio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_alignParentStart="true"
-                android:text="@string/txtWeeklyProgressRatio"
-                android:textColor="#D68B1B" />
+                <TextView
+                    android:id="@+id/border_week"
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:background="@drawable/yellow_gradient1" />
 
-            <TextView
-                android:id="@+id/txtWeeklyProgressPages"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_alignParentEnd="true"
-                android:text="0 pages"
-                android:textColor="#D68B1B" />
-        </RelativeLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_below="@id/border_week"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/yellow_gradient2" />
 
-        <TextView
-            android:id="@+id/txtAllProgress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/txtAllProgress"
-            android:textColor="#D68B1B"
-            android:textSize="30sp"/>
+                <TextView
+                    android:id="@+id/txt_weekly_progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/arabic_type"
+                    android:gravity="center"
+                    android:text="الإنجاز الإسبوعي"
+                    android:textColor="@color/purple_500"
+                    android:textSize="28sp" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <ProgressBar
+                    android:id="@+id/weeklyProgressBar"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_weekly_progress"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp" />
 
-            <ProgressBar
-                android:id="@+id/allProgressBar"
-                style="@style/DailyPortionProgressBar"
-                android:layout_width="156dp"
-                android:layout_height="156dp"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/art" />
+                <TextView
+                    android:id="@+id/txtWeeklyProgressRatio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/weeklyProgressBar"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/txtWeeklyProgressRatio"
+                    android:textColor="#D68B1B" />
 
-            <TextView
-                android:id="@+id/txtAllProgressRatio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/txtAllProgressRatio"
-                android:textColor="#D68B1B" />
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/txtWeeklyProgressPages"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/weeklyProgressBar"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="0 pages"
+                    android:textColor="#D68B1B" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <ProgressBar
-                android:id="@+id/allProgressBar2"
-                style="@style/DailyPortionProgressBar"
-                android:layout_width="156dp"
-                android:layout_height="156dp"
-                android:layout_marginTop="16dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/art" />
-
-            <TextView
-                android:id="@+id/txtAllProgressRatio2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/txtAllProgressRatio"
-                android:textColor="#D68B1B" />
-        </RelativeLayout>
-
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:orientation="horizontal">
+            android:layout_margin="8dp"
+            android:padding="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
 
-            <Button
-                android:id="@+id/btnResetConter"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="2dp"
-                android:text="@string/resetCounter" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/btnFinishReding"
-                android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/border"
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:background="@drawable/yellow_gradient1" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_below="@id/border"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/yellow_gradient2" />
+
+                <TextView
+                    android:id="@+id/txt_all_progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/arabic_type"
+                    android:gravity="center"
+                    android:text="الإنجاز الكامل"
+                    android:textColor="@color/purple_500"
+                    android:textSize="28sp" />
+
+                <LinearLayout
+                    android:id="@+id/labels"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_all_progress"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/arabic_type"
+                        android:gravity="center"
+                        android:text="عدد الصفحات"
+                        android:textColor="@color/purple_500"
+                        android:textSize="22sp" />
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/arabic_type"
+                        android:gravity="center"
+                        android:text="عدد الأجزاء"
+                        android:textColor="@color/purple_500"
+                        android:textSize="22sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/labels"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_weight="1">
+
+                        <ProgressBar
+                            android:id="@+id/allProgressBar"
+                            style="@style/ProgressFragmentProgressBar"
+                            android:layout_width="156dp"
+                            android:layout_height="156dp"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="16dp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/txtAllProgressRatio"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="@string/txtAllProgressRatio"
+                                android:textColor="#D68B1B" />
+
+                            <TextView
+                                android:id="@+id/txtAllProgressPages"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="0 pages"
+                                android:textColor="#D68B1B" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_weight="1">
+
+                        <ProgressBar
+                            android:id="@+id/allProgressBar2"
+                            style="@style/ProgressFragmentProgressBar"
+                            android:layout_width="156dp"
+                            android:layout_height="156dp"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="32dp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/txtAllProgressRatio2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="@string/txtAllProgressRatio"
+                                android:textColor="#D68B1B" />
+
+                            <TextView
+                                android:id="@+id/txtAllProgressPages2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="0 pages"
+                                android:textColor="#D68B1B" />
+                        </LinearLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:padding="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="2dp"
-                android:text="@string/finishReding" />
-        </LinearLayout>
+                android:layout_margin="16dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnResetConter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    android:layout_weight="1"
+                    android:text="@string/resetCounter" />
+
+                <Button
+                    android:id="@+id/btnFinishReding"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_weight="1"
+                    android:text="@string/finishReding" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
     </LinearLayout>
-    </ScrollView>
+</ScrollView>
