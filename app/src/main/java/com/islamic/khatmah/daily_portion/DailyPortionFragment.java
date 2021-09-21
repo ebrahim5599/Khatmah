@@ -107,17 +107,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.islamic.khatmah.R;
+import com.islamic.khatmah.constants.Constant;
 
 public class DailyPortionFragment extends Fragment{
 
 //    private DailyPortionViewModel mViewModel;
 
     private TextView page_number, surah_name, juz_number, number_of_pages,precentage, hadithTextView;
+    private ProgressBar progressBar_daily;
     private int current_page, pages_per_day;
     private String current_surah, current_juz;
-    private SharedPreferences preferences;
+    private SharedPreferences preferences, sh;
     private SharedPreferences.Editor editor;
 
     public static DailyPortionFragment newInstance() {
@@ -133,6 +138,7 @@ public class DailyPortionFragment extends Fragment{
 
         preferences = getActivity().getSharedPreferences("preferences_file", MODE_PRIVATE);
         editor = preferences.edit();
+        sh = getActivity().getSharedPreferences(Constant.PROGRESS_SHARED_PREFERENCES, MODE_PRIVATE);
 
         // Define TextViews...
         page_number = view.findViewById(R.id.page_number);
@@ -142,6 +148,10 @@ public class DailyPortionFragment extends Fragment{
         precentage = view.findViewById(R.id.precentage);
         hadithTextView = view.findViewById(R.id.daily_hadith_container);
         hadithTextView.setText("عن عائشة رضي اللَّه عنها قالَتْ: قالَ رسولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: "+"\"الَّذِي يَقْرَأُ القُرْآنَ وَهُو ماهِرٌ بِهِ معَ السَّفَرةِ الكِرَامِ البَرَرَةِ، وَالَّذِي يقرَأُ القُرْآنَ ويَتَتَعْتَعُ فِيهِ وَهُو عليهِ شَاقٌّ لَهُ أَجْران متفقٌ عَلَيْه.\"");
+
+        // Define progressBar [Daily].
+        progressBar_daily = view.findViewById(R.id.progressBar_daily);
+        progressBar_daily.setMax(20);
 
         TextView start_btn = view.findViewById(R.id.start);
         start_btn.setOnClickListener(new View.OnClickListener() {
@@ -172,6 +182,7 @@ public class DailyPortionFragment extends Fragment{
         number_of_pages.setText(convertToArbNum(pages_per_day));
         precentage.setText("%"+convertToArbNum(0));
 
+        progressBar_daily.setProgress(sh.getInt(Constant.PROGRESS_COUNT, 0));
     }
 
     // this method converts English numbers to Indian number [Arabic].
