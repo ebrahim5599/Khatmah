@@ -26,7 +26,6 @@ public class QuranActivity extends AppCompatActivity {
         Intent n = getIntent();
         j = n.getIntExtra("PAGE_NUMBER", 0);
         click_position = n.getIntExtra("POSITION", 0);
-        Toast.makeText(getBaseContext(), click_position + "", Toast.LENGTH_SHORT).show();
         ViewPager2 viewPager = findViewById(R.id.viewPager);
 
         viewPager.setAdapter(new QuranPageAdapter(getBaseContext(), MainActivity.surahName));

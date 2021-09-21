@@ -54,9 +54,6 @@ public class MainActivity extends AppCompatActivity {
             editor.apply();
             moveToSecondary();
         }
-
-
-        Log.i("Life", "onResume()");
     }
 
 
@@ -72,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        Log.i("Life", "onCreate()");
         // sharedPreference.
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = sharedPreferences.edit();
