@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.ui.main.SectionsPagerAdapter;
 
 import org.json.JSONArray;
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // sharedPreference.
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES,0);
         editor = sharedPreferences.edit();
         
         getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()

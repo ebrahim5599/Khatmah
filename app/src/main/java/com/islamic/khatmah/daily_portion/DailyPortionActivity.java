@@ -101,9 +101,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.islamic.khatmah.MainActivity;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.constants.Constant;
 
@@ -137,10 +136,7 @@ public class DailyPortionActivity extends AppCompatActivity {
     public void onBackPressed() {
 
         // Loading or saving data to shared preferences.
-        SharedPreferences mainSharedPref = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
-        mainSharedPref.getInt(Constant.WEEKLY_PROGRESS, 0);
-        mainSharedPref.edit().putInt(Constant.WEEKLY_PROGRESS, 5).apply();
-        SharedPreferences preferences = getSharedPreferences(Constant.PROGRESS_SHARED_PREFERENCES, 0);
+        SharedPreferences preferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, 0);
 
         // Number of read pages.
         counter = preferences.getInt(Constant.PROGRESS_COUNT, 0);
@@ -180,6 +176,7 @@ public class DailyPortionActivity extends AppCompatActivity {
 //            mainSharedPref.edit().putInt(Constant.WEEKLY_PROGRESS, number_of_pages).apply();
             counter = 0;
             boolean[] arr = new boolean[number_of_pages];
+            Toast.makeText(getBaseContext(), ""+arr[0], Toast.LENGTH_SHORT).show();
             storeArray(arr, Constant.ARRAY_NAME, this);
 
             DailyPortionActivity.super.onBackPressed();
@@ -214,7 +211,7 @@ public class DailyPortionActivity extends AppCompatActivity {
     //Load boolean array from shared preferences
 
     public boolean[] loadArray(String arrayName, Context mContext) {
-        SharedPreferences prefs = mContext.getSharedPreferences(Constant.PROGRESS_SHARED_PREFERENCES, 0);
+        SharedPreferences prefs = mContext.getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, 0);
         boolean[] array = new boolean[number_of_pages];
         for (int i = 0; i < number_of_pages; i++)
             array[i] = prefs.getBoolean(arrayName + "_" + i, false);
@@ -223,7 +220,7 @@ public class DailyPortionActivity extends AppCompatActivity {
 
     public boolean storeArray(boolean[] array, String arrayName, Context mContext) {
 
-        SharedPreferences prefs = mContext.getSharedPreferences(Constant.PROGRESS_SHARED_PREFERENCES, 0);
+        SharedPreferences prefs = mContext.getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, 0);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt(arrayName + "_size", array.length);
 

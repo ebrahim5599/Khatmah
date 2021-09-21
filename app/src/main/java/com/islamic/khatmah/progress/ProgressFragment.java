@@ -25,6 +25,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.islamic.khatmah.R;
+import com.islamic.khatmah.constants.Constant;
 
 public class ProgressFragment extends Fragment {
     private ProgressViewModel mViewModel;
@@ -32,8 +33,6 @@ public class ProgressFragment extends Fragment {
     private ProgressBar weaklyProgressBar, allProgressBar, allProgressBarParts;
     private int pages = 0, weaklyProgress = 0, allProgress = 0;
     Button btnSetCounter, btnResetCounter, btnFinishReading;
-    TextView txtCounter;
-    SharedPreferences pref;
     SharedPreferences.Editor editor;
     SharedPreferences preferences;
 
@@ -60,15 +59,14 @@ public class ProgressFragment extends Fragment {
 //        txtCounter = view.findViewById(R.id.edtTextCounter);
 
         ///// load shared Preferences
-        preferences = getActivity().getSharedPreferences("preferences_file", MODE_PRIVATE);
-        pref = getActivity().getPreferences(MODE_PRIVATE);
+        preferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
         pages = preferences.getInt("PAGES_PER_DAY",1);
 
         setMaxBars(pages);
 //        txtCounter.setText(String.valueOf(pages));
-        weaklyProgressBar.setProgress(pref.getInt("weaklyProgress", 0));
-        allProgressBar.setProgress(pref.getInt("allProgress", 0));
-        allProgressBarParts.setProgress(pref.getInt("allProgress", 0) / 20);
+        weaklyProgressBar.setProgress(preferences.getInt("weaklyProgress", 0));
+        allProgressBar.setProgress(preferences.getInt("allProgress", 0));
+        allProgressBarParts.setProgress(preferences.getInt("allProgress", 0) / 20);
         txtWeeklyProgressRatio.setText((int) (((float) weaklyProgressBar.getProgress()) / weaklyProgressBar.getMax() * 100) + " % ");
         txtWeeklyProgressPages.setText(weaklyProgressBar.getProgress() + " Pages");
         txtAllProgressRatio.setText((int) (((float) allProgressBar.getProgress()) / allProgressBar.getMax() * 100) + " %");
@@ -122,11 +120,11 @@ public class ProgressFragment extends Fragment {
     private void updateBars(int pages) {
         weaklyProgressBar.incrementProgressBy(pages);
         allProgressBar.incrementProgressBy(pages);
-        allProgressBarParts.setProgress((pref.getInt("allProgress", 0) + pages) / 20);
+        allProgressBarParts.setProgress((preferences.getInt("allProgress", 0) + pages) / 20);
         weaklyProgress += pages;
         allProgress += pages;
 
-        editor = pref.edit();
+        editor = preferences.edit();
         editor.putInt("weaklyProgress", weaklyProgressBar.getProgress());
         editor.putInt("allProgress", allProgressBar.getProgress());
         editor.commit();
