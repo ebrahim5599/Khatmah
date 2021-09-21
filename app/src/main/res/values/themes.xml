@@ -33,7 +33,7 @@
         <item name="android:progressDrawable">@drawable/daily_circle</item>
     </style>
 
-    <style name="SCircularDeterminateProgressBar">
+    <style name="ProgressFragmentProgressBar">
         <item name="android:indeterminateOnly">false</item>
         <item name="android:progressDrawable">@drawable/small_circle</item>
     </style>

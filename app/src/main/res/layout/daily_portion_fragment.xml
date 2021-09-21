@@ -50,9 +50,9 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/arabic_type"
                     android:gravity="center"
                     android:padding="16dp"
-                    android:fontFamily="@font/arabic_type"
                     android:textSize="23sp" />
 
                 <View
@@ -121,7 +121,7 @@
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/yellow_gradient2"/>
                 <TextView
-                    android:id="@+id/txt_daily_portion"
+                    android:id="@+id/txt_all_progress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -141,7 +141,7 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="156dp"
-                    android:layout_below="@id/txt_daily_portion"
+                    android:layout_below="@id/txt_all_progress"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="8dp">
 
@@ -171,7 +171,7 @@
                     android:id="@+id/juz_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/txt_daily_portion"
+                    android:layout_below="@id/txt_all_progress"
                     android:layout_alignParentEnd="true"
                     android:layout_marginBottom="8dp"
                     android:paddingRight="8dp"
