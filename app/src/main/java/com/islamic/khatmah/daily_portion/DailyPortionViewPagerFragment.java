@@ -61,7 +61,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sharedPreferences = getActivity().getSharedPreferences(Constant.PROGRESS_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        sharedPreferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         if (getArguments() != null) {
             position = getArguments().getInt(ARG_POSITION);
             currentPageNum = getArguments().getInt(ARG_CURRENT_PAGE_NUM);
@@ -117,7 +117,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
             Picasso.get().load("https://quran-images-api.herokuapp.com/show/page/" + (position + currentPageNum)).into(img);
         }
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constant.PROGRESS_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         checkButton.setOnClickListener(view12 -> {
             if (isChecked[position]) {
@@ -148,7 +148,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
 
     public boolean storeArray(boolean[] array, String arrayName, Context mContext) {
 
-        SharedPreferences prefs = mContext.getSharedPreferences(Constant.PROGRESS_SHARED_PREFERENCES, 0);
+        SharedPreferences prefs = mContext.getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, 0);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt(arrayName + "_size", array.length);
 

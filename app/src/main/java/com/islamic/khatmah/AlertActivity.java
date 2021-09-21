@@ -1,10 +1,7 @@
 package com.islamic.khatmah;
 
 import static com.islamic.khatmah.MainActivity.PAGES_PER_DAY;
-import static com.islamic.khatmah.MainActivity.editor;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -16,17 +13,15 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
-
+import com.islamic.khatmah.constants.Constant;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,11 +35,7 @@ public class AlertActivity extends AppCompatActivity {
     TextView btn_start;
     Spinner spinnerJuz, spinnerPages;
     Switch aSwitch;
-
     SharedPreferences preferences;
-
-
-    SharedPreferences pref;
     SharedPreferences.Editor editor;
 //                preferences.edit().putInt("page",Integer.parseInt(spinnerPage.getSelectedItem().toString()));
 //                preferences.edit().putString("surah",spinnerSurah.getSelectedItem().toString());
@@ -55,7 +46,7 @@ public class AlertActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alert);
 
-        preferences = getSharedPreferences("preferences_file", MODE_PRIVATE);
+        preferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
         editor = preferences.edit();
 
         aSwitch = findViewById(R.id.switch1);

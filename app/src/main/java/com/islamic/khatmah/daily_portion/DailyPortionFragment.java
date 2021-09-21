@@ -111,6 +111,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.islamic.khatmah.MainActivity;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.constants.Constant;
 
@@ -136,9 +137,9 @@ public class DailyPortionFragment extends Fragment{
 //        mViewModel = new ViewModelProvider(this).get(DailyPortionViewModel.class);
         View view = inflater.inflate(R.layout.daily_portion_fragment, container, false);
 
-        preferences = getActivity().getSharedPreferences("preferences_file", MODE_PRIVATE);
+        preferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
         editor = preferences.edit();
-        sh = getActivity().getSharedPreferences(Constant.PROGRESS_SHARED_PREFERENCES, MODE_PRIVATE);
+        sh = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
 
         // Define TextViews...
         page_number = view.findViewById(R.id.page_number);
@@ -151,7 +152,7 @@ public class DailyPortionFragment extends Fragment{
 
         // Define progressBar [Daily].
         progressBar_daily = view.findViewById(R.id.progressBar_daily);
-        progressBar_daily.setMax(20);
+        progressBar_daily.setMax(sharedPreferences.getInt(PAGES_PER_DAY,0));
 
         TextView start_btn = view.findViewById(R.id.start);
         start_btn.setOnClickListener(new View.OnClickListener() {
