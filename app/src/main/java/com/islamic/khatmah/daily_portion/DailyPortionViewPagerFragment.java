@@ -1,13 +1,22 @@
 package com.islamic.khatmah.daily_portion;
 
+import static com.islamic.khatmah.MainActivity.CURRENT_JUZ;
+import static com.islamic.khatmah.MainActivity.CURRENT_PAGE;
+import static com.islamic.khatmah.MainActivity.editor;
+import static com.islamic.khatmah.MainActivity.sharedPreferences;
+
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,10 +42,11 @@ public class DailyPortionViewPagerFragment extends Fragment {
     private static final String ARG_CURRENT_PAGE_NUM = "param2";
     private static final String ARG_IS_CHECKED_ARR = "param3";
     private static final String ARG_PAGE_PER_DAY = "param4";
-    private static final String ARG_COUNTER = "param5";
+    private static final String ARG_VIEW_PAGER = "param5";
     private LinearLayout layout;
     private ImageButton checkButton;
     private TextView counter_text, juz_number, surah_name, page_number;
+    private int juz;
 
     private static int counter = 0;
     private static boolean[] isChecked;
@@ -45,9 +55,10 @@ public class DailyPortionViewPagerFragment extends Fragment {
     private int pagesPerDay;
     private ProgressBar progressBar;
     private SharedPreferences sharedPreferences;
+    private static ViewPager2 viewPager;
 
 
-    public static DailyPortionViewPagerFragment newInstance(int position, int currentPageNum, int pagesPerDay, boolean[] isChecked) {
+    public static DailyPortionViewPagerFragment newInstance(int position, int currentPageNum, int pagesPerDay, boolean[] isChecked, ViewPager2 viewPager2) {
         DailyPortionViewPagerFragment fragment = new DailyPortionViewPagerFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_POSITION, position);
@@ -55,6 +66,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
         args.putBooleanArray(ARG_IS_CHECKED_ARR, isChecked);
         args.putInt(ARG_PAGE_PER_DAY, pagesPerDay);
         fragment.setArguments(args);
+        viewPager = viewPager2;
         return fragment;
     }
 
@@ -75,11 +87,9 @@ public class DailyPortionViewPagerFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-//        counter_text.setText(String.valueOf(counter));
         progressBar.setProgress(counter);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -89,11 +99,13 @@ public class DailyPortionViewPagerFragment extends Fragment {
         // Create references for views.
         juz_number = view.findViewById(R.id.juz_number_daily_portion);
         surah_name = view.findViewById(R.id.surah_name_daily_portion);
-        page_number= view.findViewById(R.id.page_number_daily_portion);
-
-        juz_number.setText("الجزء " + convertToArbNum((int) Math.min(((position+currentPageNum - 2) / 20) + 1, 30)));
-        surah_name.setText(MainActivity.surahName.get(position+currentPageNum-1));
-        page_number.setText("صفحة  "+convertToArbNum(position+currentPageNum));
+        page_number = view.findViewById(R.id.page_number_daily_portion);
+        juz = Math.min(((position + currentPageNum - 2) / 20) + 1, 30);
+        juz_number.setText(String.format("الجزء %s", convertToArbNum(juz)));
+        surah_name.setText(MainActivity.surahName.get(position + currentPageNum - 1));
+        page_number.setText(String.format("صفحة  %s", convertToArbNum(position + currentPageNum)));
+        sharedPreferences.edit().putString(MainActivity.CURRENT_JUZ, String.format("الجزء %s", convertToArbNum(juz))).apply();
+        sharedPreferences.edit().putString(MainActivity.CURRENT_SURAH, MainActivity.surahName.get(position + currentPageNum - 1)).apply();
 
         InputStream is;
         ImageView img = view.findViewById(R.id.img);
@@ -128,6 +140,25 @@ public class DailyPortionViewPagerFragment extends Fragment {
                 counter++;
                 isChecked[position] = true;
                 checkButton.setImageResource(R.drawable.checked);
+//                viewPager.setCurrentItem(position + 1);
+                if (counter >= pagesPerDay) {
+                    new AlertDialog.Builder(getContext())
+                            .setTitle("Congratulation")
+                            .setMessage("You have finished reading the entire daily portion")
+                            .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Save the last page, Surah and Juz in SharedPreference.
+                                    // [CURRENT_PAGE + number of PAGES_PER_DAY].
+                                    editor.putInt(CURRENT_PAGE, pagesPerDay + currentPageNum);
+                                    editor.putInt(Constant.PROGRESS_COUNT,0);
+                                    editor.apply();
+                                    resetValues();
+                                    Intent intent = new Intent(getContext(),MainActivity.class);
+                                    intent.putExtra("fromDailyPortionActivity",0);
+                                    startActivity(intent);
+                                }
+                            }).show();
+                }
             }
             editor.putInt(Constant.PROGRESS_COUNT, counter).apply();
             storeArray(isChecked, Constant.ARRAY_NAME, getContext());
@@ -170,5 +201,9 @@ public class DailyPortionViewPagerFragment extends Fragment {
             result += (char) ArabicNum;
         }
         return result;
+    }
+    private void resetValues(){
+        boolean[] arr = new boolean[pagesPerDay];
+        storeArray(arr, Constant.ARRAY_NAME, getContext());
     }
 }
