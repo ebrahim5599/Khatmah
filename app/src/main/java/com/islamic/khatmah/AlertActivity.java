@@ -88,7 +88,7 @@ public class AlertActivity extends AppCompatActivity {
                     });
                 } else {
                     spinnerPages.setVisibility(View.GONE);
-                    preferences.edit().putInt(PAGES_PER_DAY, Integer.parseInt(spinnerPages.getSelectedItem().toString())).commit();
+                    preferences.edit().putInt(PAGES_PER_DAY, Integer.parseInt(spinnerPages.getSelectedItem().toString())).apply();
 //                    preferences.notifyAll();
 
                 }

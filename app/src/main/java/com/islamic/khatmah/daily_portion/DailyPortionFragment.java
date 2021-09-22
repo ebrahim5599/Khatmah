@@ -181,7 +181,7 @@ public class DailyPortionFragment extends Fragment{
         surah_name.setText(current_surah);
         juz_number.setText(current_juz);
         number_of_pages.setText(convertToArbNum(pages_per_day));
-        precentage.setText("%"+convertToArbNum(0));
+        precentage.setText("%"+convertToArbNum((int)(sh.getInt(Constant.PROGRESS_COUNT, 0) * 100 / (double) pages_per_day)));
 
         progressBar_daily.setProgress(sh.getInt(Constant.PROGRESS_COUNT, 0));
     }

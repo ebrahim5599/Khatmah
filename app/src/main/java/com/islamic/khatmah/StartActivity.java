@@ -62,6 +62,11 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(StartActivity.this, AlertActivity.class));
+                editor.putInt(CURRENT_PAGE, 1);
+                editor.putString(CURRENT_SURAH, MainActivity.surahName.get(0));
+                editor.putString(CURRENT_JUZ,String.format("الجزء %s", convertToArbNum(1)));
+                editor.commit();
+                startActivity(new Intent(StartActivity.this, AlertActivity.class));
             }
         });
 

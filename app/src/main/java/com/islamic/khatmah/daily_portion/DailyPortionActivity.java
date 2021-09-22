@@ -110,7 +110,6 @@ public class DailyPortionActivity extends AppCompatActivity {
 
     public static int currentPageNum;
     private int number_of_pages;
-    private int counter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,11 +122,15 @@ public class DailyPortionActivity extends AppCompatActivity {
 
         // Load sharedPreferences [number of pages per day].
         number_of_pages = sharedPreferences.getInt(PAGES_PER_DAY, 1);
+        if (sharedPreferences.getInt(Constant.ARRAY_NAME + "_size", 0) != number_of_pages) {
+            boolean[] arr = new boolean[number_of_pages];
+            storeArray(arr,Constant.ARRAY_NAME,this);
+        }
         boolean[] isChecked = loadArray(Constant.ARRAY_NAME, this);
 
         // Create viewPager.
         ViewPager2 viewPager = findViewById(R.id.viewPager2);
-        viewPager.setAdapter(new DailyPortionAdapter(this, currentPageNum, isChecked));
+        viewPager.setAdapter(new DailyPortionAdapter(this, currentPageNum, isChecked,viewPager));
 
 
     }
@@ -139,7 +142,7 @@ public class DailyPortionActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, 0);
 
         // Number of read pages.
-        counter = preferences.getInt(Constant.PROGRESS_COUNT, 0);
+        int counter = preferences.getInt(Constant.PROGRESS_COUNT, 0);
         if (counter < number_of_pages) {
             // If the user hasn't finished his portion
             new AlertDialog.Builder(this)
@@ -153,8 +156,9 @@ public class DailyPortionActivity extends AppCompatActivity {
                             // [CURRENT_PAGE + number of PAGES_PER_DAY].
 //                            int cp = sharedPreferences.getInt(CURRENT_PAGE, 1);
                             editor.putInt(CURRENT_PAGE, number_of_pages + currentPageNum);
-                            editor.putInt(Constant.DAILY_PROGRESS, number_of_pages); // by Ebrahim
-                            editor.commit();
+                            editor.apply();
+                            resetValues();
+
                             DailyPortionActivity.super.onBackPressed();
                         }
                     })
@@ -177,11 +181,7 @@ public class DailyPortionActivity extends AppCompatActivity {
             editor.commit();
             preferences.edit().putInt(Constant.PROGRESS_COUNT, 0).apply();
 //            mainSharedPref.edit().putInt(Constant.WEEKLY_PROGRESS, number_of_pages).apply();
-            counter = 0;
-            boolean[] arr = new boolean[number_of_pages];
-            Toast.makeText(getBaseContext(), ""+arr[0], Toast.LENGTH_SHORT).show();
-            storeArray(arr, Constant.ARRAY_NAME, this);
-
+            resetValues();
             DailyPortionActivity.super.onBackPressed();
         }
 //        DailyPortionActivity.super.onBackPressed();
@@ -215,7 +215,8 @@ public class DailyPortionActivity extends AppCompatActivity {
 
     public boolean[] loadArray(String arrayName, Context mContext) {
         SharedPreferences prefs = mContext.getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, 0);
-        boolean[] array = new boolean[number_of_pages];
+        int num_pages = prefs.getInt(arrayName + "_size", 0);
+        boolean[] array = new boolean[num_pages];
         for (int i = 0; i < number_of_pages; i++)
             array[i] = prefs.getBoolean(arrayName + "_" + i, false);
         return array;
@@ -231,6 +232,11 @@ public class DailyPortionActivity extends AppCompatActivity {
             editor.putBoolean(arrayName + "_" + i, array[i]);
 
         return editor.commit();
+    }
+    private void resetValues(){
+        sharedPreferences.edit().putInt(Constant.PROGRESS_COUNT,0).apply();
+        boolean[] arr = new boolean[number_of_pages];
+        storeArray(arr, Constant.ARRAY_NAME, this);
     }
 
 }
