@@ -8,20 +8,14 @@ import static com.islamic.khatmah.MainActivity.editor;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -67,6 +61,11 @@ public class StartActivity extends AppCompatActivity {
         start_from_portion1_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(StartActivity.this, AlertActivity.class));
+                editor.putInt(CURRENT_PAGE, 1);
+                editor.putString(CURRENT_SURAH, MainActivity.surahName.get(0));
+                editor.putString(CURRENT_JUZ,String.format("الجزء %s", convertToArbNum(1)));
+                editor.commit();
                 startActivity(new Intent(StartActivity.this, AlertActivity.class));
             }
         });

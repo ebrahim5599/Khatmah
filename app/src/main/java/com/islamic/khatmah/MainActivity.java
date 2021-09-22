@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, StartActivity.class));
 
         }
-
         // sharedPreference.
         sharedPreferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES,0);
         editor = sharedPreferences.edit();
@@ -84,6 +83,10 @@ public class MainActivity extends AppCompatActivity {
             setSupportActionBar(toolbar);
             ViewPager2 viewPager = findViewById(R.id.view_pager);
             viewPager.setAdapter(sectionsPagerAdapter);
+
+        if(getIntent().getIntExtra("fromDailyPortionActivity",1) == 0){
+            viewPager.setCurrentItem(1);
+        }
             TabLayout tabs = findViewById(R.id.tabs);
             new TabLayoutMediator(tabs, viewPager,
                     (tab, position) -> tab.setText(setTextOfTheTab(position))
