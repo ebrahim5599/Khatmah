@@ -50,20 +50,34 @@ public class SurahAdapter extends RecyclerView.Adapter<SurahAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull SurahAdapter.ViewHolder holder, int position) {
-//        if (selectedPosition == position) {
-//            holder.cardView.setCardBackgroundColor(Color.GRAY);
-//        }
-//        else {
-//            holder.cardView.setCardBackgroundColor(Color.WHITE);
-//        }
-        holder.surahNo.setText(String.valueOf(list.get(position).getNumber()));
-//        holder.surahNo.setText(ArbNum(list.get(position).getNumber()));
+
+        holder.surahNo.setText(ArbNum(list.get(position).getNumber()));
         holder.arabicName.setText(list.get(position).getName());
         holder.englishName.setText(list.get(position).getEnglishName());
-        holder.totalAya.setText("Aya : " + String.valueOf(list.get(position).getNumberOfAyahs()));
+        holder.totalAya.setText("عدد الآيات: "+ convertToArbNum(list.get(position).getNumberOfAyahs()));
         holder.page_number = list.get(position).getPage_number();
+        holder.begin_at.setText("صفحة: "+convertToArbNum(list.get(position).getPage_number()));
+        if(list.get(position).getRevelationType().equals("Meccan"))
+            holder.place.setText("مكية");
+        else
+            holder.place.setText("مدنية");
+
         setAnimation(holder.cardView, position);
     }
+    // this method converts English numbers to Indian number [Arabic].
+    private String convertToArbNum(int number) {
+
+        String stNum = String.valueOf(number);
+        String result = "";
+
+        for (int i = 0; i < stNum.length(); i++) {
+            char num = stNum.charAt(i);
+            int ArabicNum = num + 1584;
+            result += (char) ArabicNum;
+        }
+        return result;
+    }
+
     private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated
         if (position > lastPosition) {
@@ -89,7 +103,7 @@ public class SurahAdapter extends RecyclerView.Adapter<SurahAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private int page_number;
-        private TextView surahNo, arabicName, englishName, totalAya;
+        private TextView surahNo, arabicName, englishName, totalAya, begin_at, place;
         private CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
@@ -98,6 +112,8 @@ public class SurahAdapter extends RecyclerView.Adapter<SurahAdapter.ViewHolder> 
             arabicName = itemView.findViewById(R.id.arabic_name);
             englishName = itemView.findViewById(R.id.english_name);
             totalAya = itemView.findViewById(R.id.total_aya);
+            begin_at = itemView.findViewById(R.id.begin_at);
+            place = itemView.findViewById(R.id.place);
             cardView = (CardView) itemView.findViewById(R.id.surah_rv);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

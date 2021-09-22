@@ -5,5 +5,6 @@ public class Constant{
     public static final String ARRAY_NAME= "IS_Checked";
     public static final String MAIN_SHARED_PREFERENCES= "Khatmah";
     public static final String WEEKLY_PROGRESS = "WEEKLY PROGRESS";
+    public static final String DAILY_PROGRESS = "DAILY PROGRESS";
 
 }

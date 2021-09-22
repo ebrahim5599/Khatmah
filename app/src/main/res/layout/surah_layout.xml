@@ -1,79 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="64dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="16dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
     android:padding="8dp"
-    android:layout_margin="8dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
     android:id="@+id/surah_rv">
 
-    <LinearLayout
-        android:padding="16dp"
-        android:orientation="horizontal"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="50dp"
+        <RelativeLayout
+            android:id="@+id/number_container"
+            android:layout_width="80dp"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_alignParentEnd="true"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_centerInParent="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/number_container" />
 
             <TextView
                 android:id="@+id/surah_number"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center|bottom"
-                android:text="1"
-                android:textSize="14dp"
-                android:textStyle="bold" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/arabic_type"
+                android:text="113"
+                android:textColor="@color/purple_700"
+                android:textSize="18sp" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_gravity="center|top"
-                android:src="@drawable/aa" />
-
-        </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
-            android:layout_weight="2"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="16dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:padding="4dp"
+            android:layout_toLeftOf="@id/number_container"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/english_name"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:text="fatiha"
+                android:id="@+id/arabic_name"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:fontFamily="@font/uthmanic_hafs"
+                android:text="سورة الفاتحة"
+                android:textColor="@color/purple_200"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:orientation="horizontal"
+                android:layoutDirection="rtl">
+
+                <TextView
+                    android:id="@+id/place"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/arabic_type"
+                    android:text="مكية"
+                    android:textColor="@color/purple_200"
+                    android:textSize="20sp"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/arabic_type"
+                    android:text=" - "
+                    android:textColor="@color/purple_200"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/total_aya"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/arabic_type"
+                    android:text="7 آيات"
+                    android:textColor="@color/purple_200"
+                    android:textSize="20sp" />
+
+
+            </LinearLayout>
+
             <TextView
-                android:id="@+id/total_aya"
-                android:text="7 aya"
-                android:textColor="@color/black"
+                android:id="@+id/english_name"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arabic_type"
+                android:text="مكية"
+                android:textColor="@color/purple_200"
+                android:textSize="22sp"
+                android:visibility="gone"/>
 
         </LinearLayout>
 
+
         <TextView
-            android:id="@+id/arabic_name"
-            android:textSize="19sp"
-            android:text="fatiha"
-            android:textStyle="bold"
-            android:layout_margin="16dp"
+            android:id="@+id/begin_at"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/arabic_type"
+            android:gravity="center"
+            android:text="صفحة: 4"
+            android:textColor="@color/purple_500"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
