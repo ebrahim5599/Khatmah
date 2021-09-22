@@ -8,20 +8,14 @@ import static com.islamic.khatmah.MainActivity.editor;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,7 +28,7 @@ import java.util.Objects;
 
 public class StartActivity extends AppCompatActivity {
 
-    TextView speccific_start_button, button_next, start_from_portion1_button;
+    TextView specific_start_button, button_next, start_from_portion1_button;
     //        LinearLayout first_linear_layout;
     RelativeLayout first_linear_layout;
 
@@ -54,7 +48,7 @@ public class StartActivity extends AppCompatActivity {
 
         // Link views to XML file.
         start_from_portion1_button = findViewById(R.id.start_from_portion1_button);
-        speccific_start_button = findViewById(R.id.specific_start_button);
+        specific_start_button = findViewById(R.id.specific_start_button);
         button_next = findViewById(R.id.next_button);
         first_linear_layout = findViewById(R.id.linear_layout_1);
 
@@ -72,7 +66,7 @@ public class StartActivity extends AppCompatActivity {
         });
 
         // Start from specific point listener.
-        speccific_start_button.setOnClickListener(new View.OnClickListener() {
+        specific_start_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (first_linear_layout.getVisibility() == View.GONE)

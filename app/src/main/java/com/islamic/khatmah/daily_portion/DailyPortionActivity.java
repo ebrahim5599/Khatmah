@@ -153,6 +153,7 @@ public class DailyPortionActivity extends AppCompatActivity {
                             // [CURRENT_PAGE + number of PAGES_PER_DAY].
 //                            int cp = sharedPreferences.getInt(CURRENT_PAGE, 1);
                             editor.putInt(CURRENT_PAGE, number_of_pages + currentPageNum);
+                            editor.putInt(Constant.DAILY_PROGRESS, number_of_pages); // by Ebrahim
                             editor.commit();
                             DailyPortionActivity.super.onBackPressed();
                         }
@@ -163,7 +164,8 @@ public class DailyPortionActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialogInterface, int i) {
                             // Leave the activity without change sharedPreference data.
                             // TODO: I need to know number of read pages.
-
+//                            editor.putInt(Constant.WEEKLY_PROGRESS, counter); // by Ebrahim
+                            editor.commit();
                             DailyPortionActivity.super.onBackPressed();
                         }
                     })
@@ -171,6 +173,7 @@ public class DailyPortionActivity extends AppCompatActivity {
 
         } else {
             editor.putInt(CURRENT_PAGE, number_of_pages + currentPageNum);
+            editor.putInt(Constant.DAILY_PROGRESS, number_of_pages); // by Ebrahim
             editor.commit();
             preferences.edit().putInt(Constant.PROGRESS_COUNT, 0).apply();
 //            mainSharedPref.edit().putInt(Constant.WEEKLY_PROGRESS, number_of_pages).apply();
