@@ -153,9 +153,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
                                     editor.putInt(Constant.PROGRESS_COUNT,0);
                                     editor.apply();
                                     resetValues();
-                                    Intent intent = new Intent(getContext(),MainActivity.class);
-                                    intent.putExtra("fromDailyPortionActivity",0);
-                                    startActivity(intent);
+                                    getActivity().finish();
                                 }
                             }).show();
                 }
