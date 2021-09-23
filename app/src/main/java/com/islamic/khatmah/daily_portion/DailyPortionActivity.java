@@ -124,13 +124,13 @@ public class DailyPortionActivity extends AppCompatActivity {
         number_of_pages = sharedPreferences.getInt(PAGES_PER_DAY, 1);
         if (sharedPreferences.getInt(Constant.ARRAY_NAME + "_size", 0) != number_of_pages) {
             boolean[] arr = new boolean[number_of_pages];
-            storeArray(arr,Constant.ARRAY_NAME,this);
+            storeArray(arr, Constant.ARRAY_NAME, this);
         }
         boolean[] isChecked = loadArray(Constant.ARRAY_NAME, this);
 
         // Create viewPager.
         ViewPager2 viewPager = findViewById(R.id.viewPager2);
-        viewPager.setAdapter(new DailyPortionAdapter(this, currentPageNum, isChecked,viewPager));
+        viewPager.setAdapter(new DailyPortionAdapter(this, currentPageNum, isChecked, viewPager));
 
 
     }
@@ -156,6 +156,7 @@ public class DailyPortionActivity extends AppCompatActivity {
                             // [CURRENT_PAGE + number of PAGES_PER_DAY].
 //                            int cp = sharedPreferences.getInt(CURRENT_PAGE, 1);
                             editor.putInt(CURRENT_PAGE, number_of_pages + currentPageNum);
+                            editor.putInt(Constant.PROGRESS_COUNT, 0);
                             editor.apply();
                             resetValues();
 
@@ -169,7 +170,7 @@ public class DailyPortionActivity extends AppCompatActivity {
                             // Leave the activity without change sharedPreference data.
                             // TODO: I need to know number of read pages.
 //                            editor.putInt(Constant.WEEKLY_PROGRESS, counter); // by Ebrahim
-                            editor.commit();
+//                            editor.commit();
                             DailyPortionActivity.super.onBackPressed();
                         }
                     })
@@ -177,10 +178,8 @@ public class DailyPortionActivity extends AppCompatActivity {
 
         } else {
             editor.putInt(CURRENT_PAGE, number_of_pages + currentPageNum);
-            editor.putInt(Constant.DAILY_PROGRESS, number_of_pages); // by Ebrahim
+            editor.putInt(Constant.PROGRESS_COUNT, 0);
             editor.commit();
-            preferences.edit().putInt(Constant.PROGRESS_COUNT, 0).apply();
-//            mainSharedPref.edit().putInt(Constant.WEEKLY_PROGRESS, number_of_pages).apply();
             resetValues();
             DailyPortionActivity.super.onBackPressed();
         }
@@ -233,8 +232,8 @@ public class DailyPortionActivity extends AppCompatActivity {
 
         return editor.commit();
     }
-    private void resetValues(){
-        sharedPreferences.edit().putInt(Constant.PROGRESS_COUNT,0).apply();
+
+    private void resetValues() {
         boolean[] arr = new boolean[number_of_pages];
         storeArray(arr, Constant.ARRAY_NAME, this);
     }
