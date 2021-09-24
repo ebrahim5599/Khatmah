@@ -108,7 +108,7 @@ public class SettingActivity extends AppCompatActivity {
 
                             }
                         })
-                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        // A null listener allows the button to dismiss the dialog and take no further actio.
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
