@@ -34,4 +34,9 @@
 
     <string name="portion_completed">If you have finished reading the page, click on the check mark.</string>
     <string name="ok">Okay</string>
+
+    <string name="warning">Warning</string>
+    <string name="warning_message">All current data, including the current page number and the number of pages read per day, will be deleted. Do you want to delete data?</string>
+    <string name="delete">DELETE</string>
+    <string name="cancel">CANCEL</string>
 </resources>

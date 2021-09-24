@@ -22,6 +22,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.ui.main.SectionsPagerAdapter;
+import com.islamic.khatmah.ui.main.setting.SettingActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -113,11 +114,12 @@ public class MainActivity extends AppCompatActivity {
         int itemId = item.getItemId();
         if (itemId == R.id.item_setting) {
             Toast.makeText(this, "Setting", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(getBaseContext(), StartActivity.class));
+            startActivity(new Intent(getBaseContext(), SettingActivity.class));
             return true;
         } else if (itemId == R.id.item_about_us) {
 
             Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getBaseContext(), StartActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -31,15 +31,12 @@ public class AlertActivity extends AppCompatActivity {
 
     ImageButton alarm_btn;
     int sHour, sMinute;
-    TextView txt_time;
+    private TextView txt_time, p;
     TextView btn_start;
     Spinner spinnerJuz, spinnerPages;
     Switch aSwitch;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
-//                preferences.edit().putInt("page",Integer.parseInt(spinnerPage.getSelectedItem().toString()));
-//                preferences.edit().putString("surah",spinnerSurah.getSelectedItem().toString());
-//                preferences.edit().putString("zuj",spinnerJuz.getSelectedItem().toString());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +47,8 @@ public class AlertActivity extends AppCompatActivity {
         editor = preferences.edit();
 
         aSwitch = findViewById(R.id.switch1);
+        p = findViewById(R.id.p);
+
         //spinner set number of pages.
         spinnerJuz = (Spinner) findViewById(R.id.spinnerJuz);
         spinnerPages = (Spinner) findViewById(R.id.spinnerPages);
@@ -57,7 +56,7 @@ public class AlertActivity extends AppCompatActivity {
         spinnerJuz.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
         spinnerPages.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
 
-        String[] juz = {"less than one", "1", "1.5", "2", "2.5", "3"};
+        String[] juz = {"أقل من جزء", "1", "1.5", "2", "2.5", "3"};
         String[] pages = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
                 "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
 
@@ -70,6 +69,7 @@ public class AlertActivity extends AppCompatActivity {
                 ((TextView)parent.getChildAt(0)).setTextColor(Color.WHITE); // to make spinner text in white color.
                 if (spinnerJuz.getSelectedItem() == juz[0]) {
                     spinnerPages.setVisibility(View.VISIBLE);
+                    p.setVisibility(View.VISIBLE);
                     ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(AlertActivity.this, android.R.layout.simple_list_item_1, pages);
                     adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinnerPages.setAdapter(adapter2);
@@ -88,9 +88,9 @@ public class AlertActivity extends AppCompatActivity {
                     });
                 } else {
                     spinnerPages.setVisibility(View.GONE);
-                    preferences.edit().putInt(PAGES_PER_DAY, Integer.parseInt(spinnerPages.getSelectedItem().toString())).apply();
-//                    preferences.notifyAll();
-
+                    p.setVisibility(View.GONE);
+                    int no_of_pages = (int) (Double.parseDouble(spinnerJuz.getSelectedItem().toString()) * 20);
+                    preferences.edit().putInt(PAGES_PER_DAY, no_of_pages).apply();
                 }
             }
 
