@@ -3,7 +3,7 @@
     package="com.islamic.khatmah">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -12,10 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Khatmah">
+        <activity
+            android:name=".ui.main.setting.SettingActivity"
+            android:label="@string/action_settings"
+            android:exported="true" />
+
         <service
             android:name=".services.DownloadIntentService"
             android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE"/>
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <activity
             android:name=".daily_portion.DailyPortionActivity"
@@ -27,18 +32,18 @@
         <activity
             android:name=".StartActivity"
             android:exported="true"
-            android:theme="@style/Theme.Khatmah.NoActionBar"/>
+            android:theme="@style/Theme.Khatmah.NoActionBar" />
         <activity
             android:name=".ui.main.StartActivityTwo"
             android:exported="true" />
         <activity
             android:name=".AlertActivity"
             android:exported="true"
-            android:theme="@style/Theme.Khatmah.NoActionBar"/>
+            android:theme="@style/Theme.Khatmah.NoActionBar" />
         <activity
             android:name=".quran_activity.QuranActivity"
             android:exported="true"
-            android:theme="@style/Theme.Khatmah.NoActionBar"/>
+            android:theme="@style/Theme.Khatmah.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -50,9 +55,9 @@
             </intent-filter>
         </activity>
 
-
-        <receiver android:name=".Reminder" android:enabled="true" />
-
+        <receiver
+            android:name=".Reminder"
+            android:enabled="true" />
     </application>
 
 </manifest>
