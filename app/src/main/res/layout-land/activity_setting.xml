@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.setting.SettingActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!--        reminder card view-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/reminder_cardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:padding="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/border_reminder"
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:background="@drawable/yellow_gradient1" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_below="@id/border_reminder"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/yellow_gradient2" />
+
+                <TextView
+                    android:id="@+id/txt_reminder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/arabic_type"
+                    android:gravity="center"
+                    android:text="رسالة التذكير"
+                    android:textColor="@color/purple_500"
+                    android:textSize="28sp" />
+
+                <Switch
+                    android:id="@+id/reminder_switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_reminder"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/arabic_type"
+                    android:gravity="right"
+                    android:layoutDirection="rtl"
+                    android:text="@string/setalert"
+                    android:textColor="@color/purple_200"
+                    android:textSize="28sp"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+
+                <LinearLayout
+                    android:id="@+id/reminder_body"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_below="@id/reminder_switch"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layoutDirection="rtl"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/arabic_type"
+                        android:text="تعديل وقت التنبيه"
+                        android:textColor="@color/purple_200"
+                        android:textSize="28sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/arabic_type"
+                        android:gravity="center|right"
+                        android:text="00:00 PM"
+                        android:textColor="@color/purple_200"
+                        android:textSize="28sp" />
+
+                    <ImageButton
+                        android:layout_width="56dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center|left"
+                        android:background="@drawable/ic_round_access_alarm_black"
+                        android:scaleType="centerCrop" />
+                </LinearLayout>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!--        Number of pages per day card view-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/pagesPerDay_cardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/reminder_cardView"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:padding="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/border_pages_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:background="@drawable/yellow_gradient1" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_below="@id/border_pages_number"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/yellow_gradient2" />
+
+                <TextView
+                    android:id="@+id/txt_edit_pages_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/arabic_type"
+                    android:gravity="center"
+                    android:text="مقدار الورد اليومي"
+                    android:textColor="@color/purple_500"
+                    android:textSize="28sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_edit_pages_number"
+                    android:layout_margin="16dp"
+                    android:layoutDirection="rtl"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/setting_spinnerJuz"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:backgroundTintMode="multiply" />
+
+                    <Spinner
+                        android:id="@+id/setting_spinnerPages"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTintMode="multiply" />
+                </LinearLayout>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/reset_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/reset_button"
+        android:fontFamily="@font/uthmanic_hafs"
+        android:gravity="center"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="حذف البيانات وإعادة الختمة من جديد"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:drawableStartCompat="@drawable/ic_round_delete_sweep_24" />
+
+</RelativeLayout>

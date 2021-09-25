@@ -34,7 +34,7 @@ public class StartActivity extends AppCompatActivity {
 
     Spinner spinnerJuz, spinnerPage, spinnerSurah, spinnerChoose;
 
-    ArrayList<String> juz, surah, page, choose;
+    ArrayList<String> juz, surah, page;
 
     JSONObject jsonObject, jsonObjectJuzDetails;
     JSONArray jsonArray, jsonArrayJuzDetails;
@@ -91,12 +91,6 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
-        // add surah, juz and page to ArrayList.
-        choose = new ArrayList<>();
-        choose.add("الجزء");
-        choose.add("السورة");
-        choose.add("الصفحة");
-
         // Add quran portions to ArrayList.
         juz = new ArrayList<>();
         for (int i = 1; i < 31; i++)
@@ -127,11 +121,6 @@ public class StartActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-//        // Set choose adapter to choose spinner.
-//        ArrayAdapter<String> adapterChoose = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, choose);
-//        adapterChoose.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinnerChoose.setAdapter(adapterChoose);
 
         // Set juz adapter to juz spinner.
         ArrayAdapter<String> adapterJuz = new ArrayAdapter<>(this, R.layout.spinner_text, juz);

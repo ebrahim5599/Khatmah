@@ -9,4 +9,8 @@
     <string name="portion_completed">إذا أتممت قراءة الصفحة إضغط على علامة صح.</string>
     <string name="ok">حسنا</string>
     <string name="welcome_message">مرحبا بك في تطبيق ختمة</string>
+    <string name="warning">تحذير</string>
+    <string name="warning_message">سيتم حذف جميع البيانات الحالية ، بما في ذلك رقم الصفحة الحالية وعدد صفحات الورد اليومي، هل تريد حذف البيانات؟</string>
+    <string name="delete">حذف</string>
+    <string name="cancel">إلغاء</string>
 </resources>
