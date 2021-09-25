@@ -157,6 +157,7 @@ public class DailyPortionActivity extends AppCompatActivity {
 //                            int cp = sharedPreferences.getInt(CURRENT_PAGE, 1);
                             editor.putInt(CURRENT_PAGE, number_of_pages + currentPageNum);
                             editor.putInt(Constant.PROGRESS_COUNT, 0);
+                            editor.putInt(Constant.WEEKLY_PROGRESS, sharedPreferences.getInt(Constant.WEEKLY_PROGRESS, 0) - counter + 7);
                             editor.apply();
                             resetValues();
 

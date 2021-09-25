@@ -1,11 +1,11 @@
 package com.islamic.khatmah;
 
 import static com.islamic.khatmah.MainActivity.PAGES_PER_DAY;
+
 import androidx.appcompat.app.AppCompatActivity;
-import android.app.AlarmManager;
+
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,10 +21,12 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
 import com.islamic.khatmah.constants.Constant;
+import com.islamic.khatmah.Models.AlarmReminder;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 public class AlertActivity extends AppCompatActivity {
@@ -51,8 +53,8 @@ public class AlertActivity extends AppCompatActivity {
 
         aSwitch = findViewById(R.id.switch1);
         //spinner set number of pages.
-        spinnerJuz = (Spinner) findViewById(R.id.spinnerJuz);
-        spinnerPages = (Spinner) findViewById(R.id.spinnerPages);
+        spinnerJuz =  findViewById(R.id.spinnerJuz);
+        spinnerPages = findViewById(R.id.spinnerPages);
 
         spinnerJuz.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
         spinnerPages.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
@@ -67,7 +69,7 @@ public class AlertActivity extends AppCompatActivity {
         spinnerJuz.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView)parent.getChildAt(0)).setTextColor(Color.WHITE); // to make spinner text in white color.
+                ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE); // to make spinner text in white color.
                 if (spinnerJuz.getSelectedItem() == juz[0]) {
                     spinnerPages.setVisibility(View.VISIBLE);
                     ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(AlertActivity.this, android.R.layout.simple_list_item_1, pages);
@@ -76,7 +78,7 @@ public class AlertActivity extends AppCompatActivity {
                     spinnerPages.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            ((TextView)parent.getChildAt(0)).setTextColor(Color.WHITE); // to make spinner text in white color.
+                            ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE); // to make spinner text in white color.
                             editor.putInt(PAGES_PER_DAY, Integer.parseInt(spinnerPages.getSelectedItem().toString()));
                             editor.commit();
                         }
@@ -101,7 +103,7 @@ public class AlertActivity extends AppCompatActivity {
         });
 
 
-        txt_time = (TextView) findViewById(R.id.txt_time);
+        txt_time = findViewById(R.id.txt_time);
         alarm_btn = findViewById(R.id.img_alarm);
         alarm_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,9 +123,13 @@ public class AlertActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AlertActivity.this, MainActivity.class));
+                if (aSwitch.isChecked()) {
+                    AlarmReminder alarmReminder = new AlarmReminder(sHour,sMinute);
+                    alarmReminder.cancelAlarm(AlertActivity.this);
+                    alarmReminder.schedule(AlertActivity.this);
+                }
 //                startActivity(new Intent(AlertActivity.this, DownloadDialogActivity.class));
                 finish();
-                //
             }
         });
     }
@@ -138,21 +144,23 @@ public class AlertActivity extends AppCompatActivity {
                 cal.set(Calendar.MINUTE, selectedMinute);
                 sHour = cal.get(Calendar.HOUR_OF_DAY);
                 sMinute = cal.get(Calendar.MINUTE);
+                MainActivity.sharedPreferences.edit().putInt(Constant.ALARM_HOUR, sHour).apply();
+                MainActivity.sharedPreferences.edit().putInt(Constant.ALARM_MINUTE, sMinute).apply();
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa", Locale.US);
                 String Time = simpleDateFormat.format(cal.getTime());
                 txt_time.setText(Time);
 
-                if (cal.getTime().compareTo(new Date()) < 0)
-                    cal.add(Calendar.DAY_OF_MONTH, 1);
+//                if (cal.getTime().compareTo(new Date()) < 0)
+//                    cal.add(Calendar.DAY_OF_MONTH, 1);
 
-                Intent intent = new Intent(AlertActivity.this, Reminder.class);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(AlertActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                long timeAlert = 1000 * 60 * sMinute + 1000 * 60 * 60 * sHour;
-                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-                alarmManager.set(AlarmManager.RTC_WAKEUP, timeAlert, pendingIntent);
-                if (alarmManager != null) {
-                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, timeAlert, AlarmManager.INTERVAL_DAY, pendingIntent);
+//                Intent intent = new Intent(AlertActivity.this, Reminder.class);
+//                PendingIntent pendingIntent = PendingIntent.getBroadcast(AlertActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//                long timeAlert = 1000L * 60 * sMinute + 1000L * 60 * 60 * sHour;
+//                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+//
+//                alarmManager.set(AlarmManager.RTC_WAKEUP, timeAlert, pendingIntent);
+//                if (alarmManager != null) {
+//                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, timeAlert, AlarmManager.INTERVAL_DAY, pendingIntent);
 
 //                 Intent intent = new Intent(AlertActivity.this, Reminder.class);
 //                 PendingIntent pendingIntent = PendingIntent.getBroadcast(AlertActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -164,10 +172,10 @@ public class AlertActivity extends AppCompatActivity {
 //                     alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
 
-                }
+//                }
             }
         };
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, cal.get(Calendar.HOUR), cal.get(Calendar.MINUTE), false);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), false);
         timePickerDialog.setTitle("Select Time");
         timePickerDialog.show();
 
