@@ -98,15 +98,9 @@
             app:cardElevation="8dp">
 
             <RelativeLayout
+                android:layoutDirection="ltr"
                 android:layout_width="match_parent"
                 android:layout_height="300dp">
-
-                <!--                <ImageView-->
-                <!--                    android:layout_width="232dp"-->
-                <!--                    android:layout_height="112dp"-->
-                <!--                    android:layout_centerHorizontal="true"-->
-                <!--                    android:scaleType="centerCrop"-->
-                <!--                    android:src="@drawable/werdd" />-->
 
                 <TextView
                     android:id="@+id/border"
@@ -132,23 +126,12 @@
                     android:textColor="@color/purple_200"
                     android:textSize="28sp" />
 
-<!--                <View-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="0.25dp"-->
-<!--                    android:layout_marginTop="64dp"-->
-<!--                    android:background="#E4C843" />-->
-
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="156dp"
                     android:layout_below="@id/txt_all_progress"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="8dp">
-
-                    <!--                    <ImageView-->
-                    <!--                        android:layout_width="156dp"-->
-                    <!--                        android:layout_height="156dp"-->
-                    <!--                        android:src="@drawable/art"/>-->
 
                     <ProgressBar
                         android:id="@+id/progressBar_daily"

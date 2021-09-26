@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layoutDirection="ltr"
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
@@ -194,6 +195,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:text="0 pages"
+                                android:fontFamily="@font/arabic_type"
+                                android:textSize="22sp"
                                 android:textColor="#D68B1B" />
                         </LinearLayout>
                     </RelativeLayout>
@@ -231,46 +234,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:text="0 pages"
+                                android:text="0 parts"
+                                android:fontFamily="@font/arabic_type"
+                                android:textSize="22sp"
                                 android:textColor="#D68B1B" />
                         </LinearLayout>
                     </RelativeLayout>
                 </LinearLayout>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:padding="8dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btnResetConter"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
-                    android:text="@string/resetCounter" />
-
-                <Button
-                    android:id="@+id/btnFinishReding"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:layout_weight="1"
-                    android:text="@string/finishReding" />
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
     </LinearLayout>
 </ScrollView>

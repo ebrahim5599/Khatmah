@@ -27,6 +27,7 @@ import com.islamic.khatmah.ui.main.setting.SettingActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -59,46 +60,46 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+
+        // sharedPreference.
+        sharedPreferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, 0);
+        editor = sharedPreferences.edit();
+        boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
                 .getBoolean("isFirstRun", true);
         if (isFirstRun) {
             //show Start activity
             startActivity(new Intent(MainActivity.this, StartActivity.class));
 
         }
-        // sharedPreference.
-        sharedPreferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES,0);
-        editor = sharedPreferences.edit();
-        
+
         getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
                 .putBoolean("isFirstRun", false).apply();
 
-            setContentView(R.layout.activity_main);
-            SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this);
+        setContentView(R.layout.activity_main);
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this);
 
-            toolbar = findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
-            ViewPager2 viewPager = findViewById(R.id.view_pager);
-            viewPager.setAdapter(sectionsPagerAdapter);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ViewPager2 viewPager = findViewById(R.id.view_pager);
+        viewPager.setAdapter(sectionsPagerAdapter);
 
-        if(getIntent().getIntExtra("fromDailyPortionActivity",1) == 0){
+        if (getIntent().getIntExtra("fromDailyPortionActivity", 1) == 0) {
             viewPager.setCurrentItem(1);
         }
-            TabLayout tabs = findViewById(R.id.tabs);
-            new TabLayoutMediator(tabs, viewPager,
-                    (tab, position) -> tab.setText(setTextOfTheTab(position))
-            ).attach();
+        TabLayout tabs = findViewById(R.id.tabs);
+        new TabLayoutMediator(tabs, viewPager,
+                (tab, position) -> tab.setText(setTextOfTheTab(position))
+        ).attach();
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    preparingSurahNames();
-                }
-            }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                preparingSurahNames();
+            }
+        }).start();
 
     }
 
@@ -139,15 +140,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void moveToSecondary(){
+    public void moveToSecondary() {
         // use an intent to travel from one activity to another.
-        Intent intent = new Intent(this,StartActivity.class);
+        Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
     }
 
 
-
-    private void preparingSurahNames(){
+    private void preparingSurahNames() {
         surahName = new ArrayList<>();
         JSONObject jsonObject, pageData;
         JSONArray jsonArray;
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String JsonDataFromAsset(String fileName) {
-        String json ;
+        String json;
         try {
             InputStream inputStream = getBaseContext().getAssets().open(fileName);
             int sizeOfFile = inputStream.available();
