@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.icu.text.DecimalFormat;
+import android.icu.text.NumberFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,6 +26,8 @@ import androidx.fragment.app.Fragment;
 import com.islamic.khatmah.MainActivity;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.constants.Constant;
+
+import java.util.Locale;
 
 public class ProgressFragment extends Fragment {
     private TextView txtWeeklyProgressRatio, txtWeeklyProgressPages;
@@ -91,12 +94,17 @@ public class ProgressFragment extends Fragment {
         // 2nd progress bar [no. of read pages].
         totalPagesProgressBar.setProgress(totalProgress);
         txtTotalPagesProgressRatio.setText((int) (((float) totalPagesProgressBar.getProgress()) / totalPagesProgressBar.getMax() * 100) + " % ");
-        txtTotalPagesProgress.setText(totalPagesProgressBar.getProgress() + " Pages");
+
+        txtTotalPagesProgress.setText(totalPagesProgressBar.getProgress()+" صفحة");
+
+        NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
+        DecimalFormat formatter = (DecimalFormat) nf;
+        formatter.applyPattern("##.#");
 
         // 3rd progress bar [no. of read parts].
-        totalPartsProgressBar.setProgress(totalProgress / 20);
-        txtTotalPartsProgressRatio.setText((int) (((float) totalPartsProgressBar.getProgress()) / totalPartsProgressBar.getMax() * 100) + " % ");
-        txtTotalPartsProgress.setText(new DecimalFormat("##.#").format(totalPagesProgressBar.getProgress() / 20.0) + " Parts");
+        totalPartsProgressBar.setProgress(totalProgress/20);
+        txtTotalPartsProgressRatio.setText(formatter.format(((float) totalPartsProgressBar.getProgress()) / totalPartsProgressBar.getMax() * 100) + " % ");
+        txtTotalPartsProgress.setText(formatter.format(totalPagesProgressBar.getProgress()/20.0)+" جزء");
     }
 
 //    @Override
@@ -145,6 +153,19 @@ public class ProgressFragment extends Fragment {
 
 
         }
+    }
+    // This method converts English numbers to Indian number [Arabic].
+    private String convertToArbNum(int number) {
+
+        String stNum = String.valueOf(number);
+        String result = "";
+
+        for (int i = 0; i < stNum.length(); i++) {
+            char num = String.valueOf(stNum).charAt(i);
+            int ArabicNum = num + 1584;
+            result += (char) ArabicNum;
+        }
+        return result;
     }
 }
 /*
