@@ -34,7 +34,7 @@ public class ProgressFragment extends Fragment {
     private TextView txtTotalPagesProgress, txtTotalPagesProgressRatio;
     private TextView txtTotalPartsProgress, txtTotalPartsProgressRatio;
     private ProgressBar weaklyProgressBar, totalPagesProgressBar, totalPartsProgressBar;
-    private int pagesPerDay = 0, weaklyProgress = 15, totalProgress = 40;
+    private int pagesPerDay , weaklyProgress, totalProgress = 40;
     SharedPreferences.Editor editor;
     SharedPreferences preferences;
 
@@ -65,7 +65,7 @@ public class ProgressFragment extends Fragment {
         // load shared Preferences
         preferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
         pagesPerDay = preferences.getInt(MainActivity.PAGES_PER_DAY, 1);
-
+        Toast.makeText(getContext(), ""+weaklyProgress, Toast.LENGTH_SHORT).show();
         // Set progress bar Maximum value.
         weaklyProgressBar.setMax(pagesPerDay * 7);
         totalPagesProgressBar.setMax(604);
@@ -85,6 +85,7 @@ public class ProgressFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+        weaklyProgress = preferences.getInt(Constant.WEEKLY_PROGRESS, 0);
         // 1st progress bar [weekly target].
         weaklyProgressBar.setProgress(weaklyProgress);
         txtWeeklyProgressRatio.setText((int) (((float) weaklyProgressBar.getProgress()) / weaklyProgressBar.getMax() * 100) + " % ");
@@ -93,6 +94,7 @@ public class ProgressFragment extends Fragment {
         // 2nd progress bar [no. of read pages].
         totalPagesProgressBar.setProgress(totalProgress);
         txtTotalPagesProgressRatio.setText((int) (((float) totalPagesProgressBar.getProgress()) / totalPagesProgressBar.getMax() * 100) + " % ");
+
         txtTotalPagesProgress.setText(totalPagesProgressBar.getProgress()+" صفحة");
 
         NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
@@ -209,15 +211,6 @@ public class ProgressFragment extends Fragment {
     }
 
  */
-
-
-
-
-
-
-
-
-
 
 
 //package com.islamic.khatmah.progress;

@@ -56,6 +56,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
     private ProgressBar progressBar;
     private SharedPreferences sharedPreferences;
     private static ViewPager2 viewPager;
+    int weeklyProgress;
 
 
     public static DailyPortionViewPagerFragment newInstance(int position, int currentPageNum, int pagesPerDay, boolean[] isChecked, ViewPager2 viewPager2) {
@@ -131,34 +132,37 @@ public class DailyPortionViewPagerFragment extends Fragment {
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
+        weeklyProgress = sharedPreferences.getInt(Constant.WEEKLY_PROGRESS, 0);
         checkButton.setOnClickListener(view12 -> {
             if (isChecked[position]) {
                 counter--;
                 isChecked[position] = false;
+                weeklyProgress--;
                 checkButton.setImageResource(R.drawable.unchecked);
             } else {
                 counter++;
                 isChecked[position] = true;
+                weeklyProgress++;
                 checkButton.setImageResource(R.drawable.checked);
-//                viewPager.setCurrentItem(position + 1);
+                viewPager.setCurrentItem(position + 1);
                 if (counter >= pagesPerDay) {
                     new AlertDialog.Builder(getContext())
                             .setTitle("Congratulation")
                             .setMessage("You have finished reading the entire daily portion")
-                            .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // Save the last page, Surah and Juz in SharedPreference.
-                                    // [CURRENT_PAGE + number of PAGES_PER_DAY].
-                                    editor.putInt(CURRENT_PAGE, pagesPerDay + currentPageNum);
-                                    editor.putInt(Constant.PROGRESS_COUNT,0);
-                                    editor.apply();
-                                    resetValues();
-                                    getActivity().finish();
-                                }
+                            .setPositiveButton("ok", (dialog, which) -> {
+                                // Save the last page, Surah and Juz in SharedPreference.
+                                // [CURRENT_PAGE + number of PAGES_PER_DAY].
+                                editor.putInt(CURRENT_PAGE, pagesPerDay + currentPageNum);
+                                editor.putInt(Constant.PROGRESS_COUNT, 0);
+                                editor.apply();
+                                resetValues();
+                                getActivity().finish();
                             }).show();
                 }
             }
-            editor.putInt(Constant.PROGRESS_COUNT, counter).apply();
+            editor.putInt(Constant.WEEKLY_PROGRESS, weeklyProgress);
+            editor.putInt(Constant.PROGRESS_COUNT, counter);
+            editor.apply();
             storeArray(isChecked, Constant.ARRAY_NAME, getContext());
 //            counter_text.setText(String.valueOf(counter));
             progressBar.setProgress(counter);
@@ -200,7 +204,8 @@ public class DailyPortionViewPagerFragment extends Fragment {
         }
         return result;
     }
-    private void resetValues(){
+
+    private void resetValues() {
         boolean[] arr = new boolean[pagesPerDay];
         storeArray(arr, Constant.ARRAY_NAME, getContext());
     }
