@@ -78,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
                 .putBoolean("isFirstRun", false).apply();
 
             setContentView(R.layout.activity_main);
+
+
+//            sharedPreferences.edit().putInt(Constant.WEEKLY_PROGRESS,0).apply();
+//            sharedPreferences.edit().putInt(Constant.TOTAL_PROGRESS,0).apply();
             SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this);
 
             toolbar = findViewById(R.id.toolbar);

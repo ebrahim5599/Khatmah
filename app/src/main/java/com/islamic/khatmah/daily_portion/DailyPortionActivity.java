@@ -137,12 +137,12 @@ public class DailyPortionActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        Toast.makeText(this, String.valueOf(sharedPreferences.getInt(Constant.WEEKLY_PROGRESS,0)), Toast.LENGTH_SHORT).show();
         // Loading or saving data to shared preferences.
         SharedPreferences preferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, 0);
 
         // Number of read pages.
-        int counter = preferences.getInt(Constant.PROGRESS_COUNT, 0);
+        int counter = preferences.getInt(Constant.DAILY_PROGRESS, 0);
         if (counter < number_of_pages) {
             // If the user hasn't finished his portion
             new AlertDialog.Builder(this)
@@ -156,8 +156,9 @@ public class DailyPortionActivity extends AppCompatActivity {
                             // [CURRENT_PAGE + number of PAGES_PER_DAY].
 //                            int cp = sharedPreferences.getInt(CURRENT_PAGE, 1);
                             editor.putInt(CURRENT_PAGE, number_of_pages + currentPageNum);
-                            editor.putInt(Constant.PROGRESS_COUNT, 0);
-                            editor.putInt(Constant.WEEKLY_PROGRESS, sharedPreferences.getInt(Constant.WEEKLY_PROGRESS, 0) - counter + 7);
+                            editor.putInt(Constant.DAILY_PROGRESS, 0);
+                            editor.putInt(Constant.WEEKLY_PROGRESS, sharedPreferences.getInt(Constant.WEEKLY_PROGRESS, 0) - counter + sharedPreferences.getInt(PAGES_PER_DAY,0));
+                            editor.putInt(Constant.TOTAL_PROGRESS, sharedPreferences.getInt(Constant.WEEKLY_PROGRESS, 0) - counter + sharedPreferences.getInt(PAGES_PER_DAY,0));
                             editor.apply();
                             resetValues();
 
@@ -179,7 +180,7 @@ public class DailyPortionActivity extends AppCompatActivity {
 
         } else {
             editor.putInt(CURRENT_PAGE, number_of_pages + currentPageNum);
-            editor.putInt(Constant.PROGRESS_COUNT, 0);
+            editor.putInt(Constant.DAILY_PROGRESS, 0);
             editor.commit();
             resetValues();
             DailyPortionActivity.super.onBackPressed();

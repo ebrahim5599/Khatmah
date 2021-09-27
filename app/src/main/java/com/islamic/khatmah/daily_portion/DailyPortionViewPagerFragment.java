@@ -1,15 +1,9 @@
 package com.islamic.khatmah.daily_portion;
 
-import static com.islamic.khatmah.MainActivity.CURRENT_JUZ;
 import static com.islamic.khatmah.MainActivity.CURRENT_PAGE;
-import static com.islamic.khatmah.MainActivity.editor;
-import static com.islamic.khatmah.MainActivity.sharedPreferences;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -26,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.islamic.khatmah.MainActivity;
 import com.islamic.khatmah.constants.Constant;
@@ -56,7 +51,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
     private ProgressBar progressBar;
     private SharedPreferences sharedPreferences;
     private static ViewPager2 viewPager;
-    int weeklyProgress;
+    int weeklyProgress, totalProgress;
 
 
     public static DailyPortionViewPagerFragment newInstance(int position, int currentPageNum, int pagesPerDay, boolean[] isChecked, ViewPager2 viewPager2) {
@@ -80,7 +75,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
             currentPageNum = getArguments().getInt(ARG_CURRENT_PAGE_NUM);
             isChecked = getArguments().getBooleanArray(ARG_IS_CHECKED_ARR);
             pagesPerDay = getArguments().getInt(ARG_PAGE_PER_DAY);
-            counter = sharedPreferences.getInt(Constant.PROGRESS_COUNT, 0);
+            counter = sharedPreferences.getInt(Constant.DAILY_PROGRESS, 0);
 
         }
     }
@@ -132,17 +127,21 @@ public class DailyPortionViewPagerFragment extends Fragment {
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        weeklyProgress = sharedPreferences.getInt(Constant.WEEKLY_PROGRESS, 0);
+//        weeklyProgress = sharedPreferences.getInt(Constant.WEEKLY_PROGRESS, 0);
         checkButton.setOnClickListener(view12 -> {
+            totalProgress = sharedPreferences.getInt(Constant.TOTAL_PROGRESS, 0);
+            weeklyProgress = sharedPreferences.getInt(Constant.WEEKLY_PROGRESS, 0);
             if (isChecked[position]) {
                 counter--;
                 isChecked[position] = false;
                 weeklyProgress--;
+                totalProgress--;
                 checkButton.setImageResource(R.drawable.unchecked);
             } else {
                 counter++;
                 isChecked[position] = true;
                 weeklyProgress++;
+                totalProgress++;
                 checkButton.setImageResource(R.drawable.checked);
                 viewPager.setCurrentItem(position + 1);
                 if (counter >= pagesPerDay) {
@@ -153,7 +152,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
                                 // Save the last page, Surah and Juz in SharedPreference.
                                 // [CURRENT_PAGE + number of PAGES_PER_DAY].
                                 editor.putInt(CURRENT_PAGE, pagesPerDay + currentPageNum);
-                                editor.putInt(Constant.PROGRESS_COUNT, 0);
+                                editor.putInt(Constant.DAILY_PROGRESS, 0);
                                 editor.apply();
                                 resetValues();
                                 getActivity().finish();
@@ -161,11 +160,14 @@ public class DailyPortionViewPagerFragment extends Fragment {
                 }
             }
             editor.putInt(Constant.WEEKLY_PROGRESS, weeklyProgress);
-            editor.putInt(Constant.PROGRESS_COUNT, counter);
+            editor.putInt(Constant.DAILY_PROGRESS, counter);
+            editor.putInt(Constant.TOTAL_PROGRESS, totalProgress);
             editor.apply();
+
             storeArray(isChecked, Constant.ARRAY_NAME, getContext());
 //            counter_text.setText(String.valueOf(counter));
             progressBar.setProgress(counter);
+//            Toast.makeText(getContext(), String.valueOf(weeklyProgress), Toast.LENGTH_SHORT).show();
         });
 
 
