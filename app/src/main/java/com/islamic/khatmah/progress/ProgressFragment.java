@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,8 +34,9 @@ public class ProgressFragment extends Fragment {
     private TextView txtWeeklyProgressRatio, txtWeeklyProgressPages;
     private TextView txtTotalPagesProgress, txtTotalPagesProgressRatio;
     private TextView txtTotalPartsProgress, txtTotalPartsProgressRatio;
+    private Button reset_weekly_progress;
     private ProgressBar weaklyProgressBar, totalPagesProgressBar, totalPartsProgressBar;
-    private int pagesPerDay , weaklyProgress, totalProgress = 40;
+    private int pagesPerDay , weaklyProgress, totalProgress;
     SharedPreferences.Editor editor;
     SharedPreferences preferences;
 
@@ -61,6 +63,7 @@ public class ProgressFragment extends Fragment {
         txtTotalPartsProgress = view.findViewById(R.id.txtAllProgressPages2);
         totalPagesProgressBar = view.findViewById(R.id.allProgressBar);
         totalPartsProgressBar = view.findViewById(R.id.allProgressBar2);
+        reset_weekly_progress = view.findViewById(R.id.reset_weeklyProgress);
 
         // load shared Preferences
         preferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
@@ -70,6 +73,17 @@ public class ProgressFragment extends Fragment {
         weaklyProgressBar.setMax(pagesPerDay * 7);
         totalPagesProgressBar.setMax(604);
         totalPartsProgressBar.setMax(30);
+
+        reset_weekly_progress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                weaklyProgress = 0;
+                totalProgress = 0;
+                totalPartsProgressBar.setProgress(0);
+                preferences.edit().putInt(Constant.WEEKLY_PROGRESS, weaklyProgress).commit();
+                preferences.edit().putInt(Constant.TOTAL_PROGRESS, totalProgress).commit();
+            }
+        });
 
 //        if (savedInstanceState != null) {
 //            super.onViewStateRestored(savedInstanceState);
@@ -86,6 +100,8 @@ public class ProgressFragment extends Fragment {
         super.onResume();
 
         weaklyProgress = preferences.getInt(Constant.WEEKLY_PROGRESS, 0);
+        totalProgress  = preferences.getInt(Constant.TOTAL_PROGRESS, 0);
+
         // 1st progress bar [weekly target].
         weaklyProgressBar.setProgress(weaklyProgress);
         txtWeeklyProgressRatio.setText((int) (((float) weaklyProgressBar.getProgress()) / weaklyProgressBar.getMax() * 100) + " % ");
@@ -94,7 +110,6 @@ public class ProgressFragment extends Fragment {
         // 2nd progress bar [no. of read pages].
         totalPagesProgressBar.setProgress(totalProgress);
         txtTotalPagesProgressRatio.setText((int) (((float) totalPagesProgressBar.getProgress()) / totalPagesProgressBar.getMax() * 100) + " % ");
-
         txtTotalPagesProgress.setText(totalPagesProgressBar.getProgress()+" صفحة");
 
         NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);

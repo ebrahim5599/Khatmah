@@ -11,8 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -22,7 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.ui.main.SectionsPagerAdapter;
-import com.islamic.khatmah.ui.main.setting.SettingActivity;
+import com.islamic.khatmah.ui.setting.SettingActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,8 +35,8 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
 
-    public static SharedPreferences sharedPreferences;
-    public static SharedPreferences.Editor editor;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
     public static final String CURRENT_PAGE = "current page";
     public static final String CURRENT_SURAH = "current surah";
     public static final String CURRENT_JUZ = "current juz";
@@ -65,9 +63,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // sharedPreference.
-        sharedPreferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, 0);
-        editor = sharedPreferences.edit();
-        boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+        preferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
+        editor = preferences.edit();
+
+        boolean isFirstRun = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE)
                 .getBoolean("isFirstRun", true);
         if (isFirstRun) {
             //show Start activity
@@ -75,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
+        getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE).edit()
                 .putBoolean("isFirstRun", false).apply();
 
         setContentView(R.layout.activity_main);
@@ -114,12 +113,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.item_setting) {
-            Toast.makeText(this, "Setting", Toast.LENGTH_SHORT).show();
+
             startActivity(new Intent(getBaseContext(), SettingActivity.class));
             return true;
         } else if (itemId == R.id.item_about_us) {
 
-            Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getBaseContext(), StartActivity.class));
             return true;
         }

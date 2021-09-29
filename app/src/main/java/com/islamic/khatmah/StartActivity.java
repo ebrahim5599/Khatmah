@@ -3,11 +3,11 @@ package com.islamic.khatmah;
 import static com.islamic.khatmah.MainActivity.CURRENT_JUZ;
 import static com.islamic.khatmah.MainActivity.CURRENT_PAGE;
 import static com.islamic.khatmah.MainActivity.CURRENT_SURAH;
-import static com.islamic.khatmah.MainActivity.editor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,6 +16,8 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.islamic.khatmah.constants.Constant;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,22 +31,22 @@ import java.util.Objects;
 public class StartActivity extends AppCompatActivity {
 
     TextView specific_start_button, button_next, start_from_portion1_button;
-    //        LinearLayout first_linear_layout;
     RelativeLayout first_linear_layout;
-
     Spinner spinnerJuz, spinnerPage, spinnerSurah, spinnerChoose;
-
     ArrayList<String> juz, surah, page;
-
     JSONObject jsonObject, jsonObjectJuzDetails;
     JSONArray jsonArray, jsonArrayJuzDetails;
-
     boolean isPageChecked, isSurahChecked, isJuzChecked;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        preferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
+        editor = preferences.edit();
 
         // Link views to XML file.
         start_from_portion1_button = findViewById(R.id.start_from_portion1_button);

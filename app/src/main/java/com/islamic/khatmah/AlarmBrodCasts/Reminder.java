@@ -52,7 +52,9 @@ public class Reminder extends BroadcastReceiver {
                 .setContentTitle("Khatmah Reminder")
                 .setContentText("تذكير بمعاد الورد اليومي")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContentIntent(pendingIntent);
+                .setContentIntent(pendingIntent)
+                .setOngoing(true)
+                .setAutoCancel(true);
 
         Notification incomingCallNotification = notification.build();
 

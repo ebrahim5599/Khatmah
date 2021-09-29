@@ -25,7 +25,7 @@
         </receiver>
 
         <activity
-            android:name=".ui.main.setting.SettingActivity"
+            android:name=".ui.setting.SettingActivity"
             android:label="@string/action_settings"
             android:exported="true" />
 

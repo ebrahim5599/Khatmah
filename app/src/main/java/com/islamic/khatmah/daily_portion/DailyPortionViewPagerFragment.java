@@ -2,8 +2,6 @@ package com.islamic.khatmah.daily_portion;
 
 import static com.islamic.khatmah.MainActivity.CURRENT_JUZ;
 import static com.islamic.khatmah.MainActivity.CURRENT_PAGE;
-import static com.islamic.khatmah.MainActivity.editor;
-import static com.islamic.khatmah.MainActivity.sharedPreferences;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -56,7 +54,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
     private ProgressBar progressBar;
     private SharedPreferences sharedPreferences;
     private static ViewPager2 viewPager;
-    int weeklyProgress;
+    private int weeklyProgress, totalProgress;
 
 
     public static DailyPortionViewPagerFragment newInstance(int position, int currentPageNum, int pagesPerDay, boolean[] isChecked, ViewPager2 viewPager2) {
@@ -81,7 +79,8 @@ public class DailyPortionViewPagerFragment extends Fragment {
             isChecked = getArguments().getBooleanArray(ARG_IS_CHECKED_ARR);
             pagesPerDay = getArguments().getInt(ARG_PAGE_PER_DAY);
             counter = sharedPreferences.getInt(Constant.PROGRESS_COUNT, 0);
-
+            weeklyProgress = sharedPreferences.getInt(Constant.WEEKLY_PROGRESS, 0);
+            totalProgress  = sharedPreferences.getInt(Constant.TOTAL_PROGRESS, 0);
         }
     }
 
@@ -133,16 +132,20 @@ public class DailyPortionViewPagerFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         weeklyProgress = sharedPreferences.getInt(Constant.WEEKLY_PROGRESS, 0);
+        totalProgress = sharedPreferences.getInt(Constant.TOTAL_PROGRESS, 0);
+
         checkButton.setOnClickListener(view12 -> {
             if (isChecked[position]) {
                 counter--;
                 isChecked[position] = false;
                 weeklyProgress--;
+                totalProgress--;
                 checkButton.setImageResource(R.drawable.unchecked);
             } else {
                 counter++;
                 isChecked[position] = true;
                 weeklyProgress++;
+                totalProgress++;
                 checkButton.setImageResource(R.drawable.checked);
                 viewPager.setCurrentItem(position + 1);
                 if (counter >= pagesPerDay) {
@@ -160,6 +163,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
                             }).show();
                 }
             }
+            editor.putInt(Constant.TOTAL_PROGRESS, totalProgress);
             editor.putInt(Constant.WEEKLY_PROGRESS, weeklyProgress);
             editor.putInt(Constant.PROGRESS_COUNT, counter);
             editor.apply();
@@ -209,4 +213,6 @@ public class DailyPortionViewPagerFragment extends Fragment {
         boolean[] arr = new boolean[pagesPerDay];
         storeArray(arr, Constant.ARRAY_NAME, getContext());
     }
+
+
 }

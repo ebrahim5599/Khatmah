@@ -90,7 +90,6 @@ import static com.islamic.khatmah.MainActivity.CURRENT_JUZ;
 import static com.islamic.khatmah.MainActivity.CURRENT_PAGE;
 import static com.islamic.khatmah.MainActivity.CURRENT_SURAH;
 import static com.islamic.khatmah.MainActivity.PAGES_PER_DAY;
-import static com.islamic.khatmah.MainActivity.sharedPreferences;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -139,7 +138,6 @@ public class DailyPortionFragment extends Fragment{
 
         preferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
         editor = preferences.edit();
-        sh = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
 
         // Define TextViews...
         page_number = view.findViewById(R.id.page_number);
@@ -152,7 +150,7 @@ public class DailyPortionFragment extends Fragment{
 
         // Define progressBar [Daily].
         progressBar_daily = view.findViewById(R.id.progressBar_daily);
-        progressBar_daily.setMax(sharedPreferences.getInt(PAGES_PER_DAY,0));
+        progressBar_daily.setMax(preferences.getInt(PAGES_PER_DAY,0));
 
         TextView start_btn = view.findViewById(R.id.start);
         start_btn.setOnClickListener(new View.OnClickListener() {
@@ -171,9 +169,9 @@ public class DailyPortionFragment extends Fragment{
         super.onResume();
 
         // Load data from SharedPreferences.
-        current_page = sharedPreferences.getInt(CURRENT_PAGE,1);
-        current_surah = sharedPreferences.getString(CURRENT_SURAH, "سورة الفاتحة");
-        current_juz = sharedPreferences.getString(CURRENT_JUZ,"الجزء الأول");
+        current_page = preferences.getInt(CURRENT_PAGE,1);
+        current_surah = preferences.getString(CURRENT_SURAH, "سورة الفاتحة");
+        current_juz = preferences.getString(CURRENT_JUZ,"الجزء الأول");
         pages_per_day = preferences.getInt(PAGES_PER_DAY,1);
 
         // TextViews setText().
@@ -181,9 +179,9 @@ public class DailyPortionFragment extends Fragment{
         surah_name.setText(current_surah);
         juz_number.setText(current_juz);
         number_of_pages.setText(convertToArbNum(pages_per_day));
-        precentage.setText("%"+convertToArbNum((int)(sh.getInt(Constant.PROGRESS_COUNT, 0) * 100 / (double) pages_per_day)));
+        precentage.setText("%"+convertToArbNum((int)(preferences.getInt(Constant.PROGRESS_COUNT, 0) * 100 / (double) pages_per_day)));
 
-        progressBar_daily.setProgress(sh.getInt(Constant.PROGRESS_COUNT, 0));
+        progressBar_daily.setProgress(preferences.getInt(Constant.PROGRESS_COUNT, 0));
     }
 
     // this method converts English numbers to Indian number [Arabic].
