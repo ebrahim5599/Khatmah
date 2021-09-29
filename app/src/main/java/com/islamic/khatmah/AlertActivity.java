@@ -9,14 +9,14 @@ import android.app.NotificationManager;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -26,19 +26,21 @@ import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.Models.AlarmReminder;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
 public class AlertActivity extends AppCompatActivity {
 
-    ImageButton alarm_btn;
     int sHour, sMinute;
-    private TextView txt_time, p;
+    private TextView txt_time;
     TextView btn_start;
     Spinner spinnerJuz, spinnerPages;
     Switch aSwitch;
-    SharedPreferences preferences;
-    SharedPreferences.Editor editor;
+    private LinearLayout alertReminderLayout;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
+    private int no_of_pages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,52 +50,109 @@ public class AlertActivity extends AppCompatActivity {
         preferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
         editor = preferences.edit();
 
-        aSwitch = findViewById(R.id.switch1);
-        p = findViewById(R.id.p);
+        aSwitch = findViewById(R.id.alert_switch);
 
         //spinner set number of pages.
-        spinnerJuz =  findViewById(R.id.spinnerJuz);
+        spinnerJuz = findViewById(R.id.spinnerJuz);
         spinnerPages = findViewById(R.id.spinnerPages);
 
-        spinnerJuz.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
-        spinnerPages.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
 
-        String[] juz = {"أقل من جزء", "1", "1.5", "2", "2.5", "3"};
-        String[] pages = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-                "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
+        aSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (aSwitch.isChecked()) {
+                    TransitionManager.beginDelayedTransition(alertReminderLayout, new AutoTransition());
+                    alertReminderLayout.setVisibility(View.VISIBLE);
+                    editor.putBoolean(Constant.REMINDER_SWITCH_CASE, true).commit();
+                } else {
+                    TransitionManager.beginDelayedTransition(alertReminderLayout, new AutoTransition());
+                    alertReminderLayout.setVisibility(View.GONE);
+                    editor.putBoolean(Constant.REMINDER_SWITCH_CASE, false).commit();
+                }
+            }
+        });
+        alertReminderLayout = findViewById(R.id.alert_reminder_body);
+        alertReminderLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (aSwitch.isChecked()) {
+                    txt_time.setVisibility(View.VISIBLE);
+                    popTimePiker();
+                    createNotificationChannel();
+                } else {
+                    txt_time.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
 
+//        spinnerJuz.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+//        spinnerPages.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+
+        String[] juz = {"أقل من جزء", "جــــــزء", "جزء ونصف", "جــــزءان", "جزءان ونصف", "ثلاثة أجزاء"};
+        ArrayList<String> pages = new ArrayList<>();
+        pages.add("صفحة");
+        pages.add("صفحتان");
+        for(int i = 3; i < 11; i++)
+            pages.add(convertToArbNum(i)+" صفحات");
+        for(int i = 11; i < 20; i++)
+            pages.add(convertToArbNum(i)+" صفحة");
+
+        // Juz spinner.
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(AlertActivity.this, android.R.layout.simple_list_item_1, juz);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerJuz.setAdapter(adapter1);
         spinnerJuz.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE); // to make spinner text in white color.
+//                ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE); // to make spinner text in white color.
                 if (spinnerJuz.getSelectedItem() == juz[0]) {
                     spinnerPages.setVisibility(View.VISIBLE);
-                    p.setVisibility(View.VISIBLE);
-                    ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(AlertActivity.this, android.R.layout.simple_list_item_1, pages);
-                    adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spinnerPages.setAdapter(adapter2);
-                    spinnerPages.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE); // to make spinner text in white color.
-                            editor.putInt(PAGES_PER_DAY, Integer.parseInt(spinnerPages.getSelectedItem().toString()));
-                            editor.commit();
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-
-                        }
-                    });
                 } else {
                     spinnerPages.setVisibility(View.GONE);
-                    p.setVisibility(View.GONE);
-                    int no_of_pages = (int) (Double.parseDouble(spinnerJuz.getSelectedItem().toString()) * 20);
-                    preferences.edit().putInt(PAGES_PER_DAY, no_of_pages).apply();
+                    switch (spinnerJuz.getSelectedItemPosition()) {
+                        case 1:
+                            // juz
+                            no_of_pages = 20;
+                            break;
+                        case 2:
+                            // 1.5 juz.
+                            no_of_pages = 30;
+                            break;
+                        case 3:
+                            // 2 juz.
+                            no_of_pages = 40;
+                            break;
+                        case 4:
+                            // 2.5 juz.
+                            no_of_pages = 50;
+                            break;
+                        case 5:
+                            // 3 juz.
+                            no_of_pages = 60;
+                            break;
+                    }
                 }
+                editor.putInt(Constant.PARTS_PER_DAY_SPINNER_POSITION, spinnerJuz.getSelectedItemPosition());
+                editor.putInt(PAGES_PER_DAY, no_of_pages);
+                editor.commit();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        // Pages spinner.
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(AlertActivity.this, android.R.layout.simple_list_item_1, pages);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPages.setAdapter(adapter2);
+        spinnerPages.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE); // to make spinner text in white color.
+                editor.putInt(Constant.PAGES_PER_DAY_SPINNER_POSITION, spinnerPages.getSelectedItemPosition());
+                editor.putInt(PAGES_PER_DAY, spinnerPages.getSelectedItemPosition()+1);
+                editor.commit();
             }
 
             @Override
@@ -102,29 +161,14 @@ public class AlertActivity extends AppCompatActivity {
             }
         });
 
-
-        txt_time = findViewById(R.id.txt_time);
-        alarm_btn = findViewById(R.id.img_alarm);
-        alarm_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (aSwitch.isChecked()) {
-                    txt_time.setVisibility(View.VISIBLE);
-                    popTimePiker();
-                    createNotificationchannel();
-                } else {
-                    txt_time.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
+        txt_time = findViewById(R.id.alert_text_time);
         btn_start = findViewById(R.id.btn_start);
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AlertActivity.this, MainActivity.class));
                 if (aSwitch.isChecked()) {
-                    AlarmReminder alarmReminder = new AlarmReminder(sHour,sMinute);
+                    AlarmReminder alarmReminder = new AlarmReminder(sHour, sMinute);
                     alarmReminder.cancelAlarm(AlertActivity.this);
                     alarmReminder.schedule(AlertActivity.this);
                 }
@@ -144,12 +188,13 @@ public class AlertActivity extends AppCompatActivity {
                 cal.set(Calendar.MINUTE, selectedMinute);
                 sHour = cal.get(Calendar.HOUR_OF_DAY);
                 sMinute = cal.get(Calendar.MINUTE);
-                MainActivity.sharedPreferences.edit().putInt(Constant.ALARM_HOUR, sHour).apply();
-                MainActivity.sharedPreferences.edit().putInt(Constant.ALARM_MINUTE, sMinute).apply();
+                editor.putInt(Constant.ALARM_HOUR, sHour).apply();
+                editor.putInt(Constant.ALARM_MINUTE, sMinute).apply();
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa", Locale.US);
                 String Time = simpleDateFormat.format(cal.getTime());
                 txt_time.setText(Time);
-
+                editor.putString(Constant.NOTIFICATION_TIME, Time);
+                editor.commit();
 //                if (cal.getTime().compareTo(new Date()) < 0)
 //                    cal.add(Calendar.DAY_OF_MONTH, 1);
 
@@ -182,7 +227,7 @@ public class AlertActivity extends AppCompatActivity {
     }
 
 
-    private void createNotificationchannel() {
+    private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "KhatmaChannel";
             String description = "ختمه";
@@ -194,5 +239,19 @@ public class AlertActivity extends AppCompatActivity {
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+    }
+
+    // This method converts English numbers to Indian number [Arabic].
+    private String convertToArbNum(int number) {
+
+        String stNum = String.valueOf(number);
+        String result = "";
+
+        for (int i = 0; i < stNum.length(); i++) {
+            char num = String.valueOf(stNum).charAt(i);
+            int ArabicNum = num + 1584;
+            result += (char) ArabicNum;
+        }
+        return result;
     }
 }

@@ -243,5 +243,13 @@
                 </LinearLayout>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/reset_weeklyProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="reset weekly progress"
+            android:layout_margin="32dp"
+            android:layout_gravity="center"/>
     </LinearLayout>
 </ScrollView>
