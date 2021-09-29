@@ -77,8 +77,14 @@ public class MainActivity extends AppCompatActivity {
         getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE).edit()
                 .putBoolean("isFirstRun", false).apply();
 
-        setContentView(R.layout.activity_main);
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this);
+
+            setContentView(R.layout.activity_main);
+
+
+//            sharedPreferences.edit().putInt(Constant.WEEKLY_PROGRESS,0).apply();
+//            sharedPreferences.edit().putInt(Constant.TOTAL_PROGRESS,0).apply();
+            SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this);
+
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
