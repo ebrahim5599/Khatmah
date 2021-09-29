@@ -139,7 +139,7 @@ public class DailyPortionActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Toast.makeText(this, String.valueOf(sharedPreferences.getInt(Constant.WEEKLY_PROGRESS,0)), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, String.valueOf(preferences.getInt(Constant.WEEKLY_PROGRESS,0)), Toast.LENGTH_SHORT).show();
         // Loading or saving data to shared preferences.
         SharedPreferences preferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, 0);
 
@@ -160,8 +160,8 @@ public class DailyPortionActivity extends AppCompatActivity {
                             editor.putInt(CURRENT_PAGE, number_of_pages + currentPageNum);
 
                             editor.putInt(Constant.DAILY_PROGRESS, 0);
-                            editor.putInt(Constant.WEEKLY_PROGRESS, sharedPreferences.getInt(Constant.WEEKLY_PROGRESS, 0) - counter + sharedPreferences.getInt(PAGES_PER_DAY,0));
-                            editor.putInt(Constant.TOTAL_PROGRESS, sharedPreferences.getInt(Constant.WEEKLY_PROGRESS, 0) - counter + sharedPreferences.getInt(PAGES_PER_DAY,0));
+                            editor.putInt(Constant.WEEKLY_PROGRESS, preferences.getInt(Constant.WEEKLY_PROGRESS, 0) - counter + preferences.getInt(PAGES_PER_DAY,0));
+                            editor.putInt(Constant.TOTAL_PROGRESS, preferences.getInt(Constant.WEEKLY_PROGRESS, 0) - counter + preferences.getInt(PAGES_PER_DAY,0));
 
                             //editor.putInt(Constant.PROGRESS_COUNT, 0);
 
