@@ -92,10 +92,10 @@ public class AlertActivity extends AppCompatActivity {
         ArrayList<String> pages = new ArrayList<>();
         pages.add("صفحة");
         pages.add("صفحتان");
-        for(int i = 3; i < 11; i++)
-            pages.add(convertToArbNum(i)+" صفحات");
-        for(int i = 11; i < 20; i++)
-            pages.add(convertToArbNum(i)+" صفحة");
+        for (int i = 3; i < 11; i++)
+            pages.add(convertToArbNum(i) + " صفحات");
+        for (int i = 11; i < 20; i++)
+            pages.add(convertToArbNum(i) + " صفحة");
 
         // Juz spinner.
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(AlertActivity.this, android.R.layout.simple_list_item_1, juz);
@@ -107,6 +107,7 @@ public class AlertActivity extends AppCompatActivity {
 //                ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE); // to make spinner text in white color.
                 if (spinnerJuz.getSelectedItem() == juz[0]) {
                     spinnerPages.setVisibility(View.VISIBLE);
+                    no_of_pages = 1;
                 } else {
                     spinnerPages.setVisibility(View.GONE);
                     switch (spinnerJuz.getSelectedItemPosition()) {
@@ -136,6 +137,7 @@ public class AlertActivity extends AppCompatActivity {
                 editor.putInt(PAGES_PER_DAY, no_of_pages);
                 editor.commit();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -151,7 +153,7 @@ public class AlertActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE); // to make spinner text in white color.
                 editor.putInt(Constant.PAGES_PER_DAY_SPINNER_POSITION, spinnerPages.getSelectedItemPosition());
-                editor.putInt(PAGES_PER_DAY, spinnerPages.getSelectedItemPosition()+1);
+                editor.putInt(PAGES_PER_DAY, spinnerPages.getSelectedItemPosition() + 1);
                 editor.commit();
             }
 

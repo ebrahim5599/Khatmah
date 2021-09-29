@@ -174,7 +174,7 @@ public class DailyPortionFragment extends Fragment{
         juz_number.setText(current_juz);
         number_of_pages.setText(convertToArbNum(pages_per_day));
 
-        precentage.setText("%"+convertToArbNum((int)(preferences.getInt(Constant.DAILY_PROGRESS, 0) * 100 / (double) pages_per_day)));
+        percentage.setText("%"+convertToArbNum((int)(preferences.getInt(Constant.DAILY_PROGRESS, 0) * 100 / (double) pages_per_day)));
 
         progressBar_daily.setProgress(preferences.getInt(Constant.DAILY_PROGRESS, 0));
 
