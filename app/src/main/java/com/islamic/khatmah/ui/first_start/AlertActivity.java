@@ -106,7 +106,7 @@ public class AlertActivity extends AppCompatActivity {
         spinnerJuz.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE); // to make spinner text in white color.
+//                ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE); // to make spinner text in white color..
                 if (spinnerJuz.getSelectedItem() == juz[0]) {
                     spinnerPages.setVisibility(View.VISIBLE);
                     no_of_pages = 1;
