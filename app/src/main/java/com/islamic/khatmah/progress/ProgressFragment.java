@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.icu.text.DecimalFormat;
+import android.icu.text.NumberFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,12 +28,17 @@ import com.islamic.khatmah.MainActivity;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.constants.Constant;
 
+import java.util.Locale;
+
 public class ProgressFragment extends Fragment {
     private TextView txtWeeklyProgressRatio, txtWeeklyProgressPages;
     private TextView txtTotalPagesProgress, txtTotalPagesProgressRatio;
     private TextView txtTotalPartsProgress, txtTotalPartsProgressRatio;
+    private Button reset_weekly_progress;
     private ProgressBar weaklyProgressBar, totalPagesProgressBar, totalPartsProgressBar;
-    private int pagesPerDay, weaklyProgress, totalProgress = 40;
+
+    private int pagesPerDay , weaklyProgress, totalProgress;
+
     SharedPreferences.Editor editor;
     SharedPreferences preferences;
 
@@ -62,12 +69,29 @@ public class ProgressFragment extends Fragment {
         txtTotalPartsProgress = view.findViewById(R.id.txtAllProgressPages2);
         totalPagesProgressBar = view.findViewById(R.id.allProgressBar);
         totalPartsProgressBar = view.findViewById(R.id.allProgressBar2);
+
+        reset_weekly_progress = view.findViewById(R.id.reset_weeklyProgress);
+
+        // load shared Preferences
+        preferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
+
         pagesPerDay = preferences.getInt(MainActivity.PAGES_PER_DAY, 1);
         Toast.makeText(getContext(), "" + weaklyProgress, Toast.LENGTH_SHORT).show();
         // Set progress bar Maximum value.
         weaklyProgressBar.setMax(pagesPerDay * 7);
         totalPagesProgressBar.setMax(604);
         totalPartsProgressBar.setMax(30);
+
+        reset_weekly_progress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                weaklyProgress = 0;
+                totalProgress = 0;
+                totalPartsProgressBar.setProgress(0);
+                preferences.edit().putInt(Constant.WEEKLY_PROGRESS, weaklyProgress).commit();
+                preferences.edit().putInt(Constant.TOTAL_PROGRESS, totalProgress).commit();
+            }
+        });
 
 //        if (savedInstanceState != null) {
 //            super.onViewStateRestored(savedInstanceState);
@@ -84,7 +108,9 @@ public class ProgressFragment extends Fragment {
         super.onResume();
 
         weaklyProgress = preferences.getInt(Constant.WEEKLY_PROGRESS, 0);
+
         totalProgress = preferences.getInt(Constant.TOTAL_PROGRESS, 0);
+
         // 1st progress bar [weekly target].
         weaklyProgressBar.setProgress(weaklyProgress);
         txtWeeklyProgressRatio.setText((int) (((float) weaklyProgressBar.getProgress()) / weaklyProgressBar.getMax() * 100) + " % ");
@@ -93,12 +119,16 @@ public class ProgressFragment extends Fragment {
         // 2nd progress bar [no. of read pages].
         totalPagesProgressBar.setProgress(totalProgress);
         txtTotalPagesProgressRatio.setText((int) (((float) totalPagesProgressBar.getProgress()) / totalPagesProgressBar.getMax() * 100) + " % ");
-        txtTotalPagesProgress.setText(totalPagesProgressBar.getProgress() + " Pages");
+        txtTotalPagesProgress.setText(totalPagesProgressBar.getProgress()+" صفحة");
+
+        NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
+        DecimalFormat formatter = (DecimalFormat) nf;
+        formatter.applyPattern("##.#");
 
         // 3rd progress bar [no. of read parts].
-        totalPartsProgressBar.setProgress(totalProgress / 20);
-        txtTotalPartsProgressRatio.setText((int) (((float) totalPartsProgressBar.getProgress()) / totalPartsProgressBar.getMax() * 100) + " % ");
-        txtTotalPartsProgress.setText(new DecimalFormat("##.#").format(totalPagesProgressBar.getProgress() / 20.0) + " Parts");
+        totalPartsProgressBar.setProgress(totalProgress/20);
+        txtTotalPartsProgressRatio.setText(formatter.format(((float) totalPartsProgressBar.getProgress()) / totalPartsProgressBar.getMax() * 100) + " % ");
+        txtTotalPartsProgress.setText(formatter.format(totalPagesProgressBar.getProgress()/20.0)+" جزء");
     }
 
 //    @Override
@@ -147,6 +177,19 @@ public class ProgressFragment extends Fragment {
 
 
         }
+    }
+    // This method converts English numbers to Indian number [Arabic].
+    private String convertToArbNum(int number) {
+
+        String stNum = String.valueOf(number);
+        String result = "";
+
+        for (int i = 0; i < stNum.length(); i++) {
+            char num = String.valueOf(stNum).charAt(i);
+            int ArabicNum = num + 1584;
+            result += (char) ArabicNum;
+        }
+        return result;
     }
 }
 /*

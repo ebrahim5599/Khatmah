@@ -20,7 +20,6 @@ public class OnRebootReceiver extends BroadcastReceiver {
         if (intent.getAction() == "android.intent.action.BOOT_COMPLETED") {
             AlarmReminder alarmReminder = new AlarmReminder(sHour, sMinute);
             alarmReminder.schedule(context);
-            // set your alarms here
         }
     }
 }

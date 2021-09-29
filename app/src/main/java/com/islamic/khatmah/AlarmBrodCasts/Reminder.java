@@ -51,8 +51,8 @@ public class Reminder extends BroadcastReceiver {
                 .setContentText("تذكير بمعاد الورد اليومي")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(pendingIntent)
-                .setOngoing(true);
-
+                .setOngoing(true)
+                .setAutoCancel(true);
 
         Notification incomingCallNotification = notification.build();
 

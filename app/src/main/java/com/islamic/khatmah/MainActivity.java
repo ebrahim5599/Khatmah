@@ -11,8 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -22,11 +20,12 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.ui.main.SectionsPagerAdapter;
-import com.islamic.khatmah.ui.main.setting.SettingActivity;
+import com.islamic.khatmah.ui.setting.SettingActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -36,8 +35,8 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
 
-    public static SharedPreferences sharedPreferences;
-    public static SharedPreferences.Editor editor;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
     public static final String CURRENT_PAGE = "current page";
     public static final String CURRENT_SURAH = "current surah";
     public static final String CURRENT_JUZ = "current juz";
@@ -59,23 +58,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+
+        // sharedPreference.
+        preferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
+        editor = preferences.edit();
+
+        boolean isFirstRun = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE)
                 .getBoolean("isFirstRun", true);
         if (isFirstRun) {
             //show Start activity
             startActivity(new Intent(MainActivity.this, StartActivity.class));
 
         }
-        // sharedPreference.
-        sharedPreferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES,0);
-        editor = sharedPreferences.edit();
-        
-        getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
+
+        getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE).edit()
                 .putBoolean("isFirstRun", false).apply();
+
 
             setContentView(R.layout.activity_main);
 
@@ -84,25 +85,26 @@ public class MainActivity extends AppCompatActivity {
 //            sharedPreferences.edit().putInt(Constant.TOTAL_PROGRESS,0).apply();
             SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this);
 
-            toolbar = findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
-            ViewPager2 viewPager = findViewById(R.id.view_pager);
-            viewPager.setAdapter(sectionsPagerAdapter);
 
-        if(getIntent().getIntExtra("fromDailyPortionActivity",1) == 0){
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ViewPager2 viewPager = findViewById(R.id.view_pager);
+        viewPager.setAdapter(sectionsPagerAdapter);
+
+        if (getIntent().getIntExtra("fromDailyPortionActivity", 1) == 0) {
             viewPager.setCurrentItem(1);
         }
-            TabLayout tabs = findViewById(R.id.tabs);
-            new TabLayoutMediator(tabs, viewPager,
-                    (tab, position) -> tab.setText(setTextOfTheTab(position))
-            ).attach();
+        TabLayout tabs = findViewById(R.id.tabs);
+        new TabLayoutMediator(tabs, viewPager,
+                (tab, position) -> tab.setText(setTextOfTheTab(position))
+        ).attach();
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    preparingSurahNames();
-                }
-            }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                preparingSurahNames();
+            }
+        }).start();
 
     }
 
@@ -117,12 +119,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.item_setting) {
-            Toast.makeText(this, "Setting", Toast.LENGTH_SHORT).show();
+
             startActivity(new Intent(getBaseContext(), SettingActivity.class));
             return true;
         } else if (itemId == R.id.item_about_us) {
 
-            Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getBaseContext(), StartActivity.class));
             return true;
         }
@@ -143,15 +144,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void moveToSecondary(){
+    public void moveToSecondary() {
         // use an intent to travel from one activity to another.
-        Intent intent = new Intent(this,StartActivity.class);
+        Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
     }
 
 
-
-    private void preparingSurahNames(){
+    private void preparingSurahNames() {
         surahName = new ArrayList<>();
         JSONObject jsonObject, pageData;
         JSONArray jsonArray;
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String JsonDataFromAsset(String fileName) {
-        String json ;
+        String json;
         try {
             InputStream inputStream = getBaseContext().getAssets().open(fileName);
             int sizeOfFile = inputStream.available();

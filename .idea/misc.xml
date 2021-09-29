@@ -41,7 +41,11 @@
         <entry key="..\:/09 Khatmah/app/src/main/res/font-v26/my_fonts.xml" value="0.28" />
         <entry key="..\:/09 Khatmah/app/src/main/res/font/al_kharashi.xml" value="0.28" />
         <entry key="..\:/09 Khatmah/app/src/main/res/font/my_fonts.xml" value="0.28" />
+        <entry key="..\:/09 Khatmah/app/src/main/res/layout-land/activity_quran.xml" value="0.11552028218694885" />
         <entry key="..\:/09 Khatmah/app/src/main/res/layout-land/activity_setting.xml" value="0.21516754850088182" />
+        <entry key="..\:/09 Khatmah/app/src/main/res/layout-land/fragment_daily_portion_view_pager_fragment.xml" value="0.21516754850088182" />
+        <entry key="..\:/09 Khatmah/app/src/main/res/layout-land/page_container.xml" value="0.21516754850088182" />
+        <entry key="..\:/09 Khatmah/app/src/main/res/layout-land/quran_activity.xml" value="0.11552028218694885" />
         <entry key="..\:/09 Khatmah/app/src/main/res/layout-v28/activity_start.xml" value="0.2391304347826087" />
         <entry key="..\:/09 Khatmah/app/src/main/res/layout/activity_alert.xml" value="0.24010416666666667" />
         <entry key="..\:/09 Khatmah/app/src/main/res/layout/activity_daily_portion.xml" value="0.25226449275362317" />

@@ -39,4 +39,6 @@
     <string name="warning_message">All current data, including the current page number and the number of pages read per day, will be deleted. Do you want to delete data?</string>
     <string name="delete">DELETE</string>
     <string name="cancel">CANCEL</string>
+
+    <string name="page">Page</string>
 </resources>

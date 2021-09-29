@@ -51,7 +51,9 @@ public class DailyPortionViewPagerFragment extends Fragment {
     private ProgressBar progressBar;
     private SharedPreferences sharedPreferences;
     private static ViewPager2 viewPager;
-    int weeklyProgress, totalProgress;
+
+    private int weeklyProgress, totalProgress;
+
 
 
     public static DailyPortionViewPagerFragment newInstance(int position, int currentPageNum, int pagesPerDay, boolean[] isChecked, ViewPager2 viewPager2) {
@@ -75,7 +77,11 @@ public class DailyPortionViewPagerFragment extends Fragment {
             currentPageNum = getArguments().getInt(ARG_CURRENT_PAGE_NUM);
             isChecked = getArguments().getBooleanArray(ARG_IS_CHECKED_ARR);
             pagesPerDay = getArguments().getInt(ARG_PAGE_PER_DAY);
+
             counter = sharedPreferences.getInt(Constant.DAILY_PROGRESS, 0);
+
+            weeklyProgress = sharedPreferences.getInt(Constant.WEEKLY_PROGRESS, 0);
+            totalProgress  = sharedPreferences.getInt(Constant.TOTAL_PROGRESS, 0);
 
         }
     }
@@ -127,7 +133,11 @@ public class DailyPortionViewPagerFragment extends Fragment {
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-//        weeklyProgress = sharedPreferences.getInt(Constant.WEEKLY_PROGRESS, 0);
+
+        weeklyProgress = sharedPreferences.getInt(Constant.WEEKLY_PROGRESS, 0);
+        totalProgress = sharedPreferences.getInt(Constant.TOTAL_PROGRESS, 0);
+
+
         checkButton.setOnClickListener(view12 -> {
             totalProgress = sharedPreferences.getInt(Constant.TOTAL_PROGRESS, 0);
             weeklyProgress = sharedPreferences.getInt(Constant.WEEKLY_PROGRESS, 0);
@@ -159,6 +169,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
                             }).show();
                 }
             }
+            editor.putInt(Constant.TOTAL_PROGRESS, totalProgress);
             editor.putInt(Constant.WEEKLY_PROGRESS, weeklyProgress);
             editor.putInt(Constant.DAILY_PROGRESS, counter);
             editor.putInt(Constant.TOTAL_PROGRESS, totalProgress);
@@ -211,4 +222,6 @@ public class DailyPortionViewPagerFragment extends Fragment {
         boolean[] arr = new boolean[pagesPerDay];
         storeArray(arr, Constant.ARRAY_NAME, getContext());
     }
+
+
 }
