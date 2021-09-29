@@ -1,8 +1,8 @@
-package com.islamic.khatmah;
+package com.islamic.khatmah.ui.first_start;
 
-import static com.islamic.khatmah.MainActivity.CURRENT_JUZ;
-import static com.islamic.khatmah.MainActivity.CURRENT_PAGE;
-import static com.islamic.khatmah.MainActivity.CURRENT_SURAH;
+import static com.islamic.khatmah.constants.Constant.CURRENT_JUZ;
+import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
+import static com.islamic.khatmah.constants.Constant.CURRENT_SURAH;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,7 +17,9 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.islamic.khatmah.R;
 import com.islamic.khatmah.constants.Constant;
+import com.islamic.khatmah.ui.main.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;

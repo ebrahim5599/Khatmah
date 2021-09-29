@@ -1,6 +1,6 @@
 package com.islamic.khatmah.ui.setting;
 
-import static com.islamic.khatmah.MainActivity.PAGES_PER_DAY;
+import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -106,6 +106,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (spinnerJuz.getSelectedItem() == juz[0]) {
                     spinnerPage.setVisibility(View.VISIBLE);
+                    no_of_pages = 1;
                 }else {
                     spinnerPage.setVisibility(View.GONE);
                     switch (spinnerJuz.getSelectedItemPosition()) {

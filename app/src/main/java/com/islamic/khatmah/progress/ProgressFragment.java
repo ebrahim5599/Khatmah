@@ -2,6 +2,8 @@ package com.islamic.khatmah.progress;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
@@ -24,7 +26,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-import com.islamic.khatmah.MainActivity;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.constants.Constant;
 
@@ -36,7 +37,6 @@ public class ProgressFragment extends Fragment {
     private TextView txtTotalPartsProgress, txtTotalPartsProgressRatio;
     private Button reset_weekly_progress;
     private ProgressBar weaklyProgressBar, totalPagesProgressBar, totalPartsProgressBar;
-
     private int pagesPerDay , weaklyProgress, totalProgress;
 
     SharedPreferences.Editor editor;
@@ -69,14 +69,12 @@ public class ProgressFragment extends Fragment {
         txtTotalPartsProgress = view.findViewById(R.id.txtAllProgressPages2);
         totalPagesProgressBar = view.findViewById(R.id.allProgressBar);
         totalPartsProgressBar = view.findViewById(R.id.allProgressBar2);
-
         reset_weekly_progress = view.findViewById(R.id.reset_weeklyProgress);
 
         // load shared Preferences
         preferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
-
-        pagesPerDay = preferences.getInt(MainActivity.PAGES_PER_DAY, 1);
-        Toast.makeText(getContext(), "" + weaklyProgress, Toast.LENGTH_SHORT).show();
+        pagesPerDay = preferences.getInt(PAGES_PER_DAY, 1);
+        Toast.makeText(getContext(), ""+weaklyProgress, Toast.LENGTH_SHORT).show();
         // Set progress bar Maximum value.
         weaklyProgressBar.setMax(pagesPerDay * 7);
         totalPagesProgressBar.setMax(604);
@@ -108,8 +106,7 @@ public class ProgressFragment extends Fragment {
         super.onResume();
 
         weaklyProgress = preferences.getInt(Constant.WEEKLY_PROGRESS, 0);
-
-        totalProgress = preferences.getInt(Constant.TOTAL_PROGRESS, 0);
+        totalProgress  = preferences.getInt(Constant.TOTAL_PROGRESS, 0);
 
         // 1st progress bar [weekly target].
         weaklyProgressBar.setProgress(weaklyProgress);

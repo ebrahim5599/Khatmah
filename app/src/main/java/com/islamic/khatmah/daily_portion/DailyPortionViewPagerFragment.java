@@ -1,6 +1,8 @@
 package com.islamic.khatmah.daily_portion;
 
-import static com.islamic.khatmah.MainActivity.CURRENT_PAGE;
+import static com.islamic.khatmah.constants.Constant.CURRENT_JUZ;
+import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
+import static com.islamic.khatmah.constants.Constant.CURRENT_SURAH;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -22,7 +24,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.islamic.khatmah.MainActivity;
+import com.islamic.khatmah.ui.main.MainActivity;
 import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.R;
 import com.squareup.picasso.Picasso;
@@ -51,9 +53,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
     private ProgressBar progressBar;
     private SharedPreferences sharedPreferences;
     private static ViewPager2 viewPager;
-
     private int weeklyProgress, totalProgress;
-
 
 
     public static DailyPortionViewPagerFragment newInstance(int position, int currentPageNum, int pagesPerDay, boolean[] isChecked, ViewPager2 viewPager2) {
@@ -106,8 +106,8 @@ public class DailyPortionViewPagerFragment extends Fragment {
         juz_number.setText(String.format("الجزء %s", convertToArbNum(juz)));
         surah_name.setText(MainActivity.surahName.get(position + currentPageNum - 1));
         page_number.setText(String.format("صفحة  %s", convertToArbNum(position + currentPageNum)));
-        sharedPreferences.edit().putString(MainActivity.CURRENT_JUZ, String.format("الجزء %s", convertToArbNum(juz))).apply();
-        sharedPreferences.edit().putString(MainActivity.CURRENT_SURAH, MainActivity.surahName.get(position + currentPageNum - 1)).apply();
+        sharedPreferences.edit().putString(CURRENT_JUZ, String.format("الجزء %s", convertToArbNum(juz))).apply();
+        sharedPreferences.edit().putString(CURRENT_SURAH, MainActivity.surahName.get(position + currentPageNum - 1)).apply();
 
         InputStream is;
         ImageView img = view.findViewById(R.id.img);
@@ -133,10 +133,8 @@ public class DailyPortionViewPagerFragment extends Fragment {
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-
         weeklyProgress = sharedPreferences.getInt(Constant.WEEKLY_PROGRESS, 0);
         totalProgress = sharedPreferences.getInt(Constant.TOTAL_PROGRESS, 0);
-
 
         checkButton.setOnClickListener(view12 -> {
             totalProgress = sharedPreferences.getInt(Constant.TOTAL_PROGRESS, 0);
@@ -169,7 +167,6 @@ public class DailyPortionViewPagerFragment extends Fragment {
                             }).show();
                 }
             }
-            editor.putInt(Constant.TOTAL_PROGRESS, totalProgress);
             editor.putInt(Constant.WEEKLY_PROGRESS, weeklyProgress);
             editor.putInt(Constant.DAILY_PROGRESS, counter);
             editor.putInt(Constant.TOTAL_PROGRESS, totalProgress);

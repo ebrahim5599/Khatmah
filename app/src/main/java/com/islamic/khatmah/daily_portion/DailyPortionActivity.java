@@ -1,9 +1,9 @@
 //package com.islamic.khatmah.daily_portion;
 //
-//import static com.islamic.khatmah.MainActivity.CURRENT_PAGE;
-//import static com.islamic.khatmah.MainActivity.PAGES_PER_DAY;
-//import static com.islamic.khatmah.MainActivity.editor;
-//import static com.islamic.khatmah.MainActivity.sharedPreferences;
+//import static com.islamic.khatmah.ui.main.MainActivity.CURRENT_PAGE;
+//import static com.islamic.khatmah.ui.main.MainActivity.PAGES_PER_DAY;
+//import static com.islamic.khatmah.ui.main.MainActivity.editor;
+//import static com.islamic.khatmah.ui.main.MainActivity.sharedPreferences;
 //
 //import androidx.appcompat.app.AppCompatActivity;
 //import androidx.viewpager2.widget.ViewPager2;
@@ -87,8 +87,8 @@
 
 package com.islamic.khatmah.daily_portion;
 
-import static com.islamic.khatmah.MainActivity.CURRENT_PAGE;
-import static com.islamic.khatmah.MainActivity.PAGES_PER_DAY;
+import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
+import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
@@ -134,12 +134,12 @@ public class DailyPortionActivity extends AppCompatActivity {
         // Create viewPager.
         ViewPager2 viewPager = findViewById(R.id.viewPager2);
         viewPager.setAdapter(new DailyPortionAdapter(this, currentPageNum, isChecked,number_of_pages, viewPager));
-
+        viewPager.setCurrentItem(preferences.getInt(Constant.PROGRESS_COUNT, 0));
     }
 
     @Override
     public void onBackPressed() {
-        Toast.makeText(this, String.valueOf(sharedPreferences.getInt(Constant.WEEKLY_PROGRESS,0)), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, String.valueOf(preferences.getInt(Constant.WEEKLY_PROGRESS,0)), Toast.LENGTH_SHORT).show();
         // Loading or saving data to shared preferences.
         SharedPreferences preferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, 0);
 
@@ -160,8 +160,8 @@ public class DailyPortionActivity extends AppCompatActivity {
                             editor.putInt(CURRENT_PAGE, number_of_pages + currentPageNum);
 
                             editor.putInt(Constant.DAILY_PROGRESS, 0);
-                            editor.putInt(Constant.WEEKLY_PROGRESS, sharedPreferences.getInt(Constant.WEEKLY_PROGRESS, 0) - counter + sharedPreferences.getInt(PAGES_PER_DAY,0));
-                            editor.putInt(Constant.TOTAL_PROGRESS, sharedPreferences.getInt(Constant.WEEKLY_PROGRESS, 0) - counter + sharedPreferences.getInt(PAGES_PER_DAY,0));
+                            editor.putInt(Constant.WEEKLY_PROGRESS, preferences.getInt(Constant.WEEKLY_PROGRESS, 0) - counter + preferences.getInt(PAGES_PER_DAY,0));
+                            editor.putInt(Constant.TOTAL_PROGRESS, preferences.getInt(Constant.WEEKLY_PROGRESS, 0) - counter + preferences.getInt(PAGES_PER_DAY,0));
 
                             //editor.putInt(Constant.PROGRESS_COUNT, 0);
 
@@ -172,7 +172,7 @@ public class DailyPortionActivity extends AppCompatActivity {
                             DailyPortionActivity.super.onBackPressed();
                         }
                     })
-                    // A null listener allows the button to dismiss the dialog and take no further action.
+                    // A null listener allows the button to dismiss the dialog and take no further action..
                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {

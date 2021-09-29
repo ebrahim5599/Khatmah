@@ -1,6 +1,6 @@
 package com.islamic.khatmah.daily_portion;
 
-import static com.islamic.khatmah.MainActivity.PAGES_PER_DAY;
+import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
 
 import android.content.SharedPreferences;
 import android.util.Log;
