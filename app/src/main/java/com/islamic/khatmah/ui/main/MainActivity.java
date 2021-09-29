@@ -1,4 +1,4 @@
-package com.islamic.khatmah;
+package com.islamic.khatmah.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,13 +13,13 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.islamic.khatmah.R;
+import com.islamic.khatmah.ui.first_start.StartActivity;
 import com.islamic.khatmah.constants.Constant;
-import com.islamic.khatmah.ui.main.SectionsPagerAdapter;
 import com.islamic.khatmah.ui.setting.SettingActivity;
 
 import org.json.JSONArray;
@@ -37,10 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
-    public static final String CURRENT_PAGE = "current page";
-    public static final String CURRENT_SURAH = "current surah";
-    public static final String CURRENT_JUZ = "current juz";
-    public static final String PAGES_PER_DAY = "pages per day";
     public static ArrayList<String> surahName;
 
     String prevStarted = "yes";
