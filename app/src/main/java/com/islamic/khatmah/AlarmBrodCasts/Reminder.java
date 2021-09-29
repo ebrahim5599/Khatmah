@@ -7,7 +7,6 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.util.Log;
 
@@ -18,11 +17,12 @@ import com.islamic.khatmah.ui.main.MainActivity;
 import com.islamic.khatmah.R;
 
 public class Reminder extends BroadcastReceiver {
-    int MID=0;
+    int MID = 0;
     public static final String CHANNEL_ID = "ALARM_SERVICE_CHANNEL";
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        Intent intent1= new Intent( context, MainActivity.class);
+        Intent intent1 = new Intent(context, MainActivity.class);
 //        PendingIntent pendingIntent= PendingIntent.getActivity(context,0,intent1,PendingIntent.FLAG_UPDATE_CURRENT);
 //        NotificationCompat.Builder builder = new NotificationCompat.Builder(context,"notify")
 //                .setSmallIcon(R.drawable.ic_baseline_add_alert_24)
@@ -34,7 +34,7 @@ public class Reminder extends BroadcastReceiver {
 //        notificationManger.notify(MID,builder.build());
 //         MID++;
 
-        Log.d("Remind","Reminder");
+        Log.d("Remind", "Reminder");
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -46,7 +46,7 @@ public class Reminder extends BroadcastReceiver {
 
 
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setSmallIcon(R.drawable.ic_baseline_add_alert_24)
                 .setContentTitle("Khatmah Reminder")
                 .setContentText("تذكير بمعاد الورد اليومي")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -57,12 +57,12 @@ public class Reminder extends BroadcastReceiver {
         Notification incomingCallNotification = notification.build();
 
 
-        NotificationManagerCompat notificationManger= NotificationManagerCompat.from(context);
-        notificationManger.notify(0,incomingCallNotification);
+        NotificationManagerCompat notificationManger = NotificationManagerCompat.from(context);
+        notificationManger.notify(0, incomingCallNotification);
     }
 
 
-    }
+}
 
 
 

@@ -38,6 +38,7 @@ public class ProgressFragment extends Fragment {
     private Button reset_weekly_progress;
     private ProgressBar weaklyProgressBar, totalPagesProgressBar, totalPartsProgressBar;
     private int pagesPerDay , weaklyProgress, totalProgress;
+
     SharedPreferences.Editor editor;
     SharedPreferences preferences;
 
@@ -52,6 +53,10 @@ public class ProgressFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.progress_fragment, container, false);
 
+
+        // load shared Preferences
+        preferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
+//        totalProgress = preferences.getInt(Constant.TOTAL_PROGRESS, 0);
         // Define views of weekly progress bar.
         txtWeeklyProgressRatio = view.findViewById(R.id.txtWeeklyProgressRatio);
         txtWeeklyProgressPages = view.findViewById(R.id.txtWeeklyProgressPages);

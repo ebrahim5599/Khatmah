@@ -112,7 +112,7 @@ public class DailyPortionFragment extends Fragment{
 
 //    private DailyPortionViewModel mViewModel;
 
-    private TextView page_number, surah_name, juz_number, number_of_pages,precentage, hadithTextView;
+    private TextView page_number, surah_name, juz_number, number_of_pages, percentage, hadithTextView;
     private ProgressBar progressBar_daily;
     private int current_page, pages_per_day;
     private String current_surah, current_juz;
@@ -138,7 +138,7 @@ public class DailyPortionFragment extends Fragment{
         surah_name  = view.findViewById(R.id.surah_name);
         juz_number  = view.findViewById(R.id.juz_number);
         number_of_pages = view.findViewById(R.id.number_of_pages);
-        precentage = view.findViewById(R.id.precentage);
+        percentage = view.findViewById(R.id.precentage);
         hadithTextView = view.findViewById(R.id.daily_hadith_container);
         hadithTextView.setText("عن عائشة رضي اللَّه عنها قالَتْ: قالَ رسولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: "+"\"الَّذِي يَقْرَأُ القُرْآنَ وَهُو ماهِرٌ بِهِ معَ السَّفَرةِ الكِرَامِ البَرَرَةِ، وَالَّذِي يقرَأُ القُرْآنَ ويَتَتَعْتَعُ فِيهِ وَهُو عليهِ شَاقٌّ لَهُ أَجْران متفقٌ عَلَيْه.\"");
 
@@ -173,9 +173,11 @@ public class DailyPortionFragment extends Fragment{
         surah_name.setText(current_surah);
         juz_number.setText(current_juz);
         number_of_pages.setText(convertToArbNum(pages_per_day));
-        precentage.setText("%"+convertToArbNum((int)(preferences.getInt(Constant.PROGRESS_COUNT, 0) * 100 / (double) pages_per_day)));
 
-        progressBar_daily.setProgress(preferences.getInt(Constant.PROGRESS_COUNT, 0));
+        percentage.setText("%"+convertToArbNum((int)(preferences.getInt(Constant.DAILY_PROGRESS, 0) * 100 / (double) pages_per_day)));
+
+        progressBar_daily.setProgress(preferences.getInt(Constant.DAILY_PROGRESS, 0));
+
     }
 
     // this method converts English numbers to Indian number [Arabic].
