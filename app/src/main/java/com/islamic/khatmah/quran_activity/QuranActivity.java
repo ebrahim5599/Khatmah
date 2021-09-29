@@ -5,9 +5,8 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
-import com.islamic.khatmah.MainActivity;
+import com.islamic.khatmah.ui.main.MainActivity;
 import com.islamic.khatmah.R;
 
 import java.io.IOException;

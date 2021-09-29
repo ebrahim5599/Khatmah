@@ -1,9 +1,9 @@
 //package com.islamic.khatmah.daily_portion;
 //
-//import static com.islamic.khatmah.MainActivity.CURRENT_PAGE;
-//import static com.islamic.khatmah.MainActivity.PAGES_PER_DAY;
-//import static com.islamic.khatmah.MainActivity.editor;
-//import static com.islamic.khatmah.MainActivity.sharedPreferences;
+//import static com.islamic.khatmah.ui.main.MainActivity.CURRENT_PAGE;
+//import static com.islamic.khatmah.ui.main.MainActivity.PAGES_PER_DAY;
+//import static com.islamic.khatmah.ui.main.MainActivity.editor;
+//import static com.islamic.khatmah.ui.main.MainActivity.sharedPreferences;
 //
 //import androidx.appcompat.app.AppCompatActivity;
 //import androidx.viewpager2.widget.ViewPager2;
@@ -87,8 +87,8 @@
 
 package com.islamic.khatmah.daily_portion;
 
-import static com.islamic.khatmah.MainActivity.CURRENT_PAGE;
-import static com.islamic.khatmah.MainActivity.PAGES_PER_DAY;
+import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
+import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
@@ -134,7 +134,7 @@ public class DailyPortionActivity extends AppCompatActivity {
         // Create viewPager.
         ViewPager2 viewPager = findViewById(R.id.viewPager2);
         viewPager.setAdapter(new DailyPortionAdapter(this, currentPageNum, isChecked,number_of_pages, viewPager));
-
+        viewPager.setCurrentItem(preferences.getInt(Constant.PROGRESS_COUNT, 0));
     }
 
     @Override

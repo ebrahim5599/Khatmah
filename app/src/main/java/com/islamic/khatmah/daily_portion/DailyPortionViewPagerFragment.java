@@ -1,13 +1,11 @@
 package com.islamic.khatmah.daily_portion;
 
-import static com.islamic.khatmah.MainActivity.CURRENT_JUZ;
-import static com.islamic.khatmah.MainActivity.CURRENT_PAGE;
+import static com.islamic.khatmah.constants.Constant.CURRENT_JUZ;
+import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
+import static com.islamic.khatmah.constants.Constant.CURRENT_SURAH;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,7 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.islamic.khatmah.MainActivity;
+import com.islamic.khatmah.ui.main.MainActivity;
 import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.R;
 import com.squareup.picasso.Picasso;
@@ -104,8 +102,8 @@ public class DailyPortionViewPagerFragment extends Fragment {
         juz_number.setText(String.format("الجزء %s", convertToArbNum(juz)));
         surah_name.setText(MainActivity.surahName.get(position + currentPageNum - 1));
         page_number.setText(String.format("صفحة  %s", convertToArbNum(position + currentPageNum)));
-        sharedPreferences.edit().putString(MainActivity.CURRENT_JUZ, String.format("الجزء %s", convertToArbNum(juz))).apply();
-        sharedPreferences.edit().putString(MainActivity.CURRENT_SURAH, MainActivity.surahName.get(position + currentPageNum - 1)).apply();
+        sharedPreferences.edit().putString(CURRENT_JUZ, String.format("الجزء %s", convertToArbNum(juz))).apply();
+        sharedPreferences.edit().putString(CURRENT_SURAH, MainActivity.surahName.get(position + currentPageNum - 1)).apply();
 
         InputStream is;
         ImageView img = view.findViewById(R.id.img);

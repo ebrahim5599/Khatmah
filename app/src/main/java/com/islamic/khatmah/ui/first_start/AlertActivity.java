@@ -1,6 +1,6 @@
-package com.islamic.khatmah;
+package com.islamic.khatmah.ui.first_start;
 
-import static com.islamic.khatmah.MainActivity.PAGES_PER_DAY;
+import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,8 +22,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.islamic.khatmah.R;
 import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.Models.AlarmReminder;
+import com.islamic.khatmah.ui.main.MainActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -107,6 +109,7 @@ public class AlertActivity extends AppCompatActivity {
 //                ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE); // to make spinner text in white color.
                 if (spinnerJuz.getSelectedItem() == juz[0]) {
                     spinnerPages.setVisibility(View.VISIBLE);
+                    no_of_pages = 1;
                 } else {
                     spinnerPages.setVisibility(View.GONE);
                     switch (spinnerJuz.getSelectedItemPosition()) {

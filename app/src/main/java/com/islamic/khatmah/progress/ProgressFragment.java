@@ -2,6 +2,8 @@ package com.islamic.khatmah.progress;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
@@ -24,7 +26,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-import com.islamic.khatmah.MainActivity;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.constants.Constant;
 
@@ -67,7 +68,7 @@ public class ProgressFragment extends Fragment {
 
         // load shared Preferences
         preferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
-        pagesPerDay = preferences.getInt(MainActivity.PAGES_PER_DAY, 1);
+        pagesPerDay = preferences.getInt(PAGES_PER_DAY, 1);
         Toast.makeText(getContext(), ""+weaklyProgress, Toast.LENGTH_SHORT).show();
         // Set progress bar Maximum value.
         weaklyProgressBar.setMax(pagesPerDay * 7);

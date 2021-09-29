@@ -1,10 +1,10 @@
 //package com.islamic.khatmah.daily_portion;
 //
-//import static com.islamic.khatmah.MainActivity.CURRENT_JUZ;
-//import static com.islamic.khatmah.MainActivity.CURRENT_PAGE;
-//import static com.islamic.khatmah.MainActivity.CURRENT_SURAH;
-//import static com.islamic.khatmah.MainActivity.PAGES_PER_DAY;
-//import static com.islamic.khatmah.MainActivity.sharedPreferences;
+//import static com.islamic.khatmah.ui.main.MainActivity.CURRENT_JUZ;
+//import static com.islamic.khatmah.ui.main.MainActivity.CURRENT_PAGE;
+//import static com.islamic.khatmah.ui.main.MainActivity.CURRENT_SURAH;
+//import static com.islamic.khatmah.ui.main.MainActivity.PAGES_PER_DAY;
+//import static com.islamic.khatmah.ui.main.MainActivity.sharedPreferences;
 //
 //import androidx.lifecycle.ViewModelProvider;
 //
@@ -86,12 +86,10 @@
  package com.islamic.khatmah.daily_portion;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.islamic.khatmah.MainActivity.CURRENT_JUZ;
-import static com.islamic.khatmah.MainActivity.CURRENT_PAGE;
-import static com.islamic.khatmah.MainActivity.CURRENT_SURAH;
-import static com.islamic.khatmah.MainActivity.PAGES_PER_DAY;
-
-import androidx.lifecycle.ViewModelProvider;
+import static com.islamic.khatmah.constants.Constant.CURRENT_JUZ;
+import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
+import static com.islamic.khatmah.constants.Constant.CURRENT_SURAH;
+import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -101,16 +99,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.islamic.khatmah.MainActivity;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.constants.Constant;
 
