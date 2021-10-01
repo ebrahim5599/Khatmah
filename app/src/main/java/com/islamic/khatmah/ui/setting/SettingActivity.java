@@ -197,10 +197,9 @@ public class SettingActivity extends AppCompatActivity {
                                 editor.putInt(TOTAL_PROGRESS,0);
                                 editor.putInt(CURRENT_PAGE,1);
                                 editor.putInt(PAGES_PER_DAY,1);
-                                editor.putString(Constant.CURRENT_JUZ,"الجزء الأول");
-                                editor.putString(Constant.CURRENT_SURAH,"سورة الفاتحة");
                                 editor.putInt(Constant.DAILY_PROGRESS,0);
-                                editor.putBoolean(Constant.PREV_STARTED,false);
+                                editor.putBoolean(Constant.FIRST_RUN,true);
+                                reminderSwitch.setChecked(false);
                                 editor.apply();
                                 Intent intent = new Intent(SettingActivity.this, StartActivity.class);
                                 startActivity(intent);
