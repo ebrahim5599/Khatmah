@@ -1,6 +1,9 @@
 package com.islamic.khatmah.ui.setting;
 
+import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
 import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
+import static com.islamic.khatmah.constants.Constant.TOTAL_PROGRESS;
+import static com.islamic.khatmah.constants.Constant.WEEKLY_PROGRESS;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +13,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,7 +32,11 @@ import android.widget.Toast;
 import com.islamic.khatmah.Models.AlarmReminder;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.constants.Constant;
+
+import com.islamic.khatmah.ui.first_start.StartActivity;
+
 import com.islamic.khatmah.ui.first_start.AlertActivity;
+
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -183,10 +191,21 @@ public class SettingActivity extends AppCompatActivity {
                         .setTitle(R.string.warning)
                         .setMessage(R.string.warning_message)
                         .setIcon(R.drawable.ic_round_warning_24)
-                        .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.reset, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-
+                                editor.putInt(WEEKLY_PROGRESS,0);
+                                editor.putInt(TOTAL_PROGRESS,0);
+                                editor.putInt(CURRENT_PAGE,1);
+                                editor.putInt(PAGES_PER_DAY,1);
+                                editor.putString(Constant.CURRENT_JUZ,"الجزء الأول");
+                                editor.putString(Constant.CURRENT_SURAH,"سورة الفاتحة");
+                                editor.putInt(Constant.DAILY_PROGRESS,0);
+                                editor.putBoolean(Constant.PREV_STARTED,false);
+                                editor.apply();
+                                Intent intent = new Intent(SettingActivity.this, StartActivity.class);
+                                startActivity(intent);
                             }
+
                         })
                         // A null listener allows the button to dismiss the dialog and take no further action.
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

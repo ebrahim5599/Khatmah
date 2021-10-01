@@ -1,5 +1,7 @@
 package com.islamic.khatmah.ui.main;
 
+import static com.islamic.khatmah.constants.Constant.PREV_STARTED;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -39,18 +41,6 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     public static ArrayList<String> surahName;
 
-//    String prevStarted = "yes";
-//
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        if (!preferences.getBoolean(prevStarted, false)) {
-//            editor.putBoolean(prevStarted, Boolean.TRUE);
-//            editor.apply();
-//            moveToSecondary();
-//        }
-//    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +55,10 @@ public class MainActivity extends AppCompatActivity {
             //show Start activity
             startActivity(new Intent(MainActivity.this, StartActivity.class));
         }
-//        editor.putBoolean("isFirstRun", false).apply();
+
+
         setContentView(R.layout.activity_main);
+
 
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this);

@@ -134,7 +134,7 @@ public class DailyPortionActivity extends AppCompatActivity {
         // Create viewPager.
         ViewPager2 viewPager = findViewById(R.id.viewPager2);
         viewPager.setAdapter(new DailyPortionAdapter(this, currentPageNum, isChecked,number_of_pages, viewPager));
-        viewPager.setCurrentItem(preferences.getInt(Constant.PROGRESS_COUNT, 0));
+        viewPager.setCurrentItem(preferences.getInt(Constant.DAILY_PROGRESS, 0));
     }
 
     @Override

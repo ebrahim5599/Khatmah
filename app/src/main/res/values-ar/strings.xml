@@ -14,4 +14,5 @@
     <string name="delete">حذف</string>
     <string name="cancel">إلغاء</string>
     <string name="page">صفحة</string>
+    <string name="reset">إعادة تعيين</string>
 </resources>
