@@ -172,7 +172,7 @@ public class DailyPortionActivity extends AppCompatActivity {
                             DailyPortionActivity.super.onBackPressed();
                         }
                     })
-                    // A null listener allows the button to dismiss the dialog and take no further action..
+                    // A null listener allows the button to dismiss the dialog and take no further action.
                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {

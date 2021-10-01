@@ -78,11 +78,8 @@ public class AlertActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (aSwitch.isChecked()) {
-                    txt_time.setVisibility(View.VISIBLE);
                     popTimePiker();
                     createNotificationChannel();
-                } else {
-                    txt_time.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -170,12 +167,15 @@ public class AlertActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AlertActivity.this, MainActivity.class));
+
+                AlarmReminder alarmReminder = new AlarmReminder(sHour, sMinute);
                 if (aSwitch.isChecked()) {
-                    AlarmReminder alarmReminder = new AlarmReminder(sHour, sMinute);
-                    alarmReminder.cancelAlarm(AlertActivity.this);
                     alarmReminder.schedule(AlertActivity.this);
+                }else{
+                    alarmReminder.cancelAlarm(AlertActivity.this);
                 }
 //                startActivity(new Intent(AlertActivity.this, DownloadDialogActivity.class));
+                editor.putBoolean(Constant.FIRST_RUN, false).apply();
                 finish();
             }
         });

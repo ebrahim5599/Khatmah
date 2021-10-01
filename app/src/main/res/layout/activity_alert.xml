@@ -7,75 +7,6 @@
     android:background="@drawable/app_background"
     tools:context=".ui.first_start.AlertActivity">
 
-<!--    <TextView-->
-<!--        android:id="@+id/txt_set_num"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="right"-->
-<!--        android:layout_marginTop="32dp"-->
-<!--        android:layout_marginRight="16dp"-->
-<!--        android:layout_marginBottom="32dp"-->
-<!--        android:fontFamily="@font/arabic_type"-->
-<!--        android:text="@string/setnum"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textSize="28sp" />-->
-
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:layout_marginEnd="16dp"-->
-<!--        android:orientation="horizontal">-->
-
-<!--        <TextView-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:fontFamily="@font/arabic_type"-->
-<!--            android:gravity="center"-->
-<!--            android:text="الأجزاء"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="22sp" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/p"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:fontFamily="@font/arabic_type"-->
-<!--            android:gravity="center"-->
-<!--            android:text="الصفحات"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="22sp"-->
-<!--            android:visibility="gone" />-->
-
-<!--    </LinearLayout>-->
-
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="56dp"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:layout_marginEnd="16dp"-->
-<!--        android:layout_marginBottom="16dp"-->
-<!--        android:orientation="horizontal">-->
-
-<!--        <Spinner-->
-<!--            android:id="@+id/spinnerJuz"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_weight="1"-->
-<!--            android:backgroundTintMode="multiply" />-->
-
-<!--        <Spinner-->
-<!--            android:id="@+id/spinnerPages"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_weight="1"-->
-<!--            android:backgroundTintMode="multiply"-->
-<!--            android:visibility="gone" />-->
-<!--    </LinearLayout>-->
-
     <!--        Number of pages per day card view-->
     <androidx.cardview.widget.CardView
         android:id="@+id/pagesPerDay_cardView"
@@ -189,9 +120,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_below="@id/alert_switch"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="16dp"
                 android:layoutDirection="rtl"
                 android:orientation="horizontal"
                 android:visibility="gone">
@@ -218,10 +149,9 @@
                     android:textColor="@color/purple_200"
                     android:textSize="28sp" />
 
-                <ImageButton
-                    android:id="@+id/alert_image_button"
-                    android:layout_width="56dp"
-                    android:layout_height="match_parent"
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_gravity="center|left"
                     android:background="@drawable/ic_round_access_alarm_black"
                     android:scaleType="centerCrop" />

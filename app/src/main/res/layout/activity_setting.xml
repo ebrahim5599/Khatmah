@@ -98,9 +98,9 @@
                         android:textColor="@color/purple_200"
                         android:textSize="28sp" />
 
-                    <ImageButton
-                        android:layout_width="56dp"
-                        android:layout_height="match_parent"
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:layout_gravity="center|left"
                         android:background="@drawable/ic_round_access_alarm_black"
                         android:scaleType="centerCrop" />
