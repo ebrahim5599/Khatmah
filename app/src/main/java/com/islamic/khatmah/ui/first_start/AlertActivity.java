@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -175,6 +176,11 @@ public class AlertActivity extends AppCompatActivity {
                     AlarmReminder alarmReminder = new AlarmReminder(sHour, sMinute);
                     alarmReminder.cancelAlarm(AlertActivity.this);
                     alarmReminder.schedule(AlertActivity.this);
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(System.currentTimeMillis());
+                    preferences.edit().putInt(Constant.FIRST_DAY,calendar.get(Calendar.DAY_OF_WEEK)).apply();
+                    AlarmReminder.resetWeeklyProgress(AlertActivity.this,calendar.get(Calendar.DAY_OF_WEEK));
+                    preferences.edit().putBoolean(Constant.PREV_STARTED,true).apply();
                 }
 //                startActivity(new Intent(AlertActivity.this, DownloadDialogActivity.class));
                 finish();

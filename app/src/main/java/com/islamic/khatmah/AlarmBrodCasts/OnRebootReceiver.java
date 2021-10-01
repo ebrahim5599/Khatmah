@@ -20,6 +20,8 @@ public class OnRebootReceiver extends BroadcastReceiver {
         if (intent.getAction() == "android.intent.action.BOOT_COMPLETED") {
             AlarmReminder alarmReminder = new AlarmReminder(sHour, sMinute);
             alarmReminder.schedule(context);
+
+            AlarmReminder.resetWeeklyProgress(context, sharedPreferences.getInt(Constant.FIRST_DAY,0));
         }
     }
 }
