@@ -82,6 +82,7 @@ public class SettingActivity extends AppCompatActivity {
             reminderSwitch.setChecked(true);
             reminderLayout.setVisibility(View.VISIBLE);
             time_textView.setText(preferences.getString(Constant.NOTIFICATION_TIME, "00:00 AM"));
+
         } else {
             reminderSwitch.setChecked(false);
             reminderLayout.setVisibility(View.GONE);
@@ -93,7 +94,7 @@ public class SettingActivity extends AppCompatActivity {
                 if (reminderSwitch.isChecked()) {
                     TransitionManager.beginDelayedTransition(reminderLayout, new AutoTransition());
                     reminderLayout.setVisibility(View.VISIBLE);
-                    time_textView.setText(preferences.getString(Constant.NOTIFICATION_TIME, "00:00 AM"));
+                    time_textView.setText(preferences.getString(Constant.NOTIFICATION_TIME, time_textView.getText().toString()));
                     editor.putBoolean(Constant.REMINDER_SWITCH_CASE, true).commit();
                 } else {
                     TransitionManager.beginDelayedTransition(reminderLayout, new AutoTransition());
