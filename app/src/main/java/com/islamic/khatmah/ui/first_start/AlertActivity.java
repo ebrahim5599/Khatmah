@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -91,10 +92,10 @@ public class AlertActivity extends AppCompatActivity {
         ArrayList<String> pages = new ArrayList<>();
         pages.add("صفحة");
         pages.add("صفحتان");
-        for(int i = 3; i < 11; i++)
-            pages.add(convertToArbNum(i)+" صفحات");
-        for(int i = 11; i < 20; i++)
-            pages.add(convertToArbNum(i)+" صفحة");
+        for (int i = 3; i < 11; i++)
+            pages.add(convertToArbNum(i) + " صفحات");
+        for (int i = 11; i < 20; i++)
+            pages.add(convertToArbNum(i) + " صفحة");
 
         // Juz spinner.
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(AlertActivity.this, android.R.layout.simple_list_item_1, juz);
@@ -136,6 +137,7 @@ public class AlertActivity extends AppCompatActivity {
                 editor.putInt(PAGES_PER_DAY, no_of_pages);
                 editor.commit();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -151,7 +153,7 @@ public class AlertActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE); // to make spinner text in white color.
                 editor.putInt(Constant.PAGES_PER_DAY_SPINNER_POSITION, spinnerPages.getSelectedItemPosition());
-                editor.putInt(PAGES_PER_DAY, spinnerPages.getSelectedItemPosition()+1);
+                editor.putInt(PAGES_PER_DAY, spinnerPages.getSelectedItemPosition() + 1);
                 editor.commit();
             }
 
@@ -171,8 +173,16 @@ public class AlertActivity extends AppCompatActivity {
                 AlarmReminder alarmReminder = new AlarmReminder(sHour, sMinute);
                 if (aSwitch.isChecked()) {
                     alarmReminder.schedule(AlertActivity.this);
+
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(System.currentTimeMillis());
+                    preferences.edit().putInt(Constant.FIRST_DAY,calendar.get(Calendar.DAY_OF_WEEK)).apply();
+                    AlarmReminder.resetWeeklyProgress(AlertActivity.this,calendar.get(Calendar.DAY_OF_WEEK));
+                    preferences.edit().putBoolean(Constant.PREV_STARTED,true).apply();
+
                 }else{
                     alarmReminder.cancelAlarm(AlertActivity.this);
+
                 }
 //                startActivity(new Intent(AlertActivity.this, DownloadDialogActivity.class));
                 editor.putBoolean(Constant.FIRST_RUN, false).apply();
