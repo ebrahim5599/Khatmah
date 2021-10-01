@@ -19,7 +19,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -74,7 +73,6 @@ public class ProgressFragment extends Fragment {
         // load shared Preferences
         preferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
         pagesPerDay = preferences.getInt(PAGES_PER_DAY, 1);
-        Toast.makeText(getContext(), ""+weaklyProgress, Toast.LENGTH_SHORT).show();
         // Set progress bar Maximum value.
         weaklyProgressBar.setMax(pagesPerDay * 7);
         totalPagesProgressBar.setMax(604);
