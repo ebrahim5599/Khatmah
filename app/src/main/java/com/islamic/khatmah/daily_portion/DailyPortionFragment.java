@@ -89,6 +89,7 @@ import static android.content.Context.MODE_PRIVATE;
 import static com.islamic.khatmah.constants.Constant.CURRENT_JUZ;
 import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
 import static com.islamic.khatmah.constants.Constant.CURRENT_SURAH;
+import static com.islamic.khatmah.constants.Constant.DAILY_PROGRESS;
 import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
 
 import android.content.Intent;
@@ -107,6 +108,7 @@ import android.widget.TextView;
 
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.constants.Constant;
+import com.islamic.khatmah.ui.setting.SettingActivity;
 
 public class DailyPortionFragment extends Fragment{
 
@@ -144,7 +146,6 @@ public class DailyPortionFragment extends Fragment{
 
         // Define progressBar [Daily].
         progressBar_daily = view.findViewById(R.id.progressBar_daily);
-        progressBar_daily.setMax(preferences.getInt(PAGES_PER_DAY,0));
 
         TextView start_btn = view.findViewById(R.id.start);
         start_btn.setOnClickListener(new View.OnClickListener() {
@@ -173,10 +174,17 @@ public class DailyPortionFragment extends Fragment{
         surah_name.setText(current_surah);
         juz_number.setText(current_juz);
         number_of_pages.setText(convertToArbNum(pages_per_day));
+        progressBar_daily.setMax(preferences.getInt(PAGES_PER_DAY,0));
 
-        percentage.setText("%"+convertToArbNum((int)(preferences.getInt(Constant.DAILY_PROGRESS, 0) * 100 / (double) pages_per_day)));
-
-        progressBar_daily.setProgress(preferences.getInt(Constant.DAILY_PROGRESS, 0));
+        if(!SettingActivity.isPagesNumberChanged){
+            percentage.setText("%"+convertToArbNum((int)(preferences.getInt(Constant.DAILY_PROGRESS, 0) * 100 / (double) pages_per_day)));
+            progressBar_daily.setProgress(preferences.getInt(Constant.DAILY_PROGRESS, 0));
+        }else{
+            editor.putInt(DAILY_PROGRESS, 0).commit();
+            percentage.setText("%"+convertToArbNum(0));
+            progressBar_daily.setProgress(0);
+            SettingActivity.isPagesNumberChanged = false;
+        }
 
     }
 
