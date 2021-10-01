@@ -2,6 +2,9 @@ package com.islamic.khatmah.constants;
 
 public class Constant{
 
+    // First run constants.
+    public static final String FIRST_RUN = "isFirstRun";
+
     // Khatmah details.
     public static final String CURRENT_PAGE = "current page";
     public static final String CURRENT_SURAH = "current surah";

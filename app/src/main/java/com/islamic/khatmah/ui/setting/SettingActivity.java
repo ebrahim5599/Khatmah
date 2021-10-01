@@ -9,9 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,13 +26,22 @@ import android.widget.Switch;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.islamic.khatmah.Models.AlarmReminder;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.constants.Constant;
+
 import com.islamic.khatmah.ui.first_start.StartActivity;
 
+import com.islamic.khatmah.ui.first_start.AlertActivity;
+
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -37,6 +50,7 @@ public class SettingActivity extends AppCompatActivity {
     private Spinner spinnerJuz, spinnerPage;
     private TextView time_textView, reset_textView;
     private int no_of_pages, selected_juz, selected_page;
+    private int sHour, sMinute;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
 
@@ -50,8 +64,8 @@ public class SettingActivity extends AppCompatActivity {
         preferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
         editor = preferences.edit();
 
-        selected_juz = preferences.getInt(Constant.PARTS_PER_DAY_SPINNER_POSITION,0);
-        selected_page= preferences.getInt(Constant.PAGES_PER_DAY_SPINNER_POSITION,0);
+        selected_juz = preferences.getInt(Constant.PARTS_PER_DAY_SPINNER_POSITION, 0);
+        selected_page = preferences.getInt(Constant.PAGES_PER_DAY_SPINNER_POSITION, 0);
 
         LinearLayout reminderLayout = findViewById(R.id.reminder_body);
         reminderSwitch = findViewById(R.id.reminder_switch);
@@ -61,11 +75,11 @@ public class SettingActivity extends AppCompatActivity {
         reset_textView = findViewById(R.id.reset_textView);
         time_textView = findViewById(R.id.time_textView);
 
-        if(preferences.getBoolean(Constant.REMINDER_SWITCH_CASE, false)){
+        if (preferences.getBoolean(Constant.REMINDER_SWITCH_CASE, false)) {
             reminderSwitch.setChecked(true);
             reminderLayout.setVisibility(View.VISIBLE);
             time_textView.setText(preferences.getString(Constant.NOTIFICATION_TIME, "00:00 AM"));
-        }else{
+        } else {
             reminderSwitch.setChecked(false);
             reminderLayout.setVisibility(View.GONE);
         }
@@ -90,15 +104,15 @@ public class SettingActivity extends AppCompatActivity {
         ArrayList<String> pages = new ArrayList<>();
         pages.add("صفحة");
         pages.add("صفحتان");
-        for(int i = 3; i < 11; i++)
-            pages.add(convertToArbNum(i)+" صفحات");
-        for(int i = 11; i < 20; i++)
-            pages.add(convertToArbNum(i)+" صفحة");
+        for (int i = 3; i < 11; i++)
+            pages.add(convertToArbNum(i) + " صفحات");
+        for (int i = 11; i < 20; i++)
+            pages.add(convertToArbNum(i) + " صفحة");
 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(SettingActivity.this, android.R.layout.simple_list_item_1, juz);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerJuz.setAdapter(adapter1);
-        Toast.makeText(getApplicationContext(), selected_juz+"", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), selected_juz + "", Toast.LENGTH_SHORT).show();
         spinnerJuz.setSelection(selected_juz);
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(SettingActivity.this, android.R.layout.simple_list_item_1, pages);
@@ -112,7 +126,7 @@ public class SettingActivity extends AppCompatActivity {
                 if (spinnerJuz.getSelectedItem() == juz[0]) {
                     spinnerPage.setVisibility(View.VISIBLE);
                     no_of_pages = 1;
-                }else {
+                } else {
                     spinnerPage.setVisibility(View.GONE);
                     switch (spinnerJuz.getSelectedItemPosition()) {
                         case 1:
@@ -151,7 +165,7 @@ public class SettingActivity extends AppCompatActivity {
         spinnerPage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                editor.putInt(PAGES_PER_DAY, spinnerPage.getSelectedItemPosition()+1);
+                editor.putInt(PAGES_PER_DAY, spinnerPage.getSelectedItemPosition() + 1);
                 editor.putInt(Constant.PAGES_PER_DAY_SPINNER_POSITION, spinnerPage.getSelectedItemPosition());
                 editor.commit();
             }
@@ -159,6 +173,14 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        reminderLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popTimePiker();
+                createNotificationChannel();
             }
         });
 
@@ -210,5 +232,54 @@ public class SettingActivity extends AppCompatActivity {
             result += (char) ArabicNum;
         }
         return result;
+    }
+
+    private void popTimePiker() {
+        Calendar cal = Calendar.getInstance();
+        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
+                cal.set(Calendar.HOUR_OF_DAY, selectedHour);
+                cal.set(Calendar.MINUTE, selectedMinute);
+                sHour = cal.get(Calendar.HOUR_OF_DAY);
+                sMinute = cal.get(Calendar.MINUTE);
+                editor.putInt(Constant.ALARM_HOUR, sHour);
+                editor.putInt(Constant.ALARM_MINUTE, sMinute);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa", Locale.US);
+                String Time = simpleDateFormat.format(cal.getTime());
+                time_textView.setText(Time);
+                editor.putString(Constant.NOTIFICATION_TIME, Time);
+                editor.commit();
+            }
+        };
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), false);
+        timePickerDialog.setTitle("Select Time");
+        timePickerDialog.show();
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "KhatmaChannel";
+            String description = "ختمه";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("notify", name, importance);
+
+            channel.setDescription(description);
+            channel.enableVibration(true);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        AlarmReminder alarmReminder = new AlarmReminder(sHour, sMinute);
+        if (reminderSwitch.isChecked())
+            alarmReminder.schedule(SettingActivity.this);
+        else
+            alarmReminder.cancelAlarm(SettingActivity.this);
+
     }
 }

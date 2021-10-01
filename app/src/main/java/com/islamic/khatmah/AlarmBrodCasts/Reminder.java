@@ -46,7 +46,7 @@ public class Reminder extends BroadcastReceiver {
 
 
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_baseline_add_alert_24)
+                .setSmallIcon(R.drawable.notification_icon_khatmah)
                 .setContentTitle("Khatmah Reminder")
                 .setContentText("تذكير بمعاد الورد اليومي")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)

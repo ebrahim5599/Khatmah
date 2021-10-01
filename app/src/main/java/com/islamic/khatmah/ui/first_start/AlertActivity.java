@@ -79,11 +79,8 @@ public class AlertActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (aSwitch.isChecked()) {
-                    txt_time.setVisibility(View.VISIBLE);
                     popTimePiker();
                     createNotificationChannel();
-                } else {
-                    txt_time.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -172,17 +169,23 @@ public class AlertActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AlertActivity.this, MainActivity.class));
+
+                AlarmReminder alarmReminder = new AlarmReminder(sHour, sMinute);
                 if (aSwitch.isChecked()) {
-                    AlarmReminder alarmReminder = new AlarmReminder(sHour, sMinute);
-                    alarmReminder.cancelAlarm(AlertActivity.this);
                     alarmReminder.schedule(AlertActivity.this);
+
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(System.currentTimeMillis());
                     preferences.edit().putInt(Constant.FIRST_DAY,calendar.get(Calendar.DAY_OF_WEEK)).apply();
                     AlarmReminder.resetWeeklyProgress(AlertActivity.this,calendar.get(Calendar.DAY_OF_WEEK));
                     preferences.edit().putBoolean(Constant.PREV_STARTED,true).apply();
+
+                }else{
+                    alarmReminder.cancelAlarm(AlertActivity.this);
+
                 }
 //                startActivity(new Intent(AlertActivity.this, DownloadDialogActivity.class));
+                editor.putBoolean(Constant.FIRST_RUN, false).apply();
                 finish();
             }
         });

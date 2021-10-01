@@ -42,17 +42,6 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<String> surahName;
 
 
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        SharedPreferences sharedpreferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        if (!sharedpreferences.getBoolean(PREV_STARTED, false)) {
-            moveToSecondary();
-        }
-    }
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,26 +50,18 @@ public class MainActivity extends AppCompatActivity {
         preferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
         editor = preferences.edit();
 
-        boolean isFirstRun = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE)
-                .getBoolean("isFirstRun", true);
+        boolean isFirstRun = preferences.getBoolean(Constant.FIRST_RUN, true);
         if (isFirstRun) {
             //show Start activity
             startActivity(new Intent(MainActivity.this, StartActivity.class));
-
         }
 
-        getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE).edit()
-                .putBoolean("isFirstRun", false).apply();
+
+        setContentView(R.layout.activity_main);
 
 
-            setContentView(R.layout.activity_main);
 
-
-//            preferences.edit().putInt(Constant.WEEKLY_PROGRESS,0).apply();
-//            preferences.edit().putInt(Constant.TOTAL_PROGRESS,0).apply();
-            SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this);
-
-
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ViewPager2 viewPager = findViewById(R.id.view_pager);
