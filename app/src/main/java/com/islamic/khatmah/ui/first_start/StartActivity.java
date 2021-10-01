@@ -5,13 +5,19 @@ import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
 import static com.islamic.khatmah.constants.Constant.CURRENT_SURAH;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -32,7 +38,9 @@ import java.util.Objects;
 
 public class StartActivity extends AppCompatActivity {
 
-    TextView specific_start_button, button_next, start_from_portion1_button;
+    private TextView specific_start_button, button_next, start_from_portion1_button, hadith, empty;
+    private LinearLayout  start_activity_buttons;
+    private CardView first_card_view;
     RelativeLayout first_linear_layout;
     Spinner spinnerJuz, spinnerPage, spinnerSurah, spinnerChoose;
     ArrayList<String> juz, surah, page;
@@ -51,10 +59,16 @@ public class StartActivity extends AppCompatActivity {
         editor = preferences.edit();
 
         // Link views to XML file.
+        start_activity_buttons = findViewById(R.id.first_screen_buttons);
         start_from_portion1_button = findViewById(R.id.start_from_portion1_button);
+//        empty = findViewById(R.id.empty);
+        first_card_view = findViewById(R.id.first_card_view);
+
         specific_start_button = findViewById(R.id.specific_start_button);
         button_next = findViewById(R.id.next_button);
         first_linear_layout = findViewById(R.id.linear_layout_1);
+        hadith = findViewById(R.id.hadith_container);
+        hadith.setText("عَن عَبْدَ اللهِ بْنَ مَسْعُودٍ رَضِيَ اللَّهُ عَنْهُ: أنَّ النَّبيِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ قال: « مَنْ قَرَأَ حَرْفًا مِنْ كِتَابِ اللهِ فَلَهُ بِهِ حَسَنَةٌ وَالْحَسَنَةُ بِعَشْرِ أَمْثَالِهَا؛ لَا أَقُولُ: الم حَرْفٌ وَلَكِنْ أَلِفٌ حَرْفٌ وَلَامٌ حَرْفٌ وَمِيمٌ حَرْفٌ ».");
 
         spinnerJuz = findViewById(R.id.juz_spinner);
         spinnerPage = findViewById(R.id.page_spinner);
@@ -78,12 +92,22 @@ public class StartActivity extends AppCompatActivity {
         specific_start_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (first_linear_layout.getVisibility() == View.GONE)
+                if (first_linear_layout.getVisibility() == View.GONE) {
+                    TransitionManager.beginDelayedTransition(first_linear_layout, new AutoTransition());
                     first_linear_layout.setVisibility(View.VISIBLE);
-                else
+//                    start_activity_buttons.setGravity(Gravity.CENTER|Gravity.TOP);
+                    TransitionManager.beginDelayedTransition(first_card_view, new AutoTransition());
+                    first_card_view.setVisibility(View.GONE);
+                }else {
+                    TransitionManager.beginDelayedTransition(first_linear_layout, new AutoTransition());
                     first_linear_layout.setVisibility(View.GONE);
+//                    start_activity_buttons.setGravity(Gravity.CENTER|Gravity.BOTTOM);
+                    TransitionManager.beginDelayedTransition(first_card_view, new AutoTransition());
+                    first_card_view.setVisibility(View.VISIBLE);
+                }
             }
         });
+
         button_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

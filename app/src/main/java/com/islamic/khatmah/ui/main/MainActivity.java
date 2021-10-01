@@ -39,19 +39,17 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     public static ArrayList<String> surahName;
 
-    String prevStarted = "yes";
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        SharedPreferences sharedpreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
-        if (!sharedpreferences.getBoolean(prevStarted, false)) {
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putBoolean(prevStarted, Boolean.TRUE);
-            editor.apply();
-            moveToSecondary();
-        }
-    }
+//    String prevStarted = "yes";
+//
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        if (!preferences.getBoolean(prevStarted, false)) {
+//            editor.putBoolean(prevStarted, Boolean.TRUE);
+//            editor.apply();
+//            moveToSecondary();
+//        }
+//    }
 
 
     @Override
@@ -62,26 +60,16 @@ public class MainActivity extends AppCompatActivity {
         preferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
         editor = preferences.edit();
 
-        boolean isFirstRun = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE)
-                .getBoolean("isFirstRun", true);
+        boolean isFirstRun = preferences.getBoolean(Constant.FIRST_RUN, true);
         if (isFirstRun) {
             //show Start activity
             startActivity(new Intent(MainActivity.this, StartActivity.class));
-
         }
-
-        getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE).edit()
-                .putBoolean("isFirstRun", false).apply();
-
-
-            setContentView(R.layout.activity_main);
+//        editor.putBoolean("isFirstRun", false).apply();
+        setContentView(R.layout.activity_main);
 
 
-//            sharedPreferences.edit().putInt(Constant.WEEKLY_PROGRESS,0).apply();
-//            sharedPreferences.edit().putInt(Constant.TOTAL_PROGRESS,0).apply();
-            SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this);
-
-
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ViewPager2 viewPager = findViewById(R.id.view_pager);
