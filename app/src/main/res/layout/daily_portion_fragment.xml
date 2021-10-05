@@ -55,19 +55,19 @@
                     android:padding="16dp"
                     android:textSize="23sp" />
 
-                <View
-                    android:layout_width="2dp"
-                    android:layout_height="72dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginStart="8dp"
-                    android:background="#E4C843" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:orientation="vertical">
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="62dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="8dp"
+                        android:background="#E4C843" />
 
                     <View
                         android:layout_width="64dp"
@@ -79,7 +79,7 @@
                         android:layout_width="64dp"
                         android:layout_height="8dp"
                         android:layout_marginStart="8dp"
-                        android:background="#FFFFFF" />
+                        android:background="@android:color/transparent" />
 
 
                 </LinearLayout>
@@ -101,7 +101,6 @@
                 android:layoutDirection="ltr"
                 android:layout_width="match_parent"
                 android:layout_height="300dp">
-
                 <TextView
                     android:id="@+id/border"
                     android:layout_width="match_parent"
@@ -114,6 +113,8 @@
                     android:layout_below="@id/border"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/yellow_gradient2"/>
+
+
                 <TextView
                     android:id="@+id/txt_all_progress"
                     android:layout_width="match_parent"
@@ -123,7 +124,7 @@
                     android:fontFamily="@font/uthmanic_hafs"
                     android:gravity="center"
                     android:text="وِرْدُ اليَوْمِ"
-                    android:textColor="@color/purple_200"
+                    android:textColor="@color/text_color_500"
                     android:textSize="28sp" />
 
                 <RelativeLayout
@@ -131,7 +132,8 @@
                     android:layout_height="156dp"
                     android:layout_below="@id/txt_all_progress"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="8dp">
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp">
 
                     <ProgressBar
                         android:id="@+id/progressBar_daily"
@@ -157,10 +159,11 @@
                     android:layout_below="@id/txt_all_progress"
                     android:layout_alignParentEnd="true"
                     android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/arabic_type"
                     android:paddingRight="8dp"
                     android:text="الأول"
-                    android:textSize="32sp"
-                    android:fontFamily="@font/arabic_type"/>
+                    android:textSize="32sp" />
 
                 <TextView
                     android:id="@+id/surah_name"

@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="purple_200">#62727b</color>
-    <color name="purple_500">#37474f</color>
     <color name="purple_700">#102027</color>
     <color name="background">#181818</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#62727b</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="white">#FFFFFF</color>
     <color name="yellow">#E4C843</color>
 
     <!--    Text colors.-->
-    <color name="text_color_200">#62727b</color>
-    <color name="text_color_500">#37474f</color>
-    <color name="text_color_700">#102027</color>
+    <color name="text_color_200">#FFFDE7</color>
+    <color name="text_color_500">#FFFFFF</color>
+    <color name="text_color_700">#FFFFFF</color>
     <color name="spinner_text_color">#FFFFFF</color>
 
     <!--    Gradient colors.-->
     <color name="yellow_gradient_start_1">#FDD835</color>
-    <color name="yellow_gradient_end_1">#FFFDE7</color>
+    <color name="yellow_gradient_end_1">#535353</color>
 
-    <color name="yellow_gradient_start_2">#FFFDE7</color>
-    <color name="yellow_gradient_end_2">#FFFFFF</color>
-
+    <color name="yellow_gradient_start_2">#535353</color>
+    <color name="yellow_gradient_end_2">#424242</color>
 </resources>

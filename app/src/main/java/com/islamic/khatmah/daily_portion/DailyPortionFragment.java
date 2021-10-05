@@ -105,6 +105,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.constants.Constant;
@@ -162,6 +163,7 @@ public class DailyPortionFragment extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
+//        Toast.makeText(getContext(), "onResume()", Toast.LENGTH_SHORT).show();
 
         // Load data from SharedPreferences.
         current_page = preferences.getInt(CURRENT_PAGE,1);
@@ -175,16 +177,17 @@ public class DailyPortionFragment extends Fragment{
         juz_number.setText(current_juz);
         number_of_pages.setText(convertToArbNum(pages_per_day));
         progressBar_daily.setMax(preferences.getInt(PAGES_PER_DAY,0));
-
-        if(!SettingActivity.isPagesNumberChanged){
-            percentage.setText("%"+convertToArbNum((int)(preferences.getInt(Constant.DAILY_PROGRESS, 0) * 100 / (double) pages_per_day)));
-            progressBar_daily.setProgress(preferences.getInt(Constant.DAILY_PROGRESS, 0));
-        }else{
-            editor.putInt(DAILY_PROGRESS, 0).commit();
-            percentage.setText("%"+convertToArbNum(0));
-            progressBar_daily.setProgress(0);
-            SettingActivity.isPagesNumberChanged = false;
-        }
+        int daily_progress = preferences.getInt(Constant.DAILY_PROGRESS, 0);
+        Toast.makeText(getContext(),""+daily_progress,Toast.LENGTH_SHORT).show();
+//        if(!SettingActivity.isPagesNumberChanged){
+            percentage.setText("%"+convertToArbNum((int)(daily_progress * 100 / (double) pages_per_day)));
+            progressBar_daily.setProgress(daily_progress);
+//        }else{
+//            editor.putInt(DAILY_PROGRESS, 0).commit();
+//            percentage.setText("%"+convertToArbNum(0));
+//            progressBar_daily.setProgress(0);
+//            SettingActivity.isPagesNumberChanged = false;
+//        }
 
     }
 
@@ -201,4 +204,5 @@ public class DailyPortionFragment extends Fragment{
         }
         return result;
     }
+
 }

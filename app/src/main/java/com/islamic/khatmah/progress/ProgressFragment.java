@@ -5,7 +5,6 @@ import static android.content.Context.MODE_PRIVATE;
 import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.icu.text.DecimalFormat;
 import android.icu.text.NumberFormat;
@@ -34,9 +33,8 @@ public class ProgressFragment extends Fragment {
     private TextView txtWeeklyProgressRatio, txtWeeklyProgressPages;
     private TextView txtTotalPagesProgress, txtTotalPagesProgressRatio;
     private TextView txtTotalPartsProgress, txtTotalPartsProgressRatio;
-    private Button reset_weekly_progress;
-    private ProgressBar weaklyProgressBar, totalPagesProgressBar, totalPartsProgressBar;
-    private int pagesPerDay , weaklyProgress, totalProgress;
+    private ProgressBar weeklyProgressBar, totalPagesProgressBar, totalPartsProgressBar;
+    private int pagesPerDay , weeklyProgress, totalProgress;
 
     SharedPreferences.Editor editor;
     SharedPreferences preferences;
@@ -52,14 +50,12 @@ public class ProgressFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.progress_fragment, container, false);
 
-
         // load shared Preferences
         preferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
-//        totalProgress = preferences.getInt(Constant.TOTAL_PROGRESS, 0);
         // Define views of weekly progress bar.
         txtWeeklyProgressRatio = view.findViewById(R.id.txtWeeklyProgressRatio);
         txtWeeklyProgressPages = view.findViewById(R.id.txtWeeklyProgressPages);
-        weaklyProgressBar = view.findViewById(R.id.weeklyProgressBar);
+        weeklyProgressBar = view.findViewById(R.id.weeklyProgressBar);
 
         // Define views of total progress bar.
         txtTotalPagesProgressRatio = view.findViewById(R.id.txtAllProgressRatio);
@@ -68,34 +64,14 @@ public class ProgressFragment extends Fragment {
         txtTotalPartsProgress = view.findViewById(R.id.txtAllProgressPages2);
         totalPagesProgressBar = view.findViewById(R.id.allProgressBar);
         totalPartsProgressBar = view.findViewById(R.id.allProgressBar2);
-        reset_weekly_progress = view.findViewById(R.id.reset_weeklyProgress);
 
         // load shared Preferences
         preferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
-        pagesPerDay = preferences.getInt(PAGES_PER_DAY, 1);
         // Set progress bar Maximum value.
-        weaklyProgressBar.setMax(pagesPerDay * 7);
         totalPagesProgressBar.setMax(604);
         totalPartsProgressBar.setMax(30);
 
-        reset_weekly_progress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                weaklyProgress = 0;
-                totalProgress = 0;
-                totalPartsProgressBar.setProgress(0);
-                preferences.edit().putInt(Constant.WEEKLY_PROGRESS, weaklyProgress).commit();
-                preferences.edit().putInt(Constant.TOTAL_PROGRESS, totalProgress).commit();
-            }
-        });
-
-//        if (savedInstanceState != null) {
-//            super.onViewStateRestored(savedInstanceState);
-//            pagesPerDay = savedInstanceState.getInt("pages");
-//            weaklyProgress = savedInstanceState.getInt("weaklyProgress");
-//        }
         return view;
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -103,13 +79,15 @@ public class ProgressFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        weaklyProgress = preferences.getInt(Constant.WEEKLY_PROGRESS, 0);
+        weeklyProgress = preferences.getInt(Constant.WEEKLY_PROGRESS, 0);
         totalProgress  = preferences.getInt(Constant.TOTAL_PROGRESS, 0);
 
+        pagesPerDay = preferences.getInt(PAGES_PER_DAY, 1);
+        weeklyProgressBar.setMax(pagesPerDay * 7);
         // 1st progress bar [weekly target].
-        weaklyProgressBar.setProgress(weaklyProgress);
-        txtWeeklyProgressRatio.setText((int) (((float) weaklyProgressBar.getProgress()) / weaklyProgressBar.getMax() * 100) + " % ");
-        txtWeeklyProgressPages.setText(weaklyProgressBar.getProgress() + " Pages");
+        weeklyProgressBar.setProgress(weeklyProgress);
+        txtWeeklyProgressRatio.setText((int) (((float) weeklyProgress) / weeklyProgressBar.getMax() * 100) + " % ");
+        txtWeeklyProgressPages.setText(weeklyProgressBar.getProgress() + " Pages");
 
         // 2nd progress bar [no. of read pages].
         totalPagesProgressBar.setProgress(totalProgress);
@@ -126,311 +104,51 @@ public class ProgressFragment extends Fragment {
         txtTotalPartsProgress.setText(formatter.format(totalPagesProgressBar.getProgress()/20.0)+" جزء");
     }
 
-//    @Override
-//    public void onSaveInstanceState(@NonNull Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putInt("pages", pagesPerDay);
-//        outState.putInt("weaklyProgress", weaklyProgress);
-//    }
-
     @SuppressLint("SetTextI18n")
     private void updateBars(int pages) {
-        weaklyProgressBar.incrementProgressBy(pages);
-        weaklyProgress += pages;
+        weeklyProgressBar.incrementProgressBy(pages);
+        weeklyProgress += pages;
 
         editor = preferences.edit();
-        editor.putInt("weaklyProgress", weaklyProgressBar.getProgress());
+        editor.putInt("weaklyProgress", weeklyProgressBar.getProgress());
         editor.commit();
 
-        txtWeeklyProgressRatio.setText((int) (((float) weaklyProgressBar.getProgress()) / weaklyProgressBar.getMax() * 100) + " % ");
-        txtWeeklyProgressPages.setText(weaklyProgressBar.getProgress() + " Pages");
-        if (weaklyProgressBar.getProgress() == weaklyProgressBar.getMax()) {
+        txtWeeklyProgressRatio.setText((int) (((float) weeklyProgressBar.getProgress()) / weeklyProgressBar.getMax() * 100) + " % ");
+        txtWeeklyProgressPages.setText(weeklyProgressBar.getProgress() + " Pages");
+
+        if (weeklyProgressBar.getProgress() == weeklyProgressBar.getMax()) {
             txtWeeklyProgressRatio.setText(100 + " %");
-            txtWeeklyProgressPages.setText(weaklyProgressBar.getMax() + " Pages");
-            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            txtWeeklyProgressPages.setText(weeklyProgressBar.getMax() + " Pages");
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setMessage("Congratulations, you have completed the weekly reading")
-                    .setPositiveButton(
-                            "OK",
-                            (dialog, which) -> {
-                            });
-            AlertDialog dialog = builder.create();
-            dialog.getWindow().getAttributes().windowAnimations = R.style.MyDialogAnimation;
-
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    dialog.show();
-                    weaklyProgressBar.setProgress(0);
-                    txtWeeklyProgressRatio.setText("0 %");
-                    txtWeeklyProgressPages.setText("0 Pages");
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                }
-            }, 500);
-
-
-        }
-    }
-    // This method converts English numbers to Indian number [Arabic].
-    private String convertToArbNum(int number) {
-
-        String stNum = String.valueOf(number);
-        String result = "";
-
-        for (int i = 0; i < stNum.length(); i++) {
-            char num = String.valueOf(stNum).charAt(i);
-            int ArabicNum = num + 1584;
-            result += (char) ArabicNum;
-        }
-        return result;
-    }
-}
-/*
-
-    private void setProgressBar(int value){
-        weaklyProgressBar.setProgress(value);
-
-        editor = preferences.edit();
-        editor.putInt("weaklyProgress", weaklyProgressBar.getProgress());
-        editor.commit();
-
-        txtWeeklyProgressRatio.setText((int) (((float) weaklyProgressBar.getProgress()) / weaklyProgressBar.getMax() * 100) + " % ");
-        txtWeeklyProgressPages.setText(weaklyProgressBar.getProgress() + " Pages");
-
-        if (weaklyProgressBar.getProgress() == weaklyProgressBar.getMax()) {
-            txtWeeklyProgressRatio.setText(100 + " %");
-            txtWeeklyProgressPages.setText(weaklyProgressBar.getMax() + " Pages");
-            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setMessage("Congratulations, you have completed the weekly reading")
-                    .setPositiveButton(
-                            "OK",
-                            (dialog, which) -> {
-                            });
-            AlertDialog dialog = builder.create();
-            dialog.getWindow().getAttributes().windowAnimations = R.style.MyDialogAnimation;
-
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    dialog.show();
-                    weaklyProgressBar.setProgress(0);
-                    txtWeeklyProgressRatio.setText("0 %");
-                    txtWeeklyProgressPages.setText("0 Pages");
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                }
-            }, 500);
-
-
-        }
-    }
-
- */
-
-
-//package com.islamic.khatmah.progress;
-//
-//        import static android.content.Context.MODE_PRIVATE;
-//
-//        import android.annotation.SuppressLint;
-//        import android.app.AlertDialog;
-//        import android.content.Intent;
-//        import android.content.SharedPreferences;
-//        import android.os.Bundle;
-//        import android.os.Handler;
-//        import android.preference.PreferenceManager;
-//        import android.view.LayoutInflater;
-//        import android.view.View;
-//        import android.view.ViewGroup;
-//        import android.view.WindowManager;
-//        import android.widget.Button;
-//        import android.widget.EditText;
-//        import android.widget.ProgressBar;
-//        import android.widget.TextView;
-//
-//        import androidx.annotation.NonNull;
-//        import androidx.annotation.Nullable;
-//        import androidx.fragment.app.Fragment;
-//        import androidx.lifecycle.ViewModelProvider;
-//        import androidx.viewpager2.widget.ViewPager2;
-//
-//        import com.islamic.khatmah.R;
-//        import com.islamic.khatmah.constants.Constant;
-//
-//public class ProgressFragment extends Fragment {
-//    private ProgressViewModel mViewModel;
-//    private TextView txtAllProgressRatio, txtWeeklyProgressRatio, txtWeeklyProgressPages, txtAllProgressRatioParts, txtAllProgressPages1, txtAllProgressPages2;
-//    private ProgressBar weaklyProgressBar, allProgressBar, allProgressBarParts;
-//    private int pages = 0, weaklyProgress = 0, allProgress = 0, read_pages = 0;
-//    Button btnSetCounter, btnResetCounter, btnFinishReading;
-//    SharedPreferences.Editor editor;
-//    SharedPreferences preferences;
-//
-//    public static ProgressFragment newInstance() {
-//        return new ProgressFragment();
-//    }
-//
-//    @SuppressLint("SetTextI18n")
-//    @Override
-//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-//                             @Nullable Bundle savedInstanceState) {
-//
-//        View view = inflater.inflate(R.layout.progress_fragment, container, false);
-//
-//        txtWeeklyProgressRatio = view.findViewById(R.id.txtWeeklyProgressRatio);
-//        txtWeeklyProgressPages = view.findViewById(R.id.txtWeeklyProgressPages);
-//        txtAllProgressRatio = view.findViewById(R.id.txtAllProgressRatio);
-//        txtAllProgressRatioParts = view.findViewById(R.id.txtAllProgressRatio2);
-//        txtAllProgressPages1 = view.findViewById(R.id.txtAllProgressPages);
-//        txtAllProgressPages2 = view.findViewById(R.id.txtAllProgressPages2);
-//        weaklyProgressBar = view.findViewById(R.id.weeklyProgressBar);
-//        allProgressBar = view.findViewById(R.id.allProgressBar);
-//        allProgressBarParts = view.findViewById(R.id.allProgressBar2);
-////        txtCounter = view.findViewById(R.id.edtTextCounter);
-//
-//        ///// load shared Preferences
-//        preferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
-//        pages = preferences.getInt("PAGES_PER_DAY", 1);
-//
-//        setMaxBars(pages);
-////        txtCounter.setText(String.valueOf(pages));
-//        weaklyProgressBar.setProgress(preferences.getInt("weaklyProgress", 0));
-//        allProgressBar.setProgress(preferences.getInt("allProgress", 0));
-//        allProgressBarParts.setProgress(preferences.getInt("allProgress", 0) / 20);
-//        txtWeeklyProgressRatio.setText((int) (((float) weaklyProgressBar.getProgress()) / weaklyProgressBar.getMax() * 100) + " % ");
-//        txtWeeklyProgressPages.setText(weaklyProgressBar.getProgress() + " Pages");
-//        txtAllProgressRatio.setText((int) (((float) allProgressBar.getProgress()) / allProgressBar.getMax() * 100) + " %");
-//        txtAllProgressPages1.setText(allProgressBar.getProgress() + " Pages");
-//        txtAllProgressRatioParts.setText((int) (((allProgressBar.getProgress() / 20) / 30.0) * 100) + " %");
-//        txtAllProgressPages2.setText(allProgressBar.getProgress() / 20 + " Parts");
-//
-//        btnResetCounter = view.findViewById(R.id.btnResetConter);
-//        btnResetCounter.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                pages = 0;
-//                resetBars();
-//                preferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
-//                editor = preferences.edit();
-//                editor.putInt("pages", pages);
-//                editor.commit();
-//            }
-//        });
-//        btnFinishReading = view.findViewById(R.id.btnFinishReding);
-//        btnFinishReading.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                updateBars(pages);
-//            }
-//        });
-//        if (savedInstanceState != null) {
-//            super.onViewStateRestored(savedInstanceState);
-//            pages = savedInstanceState.getInt("pages");
-//            weaklyProgress = savedInstanceState.getInt("weaklyProgress");
-//            allProgress = savedInstanceState.getInt("allProgress");
-//        }
-//        return view;
-//
-//    }
-//
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        mViewModel = new ViewModelProvider(this).get(ProgressViewModel.class);
-//        // TODO: Use the ViewModel
-//    }
-//
-//    private void setMaxBars(int pages) {
-//        weaklyProgressBar.setMax(pages * 7);
-//        allProgressBar.setMax(604);
-//        allProgressBarParts.setMax(30);
-//    }
-//
-//    @Override
-//    public void onSaveInstanceState(@NonNull Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putInt("pages", pages);
-//        outState.putInt("weaklyProgress", weaklyProgress);
-//        outState.putInt("allProgress", allProgress);
-//    }
-//
-////    @Override
-////    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-////        super.onViewStateRestored(savedInstanceState);
-////        pages = savedInstanceState.getInt("pages");
-////        weaklyProgress = savedInstanceState.getInt("weaklyProgress");
-////        allProgress = savedInstanceState.getInt("allProgress");
-////    }
-//
-//    private void resetBars() {
-////        weaklyProgressBar.setProgress(weaklyPrograss+pages);
-////        allProgressBar.setProgress(allPrograss+pages);
-//        weaklyProgressBar.setProgress(0);
-//        allProgressBar.setProgress(0);
-//        allProgressBarParts.setProgress(0);
-//        txtWeeklyProgressRatio.setText("0 %");
-//        txtWeeklyProgressPages.setText("0 Pages");
-//        txtAllProgressRatio.setText("0 %");
-//        txtAllProgressRatioParts.setText("0 %");
-//    }
-//
-//    @SuppressLint("SetTextI18n")
-//    private void updateBars(int pages) {
-//        weaklyProgressBar.incrementProgressBy(pages);
-//        allProgressBar.incrementProgressBy(pages);
-//        allProgressBarParts.setProgress((preferences.getInt("allProgress", 0) + pages) / 20);
-//        weaklyProgress += pages;
-//        allProgress += pages;
-//
-//        editor = preferences.edit();
-//        editor.putInt("weaklyProgress", weaklyProgressBar.getProgress());
-//        editor.putInt("allProgress", allProgressBar.getProgress());
-//        editor.commit();
-//
-//        txtWeeklyProgressRatio.setText((int) (((float) weaklyProgressBar.getProgress()) / weaklyProgressBar.getMax() * 100) + " % ");
-//        txtWeeklyProgressPages.setText(weaklyProgressBar.getProgress() + " Pages");
-//        txtAllProgressRatio.setText((int) (((float) allProgressBar.getProgress()) / allProgressBar.getMax() * 100) + " %");
-//        txtAllProgressPages1.setText(allProgressBar.getProgress() + " Pages");
-//        txtAllProgressRatioParts.setText((int) (((allProgressBar.getProgress() / 20) / 30.0) * 100) + " %");
-//        txtAllProgressPages2.setText(allProgressBar.getProgress() / 20 + " Parts");
-//        if (weaklyProgressBar.getProgress() == weaklyProgressBar.getMax()) {
-//            txtWeeklyProgressRatio.setText(100 + " %");
-//            txtWeeklyProgressPages.setText(weaklyProgressBar.getMax() + " Pages");
 //            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
 //                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-//
-//            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-//            builder.setMessage("Congratulations, you have completed the weekly reading")
+//            AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.Theme_MyApp_Dialog_Alert);
+//            builder.setMessage("أحسنت لقد أتممت الورد الإسبوعي، تهانينا.")
 //                    .setPositiveButton(
-//                            "OK",
+//                            "حسنا",
 //                            (dialog, which) -> {
 //                            });
 //            AlertDialog dialog = builder.create();
 //            dialog.getWindow().getAttributes().windowAnimations = R.style.MyDialogAnimation;
-//
-//            Handler handler = new Handler();
-//            handler.postDelayed(new Runnable() {
-//                public void run() {
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
 //                    dialog.show();
-//                    weaklyProgressBar.setProgress(0);
-//                    txtWeeklyProgressRatio.setText("0 %");
-//                    txtWeeklyProgressPages.setText("0 Pages");
-//                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-//                }
-//            }, 500);
-//
-//
-//        }
-//
-//        if (allProgressBar.getProgress() == allProgressBar.getMax()) {
-//            txtAllProgressRatio.setText(100 + " %");
-//            txtAllProgressPages1.setText(604 + " Pages");
-//            txtAllProgressRatioParts.setText(100 + " %");
-//            txtAllProgressPages2.setText(30 + " Parts");
+                    weeklyProgressBar.setProgress(0);
+                    txtWeeklyProgressRatio.setText("0 %");
+                    txtWeeklyProgressPages.setText("0 Pages");
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                }
+            }, 500);
+        }
+
+        if (totalPagesProgressBar.getProgress() == totalPagesProgressBar.getMax()) {
+            txtTotalPagesProgressRatio.setText(100 + " %");
+            txtTotalPagesProgress.setText(604 + " Pages");
+            txtTotalPartsProgressRatio.setText(100 + " %");
+            txtTotalPartsProgress.setText(30 + " Parts");
+
 //            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
 //                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 //
@@ -452,18 +170,18 @@ public class ProgressFragment extends Fragment {
 //                    });
 //            AlertDialog dialog = builder.create();
 //            dialog.getWindow().getAttributes().windowAnimations = R.style.MyDialogAnimation;
-//            Handler handler = new Handler();
-//            handler.postDelayed(new Runnable() {
-//                public void run() {
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
 //                    dialog.show();
-//                    allProgressBar.setProgress(0);
-//                    txtAllProgressRatio.setText("0 %");
-//                    allProgressBarParts.setProgress(0);
-//                    txtAllProgressRatioParts.setText("0 %");
-//                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-//                }
-//            }, 500);
-//        }
-//
-//    }
-//}
+                    txtTotalPagesProgressRatio.setText(0 + " %");
+                    txtTotalPagesProgress.setText(0 + " Pages");
+                    txtTotalPartsProgressRatio.setText(0 + " %");
+                    txtTotalPartsProgress.setText(0 + " Parts");
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                }
+            }, 500);
+        }
+    }
+}
