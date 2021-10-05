@@ -13,6 +13,7 @@ import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,6 +29,7 @@ import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 
 import com.islamic.khatmah.alarm.AlarmReminder;
@@ -280,10 +282,16 @@ public class SettingActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//
+//
+//    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
         int hour = preferences.getInt(Constant.ALARM_HOUR, 0);
         int minute = preferences.getInt(Constant.ALARM_MINUTE, 0);
         AlarmReminder alarmReminder = new AlarmReminder(hour, minute);
@@ -297,9 +305,24 @@ public class SettingActivity extends AppCompatActivity {
 
         if(last_num_of_pages != preferences.getInt(PAGES_PER_DAY,1)){
             editor.putInt(WEEKLY_PROGRESS, 0).commit();
-            editor.putInt(DAILY_PROGRESS, 0).commit();
+            editor.putInt(Constant.DAILY_PROGRESS, 0).commit();
+            resetValues();
         }
+    }
+    public boolean storeArray(boolean[] array, String arrayName, Context mContext) {
 
+        SharedPreferences prefs = mContext.getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, 0);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(arrayName + "_size", array.length);
+
+        for (int i = 0; i < array.length; i++)
+            editor.putBoolean(arrayName + "_" + i, array[i]);
+
+        return editor.commit();
     }
 
+    private void resetValues() {
+        boolean[] arr = new boolean[no_of_pages];
+        storeArray(arr, Constant.ARRAY_NAME, this);
+    }
 }
