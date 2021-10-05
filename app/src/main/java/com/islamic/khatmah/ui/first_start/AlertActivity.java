@@ -168,15 +168,8 @@ public class AlertActivity extends AppCompatActivity {
         alertReminderLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (aSwitch.isChecked()) {
                     popTimePiker();
 //                    createNotificationChannel();
-                    alarmReminder.schedule(AlertActivity.this);
-
-                }else{
-                    alarmReminder.cancelAlarm(AlertActivity.this);
-
-                }
             }
         });
 
@@ -192,16 +185,16 @@ public class AlertActivity extends AppCompatActivity {
                 AlarmReminder alarmReminder = new AlarmReminder(sHour, sMinute);
 
                 if (aSwitch.isChecked()) {
-//                    alarmReminder.schedule(AlertActivity.this);
+                    alarmReminder.schedule(AlertActivity.this);
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(System.currentTimeMillis());
                     editor.putInt(Constant.FIRST_DAY,calendar.get(Calendar.DAY_OF_WEEK)).apply();
                     AlarmReminder.resetWeeklyProgress(AlertActivity.this,calendar.get(Calendar.DAY_OF_WEEK));
                 }
-//                else{
-//                    alarmReminder.cancelAlarm(AlertActivity.this);
-//
-//                }
+                else{
+                    alarmReminder.cancelAlarm(AlertActivity.this);
+
+                }
                 editor.putBoolean(Constant.FIRST_RUN, false).apply();
                 startActivity(new Intent(AlertActivity.this, MainActivity.class));
                 finish();
