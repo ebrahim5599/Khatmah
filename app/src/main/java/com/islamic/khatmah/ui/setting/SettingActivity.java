@@ -1,6 +1,8 @@
 package com.islamic.khatmah.ui.setting;
 
 
+import static com.islamic.khatmah.constants.Constant.ALARM_HOUR;
+import static com.islamic.khatmah.constants.Constant.ALARM_MINUTE;
 import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
 import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
 import static com.islamic.khatmah.constants.Constant.TOTAL_PROGRESS;
@@ -28,12 +30,18 @@ import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
+
 
 import com.islamic.khatmah.alarm.AlarmReminder;
+
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.constants.Constant;
+
 import com.islamic.khatmah.ui.first_start.StartActivity;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,8 +57,8 @@ public class SettingActivity extends AppCompatActivity {
     private int sHour, sMinute;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
-    public static boolean isPagesNumberChanged = false; // مؤقتا يا ورد الورود
-    private int last_num_of_pages;
+    private int last_num_of_pages, last_alarm_hour, last_alarm_minute;
+
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +68,9 @@ public class SettingActivity extends AppCompatActivity {
         // sharedPreference.
         preferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
         editor = preferences.edit();
-        last_num_of_pages =preferences.getInt(PAGES_PER_DAY, 0);
+        last_num_of_pages = preferences.getInt(PAGES_PER_DAY, 0);
+        last_alarm_hour = preferences.getInt(ALARM_HOUR, 0);
+        last_alarm_minute = preferences.getInt(ALARM_MINUTE, 0);
         selected_juz = preferences.getInt(Constant.PARTS_PER_DAY_SPINNER_POSITION, 0);
         selected_page = preferences.getInt(Constant.PAGES_PER_DAY_SPINNER_POSITION, 0);
 
@@ -122,7 +132,6 @@ public class SettingActivity extends AppCompatActivity {
                             break;
                     }
                 }
-                isPagesNumberChanged = true;
                 editor.putInt(PAGES_PER_DAY, no_of_pages);
                 editor.putInt(Constant.PARTS_PER_DAY_SPINNER_POSITION, spinnerJuz.getSelectedItemPosition());
                 editor.commit();
@@ -278,18 +287,22 @@ public class SettingActivity extends AppCompatActivity {
         int minute = preferences.getInt(Constant.ALARM_MINUTE, 0);
         AlarmReminder alarmReminder = new AlarmReminder(hour, minute);
 
-        if (reminderSwitch.isChecked())
-            alarmReminder.schedule(SettingActivity.this);
-        else
+//        AlarmReminder alarmReminder = new AlarmReminder(sHour, sMinute);
+
+        if (reminderSwitch.isChecked()) {
+            if (hour != last_alarm_hour || minute != last_alarm_minute)
+                alarmReminder.schedule(SettingActivity.this);
+
+        } else
             alarmReminder.cancelAlarm(SettingActivity.this);
 
         if(last_num_of_pages != preferences.getInt(PAGES_PER_DAY,1)){
             editor.putInt(WEEKLY_PROGRESS, 0).commit();
             editor.putInt(Constant.DAILY_PROGRESS, 0).commit();
             resetValues();
-
         }
     }
+
     public boolean storeArray(boolean[] array, String arrayName, Context mContext) {
 
         SharedPreferences prefs = mContext.getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, 0);
