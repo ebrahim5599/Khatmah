@@ -1,7 +1,5 @@
 package com.islamic.khatmah.ui.main;
 
-import static com.islamic.khatmah.constants.Constant.PREV_STARTED;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;

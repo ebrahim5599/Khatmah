@@ -20,7 +20,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/yellow_gradient1">
+            android:background="@drawable/yellow_gradient0">
 
             <TextView
                 android:id="@+id/alert_border_pages_number"
@@ -51,12 +51,14 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/purple_200"
                     android:backgroundTintMode="multiply"/>
                 <Spinner
                     android:id="@+id/spinnerPages"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/purple_200"
                     android:backgroundTintMode="multiply" />
             </LinearLayout>
         </RelativeLayout>
@@ -76,7 +78,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/yellow_gradient1">
+            android:background="@drawable/yellow_gradient0">
 
             <TextView
                 android:id="@+id/alert_border_reminder"
@@ -112,8 +114,6 @@
                 android:textColor="@color/purple_200"
                 android:textSize="28sp"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-
 
             <LinearLayout
                 android:id="@+id/alert_reminder_body"
