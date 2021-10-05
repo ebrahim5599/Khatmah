@@ -9,7 +9,6 @@ import static com.islamic.khatmah.constants.Constant.WEEKLY_PROGRESS;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.TimePickerDialog;
@@ -29,24 +28,12 @@ import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
-
 
 import com.islamic.khatmah.alarm.AlarmReminder;
-
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.constants.Constant;
-
 import com.islamic.khatmah.ui.first_start.StartActivity;
-
-
-import com.islamic.khatmah.ui.first_start.AlertActivity;
-import com.islamic.khatmah.ui.main.MainActivity;
-
-
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -282,12 +269,7 @@ public class SettingActivity extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//
-//
-//    }
+
 
     @Override
     public void onBackPressed() {
@@ -295,8 +277,6 @@ public class SettingActivity extends AppCompatActivity {
         int hour = preferences.getInt(Constant.ALARM_HOUR, 0);
         int minute = preferences.getInt(Constant.ALARM_MINUTE, 0);
         AlarmReminder alarmReminder = new AlarmReminder(hour, minute);
-
-//        AlarmReminder alarmReminder = new AlarmReminder(sHour, sMinute);
 
         if (reminderSwitch.isChecked())
             alarmReminder.schedule(SettingActivity.this);
@@ -307,6 +287,7 @@ public class SettingActivity extends AppCompatActivity {
             editor.putInt(WEEKLY_PROGRESS, 0).commit();
             editor.putInt(Constant.DAILY_PROGRESS, 0).commit();
             resetValues();
+
         }
     }
     public boolean storeArray(boolean[] array, String arrayName, Context mContext) {
