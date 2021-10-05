@@ -1,7 +1,6 @@
 package com.islamic.khatmah.ui.setting;
 
 
-import static com.islamic.khatmah.constants.Constant.DAILY_PROGRESS;
 import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
 import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
 import static com.islamic.khatmah.constants.Constant.TOTAL_PROGRESS;
@@ -29,17 +28,21 @@ import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
+
+
+import com.islamic.khatmah.alarm.AlarmReminder;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.islamic.khatmah.Models.AlarmReminder;
+
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.constants.Constant;
 
 import com.islamic.khatmah.ui.first_start.StartActivity;
 
+
 import com.islamic.khatmah.ui.first_start.AlertActivity;
 import com.islamic.khatmah.ui.main.MainActivity;
+
 
 
 import java.text.SimpleDateFormat;
@@ -265,7 +268,7 @@ public class SettingActivity extends AppCompatActivity {
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "KhatmaChannel";
+            CharSequence name = "KhatmahChannel";
             String description = "ختمه";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel("notify", name, importance);
@@ -299,10 +302,4 @@ public class SettingActivity extends AppCompatActivity {
 
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        Intent intent = new Intent(this, MainActivity.class);
-//        startActivity(intent);
-//        super.onBackPressed();
-//    }
 }

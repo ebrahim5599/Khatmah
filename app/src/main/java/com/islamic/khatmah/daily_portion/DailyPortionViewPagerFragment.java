@@ -82,7 +82,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
             counter = sharedPreferences.getInt(Constant.DAILY_PROGRESS, 0);
 
             weeklyProgress = sharedPreferences.getInt(Constant.WEEKLY_PROGRESS, 0);
-            totalProgress  = sharedPreferences.getInt(Constant.TOTAL_PROGRESS, 0);
+            totalProgress = sharedPreferences.getInt(Constant.TOTAL_PROGRESS, 0);
 
         }
     }
@@ -103,14 +103,9 @@ public class DailyPortionViewPagerFragment extends Fragment {
         juz_number = view.findViewById(R.id.juz_number_daily_portion);
         surah_name = view.findViewById(R.id.surah_name_daily_portion);
         page_number = view.findViewById(R.id.page_number_daily_portion);
-        juz = Math.min(((position + currentPageNum - 2) / 20) + 1, 30);
-        juz_number.setText(String.format("الجزء %s", convertToArbNum(juz)));
-        surah_name.setText(MainActivity.surahName.get(position + currentPageNum - 1));
-        page_number.setText(String.format("صفحة  %s", convertToArbNum(position + currentPageNum)));
-        sharedPreferences.edit().putString(CURRENT_JUZ, String.format("الجزء %s", convertToArbNum(juz))).apply();
-        sharedPreferences.edit().putString(CURRENT_SURAH, MainActivity.surahName.get(position + currentPageNum - 1)).apply();
 
-        InputStream is;
+
+
         ImageView img = view.findViewById(R.id.img);
         layout = view.findViewById(R.id.read_linear);
         counter_text = view.findViewById(R.id.counter_text);
@@ -122,15 +117,8 @@ public class DailyPortionViewPagerFragment extends Fragment {
         progressBar.setMax(pagesPerDay);
 
         progressBar.setProgress(counter);
-        try {
-            if (getActivity() != null) {
-                is = getActivity().openFileInput(String.valueOf(position + currentPageNum));
-                Bitmap bit = BitmapFactory.decodeStream(is);
-                img.setImageBitmap(bit);
-            }
-        } catch (FileNotFoundException e) {
-            Picasso.get().load("https://quran-images-api.herokuapp.com/show/page/" + (position + currentPageNum)).into(img);
-        }
+        setImage(position + currentPageNum, img);
+
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -159,7 +147,10 @@ public class DailyPortionViewPagerFragment extends Fragment {
                             .setPositiveButton(R.string.ok, (dialog, which) -> {
                                 // Save the last page, Surah and Juz in SharedPreference.
                                 // [CURRENT_PAGE + number of PAGES_PER_DAY].
-                                editor.putInt(CURRENT_PAGE, pagesPerDay + currentPageNum);
+                                if (pagesPerDay + currentPageNum > 604)
+                                    editor.putInt(CURRENT_PAGE, pagesPerDay + currentPageNum - 604);
+                                else
+                                    editor.putInt(CURRENT_PAGE, pagesPerDay + currentPageNum);
                                 editor.putInt(Constant.DAILY_PROGRESS, 0);
                                 editor.apply();
                                 resetValues();
@@ -187,6 +178,38 @@ public class DailyPortionViewPagerFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private void setImage(int picNum, ImageView img) {
+
+
+        InputStream is;
+        int currentPic = picNum;
+        if (picNum > 604) {
+            currentPic = picNum - 604;
+        }
+
+
+
+        juz = Math.min(((currentPic - 2) / 20) + 1, 30);
+        juz_number.setText(String.format("الجزء %s", convertToArbNum(juz)));
+        surah_name.setText(MainActivity.surahName.get(currentPic - 1));
+        page_number.setText(String.format("صفحة  %s", convertToArbNum(currentPic)));
+        sharedPreferences.edit().putString(CURRENT_JUZ, String.format("الجزء %s", convertToArbNum(juz))).apply();
+        sharedPreferences.edit().putString(CURRENT_SURAH, MainActivity.surahName.get(currentPic - 1)).apply();
+
+
+
+        try {
+            if (getActivity() != null) {
+                is = getActivity().openFileInput(String.valueOf(currentPic));
+                Bitmap bit = BitmapFactory.decodeStream(is);
+                img.setImageBitmap(bit);
+            }
+        } catch (FileNotFoundException e) {
+            Picasso.get().load("https://quran-images-api.herokuapp.com/show/page/" + (currentPic)).into(img);
+        }
+
     }
 
     public boolean storeArray(boolean[] array, String arrayName, Context mContext) {
