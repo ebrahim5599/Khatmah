@@ -38,7 +38,7 @@
                 android:layout_centerInParent="true"
                 android:fontFamily="@font/arabic_type"
                 android:text="113"
-                android:textColor="@color/purple_700"
+                android:textColor="@color/text_color_700"
                 android:textSize="18sp" />
 
         </RelativeLayout>
@@ -58,7 +58,7 @@
                 android:layout_gravity="right"
                 android:fontFamily="@font/uthmanic_hafs"
                 android:text="سورة الفاتحة"
-                android:textColor="@color/purple_200"
+                android:textColor="@color/text_color_200"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/arabic_type"
                     android:text="مكية"
-                    android:textColor="@color/purple_200"
+                    android:textColor="@color/text_color_200"
                     android:textSize="20sp"/>
 
 
@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/arabic_type"
                     android:text=" - "
-                    android:textColor="@color/purple_200"
+                    android:textColor="@color/text_color_200"
                     android:textSize="20sp" />
 
                 <TextView
@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/arabic_type"
                     android:text="7 آيات"
-                    android:textColor="@color/purple_200"
+                    android:textColor="@color/text_color_200"
                     android:textSize="20sp" />
 
 
@@ -125,7 +125,7 @@
             android:fontFamily="@font/arabic_type"
             android:gravity="center"
             android:text="صفحة: 4"
-            android:textColor="@color/purple_500"
+            android:textColor="@color/text_color_500"
             android:textSize="18sp" />
 
     </RelativeLayout>

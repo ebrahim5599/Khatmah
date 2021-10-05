@@ -29,11 +29,20 @@ import android.transition.TransitionManager;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+
 import com.islamic.khatmah.alarm.AlarmReminder;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.constants.Constant;
 
 import com.islamic.khatmah.ui.first_start.StartActivity;
+
+
+import com.islamic.khatmah.ui.first_start.AlertActivity;
+import com.islamic.khatmah.ui.main.MainActivity;
+
 
 
 import java.text.SimpleDateFormat;
@@ -52,7 +61,7 @@ public class SettingActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     public static boolean isPagesNumberChanged = false; // مؤقتا يا ورد الورود
-
+    private int last_num_of_pages;
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +71,7 @@ public class SettingActivity extends AppCompatActivity {
         // sharedPreference.
         preferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
         editor = preferences.edit();
-
+        last_num_of_pages =preferences.getInt(PAGES_PER_DAY, 0);
         selected_juz = preferences.getInt(Constant.PARTS_PER_DAY_SPINNER_POSITION, 0);
         selected_page = preferences.getInt(Constant.PAGES_PER_DAY_SPINNER_POSITION, 0);
 
@@ -73,32 +82,6 @@ public class SettingActivity extends AppCompatActivity {
         spinnerPage = findViewById(R.id.setting_spinnerPages);
         reset_textView = findViewById(R.id.reset_textView);
         time_textView = findViewById(R.id.time_textView);
-
-        if (preferences.getBoolean(Constant.REMINDER_SWITCH_CASE, false)) {
-            reminderSwitch.setChecked(true);
-            reminderLayout.setVisibility(View.VISIBLE);
-            time_textView.setText(preferences.getString(Constant.NOTIFICATION_TIME, "00:00 AM"));
-
-        } else {
-            reminderSwitch.setChecked(false);
-            reminderLayout.setVisibility(View.GONE);
-        }
-
-        reminderSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (reminderSwitch.isChecked()) {
-                    TransitionManager.beginDelayedTransition(reminderLayout, new AutoTransition());
-                    reminderLayout.setVisibility(View.VISIBLE);
-                    time_textView.setText(preferences.getString(Constant.NOTIFICATION_TIME, time_textView.getText().toString()));
-                    editor.putBoolean(Constant.REMINDER_SWITCH_CASE, true).commit();
-                } else {
-                    TransitionManager.beginDelayedTransition(reminderLayout, new AutoTransition());
-                    reminderLayout.setVisibility(View.GONE);
-                    editor.putBoolean(Constant.REMINDER_SWITCH_CASE, false).commit();
-                }
-            }
-        });
 
         String[] juz = {"أقل من جزء", "جــــــزء", "جزء ونصف", "جــــزءان", "جزءان ونصف", "ثلاثة أجزاء"};
         ArrayList<String> pages = new ArrayList<>();
@@ -124,7 +107,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (spinnerJuz.getSelectedItem() == juz[0]) {
                     spinnerPage.setVisibility(View.VISIBLE);
-                    no_of_pages = spinnerPage.getSelectedItemPosition()+1;
+                    no_of_pages = spinnerPage.getSelectedItemPosition() + 1;
                 } else {
                     spinnerPage.setVisibility(View.GONE);
                     switch (spinnerJuz.getSelectedItemPosition()) {
@@ -158,10 +141,8 @@ public class SettingActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
-
         spinnerPage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -172,7 +153,33 @@ public class SettingActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
+
+        // TODO: take time from alert activity.
+        if (preferences.getBoolean(Constant.REMINDER_SWITCH_CASE, false)) {
+            reminderSwitch.setChecked(true);
+            reminderLayout.setVisibility(View.VISIBLE);
+            time_textView.setText(preferences.getString(Constant.NOTIFICATION_TIME, "06:00 AM"));
+        } else {
+            reminderSwitch.setChecked(false);
+            reminderLayout.setVisibility(View.GONE);
+        }
+
+        reminderSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (reminderSwitch.isChecked()) {
+                    TransitionManager.beginDelayedTransition(reminderLayout, new AutoTransition());
+                    reminderLayout.setVisibility(View.VISIBLE);
+                    editor.putBoolean(Constant.REMINDER_SWITCH_CASE, true).commit();
+                    time_textView.setText(preferences.getString(Constant.NOTIFICATION_TIME, "06:00 AM"));
+                } else {
+                    TransitionManager.beginDelayedTransition(reminderLayout, new AutoTransition());
+                    reminderLayout.setVisibility(View.GONE);
+                    editor.putBoolean(Constant.REMINDER_SWITCH_CASE, false).commit();
+                }
             }
         });
 
@@ -187,18 +194,18 @@ public class SettingActivity extends AppCompatActivity {
         reset_textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(SettingActivity.this)
+                new MaterialAlertDialogBuilder(SettingActivity.this, R.style.Theme_MyApp_Dialog_Alert)
                         .setTitle(R.string.warning)
                         .setMessage(R.string.warning_message)
                         .setIcon(R.drawable.ic_round_warning_24)
                         .setPositiveButton(R.string.reset, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                editor.putInt(WEEKLY_PROGRESS,0);
-                                editor.putInt(TOTAL_PROGRESS,0);
-                                editor.putInt(CURRENT_PAGE,1);
-                                editor.putInt(PAGES_PER_DAY,1);
-                                editor.putInt(Constant.DAILY_PROGRESS,0);
-                                editor.putBoolean(Constant.FIRST_RUN,true);
+                                editor.putInt(WEEKLY_PROGRESS, 0);
+                                editor.putInt(TOTAL_PROGRESS, 0);
+                                editor.putInt(CURRENT_PAGE, 1);
+                                editor.putInt(PAGES_PER_DAY, 1);
+                                editor.putInt(Constant.DAILY_PROGRESS, 0);
+                                editor.putBoolean(Constant.FIRST_RUN, true);
                                 reminderSwitch.setChecked(false);
                                 editor.apply();
                                 Intent intent = new Intent(SettingActivity.this, StartActivity.class);
@@ -240,15 +247,18 @@ public class SettingActivity extends AppCompatActivity {
             public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
                 cal.set(Calendar.HOUR_OF_DAY, selectedHour);
                 cal.set(Calendar.MINUTE, selectedMinute);
+
                 sHour = cal.get(Calendar.HOUR_OF_DAY);
                 sMinute = cal.get(Calendar.MINUTE);
+
                 editor.putInt(Constant.ALARM_HOUR, sHour);
                 editor.putInt(Constant.ALARM_MINUTE, sMinute);
+                editor.commit();
+
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa", Locale.US);
                 String Time = simpleDateFormat.format(cal.getTime());
                 time_textView.setText(Time);
-                editor.putString(Constant.NOTIFICATION_TIME, Time);
-                editor.commit();
+                editor.putString(Constant.NOTIFICATION_TIME, Time).commit();
             }
         };
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), false);
@@ -274,11 +284,22 @@ public class SettingActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
 
-        AlarmReminder alarmReminder = new AlarmReminder(sHour, sMinute);
+        int hour = preferences.getInt(Constant.ALARM_HOUR, 0);
+        int minute = preferences.getInt(Constant.ALARM_MINUTE, 0);
+        AlarmReminder alarmReminder = new AlarmReminder(hour, minute);
+
+//        AlarmReminder alarmReminder = new AlarmReminder(sHour, sMinute);
+
         if (reminderSwitch.isChecked())
             alarmReminder.schedule(SettingActivity.this);
         else
             alarmReminder.cancelAlarm(SettingActivity.this);
 
+        if(last_num_of_pages != preferences.getInt(PAGES_PER_DAY,1)){
+            editor.putInt(WEEKLY_PROGRESS, 0).commit();
+            editor.putInt(DAILY_PROGRESS, 0).commit();
+        }
+
     }
+
 }

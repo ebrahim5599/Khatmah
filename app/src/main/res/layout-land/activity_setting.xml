@@ -47,7 +47,7 @@
                     android:fontFamily="@font/arabic_type"
                     android:gravity="center"
                     android:text="رسالة التذكير"
-                    android:textColor="@color/purple_500"
+                    android:textColor="@color/text_color_500"
                     android:textSize="28sp" />
 
                 <Switch
@@ -63,7 +63,7 @@
                     android:gravity="right"
                     android:layoutDirection="rtl"
                     android:text="@string/setalert"
-                    android:textColor="@color/purple_200"
+                    android:textColor="@color/text_color_200"
                     android:textSize="28sp"
                     tools:ignore="UseSwitchCompatOrMaterialXml" />
 
@@ -87,7 +87,7 @@
                         android:layout_weight="2"
                         android:fontFamily="@font/arabic_type"
                         android:text="تعديل وقت التنبيه"
-                        android:textColor="@color/purple_200"
+                        android:textColor="@color/text_color_200"
                         android:textSize="28sp" />
 
                     <TextView
@@ -99,7 +99,7 @@
                         android:fontFamily="@font/arabic_type"
                         android:gravity="center|right"
                         android:text="00:00 PM"
-                        android:textColor="@color/purple_200"
+                        android:textColor="@color/text_color_200"
                         android:textSize="28sp" />
 
                     <ImageView
@@ -149,7 +149,7 @@
                     android:fontFamily="@font/arabic_type"
                     android:gravity="center"
                     android:text="مقدار الورد اليومي"
-                    android:textColor="@color/purple_500"
+                    android:textColor="@color/text_color_500"
                     android:textSize="28sp" />
 
                 <LinearLayout

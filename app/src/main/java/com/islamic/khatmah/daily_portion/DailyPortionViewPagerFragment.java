@@ -24,6 +24,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.islamic.khatmah.ui.main.MainActivity;
 import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.R;
@@ -141,10 +142,9 @@ public class DailyPortionViewPagerFragment extends Fragment {
                 checkButton.setImageResource(R.drawable.checked);
                 viewPager.setCurrentItem(position + 1);
                 if (counter >= pagesPerDay) {
-                    new AlertDialog.Builder(getContext())
-                            .setTitle("Congratulation")
-                            .setMessage("You have finished reading the entire daily portion")
-                            .setPositiveButton("ok", (dialog, which) -> {
+                    new MaterialAlertDialogBuilder(getContext(), R.style.Theme_MyApp_Dialog_Alert)
+                            .setMessage(R.string.daily_portion_completion_message)
+                            .setPositiveButton(R.string.ok, (dialog, which) -> {
                                 // Save the last page, Surah and Juz in SharedPreference.
                                 // [CURRENT_PAGE + number of PAGES_PER_DAY].
                                 if (pagesPerDay + currentPageNum > 604)

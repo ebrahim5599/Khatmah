@@ -46,7 +46,6 @@
                     android:fontFamily="@font/arabic_type"
                     android:gravity="center"
                     android:text="الإنجاز الإسبوعي"
-                    android:textColor="@color/purple_500"
                     android:textSize="28sp" />
 
                 <ProgressBar
@@ -121,7 +120,6 @@
                     android:fontFamily="@font/arabic_type"
                     android:gravity="center"
                     android:text="الإنجاز الكامل"
-                    android:textColor="@color/purple_500"
                     android:textSize="28sp" />
 
                 <LinearLayout
@@ -138,7 +136,6 @@
                         android:fontFamily="@font/arabic_type"
                         android:gravity="center"
                         android:text="عدد الصفحات"
-                        android:textColor="@color/purple_500"
                         android:textSize="22sp" />
 
 
@@ -149,7 +146,6 @@
                         android:fontFamily="@font/arabic_type"
                         android:gravity="center"
                         android:text="عدد الأجزاء"
-                        android:textColor="@color/purple_500"
                         android:textSize="22sp" />
 
                 </LinearLayout>
@@ -244,12 +240,5 @@
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 
-        <Button
-            android:id="@+id/reset_weeklyProgress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="reset weekly progress"
-            android:layout_margin="32dp"
-            android:layout_gravity="center"/>
     </LinearLayout>
 </ScrollView>

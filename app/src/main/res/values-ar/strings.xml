@@ -15,4 +15,9 @@
     <string name="cancel">إلغاء</string>
     <string name="page">صفحة</string>
     <string name="reset">إعادة تعيين</string>
+    <string name="daily_portion_completion_message">أحسنت، لقد أتممت ورد اليوم.</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="confirmation">رسالة تأكيد</string>
+    <string name="confirmation_message">هل أتممت وردك اليومي ؟</string>
 </resources>
