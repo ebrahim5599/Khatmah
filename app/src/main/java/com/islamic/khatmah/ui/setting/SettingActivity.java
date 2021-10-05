@@ -185,7 +185,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 popTimePiker();
-//                createNotificationChannel();
+                createNotificationChannel();
             }
         });
 
@@ -206,7 +206,6 @@ public class SettingActivity extends AppCompatActivity {
                                 editor.putBoolean(Constant.FIRST_RUN, true);
                                 reminderSwitch.setChecked(false);
                                 editor.apply();
-                                resetValues();
                                 Intent intent = new Intent(SettingActivity.this, StartActivity.class);
                                 startActivity(intent);
                             }
@@ -279,12 +278,7 @@ public class SettingActivity extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//
-//
-//    }
+
 
     @Override
     public void onBackPressed() {
@@ -302,7 +296,7 @@ public class SettingActivity extends AppCompatActivity {
         } else
             alarmReminder.cancelAlarm(SettingActivity.this);
 
-        if (last_num_of_pages != preferences.getInt(PAGES_PER_DAY, 1)) {
+        if(last_num_of_pages != preferences.getInt(PAGES_PER_DAY,1)){
             editor.putInt(WEEKLY_PROGRESS, 0).commit();
             editor.putInt(Constant.DAILY_PROGRESS, 0).commit();
             resetValues();
