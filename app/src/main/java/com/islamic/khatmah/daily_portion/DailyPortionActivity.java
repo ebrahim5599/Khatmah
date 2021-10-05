@@ -88,6 +88,7 @@
 package com.islamic.khatmah.daily_portion;
 
 import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
+import static com.islamic.khatmah.constants.Constant.CURRENT_SURAH;
 import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -103,6 +104,7 @@ import android.widget.Toast;
 
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.constants.Constant;
+import com.islamic.khatmah.ui.main.MainActivity;
 
 public class DailyPortionActivity extends AppCompatActivity {
 
@@ -133,13 +135,13 @@ public class DailyPortionActivity extends AppCompatActivity {
 
         // Create viewPager.
         ViewPager2 viewPager = findViewById(R.id.viewPager2);
-        viewPager.setAdapter(new DailyPortionAdapter(this, currentPageNum, isChecked,number_of_pages, viewPager));
+        viewPager.setAdapter(new DailyPortionAdapter(this, currentPageNum, isChecked, number_of_pages, viewPager));
         viewPager.setCurrentItem(preferences.getInt(Constant.DAILY_PROGRESS, 0));
     }
 
     @Override
     public void onBackPressed() {
-        Toast.makeText(this, String.valueOf(preferences.getInt(Constant.WEEKLY_PROGRESS,0)), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, String.valueOf(preferences.getInt(Constant.WEEKLY_PROGRESS, 0)), Toast.LENGTH_SHORT).show();
         // Loading or saving data to shared preferences.
         SharedPreferences preferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, 0);
 
@@ -157,11 +159,18 @@ public class DailyPortionActivity extends AppCompatActivity {
                             // Save the last page, Surah and Juz in SharedPreference.
                             // [CURRENT_PAGE + number of PAGES_PER_DAY].
 //                            int cp = sharedPreferences.getInt(CURRENT_PAGE, 1);
-                            editor.putInt(CURRENT_PAGE, number_of_pages + currentPageNum);
-
+                            int cP;
+                            if (number_of_pages + currentPageNum > 604) {
+                                cP = number_of_pages + currentPageNum - 604;
+                                editor.putInt(CURRENT_PAGE, number_of_pages + currentPageNum - 604);
+                            } else {
+                                cP = number_of_pages + currentPageNum;
+                                editor.putInt(CURRENT_PAGE, number_of_pages + currentPageNum);
+                            }
+                            editor.putString(CURRENT_SURAH, MainActivity.surahName.get(cP - 1)).apply();
                             editor.putInt(Constant.DAILY_PROGRESS, 0);
-                            editor.putInt(Constant.WEEKLY_PROGRESS, preferences.getInt(Constant.WEEKLY_PROGRESS, 0) - counter + preferences.getInt(PAGES_PER_DAY,0));
-                            editor.putInt(Constant.TOTAL_PROGRESS, preferences.getInt(Constant.WEEKLY_PROGRESS, 0) - counter + preferences.getInt(PAGES_PER_DAY,0));
+                            editor.putInt(Constant.WEEKLY_PROGRESS, preferences.getInt(Constant.WEEKLY_PROGRESS, 0) - counter + preferences.getInt(PAGES_PER_DAY, 0));
+                            editor.putInt(Constant.TOTAL_PROGRESS, preferences.getInt(Constant.WEEKLY_PROGRESS, 0) - counter + preferences.getInt(PAGES_PER_DAY, 0));
 
                             //editor.putInt(Constant.PROGRESS_COUNT, 0);
 
@@ -251,6 +260,6 @@ public class DailyPortionActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         SharedPreferences prefs = getBaseContext().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, 0);
-        Toast.makeText(getBaseContext(), prefs.getInt(Constant.WEEKLY_PROGRESS, 0)+"", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), prefs.getInt(Constant.WEEKLY_PROGRESS, 0) + "", Toast.LENGTH_SHORT).show();
     }
 }

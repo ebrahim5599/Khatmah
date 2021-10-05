@@ -1,18 +1,16 @@
-package com.islamic.khatmah.Models;
+package com.islamic.khatmah.alarm;
 
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.islamic.khatmah.AlarmBrodCasts.Reminder;
 import com.islamic.khatmah.AlarmBrodCasts.ResetWeeklyProgressReceiver;
-import com.islamic.khatmah.constants.Constant;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

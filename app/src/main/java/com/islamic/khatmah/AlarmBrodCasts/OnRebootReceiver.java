@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.islamic.khatmah.Models.AlarmReminder;
+import com.islamic.khatmah.alarm.AlarmReminder;
 import com.islamic.khatmah.constants.Constant;
 
 public class OnRebootReceiver extends BroadcastReceiver {

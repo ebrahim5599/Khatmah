@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -25,7 +24,7 @@ import android.widget.TimePicker;
 
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.constants.Constant;
-import com.islamic.khatmah.Models.AlarmReminder;
+import com.islamic.khatmah.alarm.AlarmReminder;
 import com.islamic.khatmah.ui.main.MainActivity;
 
 import java.text.SimpleDateFormat;
