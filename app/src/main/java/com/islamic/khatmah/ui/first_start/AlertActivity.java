@@ -170,7 +170,7 @@ public class AlertActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (aSwitch.isChecked()) {
                     popTimePiker();
-                    createNotificationChannel();
+//                    createNotificationChannel();
                     alarmReminder.schedule(AlertActivity.this);
 
                 }else{
