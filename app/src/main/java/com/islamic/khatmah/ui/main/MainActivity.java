@@ -13,6 +13,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -53,11 +54,7 @@ public class MainActivity extends AppCompatActivity {
             //show Start activity
             startActivity(new Intent(MainActivity.this, StartActivity.class));
         }
-
-
         setContentView(R.layout.activity_main);
-
-
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this);
         toolbar = findViewById(R.id.toolbar);
@@ -93,12 +90,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.item_setting) {
-
             startActivity(new Intent(getBaseContext(), SettingActivity.class));
             return true;
         } else if (itemId == R.id.item_about_us) {
-
-            startActivity(new Intent(getBaseContext(), StartActivity.class));
+            Toast.makeText(getBaseContext(), R.string.will_be_added_soon, Toast.LENGTH_SHORT).show();
+//            startActivity(new Intent(getBaseContext(), StartActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -117,13 +113,6 @@ public class MainActivity extends AppCompatActivity {
                 return "";
         }
     }
-
-    public void moveToSecondary() {
-        // use an intent to travel from one activity to another.
-        Intent intent = new Intent(this, StartActivity.class);
-        startActivity(intent);
-    }
-
 
     private void preparingSurahNames() {
         surahName = new ArrayList<>();

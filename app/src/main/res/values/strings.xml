@@ -32,6 +32,9 @@
     <string name="dummy_button" translatable="false">Dummy Button</string>
     <string name="dummy_content" translatable="false">DUMMY\nCONTENT</string>
 
+    <string name="download">Download</string>
+    <string name="download_message">For a better experience, there are some files that must be downloaded in order for the application to work without an Internet connection.</string>
+
     <string name="portion_completed">If you have finished reading the page, click on the check mark.</string>
     <string name="ok">Okay</string>
 
@@ -47,4 +50,6 @@
     <string name="confirmation_message">Have you finished reading the entire daily portion?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+
+    <string name="will_be_added_soon">It will be added soon</string>
 </resources>
