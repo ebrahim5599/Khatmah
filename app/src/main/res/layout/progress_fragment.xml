@@ -68,8 +68,10 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/arabic_type"
                     android:text="@string/txtWeeklyProgressRatio"
-                    android:textColor="#D68B1B" />
+                    android:textColor="#D68B1B"
+                    android:textSize="22sp" />
 
                 <TextView
                     android:id="@+id/txtWeeklyProgressPages"
@@ -183,6 +185,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:text="@string/txtAllProgressRatio"
+                                android:fontFamily="@font/arabic_type"
+                                android:textSize="22sp"
                                 android:textColor="#D68B1B" />
 
                             <TextView

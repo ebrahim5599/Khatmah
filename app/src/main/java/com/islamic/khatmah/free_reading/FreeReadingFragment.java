@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.islamic.khatmah.services.DownloadIntentService;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.pojo.Surah;
@@ -54,12 +55,12 @@ public class FreeReadingFragment extends Fragment {
             Bitmap bit = BitmapFactory.decodeStream(is);
         } catch (FileNotFoundException e) {
             Intent intent = new Intent(getContext(), DownloadIntentService.class);
-            new AlertDialog.Builder(getContext())
-                    .setTitle("Download")
-                    .setMessage("For a better experience, there are some files that must be downloaded in order for the application to work without an Internet connection.")
+            new MaterialAlertDialogBuilder(getContext(), R.style.Theme_MyApp_Dialog_Alert)
+                    .setTitle(R.string.download)
+                    .setMessage(R.string.download_message)
                     // Specifying a listener allows you to take an action before dismissing the dialog.
                     // The dialog is automatically dismissed when a dialog button is clicked.
-                    .setPositiveButton("Download", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.download, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // Continue with delete operation
 //                            downloadAllPics();
@@ -67,7 +68,7 @@ public class FreeReadingFragment extends Fragment {
                         }
                     })
                     // A null listener allows the button to dismiss the dialog and take no further action.
-                    .setNegativeButton("Cancel", null)
+                    .setNegativeButton(R.string.cancel, null)
                     .setIcon(R.drawable.ic_baseline_cloud_download_24)
                     .show();
         }

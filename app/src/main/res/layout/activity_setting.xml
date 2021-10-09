@@ -80,7 +80,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_weight="2"
+                        android:layout_weight="1"
                         android:fontFamily="@font/arabic_type"
                         android:text="تعديل وقت التنبيه"
                         android:textColor="@color/text_color_200"
@@ -93,7 +93,7 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:fontFamily="@font/arabic_type"
-                        android:gravity="center|right"
+                        android:gravity="center"
                         android:text="00:00 PM"
                         android:textColor="@color/text_color_200"
                         android:textSize="28sp" />
