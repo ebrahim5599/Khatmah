@@ -9,6 +9,7 @@ import static com.islamic.khatmah.constants.Constant.TOTAL_PROGRESS;
 import static com.islamic.khatmah.constants.Constant.WEEKLY_PROGRESS;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,10 +26,13 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.alarm.AlarmReminder;
 import com.islamic.khatmah.constants.Constant;
@@ -197,9 +201,8 @@ public class SettingActivity extends AppCompatActivity {
                                 editor.putInt(Constant.DAILY_PROGRESS, 0);
                                 editor.putBoolean(Constant.FIRST_RUN, true);
                                 editor.putBoolean(Constant.REMINDER_SWITCH_CASE, false);
-
-                                alarmReminder.cancelAlarm(SettingActivity.this); // 888888888888888888888888888888888
-
+                                resetValues();
+                                alarmReminder.cancelAlarm(SettingActivity.this);
                                 reminderSwitch.setChecked(false);
                                 editor.apply();
                                 Intent intent = new Intent(SettingActivity.this, StartActivity.class);
@@ -235,6 +238,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void popTimePiker() {
+
         Calendar cal = Calendar.getInstance();
         TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -255,8 +259,10 @@ public class SettingActivity extends AppCompatActivity {
                 editor.putString(Constant.NOTIFICATION_TIME, Time).commit();
             }
         };
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), false);
-        timePickerDialog.setTitle("Select Time");
+
+        int style = AlertDialog.THEME_HOLO_DARK;
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, style, onTimeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), false);
+//        timePickerDialog.setTitle("Select Time");
         timePickerDialog.show();
     }
 
