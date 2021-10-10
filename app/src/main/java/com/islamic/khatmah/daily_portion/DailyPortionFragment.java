@@ -100,11 +100,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.constants.Constant;
@@ -175,6 +177,7 @@ public class DailyPortionFragment extends Fragment{
         juz_number.setText(current_juz);
         number_of_pages.setText(convertToArbNum(pages_per_day));
         progressBar_daily.setMax(preferences.getInt(PAGES_PER_DAY,0));
+/*
         int daily_progress = preferences.getInt(Constant.DAILY_PROGRESS, 0);
 //        if(!SettingActivity.isPagesNumberChanged){
             percentage.setText("%"+convertToArbNum((int)(daily_progress * 100 / (double) pages_per_day)));
@@ -185,7 +188,18 @@ public class DailyPortionFragment extends Fragment{
 //            progressBar_daily.setProgress(0);
 //            SettingActivity.isPagesNumberChanged = false;
 //        }
+*/
+        int daily_progress = preferences.getInt(Constant.DAILY_PROGRESS, 0);
+        percentage.setText("%"+convertToArbNum((int)(daily_progress * 100 / (double) pages_per_day)));
 
+        if(daily_progress == 0){
+//            Toast.makeText(getContext(), "== 0", Toast.LENGTH_SHORT).show();
+            progressBar_daily.setProgress(1);
+            progressBar_daily.setProgress(0);
+        }else{
+//            Toast.makeText(getContext(), "!= 0000", Toast.LENGTH_SHORT).show();
+            progressBar_daily.setProgress(daily_progress);
+        }
     }
 
     // this method converts English numbers to Indian number [Arabic].
