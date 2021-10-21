@@ -30,7 +30,6 @@ import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 
 import com.islamic.khatmah.alarm.AlarmReminder;
@@ -185,7 +184,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 popTimePiker();
-                createNotificationChannel();
+//                createNotificationChannel();
             }
         });
 
