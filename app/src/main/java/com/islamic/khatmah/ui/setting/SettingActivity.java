@@ -8,37 +8,33 @@ import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
 import static com.islamic.khatmah.constants.Constant.TOTAL_PROGRESS;
 import static com.islamic.khatmah.constants.Constant.WEEKLY_PROGRESS;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
+import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
-import android.transition.AutoTransition;
-import android.transition.TransitionManager;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-
-import com.islamic.khatmah.alarm.AlarmReminder;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
 import com.islamic.khatmah.R;
+import com.islamic.khatmah.alarm.AlarmReminder;
 import com.islamic.khatmah.constants.Constant;
-
 import com.islamic.khatmah.ui.first_start.StartActivity;
 
 import java.text.SimpleDateFormat;
@@ -184,10 +180,11 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 popTimePiker();
-//                createNotificationChannel();
+
             }
         });
 
+        AlarmReminder alarmReminder = new AlarmReminder(sHour, sMinute); // 8888888888888888888888888888888888888888888888
         reset_textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -203,6 +200,9 @@ public class SettingActivity extends AppCompatActivity {
                                 editor.putInt(PAGES_PER_DAY, 1);
                                 editor.putInt(Constant.DAILY_PROGRESS, 0);
                                 editor.putBoolean(Constant.FIRST_RUN, true);
+                                editor.putBoolean(Constant.REMINDER_SWITCH_CASE, false);
+                                resetValues();
+                                alarmReminder.cancelAlarm(SettingActivity.this);
                                 reminderSwitch.setChecked(false);
                                 editor.apply();
                                 Intent intent = new Intent(SettingActivity.this, StartActivity.class);
@@ -238,6 +238,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void popTimePiker() {
+
         Calendar cal = Calendar.getInstance();
         TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -258,44 +259,34 @@ public class SettingActivity extends AppCompatActivity {
                 editor.putString(Constant.NOTIFICATION_TIME, Time).commit();
             }
         };
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), false);
-        timePickerDialog.setTitle("Select Time");
+
+        int style = AlertDialog.THEME_HOLO_DARK;
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, style, onTimeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), false);
+//        timePickerDialog.setTitle("Select Time");
         timePickerDialog.show();
     }
-
-    private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "KhatmahChannel";
-            String description = "ختمه";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("notify", name, importance);
-
-            channel.setDescription(description);
-            channel.enableVibration(true);
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-
-
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+
         int hour = preferences.getInt(Constant.ALARM_HOUR, 0);
         int minute = preferences.getInt(Constant.ALARM_MINUTE, 0);
+        boolean isTimeChanged = preferences.getBoolean(Constant.IS_TIME_CHANGED, true);
+
         AlarmReminder alarmReminder = new AlarmReminder(hour, minute);
 
-//        AlarmReminder alarmReminder = new AlarmReminder(sHour, sMinute);
-
         if (reminderSwitch.isChecked()) {
-            if (hour != last_alarm_hour || minute != last_alarm_minute)
+            if (hour != last_alarm_hour || minute != last_alarm_minute || isTimeChanged) {
                 alarmReminder.schedule(SettingActivity.this);
-
-        } else
+                editor.putBoolean(Constant.IS_TIME_CHANGED, false).commit();
+            }
+        } else {
             alarmReminder.cancelAlarm(SettingActivity.this);
+            editor.putBoolean(Constant.IS_TIME_CHANGED, true).commit();
+        }
 
-        if(last_num_of_pages != preferences.getInt(PAGES_PER_DAY,1)){
+        if (last_num_of_pages != preferences.getInt(PAGES_PER_DAY, 1)) {
             editor.putInt(WEEKLY_PROGRESS, 0).commit();
             editor.putInt(Constant.DAILY_PROGRESS, 0).commit();
             resetValues();

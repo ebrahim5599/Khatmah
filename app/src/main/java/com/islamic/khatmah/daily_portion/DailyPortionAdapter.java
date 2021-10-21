@@ -1,11 +1,7 @@
 package com.islamic.khatmah.daily_portion;
 
-import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
-
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;

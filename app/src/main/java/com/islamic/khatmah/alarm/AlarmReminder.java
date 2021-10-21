@@ -55,6 +55,7 @@ public class AlarmReminder {
     }
 
     public void schedule(Context context) {
+
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(context, Reminder.class);

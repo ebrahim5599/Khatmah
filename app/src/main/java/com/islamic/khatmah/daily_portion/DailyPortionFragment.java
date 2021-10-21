@@ -100,6 +100,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -163,7 +164,6 @@ public class DailyPortionFragment extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
-//        Toast.makeText(getContext(), "onResume()", Toast.LENGTH_SHORT).show();
 
         // Load data from SharedPreferences.
         current_page = preferences.getInt(CURRENT_PAGE,1);
@@ -177,8 +177,8 @@ public class DailyPortionFragment extends Fragment{
         juz_number.setText(current_juz);
         number_of_pages.setText(convertToArbNum(pages_per_day));
         progressBar_daily.setMax(preferences.getInt(PAGES_PER_DAY,0));
+/*
         int daily_progress = preferences.getInt(Constant.DAILY_PROGRESS, 0);
-        Toast.makeText(getContext(),""+daily_progress,Toast.LENGTH_SHORT).show();
 //        if(!SettingActivity.isPagesNumberChanged){
             percentage.setText("%"+convertToArbNum((int)(daily_progress * 100 / (double) pages_per_day)));
             progressBar_daily.setProgress(daily_progress);
@@ -188,7 +188,18 @@ public class DailyPortionFragment extends Fragment{
 //            progressBar_daily.setProgress(0);
 //            SettingActivity.isPagesNumberChanged = false;
 //        }
+*/
+        int daily_progress = preferences.getInt(Constant.DAILY_PROGRESS, 0);
+        percentage.setText("%"+convertToArbNum((int)(daily_progress * 100 / (double) pages_per_day)));
 
+        if(daily_progress == 0){
+//            Toast.makeText(getContext(), "== 0", Toast.LENGTH_SHORT).show();
+            progressBar_daily.setProgress(1);
+            progressBar_daily.setProgress(0);
+        }else{
+//            Toast.makeText(getContext(), "!= 0000", Toast.LENGTH_SHORT).show();
+            progressBar_daily.setProgress(daily_progress);
+        }
     }
 
     // this method converts English numbers to Indian number [Arabic].
