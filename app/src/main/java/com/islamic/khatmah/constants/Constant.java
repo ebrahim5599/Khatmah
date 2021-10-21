@@ -31,4 +31,8 @@ public class Constant{
     // Time textView.
     public static final String REMINDER_SWITCH_CASE = "REMINDER_SWITCH_CASE";
     public static final String NOTIFICATION_TIME = "NOTIFICATION_TIME";
+
+    public static final String RESET = "RESET";
+    public static final String IS_TIME_CHANGED = "IS_TIME_CHANGED";
+
 }

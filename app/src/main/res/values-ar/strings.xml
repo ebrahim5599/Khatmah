@@ -20,4 +20,7 @@
     <string name="no">لا</string>
     <string name="confirmation">رسالة تأكيد</string>
     <string name="confirmation_message">هل أتممت وردك اليومي ؟</string>
+    <string name="download">تحميل</string>
+    <string name="download_message">لتجربة أفضل، هناك بعض الملفات التي يجب تنزيلها حتى يعمل التطبيق بدون اتصال بالإنترنت.</string>
+    <string name="will_be_added_soon">سيتم إضافته قريبا إن شاء الله</string>
 </resources>

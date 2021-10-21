@@ -140,8 +140,8 @@
             android:orientation="vertical">
 
             <FrameLayout
-                android:layout_width="172dp"
-                android:layout_height="58dp"
+                android:layout_width="204dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/button1">
@@ -160,8 +160,8 @@
             </FrameLayout>
 
             <FrameLayout
-                android:layout_width="172dp"
-                android:layout_height="58dp"
+                android:layout_width="204dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:background="@drawable/button2">
@@ -188,7 +188,7 @@
 
             <RadioGroup
                 android:id="@+id/radio_button_group"
-                android:layout_width="96dp"
+                android:layout_width="wrap_content"
                 android:layout_height="156dp"
                 android:layout_alignParentRight="true"
                 android:checkedButton="@id/juz_radio_button"

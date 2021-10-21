@@ -4,6 +4,7 @@ import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.TimePickerDialog;
@@ -142,7 +143,6 @@ public class AlertActivity extends AppCompatActivity {
         if (preferences.getBoolean(Constant.REMINDER_SWITCH_CASE, false)) {
             aSwitch.setChecked(true);
             alertReminderLayout.setVisibility(View.VISIBLE);
-            txt_time.setText(preferences.getString(Constant.NOTIFICATION_TIME, "06:00 AM"));
         } else {
             aSwitch.setChecked(false);
             alertReminderLayout.setVisibility(View.GONE);
@@ -155,6 +155,15 @@ public class AlertActivity extends AppCompatActivity {
                     TransitionManager.beginDelayedTransition(alertReminderLayout, new AutoTransition());
                     alertReminderLayout.setVisibility(View.VISIBLE);
                     editor.putBoolean(Constant.REMINDER_SWITCH_CASE, true).commit();
+
+                    Calendar cal = Calendar.getInstance();
+                    sHour = cal.get(Calendar.HOUR_OF_DAY);
+                    sMinute = cal.get(Calendar.MINUTE);
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa", Locale.US);
+                    String Time = simpleDateFormat.format(cal.getTime());
+                    editor.putString(Constant.NOTIFICATION_TIME, Time).commit();
+                    txt_time.setText(Time);
+
                 } else {
                     TransitionManager.beginDelayedTransition(alertReminderLayout, new AutoTransition());
                     alertReminderLayout.setVisibility(View.GONE);
@@ -163,13 +172,10 @@ public class AlertActivity extends AppCompatActivity {
             }
         });
 
-        AlarmReminder alarmReminder = new AlarmReminder(sHour, sMinute);
-
         alertReminderLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    popTimePiker();
-//                    createNotificationChannel();
+                popTimePiker();
             }
         });
 
@@ -178,12 +184,7 @@ public class AlertActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-//                int hour = preferences.getInt(Constant.ALARM_HOUR,0);
-//                int minute = preferences.getInt(Constant.ALARM_MINUTE,0);
-//                AlarmReminder alarmReminder = new AlarmReminder(hour, minute);
-
                 AlarmReminder alarmReminder = new AlarmReminder(sHour, sMinute);
-
                 if (aSwitch.isChecked()) {
                     alarmReminder.schedule(AlertActivity.this);
                     Calendar calendar = Calendar.getInstance();
@@ -193,8 +194,8 @@ public class AlertActivity extends AppCompatActivity {
                 }
                 else{
                     alarmReminder.cancelAlarm(AlertActivity.this);
-
                 }
+
                 editor.putBoolean(Constant.FIRST_RUN, false).apply();
                 startActivity(new Intent(AlertActivity.this, MainActivity.class));
                 finish();
@@ -225,25 +226,11 @@ public class AlertActivity extends AppCompatActivity {
                 editor.putString(Constant.NOTIFICATION_TIME, Time).commit();
             }
         };
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, onTimeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), false);
-        timePickerDialog.setTitle("Select Time");
+        int style = AlertDialog.THEME_HOLO_DARK;
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, style, onTimeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), false);
+//        timePickerDialog.setTitle("Select Time");
         timePickerDialog.show();
 
-    }
-
-
-    private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "KhatmaChannel";
-            String description = "ختمه";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("notify", name, importance);
-
-            channel.setDescription(description);
-            channel.enableVibration(true);
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
     }
 
     // This method converts English numbers to Indian number [Arabic].
