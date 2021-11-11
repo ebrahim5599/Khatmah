@@ -1,18 +1,14 @@
 package com.islamic.khatmah.services;
 
-
 import android.app.ProgressDialog;
+import android.app.job.JobParameters;
+import android.app.job.JobService;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.core.app.JobIntentService;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -22,30 +18,22 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+public class DownloadJobService extends JobService {
 
-public class DownloadIntentService extends JobIntentService {
-
-    /**
-     * Unique job ID for this service.
-     */
+    URL url;
+    HttpURLConnection httpURLConnection = null;
+    InputStream is;
+    Bitmap bitmap;
     static final int JOB_ID = 1000;
     private ProgressDialog mProgressDialog;
     static Context mcontext;
 
-    /**
-     * Convenience method for enqueuing work in to this service.
-     */
-    public static void enqueueWork(Context context, Intent work) {
-        enqueueWork(context, DownloadIntentService.class, JOB_ID, work);
-        mcontext = context;
+    public DownloadJobService() {
     }
 
     @Override
-    protected void onHandleWork(@NonNull Intent intent) {
-        URL url;
-        HttpURLConnection httpURLConnection = null;
-        InputStream is;
-        Bitmap bitmap;
+    public boolean onStartJob(JobParameters params) {
+        Toast.makeText(getBaseContext(), "onStartJob", Toast.LENGTH_SHORT).show();
 
         ShowProgress();
         int start = 605;
@@ -85,17 +73,17 @@ public class DownloadIntentService extends JobIntentService {
                 httpURLConnection.disconnect();
             }
         }
-
+        return true;
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        dismissProgress();
+    public boolean onStopJob(JobParameters params) {
+        Toast.makeText(getBaseContext(), "onStopJob", Toast.LENGTH_SHORT).show();
+        return false;
     }
 
-    final Handler mHandler = new Handler();
 
+    final Handler mHandler = new Handler();
     // Helper for showing tests
     void ShowProgress() {
         mHandler.post(() -> {
@@ -117,14 +105,13 @@ public class DownloadIntentService extends JobIntentService {
     void dismissProgress() {
         mHandler.post(() -> {
             mProgressDialog.dismiss();
-            Toast.makeText(DownloadIntentService.this, "Download finished", Toast.LENGTH_SHORT).show();
         });
     }
 
     void publishProgress(int value) {
         mHandler.post(() -> {
             mProgressDialog.setProgress(value);
-//                Toast.makeText(MyIntentService.this, text, Toast.LENGTH_SHORT).show();
         });
     }
+
 }
