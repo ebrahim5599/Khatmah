@@ -61,10 +61,10 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ViewPager2 viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
-
-        if (getIntent().getIntExtra("fromDailyPortionActivity", 1) == 0) {
-            viewPager.setCurrentItem(1);
-        }
+        viewPager.setCurrentItem(1);
+//        if (getIntent().getIntExtra("fromDailyPortionActivity", 1) == 0) {
+//            viewPager.setCurrentItem(1);
+//        }
         TabLayout tabs = findViewById(R.id.tabs);
         new TabLayoutMediator(tabs, viewPager,
                 (tab, position) -> tab.setText(setTextOfTheTab(position))

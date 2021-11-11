@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -52,18 +53,20 @@ public class DownloadIntentService extends JobIntentService {
         for (int i = 1; i < 604; i++) {
             try {
                 is = openFileInput(String.valueOf(i));
-
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 start = i / 4;
                 break;
             }
         }
+
         for (int i = (start - 1); i < 152; i++) {
             new ThreadDownload(i + 151).start();
             new ThreadDownload(i + 302).start();
             new ThreadDownload(i + 453).start();
 
+
+        for (int i = (start - 1); i < 605; i++) {
             try {
                 url = new URL("https://quran-images-api.herokuapp.com/show/page/" + i);
                 httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -75,6 +78,7 @@ public class DownloadIntentService extends JobIntentService {
 
                 publishProgress((int) (((i) / (float) 152) * 100));
 //                publishProgress(i*2);
+
                 os.flush();
                 os.close();
 
@@ -89,6 +93,7 @@ public class DownloadIntentService extends JobIntentService {
                 httpURLConnection.disconnect();
             }
         }
+
     }
 
     @Override
