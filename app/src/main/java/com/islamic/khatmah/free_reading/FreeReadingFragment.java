@@ -1,7 +1,10 @@
 package com.islamic.khatmah.free_reading;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,6 +16,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.PersistableBundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +26,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.islamic.khatmah.services.DownloadIntentService;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.pojo.Surah;
+import com.islamic.khatmah.services.DownloadService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +37,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class FreeReadingFragment extends Fragment {
 
@@ -65,7 +72,17 @@ public class FreeReadingFragment extends Fragment {
                             // Continue with delete operation
 //                            downloadAllPics();
                             DownloadIntentService.enqueueWork(getActivity(), intent);
+//                            DownloadService.getContext(getActivity());
+//                            ComponentName componentName = new ComponentName(getContext(), DownloadService.class);
+//
+//                            JobInfo jobInfo = new JobInfo.Builder(0, componentName)
+//                                    .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+//                                    .build();
+//                            JobScheduler jobScheduler;
+//                            jobScheduler = (JobScheduler) requireContext().getSystemService(Context.JOB_SCHEDULER_SERVICE);
+//                            jobScheduler.schedule(jobInfo);
                         }
+
                     })
                     // A null listener allows the button to dismiss the dialog and take no further action.
                     .setNegativeButton(R.string.cancel, null)

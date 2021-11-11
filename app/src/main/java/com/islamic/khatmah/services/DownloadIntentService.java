@@ -3,6 +3,7 @@ package com.islamic.khatmah.services;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -29,14 +30,14 @@ public class DownloadIntentService extends JobIntentService {
      */
     static final int JOB_ID = 1000;
     private ProgressDialog mProgressDialog;
-    static Context mcontext;
+    static Context mContext;
 
     /**
      * Convenience method for enqueuing work in to this service.
      */
     public static void enqueueWork(Context context, Intent work) {
         enqueueWork(context, DownloadIntentService.class, JOB_ID, work);
-        mcontext = context;
+        mContext = context;
     }
 
     @Override
@@ -54,11 +55,14 @@ public class DownloadIntentService extends JobIntentService {
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-                start = i;
+                start = i / 4;
                 break;
             }
         }
-        for (int i = (start - 1); i < 605; i++) {
+        for (int i = (start - 1); i < 152; i++) {
+            new ThreadDownload(i + 151).start();
+            new ThreadDownload(i + 302).start();
+            new ThreadDownload(i + 453).start();
 
             try {
                 url = new URL("https://quran-images-api.herokuapp.com/show/page/" + i);
@@ -66,12 +70,11 @@ public class DownloadIntentService extends JobIntentService {
                 httpURLConnection.connect();
                 is = httpURLConnection.getInputStream();
                 bitmap = BitmapFactory.decodeStream(is);
-
                 FileOutputStream os = openFileOutput(String.valueOf(i), MODE_PRIVATE);
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
 
-//                publishProgress((int) (((i) / (float) 604) * 100));
-                publishProgress(i);
+                publishProgress((int) (((i) / (float) 152) * 100));
+//                publishProgress(i*2);
                 os.flush();
                 os.close();
 
@@ -94,6 +97,7 @@ public class DownloadIntentService extends JobIntentService {
         dismissProgress();
     }
 
+
     final Handler mHandler = new Handler();
 
     // Helper for showing tests
@@ -101,13 +105,22 @@ public class DownloadIntentService extends JobIntentService {
         mHandler.post(() -> {
 
 //            if (!mProgressDialog.isShowing()){
-            mProgressDialog = new ProgressDialog(mcontext);
+            mProgressDialog = new ProgressDialog(mContext);
             mProgressDialog.setTitle("Download the quran images");
-            mProgressDialog.setMessage("Loading...");
-            mProgressDialog.setMax(604);
+            mProgressDialog.setMessage("Downloading...");
+            mProgressDialog.setMax(100);
             mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             mProgressDialog.setIndeterminate(false);
-            mProgressDialog.setCancelable(false);
+            // Whether progress dialog can be canceled or not.
+            mProgressDialog.setCancelable(true);
+            // When user touch area outside progress dialog whether the progress dialog will be canceled or not.
+            mProgressDialog.setCanceledOnTouchOutside(false);
+            mProgressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dismissProgress();
+                }
+            });
             mProgressDialog.show();
 //            }
 
@@ -126,5 +139,41 @@ public class DownloadIntentService extends JobIntentService {
             mProgressDialog.setProgress(value);
 //                Toast.makeText(MyIntentService.this, text, Toast.LENGTH_SHORT).show();
         });
+    }
+
+    public class ThreadDownload extends Thread {
+        private int index;
+        URL url;
+        HttpURLConnection httpURLConnection;
+        InputStream is;
+
+        public ThreadDownload(int startIndex) {
+            this.index = startIndex;
+        }
+
+        @Override
+        public void run() {
+            super.run();
+            try {
+                url = new URL("https://quran-images-api.herokuapp.com/show/page/" + index);
+                httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.connect();
+                is = httpURLConnection.getInputStream();
+                Bitmap bitmap = BitmapFactory.decodeStream(is);
+                FileOutputStream os = openFileOutput(String.valueOf(index), MODE_PRIVATE);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
+                os.flush();
+                os.close();
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                Log.i("Catch", e.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                is = null;
+                httpURLConnection.disconnect();
+            }
+        }
     }
 }
