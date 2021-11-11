@@ -5,6 +5,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import com.islamic.khatmah.ui.main.MainActivity;
 import com.islamic.khatmah.R;
@@ -22,6 +23,7 @@ public class QuranActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quran);
 
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         Intent n = getIntent();
         j = n.getIntExtra("PAGE_NUMBER", 0);
         click_position = n.getIntExtra("POSITION", 0);
