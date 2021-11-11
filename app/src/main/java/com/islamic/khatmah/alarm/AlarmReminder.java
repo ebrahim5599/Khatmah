@@ -74,7 +74,7 @@ public class AlarmReminder {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa", Locale.US);
         String Time = simpleDateFormat.format(calendar.getTime());
         Toast.makeText(context, Time, Toast.LENGTH_SHORT).show();
-        final long RUN_DAILY = 24 * 60 * 60 * 1000;
+        final long RUN_DAILY = 24 * 60 * 60 * 1000L;
         alarmManager.setRepeating(
                 AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(),
@@ -100,7 +100,7 @@ public class AlarmReminder {
         if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
             calendar.set(Calendar.DAY_OF_WEEK, calendar.get(Calendar.DAY_OF_WEEK) + 1);
         }
-        final long RUN_WEEKLY = 7 * 24 * 60 * 60 * 1000;
+        final long RUN_WEEKLY = 7 * 24 * 60 * 60 * 1000L;
         alarmManager.setRepeating(
                 AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(),
