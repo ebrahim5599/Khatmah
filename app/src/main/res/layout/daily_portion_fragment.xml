@@ -142,7 +142,6 @@
                         style="@style/DailyPortionProgressBar"
                         android:layout_width="156dp"
                         android:layout_height="156dp"
-                        android:layout_centerInParent="true"
                         android:background="@drawable/art" />
 
                     <TextView
@@ -229,6 +228,7 @@
                     android:textSize="32sp" />
 
                 <FrameLayout
+                    android:id="@+id/frameLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/number_of_pages"
@@ -260,6 +260,24 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
                     android:background="#E4C843" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/frameLayout"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="8dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp">
+                    <TextView
+                        android:id="@+id/textViewFinishProgress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin = "4dp"
+                        android:text="لقد اتمتت ورد اليوم في 12:30 م"
+                        android:visibility="gone"
+                        android:fontFamily="@font/arabic_type"/>
+                </androidx.cardview.widget.CardView>
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>

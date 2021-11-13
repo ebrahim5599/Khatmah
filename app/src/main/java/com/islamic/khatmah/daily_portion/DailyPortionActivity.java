@@ -103,6 +103,7 @@ import android.view.WindowManager;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.islamic.khatmah.R;
+import com.islamic.khatmah.alarm.AlarmReminder;
 import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.ui.main.MainActivity;
 
@@ -178,8 +179,8 @@ public class DailyPortionActivity extends AppCompatActivity {
                             editor.putInt(Constant.DAILY_PROGRESS, 0);
                             editor.putInt(Constant.WEEKLY_PROGRESS, preferences.getInt(Constant.WEEKLY_PROGRESS, 0) - counter + preferences.getInt(PAGES_PER_DAY,0));
                             editor.putInt(Constant.TOTAL_PROGRESS, preferences.getInt(Constant.TOTAL_PROGRESS, 0) - counter + preferences.getInt(PAGES_PER_DAY,0));
-
-
+                            editor.putBoolean(Constant.FINISH_DAILY_PROGRESS,true);
+                            AlarmReminder.removeFinishDailyPortion(DailyPortionActivity.this);
                             editor.apply();
                             resetValues();
 

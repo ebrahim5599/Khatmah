@@ -24,6 +24,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.islamic.khatmah.alarm.AlarmReminder;
 import com.islamic.khatmah.ui.main.MainActivity;
 import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.R;
@@ -31,6 +32,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Objects;
 
 
 public class DailyPortionViewPagerFragment extends Fragment {
@@ -71,7 +73,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sharedPreferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        sharedPreferences = requireActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         if (getArguments() != null) {
             position = getArguments().getInt(ARG_POSITION);
             currentPageNum = getArguments().getInt(ARG_CURRENT_PAGE_NUM);
@@ -151,7 +153,10 @@ public class DailyPortionViewPagerFragment extends Fragment {
                                 else
                                     editor.putInt(CURRENT_PAGE, pagesPerDay + currentPageNum);
                                 editor.putInt(Constant.DAILY_PROGRESS, 0);
+                                editor.putBoolean(Constant.FINISH_DAILY_PROGRESS,true);
+                                AlarmReminder.removeFinishDailyPortion(requireContext());
                                 editor.apply();
+
                                 resetValues();
                                 getActivity().finish();
                             }).show();
