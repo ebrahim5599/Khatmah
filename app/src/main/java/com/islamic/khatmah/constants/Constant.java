@@ -10,6 +10,7 @@ public class Constant{
     public static final String CURRENT_SURAH = "current surah";
     public static final String CURRENT_JUZ = "current juz";
     public static final String PAGES_PER_DAY = "pages per day";
+    public static final String FINISH_DAILY_PROGRESS = "FINISH_DAILY_PROGRESS";
 
     public static final String DAILY_PROGRESS = "PROGRESS_COUNT";
     public static final String ARRAY_NAME= "IS_Checked";

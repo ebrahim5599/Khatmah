@@ -116,7 +116,7 @@ public class DailyPortionFragment extends Fragment{
 
 //    private DailyPortionViewModel mViewModel;
 
-    private TextView page_number, surah_name, juz_number, number_of_pages, percentage, hadithTextView;
+    private TextView page_number, surah_name, juz_number, number_of_pages, percentage, hadithTextView,finishProgressHint;
     private ProgressBar progressBar_daily;
     private int current_page, pages_per_day;
     private String current_surah, current_juz;
@@ -133,7 +133,7 @@ public class DailyPortionFragment extends Fragment{
 
 //        mViewModel = new ViewModelProvider(this).get(DailyPortionViewModel.class);
         View view = inflater.inflate(R.layout.daily_portion_fragment, container, false);
-
+        finishProgressHint = view.findViewById(R.id.textViewFinishProgress);
         preferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
         editor = preferences.edit();
 
@@ -177,6 +177,9 @@ public class DailyPortionFragment extends Fragment{
         juz_number.setText(current_juz);
         number_of_pages.setText(convertToArbNum(pages_per_day));
         progressBar_daily.setMax(preferences.getInt(PAGES_PER_DAY,0));
+        if(preferences.getBoolean(Constant.FINISH_DAILY_PROGRESS,false)){
+            finishProgressHint.setVisibility(View.VISIBLE);
+        }
 /*
         int daily_progress = preferences.getInt(Constant.DAILY_PROGRESS, 0);
 //        if(!SettingActivity.isPagesNumberChanged){
