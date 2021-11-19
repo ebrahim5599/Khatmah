@@ -88,6 +88,52 @@
 
         </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/finish_progress_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/frameLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/border0"
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:background="@drawable/yellow_gradient1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@drawable/yellow_gradient2"
+                    app:layout_constraintTop_toBottomOf="@+id/border0" />
+
+                <TextView
+                    android:id="@+id/textViewFinishProgress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="لقد اتمتت ورد اليوم في 12:30 م"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/uthmanic_hafs"
+                    android:textColor="@color/text_color_500"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/textView"
+                    app:layout_constraintTop_toTopOf="@+id/border0"
+                    tools:layout_editor_absoluteX="0dp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
         <!--        Second CardView-->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -261,26 +307,11 @@
                     android:layout_alignParentStart="true"
                     android:background="#E4C843" />
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/frameLayout"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="8dp"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="4dp">
-                    <TextView
-                        android:id="@+id/textViewFinishProgress"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin = "4dp"
-                        android:text="لقد اتمتت ورد اليوم في 12:30 م"
-                        android:visibility="gone"
-                        android:fontFamily="@font/arabic_type"/>
-                </androidx.cardview.widget.CardView>
+
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
+
 
     </LinearLayout>
 </ScrollView>
