@@ -13,7 +13,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Khatmah" >
+        android:theme="@style/Theme.Khatmah">
+        <receiver
+            android:name=".AlarmBrodCasts.RemoveFinishDailyPortionBCR"
+            android:enabled="true"
+            android:exported="true" />
         <service
             android:name=".services.NotificationService"
             android:enabled="true"
