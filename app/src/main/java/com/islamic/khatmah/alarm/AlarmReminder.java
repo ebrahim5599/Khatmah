@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.islamic.khatmah.AlarmBrodCasts.Reminder;
+import com.islamic.khatmah.AlarmBrodCasts.RemoveFinishDailyPortionBCR;
 import com.islamic.khatmah.AlarmBrodCasts.ResetWeeklyProgressReceiver;
 
 import java.text.SimpleDateFormat;
@@ -127,23 +128,24 @@ public class AlarmReminder {
 
         if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
             numOfDays = 7 - (calendarNow.get(Calendar.DAY_OF_WEEK) - calendar.get(Calendar.DAY_OF_WEEK));
-        }else{
+        } else {
             numOfDays = (calendar.get(Calendar.DAY_OF_WEEK) - calendarNow.get(Calendar.DAY_OF_WEEK));
         }
         final long RUN_WEEKLY = 7 * 24 * 60 * 60 * 1000L;
-        final long RUN_DAILY =  24 * 60 * 60 * 1000L;
+        final long RUN_DAILY = 24 * 60 * 60 * 1000L;
 
         alarmManager.setRepeating(
                 AlarmManager.RTC_WAKEUP,
-                calendarNow.getTimeInMillis() + numOfDays * RUN_DAILY ,
+                calendarNow.getTimeInMillis() + numOfDays * RUN_DAILY,
                 RUN_WEEKLY,
                 alarmPendingIntent
         );
     }
-    public static void removeFinishDailyPortion(Context context){
+
+    public static void removeFinishDailyPortion(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-        Intent intent = new Intent(context, Reminder.class);
+        Intent intent = new Intent(context, RemoveFinishDailyPortionBCR.class);
         PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, 1000, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Calendar calendar = Calendar.getInstance();

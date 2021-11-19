@@ -177,7 +177,9 @@ public class DailyPortionFragment extends Fragment{
         juz_number.setText(current_juz);
         number_of_pages.setText(convertToArbNum(pages_per_day));
         progressBar_daily.setMax(preferences.getInt(PAGES_PER_DAY,0));
-        if(preferences.getBoolean(Constant.FINISH_DAILY_PROGRESS,false)){
+        if(!preferences.getBoolean(Constant.FINISH_DAILY_PROGRESS,false)){
+            finishProgressHint.setVisibility(View.GONE);
+        }else {
             finishProgressHint.setVisibility(View.VISIBLE);
         }
 /*
