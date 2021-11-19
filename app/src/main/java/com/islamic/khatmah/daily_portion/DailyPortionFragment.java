@@ -98,6 +98,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
@@ -117,7 +118,8 @@ public class DailyPortionFragment extends Fragment{
 
 //    private DailyPortionViewModel mViewModel;
 
-    private TextView page_number, surah_name, juz_number, number_of_pages, percentage, hadithTextView,finishProgressHint;
+    private TextView page_number, surah_name, juz_number, number_of_pages, percentage, hadithTextView;
+    CardView finishProgressHint;
     private ProgressBar progressBar_daily;
     private int current_page, pages_per_day;
     private String current_surah, current_juz;
@@ -135,7 +137,7 @@ public class DailyPortionFragment extends Fragment{
 
 //        mViewModel = new ViewModelProvider(this).get(DailyPortionViewModel.class);
         View view = inflater.inflate(R.layout.daily_portion_fragment, container, false);
-        finishProgressHint = view.findViewById(R.id.textViewFinishProgress);
+        finishProgressHint = view.findViewById(R.id.finish_progress_hint);
         preferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
         editor = preferences.edit();
 
