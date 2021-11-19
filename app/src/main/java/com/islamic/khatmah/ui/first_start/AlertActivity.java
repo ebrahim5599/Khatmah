@@ -194,7 +194,9 @@ public class AlertActivity extends AppCompatActivity {
                 }
 
                 editor.putBoolean(Constant.FIRST_RUN, false).apply();
-                startActivity(new Intent(AlertActivity.this, MainActivity.class));
+                Intent intent = new Intent(AlertActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 finish();
             }
         });

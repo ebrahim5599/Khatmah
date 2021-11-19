@@ -129,6 +129,7 @@
                     android:textSize="28sp" />
 
                 <RelativeLayout
+                    android:id="@+id/daily_progress_relative"
                     android:layout_width="wrap_content"
                     android:layout_height="156dp"
                     android:layout_below="@id/txt_all_progress"

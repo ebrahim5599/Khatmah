@@ -1,5 +1,7 @@
 package com.islamic.khatmah.free_reading;
 
+
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
@@ -9,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,7 +20,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Environment;
 import android.os.PersistableBundle;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,12 +31,14 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.islamic.khatmah.services.DownloadIntentService;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.pojo.Surah;
+
 import com.islamic.khatmah.services.DownloadService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,6 +53,7 @@ public class FreeReadingFragment extends Fragment {
     private RecyclerView recyclerView;
     private List<Surah> list;
     ProgressDialog mProgressDialog;
+    private final int JOB_SERVICE_ID = 1000;
 
     public static FreeReadingFragment newInstance() {
         return new FreeReadingFragment();
@@ -56,6 +64,7 @@ public class FreeReadingFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 //        mViewModel = new ViewModelProvider(this).get(FreeReadingViewModel.class);
         View view = inflater.inflate(R.layout.free_reading_fragment, container, false);
+
         InputStream is = null;
         try {
             is = getContext().openFileInput("" + 604);
@@ -69,8 +78,8 @@ public class FreeReadingFragment extends Fragment {
                     // The dialog is automatically dismissed when a dialog button is clicked.
                     .setPositiveButton(R.string.download, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            // Continue with delete operation
-//                            downloadAllPics();
+                        // download quran images.
+//                        downloadQuranImages("pages");
                             DownloadIntentService.enqueueWork(getActivity(), intent);
 //                            DownloadService.getContext(getActivity());
 //                            ComponentName componentName = new ComponentName(getContext(), DownloadService.class);
@@ -160,6 +169,21 @@ public class FreeReadingFragment extends Fragment {
         return json;
     }
 
+//    private void downloadQuranImages(String fileName){
+//        String i = "1";
+//        DownloadManager downloadManager = (DownloadManager) getContext().getSystemService(Context.DOWNLOAD_SERVICE);
+//        Uri downloadUri = Uri.parse("https://quran-images-api.herokuapp.com/show/page/1");
+//        DownloadManager.Request request = new DownloadManager.Request(downloadUri);
+//        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI
+//                | DownloadManager.Request.NETWORK_MOBILE)
+//                .setTitle(fileName)
+//                .setDescription("Downloading "+fileName)
+//                .setAllowedOverMetered(true)
+//                .setAllowedOverRoaming(true)
+//                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+//                .setDestinationInExternalFilesDir(getContext(),"pages", File.separator+i+".png");
+//        downloadManager.enqueue(request);
+//    }
 
 //    private void downloadAllPics() {
 //        for(int i = 1; i < 605; i+=4){

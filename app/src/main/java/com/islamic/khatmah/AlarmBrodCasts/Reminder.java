@@ -13,6 +13,7 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.islamic.khatmah.services.NotificationService;
 import com.islamic.khatmah.ui.main.MainActivity;
 import com.islamic.khatmah.R;
 
@@ -22,7 +23,16 @@ public class Reminder extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Intent intent1 = new Intent(context, MainActivity.class);
+
+
+        Intent intentService = new Intent(context, NotificationService.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(intentService);
+        } else {
+            context.startService(intentService);
+        }
+
+//        Intent intent1 = new Intent(context, MainActivity.class);
 //        PendingIntent pendingIntent= PendingIntent.getActivity(context,0,intent1,PendingIntent.FLAG_UPDATE_CURRENT);
 //        NotificationCompat.Builder builder = new NotificationCompat.Builder(context,"notify")
 //                .setSmallIcon(R.drawable.ic_baseline_add_alert_24)
@@ -34,31 +44,31 @@ public class Reminder extends BroadcastReceiver {
 //        notificationManger.notify(MID,builder.build());
 //         MID++;
 
-        Log.d("Remind", "Reminder");
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "CHANNEL DISPLAY NAME", NotificationManager.IMPORTANCE_HIGH);
-            channel.setDescription("Khatmah Reminder");
-            NotificationManager nm = context.getSystemService(NotificationManager.class);
-            nm.createNotificationChannel(channel);
-        }
-
-
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.notification_icon_khatmah)
-                .setContentTitle("Khatmah Reminder")
-                .setContentText("تذكير بمعاد الورد اليومي")
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContentIntent(pendingIntent)
-                .setOngoing(true)
-                .setAutoCancel(true);
-
-        Notification incomingCallNotification = notification.build();
+//        Log.d("Remind", "Reminder");
+//        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "CHANNEL DISPLAY NAME", NotificationManager.IMPORTANCE_HIGH);
+//            channel.setDescription("Khatmah Reminder");
+//            NotificationManager nm = context.getSystemService(NotificationManager.class);
+//            nm.createNotificationChannel(channel);
+//        }
 
 
-        NotificationManagerCompat notificationManger = NotificationManagerCompat.from(context);
-        notificationManger.notify(0, incomingCallNotification);
+//        NotificationCompat.Builder notification = new NotificationCompat.Builder(context, CHANNEL_ID)
+//                .setSmallIcon(R.drawable.notification_icon_khatmah)
+//                .setContentTitle("Khatmah Reminder")
+//                .setContentText("تذكير بمعاد الورد اليومي")
+//                .setPriority(NotificationCompat.PRIORITY_HIGH)
+//                .setContentIntent(pendingIntent)
+//                .setOngoing(true)
+//                .setAutoCancel(true);
+//
+//        Notification incomingCallNotification = notification.build();
+//
+//
+//        NotificationManagerCompat notificationManger = NotificationManagerCompat.from(context);
+//        notificationManger.notify(0, incomingCallNotification);
     }
 
 

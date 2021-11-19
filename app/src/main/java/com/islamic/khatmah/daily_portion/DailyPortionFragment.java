@@ -105,6 +105,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -120,8 +121,9 @@ public class DailyPortionFragment extends Fragment{
     private ProgressBar progressBar_daily;
     private int current_page, pages_per_day;
     private String current_surah, current_juz;
-    private SharedPreferences preferences, sh;
+    private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+    private RelativeLayout dailyProgressRelative;
 
     public static DailyPortionFragment newInstance() {
         return new DailyPortionFragment();
@@ -144,6 +146,7 @@ public class DailyPortionFragment extends Fragment{
         number_of_pages = view.findViewById(R.id.number_of_pages);
         percentage = view.findViewById(R.id.precentage);
         hadithTextView = view.findViewById(R.id.daily_hadith_container);
+        dailyProgressRelative = view.findViewById(R.id.daily_progress_relative);
         hadithTextView.setText("عن عائشة رضي اللَّه عنها قالَتْ: قالَ رسولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: "+"\"الَّذِي يَقْرَأُ القُرْآنَ وَهُو ماهِرٌ بِهِ معَ السَّفَرةِ الكِرَامِ البَرَرَةِ، وَالَّذِي يقرَأُ القُرْآنَ ويَتَتَعْتَعُ فِيهِ وَهُو عليهِ شَاقٌّ لَهُ أَجْران متفقٌ عَلَيْه.\"");
 
         // Define progressBar [Daily].
@@ -194,6 +197,11 @@ public class DailyPortionFragment extends Fragment{
 //            SettingActivity.isPagesNumberChanged = false;
 //        }
 */
+        if(pages_per_day == 1)
+            percentage.setVisibility(View.INVISIBLE);
+        else
+            percentage.setVisibility(View.VISIBLE);
+
         int daily_progress = preferences.getInt(Constant.DAILY_PROGRESS, 0);
         percentage.setText("%"+convertToArbNum((int)(daily_progress * 100 / (double) pages_per_day)));
 
