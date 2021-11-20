@@ -5,6 +5,7 @@
     <string name="Free_Reading">FREE READING</string>
     <string name="action_settings">Setting</string>
     <string name="about_us">About Us</string>
+    <string name="feedback">Feedback</string>
 
     <string name="الحديث" translatable="false">قال رسول الله :\"من قرأ حرفا من كتاب الله فله به حسنة؛ والحسنة بعشر أمثالها؛ لا أقول ألم حرف و لكن ألف حرف و لام حرف وميم حرف\".</string>
     <string name="welcome_message">Welcome to Khatmah app</string>

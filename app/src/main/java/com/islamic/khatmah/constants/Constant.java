@@ -23,7 +23,8 @@ public class Constant{
     public static final String PREV_STARTED = "PREV_STARTED";
     public static final String FIRST_DAY = "FIRST_DAY";
 
-
+    // Number of read (Khatmah)s
+    public static final String KHATMAH_COUNTER = "KHATMAH_COUNTER";
 
     // Spinners constants.
     public static final String PARTS_PER_DAY_SPINNER_POSITION = "PARTS_PER_DAY_SPINNER_POSITION";

@@ -118,7 +118,7 @@ public class DailyPortionFragment extends Fragment{
 
 //    private DailyPortionViewModel mViewModel;
 
-    private TextView page_number, surah_name, juz_number, number_of_pages, percentage, hadithTextView;
+    private TextView page_number, surah_name, juz_number, number_of_pages, percentage, hadithTextView, close;
     CardView finishProgressHint;
     private ProgressBar progressBar_daily;
     private int current_page, pages_per_day;
@@ -148,6 +148,7 @@ public class DailyPortionFragment extends Fragment{
         number_of_pages = view.findViewById(R.id.number_of_pages);
         percentage = view.findViewById(R.id.precentage);
         hadithTextView = view.findViewById(R.id.daily_hadith_container);
+        close = view.findViewById(R.id.close);
         dailyProgressRelative = view.findViewById(R.id.daily_progress_relative);
         hadithTextView.setText("عن عائشة رضي اللَّه عنها قالَتْ: قالَ رسولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: "+"\"الَّذِي يَقْرَأُ القُرْآنَ وَهُو ماهِرٌ بِهِ معَ السَّفَرةِ الكِرَامِ البَرَرَةِ، وَالَّذِي يقرَأُ القُرْآنَ ويَتَتَعْتَعُ فِيهِ وَهُو عليهِ شَاقٌّ لَهُ أَجْران متفقٌ عَلَيْه.\"");
 
@@ -163,6 +164,16 @@ public class DailyPortionFragment extends Fragment{
                 startActivity(n);
             }
         });
+
+        // To close "لقد أتممت الورد اليوم" CardView.
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putBoolean(Constant.FINISH_DAILY_PROGRESS,false).commit();
+                finishProgressHint.setVisibility(View.GONE);
+            }
+        });
+
         return view;
     }
 //
