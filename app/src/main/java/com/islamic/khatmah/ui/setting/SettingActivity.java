@@ -201,6 +201,7 @@ public class SettingActivity extends AppCompatActivity {
                                 editor.putInt(PAGES_PER_DAY, 1);
                                 editor.putInt(Constant.DAILY_PROGRESS, 0);
                                 editor.putInt(Constant.KHATMAH_COUNTER, 0);
+                                editor.putBoolean(Constant.FINISH_DAILY_PROGRESS, false);
                                 editor.putBoolean(Constant.FIRST_RUN, true);
                                 editor.putBoolean(Constant.REMINDER_SWITCH_CASE, false);
                                 resetValues();
