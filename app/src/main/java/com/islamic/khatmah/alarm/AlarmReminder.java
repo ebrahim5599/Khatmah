@@ -110,52 +110,57 @@ public class AlarmReminder {
 //        );
 //    }
 
-    public static void resetWeeklyProgress(Context context, int day) {
-        int numOfDays;
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-        Intent intent = new Intent(context, ResetWeeklyProgressReceiver.class);
-        PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        Calendar calendar = Calendar.getInstance();
-        Calendar calendarNow = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.DAY_OF_WEEK, day);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-
-        if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
-            numOfDays = 7 - (calendarNow.get(Calendar.DAY_OF_WEEK) - calendar.get(Calendar.DAY_OF_WEEK));
-        } else {
-            numOfDays = (calendar.get(Calendar.DAY_OF_WEEK) - calendarNow.get(Calendar.DAY_OF_WEEK));
-        }
-        final long RUN_WEEKLY = 7 * 24 * 60 * 60 * 1000L;
-        final long RUN_DAILY = 24 * 60 * 60 * 1000L;
-
-        alarmManager.setRepeating(
-                AlarmManager.RTC_WAKEUP,
-                calendarNow.getTimeInMillis() + numOfDays * RUN_DAILY,
-                RUN_WEEKLY,
-                alarmPendingIntent
-        );
-    }
+//    public static void resetWeeklyProgress(Context context, int day) {
+//        int numOfDays;
+//        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+//
+//        Intent intent = new Intent(context, ResetWeeklyProgressReceiver.class);
+//        PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//        Calendar calendar = Calendar.getInstance();
+//        Calendar calendarNow = Calendar.getInstance();
+//        calendar.setTimeInMillis(System.currentTimeMillis());
+//        calendar.set(Calendar.DAY_OF_WEEK, day);
+//        calendar.set(Calendar.HOUR_OF_DAY, 0);
+//        calendar.set(Calendar.MINUTE, 0);
+//        calendar.set(Calendar.SECOND, 0);
+//        calendar.set(Calendar.MILLISECOND, 0);
+//
+//        if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
+//            numOfDays = 7 - (calendarNow.get(Calendar.DAY_OF_WEEK) - calendar.get(Calendar.DAY_OF_WEEK));
+//        } else {
+//            numOfDays = (calendar.get(Calendar.DAY_OF_WEEK) - calendarNow.get(Calendar.DAY_OF_WEEK));
+//        }
+//        final long RUN_WEEKLY = 7 * 24 * 60 * 60 * 1000L;
+//        final long RUN_DAILY = 24 * 60 * 60 * 1000L;
+//
+//        alarmManager.setRepeating(
+//                AlarmManager.RTC_WAKEUP,
+//                calendarNow.getTimeInMillis() + numOfDays * RUN_DAILY,
+//                RUN_WEEKLY,
+//                alarmPendingIntent
+//        );
+//    }
 
     public static void removeFinishDailyPortion(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(context, RemoveFinishDailyPortionBCR.class);
-        PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, 1000, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, 22, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Calendar calendar = Calendar.getInstance();
-//        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 24);
+
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+//        Toast.makeText(context,"remove ",Toast.LENGTH_LONG).show();
+
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
             calendar.set(Calendar.DAY_OF_WEEK, calendar.get(Calendar.DAY_OF_WEEK) + 1);
+//            Toast.makeText(context, "remove if", Toast.LENGTH_LONG).show();
         }
         final long RUN_DAILY = 24 * 60 * 60 * 1000L;
         alarmManager.setRepeating(

@@ -106,7 +106,6 @@ public class DailyPortionViewPagerFragment extends Fragment {
         page_number = view.findViewById(R.id.page_number_daily_portion);
 
 
-
         ImageView img = view.findViewById(R.id.img);
         layout = view.findViewById(R.id.read_linear);
         counter_text = view.findViewById(R.id.counter_text);
@@ -116,12 +115,11 @@ public class DailyPortionViewPagerFragment extends Fragment {
         checkButton.setImageResource(resources);
 //        counter_text.setText(String.valueOf(counter));
         progressBar.setMax(pagesPerDay);
-
         progressBar.setProgress(counter);
         setImage(position + currentPageNum, img);
 
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         weeklyProgress = sharedPreferences.getInt(Constant.WEEKLY_PROGRESS, 0);
         totalProgress = sharedPreferences.getInt(Constant.TOTAL_PROGRESS, 0);
@@ -143,7 +141,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
                 checkButton.setImageResource(R.drawable.checked);
                 viewPager.setCurrentItem(position + 1);
                 if (counter >= pagesPerDay) {
-                    new MaterialAlertDialogBuilder(getContext(), R.style.Theme_MyApp_Dialog_Alert)
+                    new MaterialAlertDialogBuilder(requireContext(), R.style.Theme_MyApp_Dialog_Alert)
                             .setMessage(R.string.daily_portion_completion_message)
                             .setPositiveButton(R.string.ok, (dialog, which) -> {
                                 // Save the last page, Surah and Juz in SharedPreference.
@@ -154,7 +152,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
                                     editor.putInt(CURRENT_PAGE, pagesPerDay + currentPageNum);
                                 editor.putInt(Constant.DAILY_PROGRESS, 0);
                                 editor.putBoolean(Constant.FINISH_DAILY_PROGRESS,true);
-                                AlarmReminder.removeFinishDailyPortion(requireContext());
+//                                AlarmReminder.removeFinishDailyPortion(requireContext());
                                 editor.apply();
 
                                 resetValues();
@@ -167,7 +165,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
             editor.putInt(Constant.TOTAL_PROGRESS, totalProgress);
             editor.apply();
 
-            storeArray(isChecked, Constant.ARRAY_NAME, getContext());
+            storeArray(isChecked, Constant.ARRAY_NAME, requireContext());
 //            counter_text.setText(String.valueOf(counter));
             progressBar.setProgress(counter);
 //            Toast.makeText(getContext(), String.valueOf(weeklyProgress), Toast.LENGTH_SHORT).show();

@@ -19,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.islamic.khatmah.R;
+import com.islamic.khatmah.alarm.AlarmReminder;
 import com.islamic.khatmah.ui.first_start.StartActivity;
 import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.ui.setting.SettingActivity;
@@ -44,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // sharedPreference.
         preferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
         editor = preferences.edit();

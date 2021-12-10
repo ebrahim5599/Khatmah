@@ -180,7 +180,7 @@ public class DailyPortionActivity extends AppCompatActivity {
                             editor.putInt(Constant.WEEKLY_PROGRESS, preferences.getInt(Constant.WEEKLY_PROGRESS, 0) - counter + preferences.getInt(PAGES_PER_DAY,0));
                             editor.putInt(Constant.TOTAL_PROGRESS, preferences.getInt(Constant.TOTAL_PROGRESS, 0) - counter + preferences.getInt(PAGES_PER_DAY,0));
                             editor.putBoolean(Constant.FINISH_DAILY_PROGRESS,true);
-                            AlarmReminder.removeFinishDailyPortion(DailyPortionActivity.this);
+//                            AlarmReminder.removeFinishDailyPortion(DailyPortionActivity.this);
                             editor.apply();
                             resetValues();
 

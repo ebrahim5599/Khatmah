@@ -187,7 +187,6 @@ public class AlertActivity extends AppCompatActivity {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(System.currentTimeMillis());
                     editor.putInt(Constant.FIRST_DAY,calendar.get(Calendar.DAY_OF_WEEK)).apply();
-                    AlarmReminder.resetWeeklyProgress(AlertActivity.this,calendar.get(Calendar.DAY_OF_WEEK));
                 }
                 else{
                     alarmReminder.cancelAlarm(AlertActivity.this);
