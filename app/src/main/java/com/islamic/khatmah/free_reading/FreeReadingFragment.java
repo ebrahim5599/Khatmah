@@ -1,17 +1,11 @@
 package com.islamic.khatmah.free_reading;
 
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.app.job.JobInfo;
-import android.app.job.JobScheduler;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,9 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Environment;
-import android.os.PersistableBundle;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,20 +23,15 @@ import com.islamic.khatmah.services.DownloadIntentService;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.pojo.Surah;
 
-import com.islamic.khatmah.services.DownloadService;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
 
 public class FreeReadingFragment extends Fragment {
 
