@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.islamic.khatmah.AlarmBrodCasts.Reminder;
+import com.islamic.khatmah.AlarmBrodCasts.BroadcastReminder;
 import com.islamic.khatmah.AlarmBrodCasts.RemoveFinishDailyPortionBCR;
 import com.islamic.khatmah.AlarmBrodCasts.ResetWeeklyProgressReceiver;
 
@@ -33,7 +33,7 @@ public class AlarmReminder {
     public void rebootSchedule(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-        Intent intent = new Intent(context, Reminder.class);
+        Intent intent = new Intent(context, BroadcastReminder.class);
         PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Calendar calendar = Calendar.getInstance();
@@ -59,7 +59,7 @@ public class AlarmReminder {
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-        Intent intent = new Intent(context, Reminder.class);
+        Intent intent = new Intent(context, BroadcastReminder.class);
         PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Calendar calendar = Calendar.getInstance();
@@ -149,8 +149,8 @@ public class AlarmReminder {
         PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, 1000, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
+//        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 24);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
@@ -168,7 +168,7 @@ public class AlarmReminder {
 
     public void cancelAlarm(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, Reminder.class);
+        Intent intent = new Intent(context, BroadcastReminder.class);
         PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, 0);
         alarmManager.cancel(alarmPendingIntent);
     }

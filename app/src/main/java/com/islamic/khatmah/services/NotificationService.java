@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import com.islamic.khatmah.R;
@@ -21,20 +22,23 @@ public class NotificationService extends Service {
     public NotificationService() {
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
         createNotificationChannel();
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Notification notification = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
+        Notification notification = new Notification.Builder(this, NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.drawable.notification_icon_khatmah)
-                .setContentTitle("Khatmah Reminder")
+                .setContentTitle("Khatmah - ختمة")
                 .setContentText("تذكير بمعاد الورد اليومي")
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setPriority(Notification.PRIORITY_HIGH)
                 .setContentIntent(pendingIntent)
                 .setOngoing(true)
                 .setAutoCancel(true)
+                .setContentIntent(pendingIntent)
                 .build();
 
         startForeground(1, notification);
