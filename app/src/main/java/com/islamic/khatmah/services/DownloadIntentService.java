@@ -31,6 +31,7 @@ public class DownloadIntentService extends JobIntentService {
     static final int JOB_ID = 1000;
     private ProgressDialog mProgressDialog;
     static Context mContext;
+    boolean stop ;
 
     /**
      * Convenience method for enqueuing work in to this service.
@@ -46,15 +47,16 @@ public class DownloadIntentService extends JobIntentService {
         HttpURLConnection httpURLConnection = null;
         InputStream is;
         Bitmap bitmap;
+        stop = false;
 
         ShowProgress();
         int start = 605;
-        for (int i = 1; i < 604; i++) {
+        for (int i = 1; i < 152; i++) {
             try {
                 is = openFileInput(String.valueOf(i));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-                start = i / 4;
+                start = i;
                 break;
             }
         }
@@ -64,8 +66,6 @@ public class DownloadIntentService extends JobIntentService {
             new ThreadDownload(i + 302).start();
             new ThreadDownload(i + 453).start();
 
-
-//            for (int i = (start - 1); i < 605; i++) {
             try {
                 url = new URL("https://quran-images-api.herokuapp.com/show/page/" + i);
                 httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -76,12 +76,12 @@ public class DownloadIntentService extends JobIntentService {
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
 
                 publishProgress((int) (((i) / (float) 152) * 100));
-//                publishProgress(i*2);
 
                 os.flush();
                 os.close();
-
-
+                if(stop){
+                    break;
+                }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
                 Log.i("Catch", e.toString());
@@ -123,7 +123,7 @@ public class DownloadIntentService extends JobIntentService {
             mProgressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    dismissProgress();
+                    stop = true;
                 }
             });
             mProgressDialog.show();
@@ -141,7 +141,7 @@ public class DownloadIntentService extends JobIntentService {
                 Bitmap bit = BitmapFactory.decodeStream(is);
                 Toast.makeText(DownloadIntentService.this, "Download finished", Toast.LENGTH_SHORT).show();
             } catch (FileNotFoundException e) {
-                Toast.makeText(DownloadIntentService.this, "Download runs in background", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DownloadIntentService.this, "Download stopped", Toast.LENGTH_SHORT).show();
             }
         });
     }
