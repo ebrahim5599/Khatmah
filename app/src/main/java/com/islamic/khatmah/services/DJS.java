@@ -18,7 +18,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class DownloadJobService extends JobService {
+
+// DJS: Download Job Service.
+
+public class DJS extends JobService {
 
     URL url;
     HttpURLConnection httpURLConnection = null;
@@ -28,7 +31,7 @@ public class DownloadJobService extends JobService {
     private ProgressDialog mProgressDialog;
     static Context mcontext;
 
-    public DownloadJobService() {
+    public DJS() {
     }
 
     @Override

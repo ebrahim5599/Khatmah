@@ -1,18 +1,25 @@
 package com.islamic.khatmah.services;
 
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.JobIntentService;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
+import com.islamic.khatmah.R;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -31,7 +38,7 @@ public class DownloadIntentService extends JobIntentService {
     static final int JOB_ID = 1000;
     private ProgressDialog mProgressDialog;
     static Context mContext;
-    boolean stop ;
+    boolean stop;
 
     /**
      * Convenience method for enqueuing work in to this service.
@@ -49,7 +56,24 @@ public class DownloadIntentService extends JobIntentService {
         Bitmap bitmap;
         stop = false;
 
-        ShowProgress();
+//        ShowProgress();
+////////////////////////////////////
+        // This for displaying DownloadNotification.
+        createNotificationChannel();
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "DOWNLOAD_NOTIFICATION_CHANNEL_ID");
+        builder.setContentTitle("Download Quran Pages")
+                .setContentText("Download in progress")
+                .setSmallIcon(R.drawable.ic_baseline_cloud_download_24)
+                .setPriority(NotificationCompat.PRIORITY_LOW);
+
+        // Issue the initial notification with zero progress
+        int PROGRESS_MAX = 100;
+        int PROGRESS_CURRENT = 0;
+        builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false);
+        notificationManager.notify(2, builder.build());
+////////////////////////////////////
+
         int start = 605;
         for (int i = 1; i < 152; i++) {
             try {
@@ -75,11 +99,15 @@ public class DownloadIntentService extends JobIntentService {
                 FileOutputStream os = openFileOutput(String.valueOf(i), MODE_PRIVATE);
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
 
-                publishProgress((int) (((i) / (float) 152) * 100));
+                int current_progress = (int) (((i) / (float) 152) * 100);
+//                publishProgress(current_progress);
+
+                builder.setProgress(PROGRESS_MAX, current_progress, false);
+                notificationManager.notify(2, builder.build());
 
                 os.flush();
                 os.close();
-                if(stop){
+                if (stop) {
                     break;
                 }
             } catch (MalformedURLException e) {
@@ -92,7 +120,9 @@ public class DownloadIntentService extends JobIntentService {
                 httpURLConnection.disconnect();
             }
         }
-
+        builder.setContentText("Download complete")
+                .setProgress(0, 0, false);
+        notificationManager.notify(2, builder.build());
     }
 //    }
 
@@ -108,9 +138,8 @@ public class DownloadIntentService extends JobIntentService {
     // Helper for showing tests
     void ShowProgress() {
         mHandler.post(() -> {
-
 //            if (!mProgressDialog.isShowing()){
-            mProgressDialog = new ProgressDialog(mContext);
+            mProgressDialog = new ProgressDialog(mContext, ProgressDialog.THEME_HOLO_DARK);
             mProgressDialog.setTitle("Download the quran images");
             mProgressDialog.setMessage("Downloading...");
             mProgressDialog.setMax(100);
@@ -128,9 +157,58 @@ public class DownloadIntentService extends JobIntentService {
             });
             mProgressDialog.show();
 //            }
-
         });
     }
+
+    void createNotificationChannel(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel serviceChannel = new NotificationChannel(
+                    "DOWNLOAD_NOTIFICATION_CHANNEL_ID",
+                    "Download Channel",
+                    NotificationManager.IMPORTANCE_DEFAULT
+            );
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(serviceChannel);
+        }
+    }
+    void StartDownloadNotification() {
+
+        // This for displaying DownloadNotification.
+        createNotificationChannel();
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "DOWNLOAD_NOTIFICATION");
+        builder.setContentTitle("Download Quran Pages")
+                .setContentText("Download in progress")
+                .setSmallIcon(R.drawable.ic_baseline_cloud_download_24)
+                .setPriority(NotificationCompat.PRIORITY_LOW);
+
+        // Issue the initial notification with zero progress
+        int PROGRESS_MAX = 100;
+        int PROGRESS_CURRENT = 0;
+        builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false);
+        notificationManager.notify(2, builder.build());
+
+// Do the job here that tracks the progress.
+// Usually, this should be in a
+// worker thread
+// To show progress, update PROGRESS_CURRENT and update the notification with:
+// builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false);
+// notificationManager.notify(notificationId, builder.build());
+
+// When done, update the notification one more time to remove the progress bar
+        builder.setContentText("Download complete")
+                .setProgress(0, 0, false);
+        notificationManager.notify(2, builder.build());
+    }
+
+    void UpdateNotification(){
+
+    }
+
+    void FinishDownloadNotification(){
+
+    }
+
 
     void dismissProgress() {
         mHandler.post(() -> {
