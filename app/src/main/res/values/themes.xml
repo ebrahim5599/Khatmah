@@ -58,7 +58,8 @@
 
         <!-- Text Color for Buttons -->
         <item name="colorPrimary">@color/text_color_500</item>
-
+        <item name="fontFamily">@font/arabic_type</item>
+        <item name="android:textSize">23sp</item>
     </style>
 <!--    <style name="ThemeOverlay.Khatmah.FullscreenContainer" parent="">-->
 <!--        <item name="fullscreenBackgroundColor">@color/light_blue_600</item>-->

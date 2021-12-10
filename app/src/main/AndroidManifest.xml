@@ -83,7 +83,7 @@
         </activity>
 
         <receiver
-            android:name=".AlarmBrodCasts.Reminder"
+            android:name=".AlarmBrodCasts.BroadcastReminder"
             android:enabled="true" />
     </application>
 
