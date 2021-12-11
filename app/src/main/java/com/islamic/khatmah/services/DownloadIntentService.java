@@ -56,7 +56,7 @@ public class DownloadIntentService extends JobIntentService {
         Bitmap bitmap;
         stop = false;
 
-//        ShowProgress();
+        ShowProgress();
 ////////////////////////////////////
         // This for displaying DownloadNotification.
         createNotificationChannel();
@@ -65,7 +65,8 @@ public class DownloadIntentService extends JobIntentService {
         builder.setContentTitle("Download Quran Pages")
                 .setContentText("Download in progress")
                 .setSmallIcon(R.drawable.ic_baseline_cloud_download_24)
-                .setPriority(NotificationCompat.PRIORITY_LOW);
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setOnlyAlertOnce(true);
 
         // Issue the initial notification with zero progress
         int PROGRESS_MAX = 100;
@@ -99,10 +100,10 @@ public class DownloadIntentService extends JobIntentService {
                 FileOutputStream os = openFileOutput(String.valueOf(i), MODE_PRIVATE);
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
 
-                int current_progress = (int) (((i) / (float) 152) * 100);
-//                publishProgress(current_progress);
+                PROGRESS_CURRENT = (int) (((i) / (float) 152) * 100);
+                publishProgress(PROGRESS_CURRENT);
 
-                builder.setProgress(PROGRESS_MAX, current_progress, false);
+                builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false);
                 notificationManager.notify(2, builder.build());
 
                 os.flush();
@@ -153,6 +154,12 @@ public class DownloadIntentService extends JobIntentService {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     stop = true;
+                }
+            });
+            mProgressDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "Hide", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    mProgressDialog.dismiss();
                 }
             });
             mProgressDialog.show();
