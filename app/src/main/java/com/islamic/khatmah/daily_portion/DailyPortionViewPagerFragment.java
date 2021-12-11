@@ -4,7 +4,6 @@ import static com.islamic.khatmah.constants.Constant.CURRENT_JUZ;
 import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
 import static com.islamic.khatmah.constants.Constant.CURRENT_SURAH;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -24,7 +23,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.islamic.khatmah.alarm.AlarmReminder;
 import com.islamic.khatmah.ui.main.MainActivity;
 import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.R;
@@ -32,7 +30,6 @@ import com.squareup.picasso.Picasso;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.Objects;
 
 
 public class DailyPortionViewPagerFragment extends Fragment {
@@ -41,7 +38,6 @@ public class DailyPortionViewPagerFragment extends Fragment {
     private static final String ARG_CURRENT_PAGE_NUM = "param2";
     private static final String ARG_IS_CHECKED_ARR = "param3";
     private static final String ARG_PAGE_PER_DAY = "param4";
-    private static final String ARG_VIEW_PAGER = "param5";
     private LinearLayout layout;
     private ImageButton checkButton;
     private TextView counter_text, juz_number, surah_name, page_number;
@@ -152,11 +148,9 @@ public class DailyPortionViewPagerFragment extends Fragment {
                                     editor.putInt(CURRENT_PAGE, pagesPerDay + currentPageNum);
                                 editor.putInt(Constant.DAILY_PROGRESS, 0);
                                 editor.putBoolean(Constant.FINISH_DAILY_PROGRESS,true);
-//                                AlarmReminder.removeFinishDailyPortion(requireContext());
                                 editor.apply();
-
                                 resetValues();
-                                getActivity().finish();
+                                requireActivity().finish();
                             }).show();
                 }
             }
@@ -214,7 +208,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
 
     }
 
-    public boolean storeArray(boolean[] array, String arrayName, Context mContext) {
+    public void storeArray(boolean[] array, String arrayName, Context mContext) {
 
         SharedPreferences prefs = mContext.getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, 0);
         SharedPreferences.Editor editor = prefs.edit();
@@ -223,26 +217,26 @@ public class DailyPortionViewPagerFragment extends Fragment {
         for (int i = 0; i < array.length; i++)
             editor.putBoolean(arrayName + "_" + i, array[i]);
 
-        return editor.commit();
+        editor.apply();
     }
 
     // this method converts English numbers to Indian number [Arabic].
     private String convertToArbNum(int number) {
 
         String stNum = String.valueOf(number);
-        String result = "";
+        StringBuilder result = new StringBuilder();
 
         for (int i = 0; i < stNum.length(); i++) {
             char num = stNum.charAt(i);
             int ArabicNum = num + 1584;
-            result += (char) ArabicNum;
+            result.append((char) ArabicNum);
         }
-        return result;
+        return result.toString();
     }
 
     private void resetValues() {
         boolean[] arr = new boolean[pagesPerDay];
-        storeArray(arr, Constant.ARRAY_NAME, getContext());
+        storeArray(arr, Constant.ARRAY_NAME, requireContext());
     }
 
 
