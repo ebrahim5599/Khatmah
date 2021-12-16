@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
@@ -24,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.services.DownloadIntentService;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.pojo.Surah;
@@ -44,6 +46,7 @@ public class FreeReadingFragment extends Fragment {
     private SurahAdapter surahAdapter;
     private RecyclerView recyclerView;
     private List<Surah> list;
+    private SharedPreferences preferences;
     ProgressDialog mProgressDialog;
     private final int JOB_SERVICE_ID = 1000;
 
@@ -56,12 +59,15 @@ public class FreeReadingFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 //        mViewModel = new ViewModelProvider(this).get(FreeReadingViewModel.class);
         View view = inflater.inflate(R.layout.free_reading_fragment, container, false);
+        preferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
 
         InputStream is = null;
         try {
             is = getContext().openFileInput("" + 604);
             Bitmap bit = BitmapFactory.decodeStream(is);
         } catch (FileNotFoundException e) {
+
+  if (!preferences.getBoolean(Constant.DOWNLOAD_IS_RUNNING, false)) {          
             Intent intent = new Intent(getContext(), DownloadIntentService.class);
             new MaterialAlertDialogBuilder(getContext(), R.style.Theme_MyApp_Dialog_Alert)
                     .setTitle(R.string.download)
@@ -99,13 +105,14 @@ public class FreeReadingFragment extends Fragment {
 //                            JobScheduler jobScheduler;
 //                            jobScheduler = (JobScheduler) requireContext().getSystemService(Context.JOB_SCHEDULER_SERVICE);
 //                            jobScheduler.schedule(jobInfo);
-                        }
+                            }
 
-                    })
-                    // A null listener allows the button to dismiss the dialog and take no further action.
-                    .setNegativeButton(R.string.cancel, null)
-                    .setIcon(R.drawable.ic_baseline_cloud_download_24)
-                    .show();
+                        })
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(R.string.cancel, null)
+                        .setIcon(R.drawable.ic_baseline_cloud_download_24)
+                        .show();
+            }
         }
 //        if (fileNotFound) {
 //            Intent intent = new Intent(getContext(), DownloadIntentService.class);

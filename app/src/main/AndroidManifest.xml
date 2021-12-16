@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.islamic.khatmah" >
+    package="com.islamic.khatmah">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -16,14 +16,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Khatmah">
         <receiver
+            android:name=".AlarmBrodCasts.NotificationReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
+        <receiver
             android:name=".AlarmBrodCasts.RemoveFinishDailyPortionBCR"
             android:enabled="true"
             android:exported="true" />
+
         <service
             android:name=".services.NotificationService"
             android:enabled="true"
-            android:exported="true" >
-        </service>
+            android:exported="true"></service>
 
         <receiver
             android:name=".AlarmBrodCasts.ResetWeeklyProgressReceiver"
@@ -32,7 +36,7 @@
         <receiver
             android:name=".AlarmBrodCasts.OnRebootReceiver"
             android:enabled="true"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -70,7 +74,7 @@
         <activity
             android:name=".ui.main.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Khatmah.NoActionBar" >
+            android:theme="@style/Theme.Khatmah.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

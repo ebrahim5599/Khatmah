@@ -3,12 +3,15 @@ package com.islamic.khatmah.services;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
@@ -19,7 +22,10 @@ import androidx.core.app.JobIntentService;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.islamic.khatmah.AlarmBrodCasts.NotificationReceiver;
 import com.islamic.khatmah.R;
+import com.islamic.khatmah.constants.Constant;
+import com.islamic.khatmah.ui.main.MainActivity;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -39,7 +45,9 @@ public class DownloadIntentService extends JobIntentService {
     private ProgressDialog mProgressDialog;
     static Context mContext;
     boolean stop;
-
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
+    //STOP_DOWNLOAD
     /**
      * Convenience method for enqueuing work in to this service.
      */
@@ -56,17 +64,34 @@ public class DownloadIntentService extends JobIntentService {
         Bitmap bitmap;
         stop = false;
 
+        // load shared Preferences
+        preferences = getBaseContext().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
+        editor = preferences.edit();
+        editor.putBoolean(Constant.STOP_DOWNLOAD, false).apply();
+        editor.putBoolean(Constant.DOWNLOAD_IS_RUNNING, true).apply();
+
         ShowProgress();
+
+        // Notification intent & pendingIntent.
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        PendingIntent notificationPendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // Action button intent & pendingIntent.
+        Intent broadcastIntent = new Intent(this, NotificationReceiver.class);
+        PendingIntent actionIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
 ////////////////////////////////////
         // This for displaying DownloadNotification.
         createNotificationChannel();
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "DOWNLOAD_NOTIFICATION_CHANNEL_ID");
         builder.setContentTitle("Download Quran Pages")
-                .setContentText("Download in progress")
                 .setSmallIcon(R.drawable.ic_baseline_cloud_download_24)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
-                .setOnlyAlertOnce(true);
+                .setOnlyAlertOnce(true)
+                .setContentIntent(notificationPendingIntent)
+                .addAction(R.mipmap.ic_launcher,"Cancel", actionIntent)
+                .setColor(Color.YELLOW);
 
         // Issue the initial notification with zero progress
         int PROGRESS_MAX = 100;
@@ -104,11 +129,13 @@ public class DownloadIntentService extends JobIntentService {
                 publishProgress(PROGRESS_CURRENT);
 
                 builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false);
+                builder.setContentText(PROGRESS_CURRENT+"%");
                 notificationManager.notify(2, builder.build());
 
                 os.flush();
                 os.close();
-                if (stop) {
+//                if (stop) {}
+                if (preferences.getBoolean(Constant.STOP_DOWNLOAD, false)) {
                     break;
                 }
             } catch (MalformedURLException e) {
@@ -121,8 +148,15 @@ public class DownloadIntentService extends JobIntentService {
                 httpURLConnection.disconnect();
             }
         }
-        builder.setContentText("Download complete")
-                .setProgress(0, 0, false);
+
+        if (preferences.getBoolean(Constant.STOP_DOWNLOAD, false)) {
+            builder.setContentText("Download canceled")
+                    .setProgress(0, 0, false);
+        }else{
+            builder.setContentText("Download complete")
+                    .setProgress(0, 0, false);
+        }
+        editor.putBoolean(Constant.DOWNLOAD_IS_RUNNING, false).apply();
         notificationManager.notify(2, builder.build());
     }
 //    }
@@ -130,6 +164,7 @@ public class DownloadIntentService extends JobIntentService {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        editor.putBoolean(Constant.DOWNLOAD_IS_RUNNING, false).apply();
         dismissProgress();
     }
 
@@ -154,6 +189,7 @@ public class DownloadIntentService extends JobIntentService {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     stop = true;
+                    editor.putBoolean(Constant.STOP_DOWNLOAD, true).apply();
                 }
             });
             mProgressDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "Hide", new DialogInterface.OnClickListener() {
@@ -178,44 +214,6 @@ public class DownloadIntentService extends JobIntentService {
             manager.createNotificationChannel(serviceChannel);
         }
     }
-    void StartDownloadNotification() {
-
-        // This for displaying DownloadNotification.
-        createNotificationChannel();
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "DOWNLOAD_NOTIFICATION");
-        builder.setContentTitle("Download Quran Pages")
-                .setContentText("Download in progress")
-                .setSmallIcon(R.drawable.ic_baseline_cloud_download_24)
-                .setPriority(NotificationCompat.PRIORITY_LOW);
-
-        // Issue the initial notification with zero progress
-        int PROGRESS_MAX = 100;
-        int PROGRESS_CURRENT = 0;
-        builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false);
-        notificationManager.notify(2, builder.build());
-
-// Do the job here that tracks the progress.
-// Usually, this should be in a
-// worker thread
-// To show progress, update PROGRESS_CURRENT and update the notification with:
-// builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false);
-// notificationManager.notify(notificationId, builder.build());
-
-// When done, update the notification one more time to remove the progress bar
-        builder.setContentText("Download complete")
-                .setProgress(0, 0, false);
-        notificationManager.notify(2, builder.build());
-    }
-
-    void UpdateNotification(){
-
-    }
-
-    void FinishDownloadNotification(){
-
-    }
-
 
     void dismissProgress() {
         mHandler.post(() -> {
