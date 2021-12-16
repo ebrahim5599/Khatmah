@@ -67,34 +67,33 @@ public class FreeReadingFragment extends Fragment {
             Bitmap bit = BitmapFactory.decodeStream(is);
         } catch (FileNotFoundException e) {
 
-  if (!preferences.getBoolean(Constant.DOWNLOAD_IS_RUNNING, false)) {          
-            Intent intent = new Intent(getContext(), DownloadIntentService.class);
-            new MaterialAlertDialogBuilder(getContext(), R.style.Theme_MyApp_Dialog_Alert)
-                    .setTitle(R.string.download)
-                    .setMessage(R.string.download_message)
-                    // Specifying a listener allows you to take an action before dismissing the dialog.
-                    // The dialog is automatically dismissed when a dialog button is clicked.
-                    .setPositiveButton(R.string.download, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // download quran images.
+            if (!preferences.getBoolean(Constant.DOWNLOAD_IS_RUNNING, false)) {
+                Intent intent = new Intent(getContext(), DownloadIntentService.class);
+                new MaterialAlertDialogBuilder(getContext(), R.style.Theme_MyApp_Dialog_Alert)
+                        .setTitle(R.string.download)
+                        .setMessage(R.string.download_message)
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(R.string.download, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // download quran images.
 //                        downloadQuranImages("pages");
-                            ConnectivityManager cm =
-                                    null;
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                cm = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-                            }
+                                ConnectivityManager cm = null;
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                    cm = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                                }
 
-                            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-                            boolean isConnected = activeNetwork != null &&
-                                    activeNetwork.isConnectedOrConnecting();
-                            boolean isMetered = cm.isActiveNetworkMetered();
-                            if (isConnected && !isMetered) {
-                                DownloadIntentService.enqueueWork(getActivity(), intent);
-                            } else {
-                                if (!isConnected)
-                                    Toast.makeText(requireContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
-                                else Toast.makeText(requireContext(),"", Toast.LENGTH_SHORT).show();
-                            }
+                                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                                boolean isConnected = activeNetwork != null &&  activeNetwork.isConnectedOrConnecting();
+                                boolean isMetered = cm.isActiveNetworkMetered();
+                                if (isConnected && !isMetered) {
+                                    DownloadIntentService.enqueueWork(getActivity(), intent);
+                                } else {
+                                    if (!isConnected)
+                                        Toast.makeText(requireContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
+                                    else
+                                        Toast.makeText(requireContext(), "", Toast.LENGTH_SHORT).show();
+                                }
 
 //                            DownloadService.getContext(getActivity());
 //                            ComponentName componentName = new ComponentName(getContext(), DownloadService.class);
