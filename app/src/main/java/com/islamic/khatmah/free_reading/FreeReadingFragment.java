@@ -2,10 +2,14 @@ package com.islamic.khatmah.free_reading;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.islamic.khatmah.services.DownloadIntentService;
@@ -65,9 +70,26 @@ public class FreeReadingFragment extends Fragment {
                     // The dialog is automatically dismissed when a dialog button is clicked.
                     .setPositiveButton(R.string.download, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                        // download quran images.
+                            // download quran images.
 //                        downloadQuranImages("pages");
-                            DownloadIntentService.enqueueWork(getActivity(), intent);
+                            ConnectivityManager cm =
+                                    null;
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                cm = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                            }
+
+                            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                            boolean isConnected = activeNetwork != null &&
+                                    activeNetwork.isConnectedOrConnecting();
+                            boolean isMetered = cm.isActiveNetworkMetered();
+                            if (isConnected && !isMetered) {
+                                DownloadIntentService.enqueueWork(getActivity(), intent);
+                            } else {
+                                if (!isConnected)
+                                    Toast.makeText(requireContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
+                                else Toast.makeText(requireContext(),"", Toast.LENGTH_SHORT).show();
+                            }
+
 //                            DownloadService.getContext(getActivity());
 //                            ComponentName componentName = new ComponentName(getContext(), DownloadService.class);
 //
