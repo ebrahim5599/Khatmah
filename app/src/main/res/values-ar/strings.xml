@@ -24,4 +24,5 @@
     <string name="download_message">لتجربة أفضل، هناك بعض الملفات التي يجب تنزيلها حتى يعمل التطبيق بدون اتصال بالإنترنت.</string>
     <string name="will_be_added_soon">سيتم إضافته قريبا إن شاء الله</string>
     <string name="feedback">رأيك يهمنا</string>
+    <string name="connection_error">خطأ أثناءالتحميل \nبرجاء تشغيل الانترنت حتى يتم تحميل صفحات المصحف</string>
 </resources>
