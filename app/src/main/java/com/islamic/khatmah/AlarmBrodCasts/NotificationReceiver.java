@@ -15,6 +15,5 @@ public class NotificationReceiver extends BroadcastReceiver {
         // load shared Preferences
         SharedPreferences preferences = context.getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         preferences.edit().putBoolean(Constant.STOP_DOWNLOAD, true).apply();
-        Toast.makeText(context, preferences.getBoolean(Constant.STOP_DOWNLOAD, false)+"", Toast.LENGTH_SHORT).show();
     }
 }
