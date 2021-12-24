@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }else if(itemId == R.id.item_feedback){
 //            startActivity(new Intent(getBaseContext(), StartActivity.class));
-            //22
             Toast.makeText(getBaseContext(), R.string.will_be_added_soon, Toast.LENGTH_SHORT).show();
             return true;
         }
