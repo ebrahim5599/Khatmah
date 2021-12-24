@@ -97,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
 //            startActivity(new Intent(getBaseContext(), StartActivity.class));
             return true;
         }else if(itemId == R.id.item_feedback){
+//            startActivity(new Intent(getBaseContext(), StartActivity.class));
+            //22
             Toast.makeText(getBaseContext(), R.string.will_be_added_soon, Toast.LENGTH_SHORT).show();
             return true;
         }
@@ -107,11 +109,11 @@ public class MainActivity extends AppCompatActivity {
     private String setTextOfTheTab(int position) {
         switch (position) {
             case 2:
-                return getString(R.string.your_progress);
+                return "الإحصائيات";
             case 1:
-                return getString(R.string.daily_portion);
+                return "الورد اليومي";
             case 0:
-                return getString(R.string.Free_Reading);
+                return "القرآن الكريم";
             default:
                 return "";
         }

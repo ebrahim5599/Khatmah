@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/09 Khatmah/app/src/main/res/drawable-mdpi/activity_start_choice_button_c.xml" value="0.2703125" />
         <entry key="..\:/09 Khatmah/app/src/main/res/drawable-v24/daily_circle.xml" value="0.2703125" />
         <entry key="..\:/09 Khatmah/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2703125" />
         <entry key="..\:/09 Khatmah/app/src/main/res/drawable-xhdpi/rounded_button1.xml" value="0.2703125" />
@@ -11,6 +12,9 @@
         <entry key="..\:/09 Khatmah/app/src/main/res/drawable-xxxhdpi/button.xml" value="0.2703125" />
         <entry key="..\:/09 Khatmah/app/src/main/res/drawable-xxxhdpi/ic_round_access_alarm_black.xml" value="0.25277777777777777" />
         <entry key="..\:/09 Khatmah/app/src/main/res/drawable-xxxhdpi/reset_button.xml" value="0.2490740740740741" />
+        <entry key="..\:/09 Khatmah/app/src/main/res/drawable/activity_start_choice_button.xml" value="0.2703125" />
+        <entry key="..\:/09 Khatmah/app/src/main/res/drawable/activity_start_choice_button_l.xml" value="0.2703125" />
+        <entry key="..\:/09 Khatmah/app/src/main/res/drawable/activity_start_choice_button_r.xml" value="0.2703125" />
         <entry key="..\:/09 Khatmah/app/src/main/res/drawable/button1.xml" value="0.2703125" />
         <entry key="..\:/09 Khatmah/app/src/main/res/drawable/button2.xml" value="0.2703125" />
         <entry key="..\:/09 Khatmah/app/src/main/res/drawable/checked.xml" value="0.2703125" />
@@ -33,6 +37,7 @@
         <entry key="..\:/09 Khatmah/app/src/main/res/drawable/ic_round_warning_24.xml" value="0.24259259259259258" />
         <entry key="..\:/09 Khatmah/app/src/main/res/drawable/input_pg.xml" value="0.15416666666666667" />
         <entry key="..\:/09 Khatmah/app/src/main/res/drawable/maker.xml" value="0.2703125" />
+        <entry key="..\:/09 Khatmah/app/src/main/res/drawable/my_toggle_button.xml" value="0.26615384615384613" />
         <entry key="..\:/09 Khatmah/app/src/main/res/drawable/rounded_button.xml" value="0.2703125" />
         <entry key="..\:/09 Khatmah/app/src/main/res/drawable/rounded_center.xml" value="0.2703125" />
         <entry key="..\:/09 Khatmah/app/src/main/res/drawable/rounded_left.xml" value="0.2703125" />
@@ -40,6 +45,7 @@
         <entry key="..\:/09 Khatmah/app/src/main/res/drawable/small_circle.xml" value="0.2703125" />
         <entry key="..\:/09 Khatmah/app/src/main/res/drawable/unchecked.xml" value="0.2703125" />
         <entry key="..\:/09 Khatmah/app/src/main/res/drawable/yellow_gradient.xml" value="0.15416666666666667" />
+        <entry key="..\:/09 Khatmah/app/src/main/res/drawable/yellow_gradient0.xml" value="0.2703125" />
         <entry key="..\:/09 Khatmah/app/src/main/res/drawable/yellow_gradient1.xml" value="0.2703125" />
         <entry key="..\:/09 Khatmah/app/src/main/res/drawable/yellow_gradient2.xml" value="0.15416666666666667" />
         <entry key="..\:/09 Khatmah/app/src/main/res/font-v26/my_fonts.xml" value="0.28" />
@@ -54,6 +60,7 @@
         <entry key="..\:/09 Khatmah/app/src/main/res/layout-land/quran_activity.xml" value="0.11552028218694885" />
         <entry key="..\:/09 Khatmah/app/src/main/res/layout-v28/activity_start.xml" value="0.2391304347826087" />
         <entry key="..\:/09 Khatmah/app/src/main/res/layout/activity_alert.xml" value="0.24010416666666667" />
+        <entry key="..\:/09 Khatmah/app/src/main/res/layout/activity_confirmation_dialog.xml" value="0.23097826086956522" />
         <entry key="..\:/09 Khatmah/app/src/main/res/layout/activity_daily_portion.xml" value="0.25226449275362317" />
         <entry key="..\:/09 Khatmah/app/src/main/res/layout/activity_main.xml" value="0.18659420289855072" />
         <entry key="..\:/09 Khatmah/app/src/main/res/layout/activity_prayer.xml" value="0.24010416666666667" />

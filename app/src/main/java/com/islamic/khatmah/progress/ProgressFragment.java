@@ -94,7 +94,7 @@ public class ProgressFragment extends Fragment {
 
         // 1st progress bar [weekly target].
         weeklyProgressBar.setProgress(weeklyProgress);
-        txtWeeklyProgressPages.setText(weeklyProgressBar.getProgress() + " Pages");
+        txtWeeklyProgressPages.setText(weeklyProgressBar.getProgress() + " صفحة");
         int weeklyPercentage = (int) (((float) weeklyProgress) / weeklyProgressBar.getMax() * 100);
         if (weeklyPercentage < 100) {
             txtWeeklyProgressRatio.setText(weeklyPercentage + " % ");

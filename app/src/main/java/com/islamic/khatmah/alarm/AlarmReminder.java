@@ -160,7 +160,6 @@ public class AlarmReminder {
         calendar.set(Calendar.MILLISECOND, 0);
         if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
             calendar.set(Calendar.DAY_OF_WEEK, calendar.get(Calendar.DAY_OF_WEEK) + 1);
-//            Toast.makeText(context, "remove if", Toast.LENGTH_LONG).show();
         }
         final long RUN_DAILY = 24 * 60 * 60 * 1000L;
         alarmManager.setRepeating(

@@ -153,11 +153,11 @@ public class DailyPortionActivity extends AppCompatActivity {
         if (counter < number_of_pages) {
             // If the user hasn't finished his portion
             new MaterialAlertDialogBuilder(this, R.style.Theme_MyApp_Dialog_Alert)
-                    .setTitle(R.string.confirmation)
-                    .setMessage(R.string.confirmation_message)
+                    .setTitle("رسالة تأكيد")
+                    .setMessage("هل أتممت وردك اليومي ؟")
                     // Specifying a listener allows you to take an action before dismissing the dialog.
                     // The dialog is automatically dismissed when a dialog button is clicked.
-                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    .setPositiveButton("نعم", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // Save the last page, Surah and Juz in SharedPreference.
                             // [CURRENT_PAGE + number of PAGES_PER_DAY].
@@ -187,7 +187,7 @@ public class DailyPortionActivity extends AppCompatActivity {
                         }
                     })
                     // A null listener allows the button to dismiss the dialog and take no further action.
-                    .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    .setNegativeButton("لا", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             // Leave the activity without change sharedPreference data.
