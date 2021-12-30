@@ -78,7 +78,7 @@ public class AlertActivity extends AppCompatActivity {
 //                ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE); // to make spinner text in white color..
                 if (spinnerJuz.getSelectedItem() == juz[0]) {
                     spinnerPages.setVisibility(View.VISIBLE);
-                    no_of_pages = spinnerPages.getSelectedItemPosition()+1;
+                    no_of_pages = spinnerPages.getSelectedItemPosition() + 1;
                 } else {
                     spinnerPages.setVisibility(View.GONE);
                     switch (spinnerJuz.getSelectedItemPosition()) {
@@ -186,9 +186,8 @@ public class AlertActivity extends AppCompatActivity {
                     alarmReminder.schedule(AlertActivity.this);
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(System.currentTimeMillis());
-                    editor.putInt(Constant.FIRST_DAY,calendar.get(Calendar.DAY_OF_WEEK)).apply();
-                }
-                else{
+                    editor.putInt(Constant.FIRST_DAY, calendar.get(Calendar.DAY_OF_WEEK)).apply();
+                } else {
                     alarmReminder.cancelAlarm(AlertActivity.this);
                 }
 

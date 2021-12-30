@@ -111,6 +111,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.islamic.khatmah.R;
+import com.islamic.khatmah.alarm.AlarmReminder;
 import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.ui.setting.SettingActivity;
 
@@ -197,19 +198,10 @@ public class DailyPortionFragment extends Fragment{
             finishProgressHint.setVisibility(View.GONE);
         }else {
             finishProgressHint.setVisibility(View.VISIBLE);
+            Toast.makeText(getContext(), "قالَ رسولُ اللهِ ﷺ: «الذي يقرَأُ القرآنَ وهو مَاهِرٌ به مع السَّفَرَةِ الكِرَامِ البَرَرَةِ، والذي يقرَأُ القرآنَ ويَتَتَعْتَعُ فيه وهو عليه شَاقٌ لَهُ أجْرَانِ».", Toast.LENGTH_LONG).show();
+            AlarmReminder.removeFinishDailyPortion(getContext());
         }
-/*
-        int daily_progress = preferences.getInt(Constant.DAILY_PROGRESS, 0);
-//        if(!SettingActivity.isPagesNumberChanged){
-            percentage.setText("%"+convertToArbNum((int)(daily_progress * 100 / (double) pages_per_day)));
-            progressBar_daily.setProgress(daily_progress);
-//        }else{
-//            editor.putInt(DAILY_PROGRESS, 0).commit();
-//            percentage.setText("%"+convertToArbNum(0));
-//            progressBar_daily.setProgress(0);
-//            SettingActivity.isPagesNumberChanged = false;
-//        }
-*/
+
         if(pages_per_day == 1)
             percentage.setVisibility(View.INVISIBLE);
         else
@@ -219,11 +211,9 @@ public class DailyPortionFragment extends Fragment{
         percentage.setText("%"+convertToArbNum((int)(daily_progress * 100 / (double) pages_per_day)));
 
         if(daily_progress == 0){
-//            Toast.makeText(getContext(), "== 0", Toast.LENGTH_SHORT).show();
             progressBar_daily.setProgress(1);
             progressBar_daily.setProgress(0);
         }else{
-//            Toast.makeText(getContext(), "!= 0000", Toast.LENGTH_SHORT).show();
             progressBar_daily.setProgress(daily_progress);
         }
     }
