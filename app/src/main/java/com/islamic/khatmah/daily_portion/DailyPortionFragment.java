@@ -83,14 +83,14 @@
 //}
 
 
- package com.islamic.khatmah.daily_portion;
+package com.islamic.khatmah.daily_portion;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.islamic.khatmah.constants.Constant.CURRENT_JUZ;
 import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
 import static com.islamic.khatmah.constants.Constant.CURRENT_SURAH;
-import static com.islamic.khatmah.constants.Constant.DAILY_PROGRESS;
 import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
+import static com.islamic.khatmah.constants.Constant.fireOnce;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -101,7 +101,6 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,9 +112,10 @@ import android.widget.Toast;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.alarm.AlarmReminder;
 import com.islamic.khatmah.constants.Constant;
-import com.islamic.khatmah.ui.setting.SettingActivity;
 
-public class DailyPortionFragment extends Fragment{
+import java.util.Calendar;
+
+public class DailyPortionFragment extends Fragment {
 
 //    private DailyPortionViewModel mViewModel;
 
@@ -139,19 +139,19 @@ public class DailyPortionFragment extends Fragment{
 //        mViewModel = new ViewModelProvider(this).get(DailyPortionViewModel.class);
         View view = inflater.inflate(R.layout.daily_portion_fragment, container, false);
         finishProgressHint = view.findViewById(R.id.finish_progress_hint);
-        preferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
+        preferences = requireActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
         editor = preferences.edit();
 
         // Define TextViews...
         page_number = view.findViewById(R.id.page_number);
-        surah_name  = view.findViewById(R.id.surah_name);
-        juz_number  = view.findViewById(R.id.juz_number);
+        surah_name = view.findViewById(R.id.surah_name);
+        juz_number = view.findViewById(R.id.juz_number);
         number_of_pages = view.findViewById(R.id.number_of_pages);
         percentage = view.findViewById(R.id.precentage);
         hadithTextView = view.findViewById(R.id.daily_hadith_container);
         close = view.findViewById(R.id.close);
         dailyProgressRelative = view.findViewById(R.id.daily_progress_relative);
-        hadithTextView.setText("عن عائشة رضي اللَّه عنها قالَتْ: قالَ رسولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: "+"\"الَّذِي يَقْرَأُ القُرْآنَ وَهُو ماهِرٌ بِهِ معَ السَّفَرةِ الكِرَامِ البَرَرَةِ، وَالَّذِي يقرَأُ القُرْآنَ ويَتَتَعْتَعُ فِيهِ وَهُو عليهِ شَاقٌّ لَهُ أَجْران متفقٌ عَلَيْه.\"");
+        hadithTextView.setText("عن عائشة رضي اللَّه عنها قالَتْ: قالَ رسولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: " + "\"الَّذِي يَقْرَأُ القُرْآنَ وَهُو ماهِرٌ بِهِ معَ السَّفَرةِ الكِرَامِ البَرَرَةِ، وَالَّذِي يقرَأُ القُرْآنَ ويَتَتَعْتَعُ فِيهِ وَهُو عليهِ شَاقٌّ لَهُ أَجْران متفقٌ عَلَيْه.\"");
 
         // Define progressBar [Daily].
         progressBar_daily = view.findViewById(R.id.progressBar_daily);
@@ -161,7 +161,7 @@ public class DailyPortionFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 Intent n = new Intent(getActivity(), DailyPortionActivity.class);
-                n.putExtra("PAGE_NUMBER",Integer.parseInt(page_number.getText().toString()));
+                n.putExtra("PAGE_NUMBER", Integer.parseInt(page_number.getText().toString()));
                 startActivity(n);
             }
         });
@@ -170,50 +170,55 @@ public class DailyPortionFragment extends Fragment{
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editor.putBoolean(Constant.FINISH_DAILY_PROGRESS,false).commit();
+                editor.putBoolean(Constant.FINISH_DAILY_PROGRESS, false).commit();
                 finishProgressHint.setVisibility(View.GONE);
             }
         });
 
         return view;
     }
-//
+
+    //
     @Override
     public void onResume() {
         super.onResume();
 
         // Load data from SharedPreferences.
-        current_page = preferences.getInt(CURRENT_PAGE,1);
+        current_page = preferences.getInt(CURRENT_PAGE, 1);
         current_surah = preferences.getString(CURRENT_SURAH, "سورة الفاتحة");
-        current_juz = preferences.getString(CURRENT_JUZ,"الجزء الأول");
-        pages_per_day = preferences.getInt(PAGES_PER_DAY,1);
+        current_juz = preferences.getString(CURRENT_JUZ, "الجزء الأول");
+        pages_per_day = preferences.getInt(PAGES_PER_DAY, 1);
 
         // TextViews setText().
         page_number.setText(convertToArbNum(current_page));
         surah_name.setText(current_surah);
         juz_number.setText(current_juz);
         number_of_pages.setText(convertToArbNum(pages_per_day));
-        progressBar_daily.setMax(preferences.getInt(PAGES_PER_DAY,0));
-        if(!preferences.getBoolean(Constant.FINISH_DAILY_PROGRESS,false)){
+        progressBar_daily.setMax(preferences.getInt(PAGES_PER_DAY, 0));
+        if (!preferences.getBoolean(Constant.FINISH_DAILY_PROGRESS, false)) {
             finishProgressHint.setVisibility(View.GONE);
-        }else {
+        } else {
             finishProgressHint.setVisibility(View.VISIBLE);
-            Toast.makeText(getContext(), "قالَ رسولُ اللهِ ﷺ: «الذي يقرَأُ القرآنَ وهو مَاهِرٌ به مع السَّفَرَةِ الكِرَامِ البَرَرَةِ، والذي يقرَأُ القرآنَ ويَتَتَعْتَعُ فيه وهو عليه شَاقٌ لَهُ أجْرَانِ».", Toast.LENGTH_LONG).show();
-            AlarmReminder.removeFinishDailyPortion(getContext());
+            Toast.makeText(requireContext(), "قالَ رسولُ اللهِ ﷺ: «الذي يقرَأُ القرآنَ وهو مَاهِرٌ به مع السَّفَرَةِ الكِرَامِ البَرَرَةِ، والذي يقرَأُ القرآنَ ويَتَتَعْتَعُ فيه وهو عليه شَاقٌ لَهُ أجْرَانِ».", Toast.LENGTH_LONG).show();
+            if (preferences.getBoolean(fireOnce, true)) {
+                AlarmReminder.removeFinishDailyPortion(requireContext());
+                editor.putBoolean(fireOnce, false).apply();
+            }
+
         }
 
-        if(pages_per_day == 1)
+        if (pages_per_day == 1)
             percentage.setVisibility(View.INVISIBLE);
         else
             percentage.setVisibility(View.VISIBLE);
 
         int daily_progress = preferences.getInt(Constant.DAILY_PROGRESS, 0);
-        percentage.setText("%"+convertToArbNum((int)(daily_progress * 100 / (double) pages_per_day)));
+        percentage.setText(String.format("%%%s", convertToArbNum((int) (daily_progress * 100 / (double) pages_per_day))));
 
-        if(daily_progress == 0){
+        if (daily_progress == 0) {
             progressBar_daily.setProgress(1);
             progressBar_daily.setProgress(0);
-        }else{
+        } else {
             progressBar_daily.setProgress(daily_progress);
         }
     }
