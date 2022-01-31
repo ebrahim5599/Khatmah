@@ -1,10 +1,7 @@
 package com.islamic.khatmah.free_reading;
 
 
-import android.app.ProgressDialog;
-import android.app.job.JobInfo;
-import android.app.job.JobScheduler;
-import android.content.ComponentName;
+//import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,10 +27,8 @@ import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.islamic.khatmah.constants.Constant;
-import com.islamic.khatmah.services.DownloadIntentService;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.pojo.Surah;
-import com.islamic.khatmah.services.DownloadJobService;
 import com.islamic.khatmah.services.DownloadService;
 
 import org.json.JSONArray;
@@ -48,13 +43,9 @@ import java.util.List;
 
 public class FreeReadingFragment extends Fragment {
 
-    private FreeReadingViewModel mViewModel;
-    private SurahAdapter surahAdapter;
-    private RecyclerView recyclerView;
-    private List<Surah> list;
-    private SharedPreferences preferences;
-    ProgressDialog mProgressDialog;
-    private final int JOB_SERVICE_ID = 1000;
+
+//    ProgressDialog mProgressDialog;
+//    private final int JOB_SERVICE_ID = 1000;
 
     public static FreeReadingFragment newInstance() {
         return new FreeReadingFragment();
@@ -65,18 +56,18 @@ public class FreeReadingFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 //        mViewModel = new ViewModelProvider(this).get(FreeReadingViewModel.class);
         View view = inflater.inflate(R.layout.free_reading_fragment, container, false);
-        preferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences preferences = requireActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
 
-        InputStream is = null;
+        InputStream is ;
         try {
-            is = getContext().openFileInput("" + 604);
+            is = requireContext().openFileInput("" + 604);
             Bitmap bit = BitmapFactory.decodeStream(is);
         } catch (FileNotFoundException e) {
 
             if (!preferences.getBoolean(Constant.DOWNLOAD_IS_RUNNING, false)) {
 //                Intent intent = new Intent(getContext(), DownloadIntentService.class);
                 Intent downloadIntent = new Intent(getContext(), DownloadService.class);
-                new MaterialAlertDialogBuilder(getContext(), R.style.Theme_MyApp_Dialog_Alert)
+                new MaterialAlertDialogBuilder(requireContext(), R.style.Theme_MyApp_Dialog_Alert)
                         .setTitle(R.string.download)
                         .setMessage(R.string.download_message)
                         // Specifying a listener allows you to take an action before dismissing the dialog.
@@ -88,6 +79,7 @@ public class FreeReadingFragment extends Fragment {
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                     cm = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
                                 }
+                                assert cm != null;
                                 NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
                                 boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
                                 boolean isMetered = cm.isActiveNetworkMetered();
@@ -95,9 +87,9 @@ public class FreeReadingFragment extends Fragment {
 
 //                                    DownloadIntentService.enqueueWork(getActivity(), intent);
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                                        getContext().startForegroundService(downloadIntent);
+                                        requireContext().startForegroundService(downloadIntent);
                                     else
-                                        ContextCompat.startForegroundService(getContext(), downloadIntent);
+                                        ContextCompat.startForegroundService(requireContext(), downloadIntent);
 
                                 } else {
                                     if (!isConnected)
@@ -127,14 +119,14 @@ public class FreeReadingFragment extends Fragment {
         }
 
 
-        recyclerView = view.findViewById(R.id.surahRV);
+        RecyclerView recyclerView = view.findViewById(R.id.surahRV);
 
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(llm);
 
-        list = new ArrayList<>();
+        List<Surah> list = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(JsonDataFromAsset());
             JSONArray jsonArray = jsonObject.getJSONArray("data");
@@ -150,7 +142,7 @@ public class FreeReadingFragment extends Fragment {
                 ));
             }
             if (list.size() != 0) {
-                surahAdapter = new SurahAdapter(getContext(), list);
+                SurahAdapter surahAdapter = new SurahAdapter(getContext(), list);
                 recyclerView.setAdapter(surahAdapter);
                 surahAdapter.notifyDataSetChanged();
 
@@ -163,9 +155,9 @@ public class FreeReadingFragment extends Fragment {
     }
 
     private String JsonDataFromAsset() {
-        String json = null;
+        String json;
         try {
-            InputStream inputStream = getActivity().getAssets().open("surah.json");
+            InputStream inputStream = requireActivity().getAssets().open("surah.json");
             int sizeOfFile = inputStream.available();
             byte[] bufferData = new byte[sizeOfFile];
             inputStream.read(bufferData);
