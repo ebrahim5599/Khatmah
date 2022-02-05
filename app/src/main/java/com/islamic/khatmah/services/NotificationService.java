@@ -8,10 +8,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
-
 import androidx.annotation.RequiresApi;
-import androidx.core.app.NotificationCompat;
-
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.ui.main.MainActivity;
 

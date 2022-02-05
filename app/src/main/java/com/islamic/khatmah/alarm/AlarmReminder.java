@@ -6,13 +6,9 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-
 import com.islamic.khatmah.AlarmBrodCasts.BroadcastReminder;
 import com.islamic.khatmah.AlarmBrodCasts.RemoveFinishDailyPortionBCR;
-import com.islamic.khatmah.AlarmBrodCasts.ResetWeeklyProgressReceiver;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -21,7 +17,6 @@ import java.util.Locale;
 public class AlarmReminder {
     @NonNull
     private int alarmId;
-
     private int hour, minute;
 
     public AlarmReminder(int hour, int minute) {

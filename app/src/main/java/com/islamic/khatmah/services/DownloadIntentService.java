@@ -1,6 +1,5 @@
 package com.islamic.khatmah.services;
 
-
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -16,17 +15,14 @@ import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.core.app.JobIntentService;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-
 import com.islamic.khatmah.AlarmBrodCasts.NotificationReceiver;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.ui.main.MainActivity;
-
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,7 +30,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
 
 public class DownloadIntentService extends JobIntentService {
 
@@ -47,7 +42,7 @@ public class DownloadIntentService extends JobIntentService {
     boolean stop;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
-    //STOP_DOWNLOAD
+
     /**
      * Convenience method for enqueuing work in to this service.
      */
@@ -80,7 +75,6 @@ public class DownloadIntentService extends JobIntentService {
         Intent broadcastIntent = new Intent(this, NotificationReceiver.class);
         PendingIntent actionIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-////////////////////////////////////
         // This for displaying DownloadNotification.
         createNotificationChannel();
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
@@ -98,7 +92,6 @@ public class DownloadIntentService extends JobIntentService {
         int PROGRESS_CURRENT = 0;
         builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false);
         notificationManager.notify(2, builder.build());
-////////////////////////////////////
 
         int start = 605;
         for (int i = 1; i < 152; i++) {
@@ -134,7 +127,6 @@ public class DownloadIntentService extends JobIntentService {
 
                 os.flush();
                 os.close();
-//                if (stop) {}
                 if (preferences.getBoolean(Constant.STOP_DOWNLOAD, false)) {
                     break;
                 }

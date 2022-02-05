@@ -2,14 +2,11 @@ package com.islamic.khatmah.quran_activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
-
 import com.islamic.khatmah.ui.main.MainActivity;
 import com.islamic.khatmah.R;
-
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -50,6 +47,5 @@ public class QuranActivity extends AppCompatActivity {
         }
         return json;
     }
-
 
 }

@@ -3,16 +3,13 @@ package com.islamic.khatmah.daily_portion;
 import static com.islamic.khatmah.constants.Constant.CURRENT_JUZ;
 import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
 import static com.islamic.khatmah.constants.Constant.CURRENT_SURAH;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,16 +18,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.islamic.khatmah.ui.main.MainActivity;
 import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.R;
 import com.squareup.picasso.Picasso;
-
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-
 
 public class DailyPortionViewPagerFragment extends Fragment {
 
@@ -101,7 +95,6 @@ public class DailyPortionViewPagerFragment extends Fragment {
         surah_name = view.findViewById(R.id.surah_name_daily_portion);
         page_number = view.findViewById(R.id.page_number_daily_portion);
 
-
         ImageView img = view.findViewById(R.id.img);
         layout = view.findViewById(R.id.read_linear);
         counter_text = view.findViewById(R.id.counter_text);
@@ -109,7 +102,6 @@ public class DailyPortionViewPagerFragment extends Fragment {
         int resources = isChecked[position] ? R.drawable.checked : R.drawable.unchecked;
         progressBar = view.findViewById(R.id.progress);
         checkButton.setImageResource(resources);
-//        counter_text.setText(String.valueOf(counter));
         progressBar.setMax(pagesPerDay);
         progressBar.setProgress(counter);
         setImage(position + currentPageNum, img);
@@ -160,9 +152,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
             editor.apply();
 
             storeArray(isChecked, Constant.ARRAY_NAME, requireContext());
-//            counter_text.setText(String.valueOf(counter));
             progressBar.setProgress(counter);
-//            Toast.makeText(getContext(), String.valueOf(weeklyProgress), Toast.LENGTH_SHORT).show();
         });
 
 

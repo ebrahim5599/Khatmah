@@ -3,18 +3,14 @@ package com.islamic.khatmah.ui.first_start;
 import static com.islamic.khatmah.constants.Constant.CURRENT_JUZ;
 import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
 import static com.islamic.khatmah.constants.Constant.CURRENT_SURAH;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
@@ -22,16 +18,13 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.alarm.AlarmReminder;
 import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.ui.main.MainActivity;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -61,7 +54,6 @@ public class StartActivity extends AppCompatActivity {
         // Link views to XML file.
         start_activity_buttons = findViewById(R.id.first_screen_buttons);
         start_from_portion1_button = findViewById(R.id.start_from_portion1_button);
-//        empty = findViewById(R.id.empty);
         first_card_view = findViewById(R.id.first_card_view);
 
         specific_start_button = findViewById(R.id.specific_start_button);
@@ -73,7 +65,6 @@ public class StartActivity extends AppCompatActivity {
         spinnerJuz = findViewById(R.id.juz_spinner);
         spinnerPage = findViewById(R.id.page_spinner);
         spinnerSurah = findViewById(R.id.surah_spinner);
-
 
         // Start from first juz listener.
         start_from_portion1_button.setOnClickListener(new View.OnClickListener() {
@@ -95,13 +86,11 @@ public class StartActivity extends AppCompatActivity {
                 if (first_linear_layout.getVisibility() == View.GONE) {
                     TransitionManager.beginDelayedTransition(first_linear_layout, new AutoTransition());
                     first_linear_layout.setVisibility(View.VISIBLE);
-//                    start_activity_buttons.setGravity(Gravity.CENTER|Gravity.TOP);
                     TransitionManager.beginDelayedTransition(first_card_view, new AutoTransition());
                     first_card_view.setVisibility(View.GONE);
                 }else {
                     TransitionManager.beginDelayedTransition(first_linear_layout, new AutoTransition());
                     first_linear_layout.setVisibility(View.GONE);
-//                    start_activity_buttons.setGravity(Gravity.CENTER|Gravity.BOTTOM);
                     TransitionManager.beginDelayedTransition(first_card_view, new AutoTransition());
                     first_card_view.setVisibility(View.VISIBLE);
                 }
@@ -247,7 +236,6 @@ public class StartActivity extends AppCompatActivity {
                             if (isPageChecked) {
                                 spinnerSurah.setSelection(s);
                                 spinnerJuz.setSelection((int) Math.min(((Integer.parseInt(spinnerPage.getSelectedItem().toString()) - 2) / 20), 29));
-
                             }
                             break;
                         }
@@ -259,10 +247,8 @@ public class StartActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
-
     }
 
     private String JsonDataFromAsset(String fileName) {
@@ -279,7 +265,6 @@ public class StartActivity extends AppCompatActivity {
             return null;
         }
         return json;
-
     }
 
     // This method converts English numbers to Indian number [Arabic].

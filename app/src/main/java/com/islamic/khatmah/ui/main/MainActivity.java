@@ -1,38 +1,28 @@
 package com.islamic.khatmah.ui.main;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import com.google.android.material.tabs.TabLayout;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
-
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import androidx.appcompat.widget.Toolbar;
-
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.islamic.khatmah.R;
-import com.islamic.khatmah.alarm.AlarmReminder;
 import com.islamic.khatmah.ui.first_start.StartActivity;
 import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.ui.setting.SettingActivity;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Objects;
-
 
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -40,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     public static ArrayList<String> surahName;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +51,7 @@ public class MainActivity extends AppCompatActivity {
         ViewPager2 viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         viewPager.setCurrentItem(1);
-//        if (getIntent().getIntExtra("fromDailyPortionActivity", 1) == 0) {
-//            viewPager.setCurrentItem(1);
-//        }
+
         TabLayout tabs = findViewById(R.id.tabs);
         new TabLayoutMediator(tabs, viewPager,
                 (tab, position) -> tab.setText(setTextOfTheTab(position))

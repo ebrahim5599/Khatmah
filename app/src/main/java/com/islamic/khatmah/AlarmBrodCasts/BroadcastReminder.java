@@ -9,11 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
-
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-
-import com.islamic.khatmah.services.NotificationService;
 import com.islamic.khatmah.ui.main.MainActivity;
 import com.islamic.khatmah.R;
 
@@ -34,7 +31,6 @@ public class BroadcastReminder extends BroadcastReceiver {
             nm.createNotificationChannel(channel);
         }
 
-
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.notification_icon_khatmah)
                 .setContentTitle("Khatmah - ختــمة")
@@ -48,14 +44,6 @@ public class BroadcastReminder extends BroadcastReceiver {
 
         NotificationManagerCompat notificationManger = NotificationManagerCompat.from(context);
         notificationManger.notify(0, incomingCallNotification);
-
-//// TODO: MAKE NOTIFICATION RUN IN FOREGROUND SERVICE.
-//        Intent intentService = new Intent(context, NotificationService.class);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            context.startForegroundService(intentService);
-//        } else {
-//            context.startService(intentService);
-//        }
 
     }
 }

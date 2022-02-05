@@ -8,25 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.islamic.khatmah.R;
 import com.squareup.picasso.Picasso;
-
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
 public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.PageViewHolder> {
-
 
     private Context context;
     private Bitmap bit;
@@ -72,25 +66,6 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
         holder.page_number.setText(convertToArbNum(holder.getAdapterPosition() + 1));
         holder.juz_number.setText("الجزء " + convertToArbNum((int) Math.min(((holder.getAdapterPosition() - 1) / 20) + 1, 30)));
         holder.surah_name.setText(surahName.get(position));
-/*
-            try {
-
-                pageData = jsonArray.getJSONObject(pos);
-                if (holder.getAdapterPosition() + 1 > pageData.getInt("end")) {
-                    pos++;
-                    Log.i("test", "1st case");
-                }
-                if (holder.getAdapterPosition() + 1 < pageData.getInt("start")) {
-                    pos--;
-                    Log.i("test", "2nd case");
-                }
-                pageData = jsonArray.getJSONObject(pos);
-                holder.surah_name.setText(pageData.getString("name"));
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-*/
     }
 
     // this method converts English numbers to Indian number [Arabic].
@@ -146,7 +121,6 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
         void setUrl(String url) {
             Picasso.get().load(url).into(imageView);
         }
-
         void setBitmap(Bitmap bitmap) {
             this.bitmap = bitmap;
             imageView.setImageBitmap(bitmap);

@@ -1,35 +1,25 @@
 package com.islamic.khatmah.progress;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
 import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
-
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.icu.text.DecimalFormat;
 import android.icu.text.NumberFormat;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ProgressBar;
-import android.widget.TextClock;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.islamic.khatmah.R;
-import com.islamic.khatmah.alarm.AlarmReminder;
 import com.islamic.khatmah.constants.Constant;
-
 import java.util.Locale;
 
 public class ProgressFragment extends Fragment {
@@ -39,8 +29,6 @@ public class ProgressFragment extends Fragment {
     private TextView khatmahCounter;
     private ProgressBar weeklyProgressBar, totalPagesProgressBar, totalPartsProgressBar;
     private int pagesPerDay, weeklyProgress, totalProgress, khatmahCounterValue;
-
-    SharedPreferences.Editor editor;
     SharedPreferences preferences;
 
     public static ProgressFragment newInstance() {
@@ -139,6 +127,5 @@ public class ProgressFragment extends Fragment {
                     khatmahCounterValue++;
                     preferences.edit().putInt(Constant.KHATMAH_COUNTER, khatmahCounterValue).apply();
                 }).show();
-
     }
 }

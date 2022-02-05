@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-
 import com.islamic.khatmah.daily_portion.DailyPortionFragment;
 import com.islamic.khatmah.free_reading.FreeReadingFragment;
 import com.islamic.khatmah.progress.ProgressFragment;

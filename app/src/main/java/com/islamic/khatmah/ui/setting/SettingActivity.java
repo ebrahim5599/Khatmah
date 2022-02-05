@@ -1,13 +1,11 @@
 package com.islamic.khatmah.ui.setting;
 
-
 import static com.islamic.khatmah.constants.Constant.ALARM_HOUR;
 import static com.islamic.khatmah.constants.Constant.ALARM_MINUTE;
 import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
 import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
 import static com.islamic.khatmah.constants.Constant.TOTAL_PROGRESS;
 import static com.islamic.khatmah.constants.Constant.WEEKLY_PROGRESS;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
@@ -26,18 +24,12 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.timepicker.MaterialTimePicker;
-import com.google.android.material.timepicker.TimeFormat;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.alarm.AlarmReminder;
 import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.ui.first_start.StartActivity;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -72,7 +64,6 @@ public class SettingActivity extends AppCompatActivity {
 
         LinearLayout reminderLayout = findViewById(R.id.reminder_body);
         reminderSwitch = findViewById(R.id.reminder_switch);
-
         spinnerJuz = findViewById(R.id.setting_spinnerJuz);
         spinnerPage = findViewById(R.id.setting_spinnerPages);
         reset_textView = findViewById(R.id.reset_textView);
@@ -150,8 +141,7 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-
-        // TODO: take time from alert activity.
+        // take time from alert activity.
         if (preferences.getBoolean(Constant.REMINDER_SWITCH_CASE, false)) {
             reminderSwitch.setChecked(true);
             reminderLayout.setVisibility(View.VISIBLE);
