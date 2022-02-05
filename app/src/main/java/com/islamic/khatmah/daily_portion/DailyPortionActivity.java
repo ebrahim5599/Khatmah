@@ -16,7 +16,6 @@ import android.view.WindowManager;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.islamic.khatmah.R;
-import com.islamic.khatmah.alarm.AlarmReminder;
 import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.ui.main.MainActivity;
 
@@ -75,7 +74,6 @@ public class DailyPortionActivity extends AppCompatActivity {
                             // Save the last page, Surah and Juz in SharedPreference.
                             // [CURRENT_PAGE + number of PAGES_PER_DAY].
 
-//                            int cp = sharedPreferences.getInt(CURRENT_PAGE, 1);
                             int cP;
                             if (number_of_pages + currentPageNum > 604) {
                                 cP = number_of_pages + currentPageNum - 604;
@@ -85,9 +83,6 @@ public class DailyPortionActivity extends AppCompatActivity {
                                 editor.putInt(CURRENT_PAGE, number_of_pages + currentPageNum);
                             }
                             editor.putString(CURRENT_SURAH, MainActivity.surahName.get(cP - 1)).apply();
-
-                            //editor.putInt(Constant.PROGRESS_COUNT, 0);
-
 
                             editor.putInt(Constant.DAILY_PROGRESS, 0);
                             editor.putInt(Constant.WEEKLY_PROGRESS, preferences.getInt(Constant.WEEKLY_PROGRESS, 0) - counter + preferences.getInt(PAGES_PER_DAY,0));
@@ -104,9 +99,7 @@ public class DailyPortionActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             // Leave the activity without change sharedPreference data.
-                            // TODO: I need to know number of read pages.
-//                            editor.putInt(Constant.WEEKLY_PROGRESS, counter); // by Ebrahim
-//                            editor.commit();
+                            // I need to know number of read pages.
                             editor.putBoolean(Constant.FINISH_DAILY_PROGRESS,false).apply();
                             DailyPortionActivity.super.onBackPressed();
                         }
@@ -121,34 +114,7 @@ public class DailyPortionActivity extends AppCompatActivity {
             resetValues();
             DailyPortionActivity.super.onBackPressed();
         }
-//        DailyPortionActivity.super.onBackPressed();
-//        new AlertDialog.Builder(this)
-//                .setTitle("Confirmation Message")
-//                .setMessage("Have you finished reading the entire daily portion?")
-//                // Specifying a listener allows you to take an action before dismissing the dialog.
-//                // The dialog is automatically dismissed when a dialog button is clicked.
-//                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        // Save the last page, Surah and Juz in SharedPreference.
-//                        // [CURRENT_PAGE + number of PAGES_PER_DAY].
-//                        int cp = sharedPreferences.getInt(CURRENT_PAGE, 1);
-//                        editor.putInt(CURRENT_PAGE, number_of_pages + cp);
-//                        editor.commit();
-//                        DailyPortionActivity.super.onBackPressed();
-//                    }
-//                })
-//                // A null listener allows the button to dismiss the dialog and take no further action.
-//                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        // Leave the activity without change sharedPreference data.
-//                        DailyPortionActivity.super.onBackPressed();
-//                    }
-//                })
-//                .show();
-
     }
-    //Load boolean array from shared preferences
 
     public boolean[] loadArray(String arrayName, Context mContext) {
         SharedPreferences prefs = mContext.getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, 0);

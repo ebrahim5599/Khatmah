@@ -25,17 +25,9 @@ import java.util.List;
 public class SurahAdapter extends RecyclerView.Adapter<SurahAdapter.ViewHolder> {
     private Context context;
     private List<Surah> list;
-    private boolean mScrollable;
-    ///
-    private boolean isSelected;
     private final static int FADE_DURATION = 500;// milliseconds
     private int lastPosition = -1;
-    Context cont;
-    private String[] strname;
-    private int[] icon;
     private int selectedPosition = -1;
-
-    ////
     public SurahAdapter(Context context, List<Surah> list) {
         this.context = context;
         this.list = list;
@@ -86,10 +78,6 @@ public class SurahAdapter extends RecyclerView.Adapter<SurahAdapter.ViewHolder> 
             anim.setDuration(FADE_DURATION);
             viewToAnimate.startAnimation(anim);
 
-//            //animation 2
-//            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
-//            viewToAnimate.startAnimation(animation);
-//            lastPosition = position;
         } else {
             Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
             viewToAnimate.startAnimation(animation);
@@ -126,11 +114,10 @@ public class SurahAdapter extends RecyclerView.Adapter<SurahAdapter.ViewHolder> 
                     context.startActivity(intent);
                 }
             });
-
         }
     }
 
-    // TODO: this method converts English numbers to Indian number [Arabic].
+    // converts English numbers to Indian number [Arabic].
         private String ArbNum(int number) {
 
         String stNum = String.valueOf(number);
@@ -144,49 +131,3 @@ public class SurahAdapter extends RecyclerView.Adapter<SurahAdapter.ViewHolder> 
         return result;
     }
 }
-//
-//import android.content.Context;
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.view.ViewGroup;
-//import android.widget.ArrayAdapter;
-//import android.widget.TextView;
-//import android.widget.Toast;
-//
-//import androidx.annotation.NonNull;
-//import androidx.annotation.Nullable;
-//
-//import com.islamic.khatmah.R;
-//
-//import java.util.ArrayList;
-//
-//public class SurahAdapter extends ArrayAdapter {
-//    public SurahAdapter(@NonNull Context context, ArrayList<SurahClass> surah) {
-//        super(context, 0, surah);
-//    }
-//
-//    @NonNull
-//    @Override
-//    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-//
-//        if(convertView == null){
-//            convertView = LayoutInflater.from(getContext()).inflate(R.layout.surah_details_container,
-//                    parent,false);
-//        }
-//
-//        SurahClass surah = (SurahClass) getItem(position);
-//        TextView number = convertView.findViewById(R.id.number);
-//        number.setText(surah.getNumber());
-//
-//        TextView name = convertView.findViewById(R.id.name);
-//        name.setText(surah.getName());
-//
-//        TextView type = convertView.findViewById(R.id.type);
-//        type.setText(surah.getType());
-//
-//        TextView number_of_verses = convertView.findViewById(R.id.number_of_verses);
-//        number_of_verses.setText(surah.getNumber_of_verses());
-//
-//        return convertView;
-//    }
-//}

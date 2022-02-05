@@ -20,11 +20,6 @@
             android:enabled="true"
             android:exported="true"></service>
 
-        <activity
-            android:name=".dialogs.ConfirmationDialog"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.Dialog" />
-
         <service
             android:name=".services.DownloadService"
             android:enabled="true"
@@ -76,9 +71,6 @@
             android:name=".daily_portion.DailyPortionActivity"
             android:exported="true"
             android:theme="@style/Theme.Khatmah.NoActionBar" />
-        <activity
-            android:name=".progress.PrayerActivity"
-            android:exported="true" />
         <activity
             android:name=".ui.first_start.StartActivity"
             android:exported="true"

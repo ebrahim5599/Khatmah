@@ -5,10 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.Toast;
-
 import com.islamic.khatmah.constants.Constant;
-import com.islamic.khatmah.services.RemovingCardService;
-
 import java.util.Calendar;
 
 public class RemoveFinishDailyPortionBCR extends BroadcastReceiver {
