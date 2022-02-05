@@ -87,10 +87,30 @@
         <entry key="..\:/09 Khatmah/app/src/main/res/menu/main.xml" value="0.25416666666666665" />
         <entry key="..\:/09 Khatmah/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2703125" />
         <entry key="..\:/09 Khatmah/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2703125" />
+        <entry key="..\:/Khatmah/app/src/main/res/layout-land/activity_alert.xml" value="0.1" />
+        <entry key="..\:/Khatmah/app/src/main/res/layout-land/activity_quran.xml" value="0.14947916666666666" />
+        <entry key="..\:/Khatmah/app/src/main/res/layout-land/activity_setting.xml" value="0.14947916666666666" />
+        <entry key="..\:/Khatmah/app/src/main/res/layout-land/activity_start.xml" value="0.1" />
+        <entry key="..\:/Khatmah/app/src/main/res/layout-land/fragment_daily_portion_view_pager_fragment.xml" value="0.14947916666666666" />
+        <entry key="..\:/Khatmah/app/src/main/res/layout-land/page_container.xml" value="0.14947916666666666" />
+        <entry key="..\:/Khatmah/app/src/main/res/layout/activity_alert.xml" value="0.1" />
+        <entry key="..\:/Khatmah/app/src/main/res/layout/activity_confirmation_dialog.xml" value="0.129981884057971" />
+        <entry key="..\:/Khatmah/app/src/main/res/layout/activity_daily_portion.xml" value="0.129981884057971" />
+        <entry key="..\:/Khatmah/app/src/main/res/layout/activity_main.xml" value="0.129981884057971" />
+        <entry key="..\:/Khatmah/app/src/main/res/layout/activity_prayer.xml" value="0.129981884057971" />
         <entry key="..\:/Khatmah/app/src/main/res/layout/activity_quran.xml" value="0.19293478260869565" />
-        <entry key="..\:/Khatmah/app/src/main/res/layout/activity_start.xml" value="0.10885416666666667" />
-        <entry key="..\:/Khatmah/app/src/main/res/layout/daily_portion_fragment.xml" value="0.4630225080385852" />
+        <entry key="..\:/Khatmah/app/src/main/res/layout/activity_setting.xml" value="0.129981884057971" />
+        <entry key="..\:/Khatmah/app/src/main/res/layout/activity_start.xml" value="0.1" />
+        <entry key="..\:/Khatmah/app/src/main/res/layout/daily_portion_container.xml" value="0.129981884057971" />
+        <entry key="..\:/Khatmah/app/src/main/res/layout/daily_portion_fragment.xml" value="0.1" />
+        <entry key="..\:/Khatmah/app/src/main/res/layout/fragment_daily_portion_view_pager_fragment.xml" value="0.1" />
+        <entry key="..\:/Khatmah/app/src/main/res/layout/free_reading_fragment.xml" value="0.129981884057971" />
         <entry key="..\:/Khatmah/app/src/main/res/layout/page_container.xml" value="0.13020833333333334" />
+        <entry key="..\:/Khatmah/app/src/main/res/layout/progress_fragment.xml" value="0.129981884057971" />
+        <entry key="..\:/Khatmah/app/src/main/res/layout/spinner_text.xml" value="0.129981884057971" />
+        <entry key="..\:/Khatmah/app/src/main/res/layout/spinner_text_dark.xml" value="0.129981884057971" />
+        <entry key="..\:/Khatmah/app/src/main/res/layout/surah_layout.xml" value="0.129981884057971" />
+        <entry key="..\:/Khatmah/app/src/main/res/menu/main.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/East-Sound/AndroidStudioProjects/Khatmah/app/src/main/res/drawable/circle.xml" value="0.2" />
         <entry key="..\:/Users/East-Sound/AndroidStudioProjects/Khatmah/app/src/main/res/layout/activity_alert.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/East-Sound/AndroidStudioProjects/Khatmah/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />

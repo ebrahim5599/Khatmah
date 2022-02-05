@@ -158,38 +158,6 @@
             </LinearLayout>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
-<!--    -->
-<!--    <Switch-->
-<!--        android:id="@+id/switch1"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="16dp"-->
-<!--        android:gravity="right"-->
-<!--        android:layoutDirection="rtl"-->
-<!--        android:text="@string/setalert"-->
-<!--        android:textColor="#FFFFFF"-->
-<!--        android:textSize="24sp"-->
-<!--        tools:ignore="UseSwitchCompatOrMaterialXml" />-->
-
-
-<!--    <ImageButton-->
-<!--        android:id="@+id/img_alarm"-->
-<!--        android:layout_width="156dp"-->
-<!--        android:layout_height="156dp"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:background="@drawable/ic_round_access_alarm_24" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/txt_time"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="56dp"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:layout_margin="32dp"-->
-<!--        android:gravity="center"-->
-<!--        android:text="00:00 AM"-->
-<!--        android:textColor="#FFFFFF"-->
-<!--        android:textSize="18sp" />-->
-
     <FrameLayout
         android:layout_width="156dp"
         android:layout_height="48dp"
