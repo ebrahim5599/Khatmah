@@ -18,12 +18,6 @@
             <item
                 android:id="@+id/item_about_us"
                 android:title="@string/about_us" />
-<!--            <item-->
-<!--                android:id="@+id/item_shopping"-->
-<!--                android:title="@string/shopping" />-->
-<!--            <item-->
-<!--                android:id="@+id/all_categories"-->
-<!--                android:title="@string/all_trips" />-->
         </menu>
     </item>
 

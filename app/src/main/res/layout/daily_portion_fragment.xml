@@ -92,11 +92,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/frameLayout"
             android:layout_centerHorizontal="true"
-            android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:visibility="gone"
             app:cardCornerRadius="8dp"
-            app:cardElevation="4dp"
-            android:visibility="gone">
+            app:cardElevation="4dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -122,11 +122,11 @@
                     android:id="@+id/textViewFinishProgress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/uthmanic_hafs"
                     android:gravity="center"
                     android:text="أحسنت .. لقد أتممت ورد اليوم"
-                    android:textSize="20sp"
-                    android:fontFamily="@font/uthmanic_hafs"
                     android:textColor="@color/text_color_500"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="@+id/textView"
                     app:layout_constraintTop_toTopOf="@+id/border0"
                     tools:layout_editor_absoluteX="0dp" />
@@ -316,9 +316,6 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
                     android:background="#E4C843" />
-
-
-
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 
