@@ -50,17 +50,17 @@ public class FreeReadingFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.free_reading_fragment, container, false);
-        preferences = getActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences preferences = requireActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
 
-        InputStream is = null;
+        InputStream is ;
         try {
-            is = getContext().openFileInput("" + 604);
+            is = requireContext().openFileInput("" + 604);
             Bitmap bit = BitmapFactory.decodeStream(is);
         } catch (FileNotFoundException e) {
 
             if (!preferences.getBoolean(Constant.DOWNLOAD_IS_RUNNING, false)) {
                 Intent downloadIntent = new Intent(getContext(), DownloadService.class);
-                new MaterialAlertDialogBuilder(getContext(), R.style.Theme_MyApp_Dialog_Alert)
+                new MaterialAlertDialogBuilder(requireContext(), R.style.Theme_MyApp_Dialog_Alert)
                         .setTitle(R.string.download)
                         .setMessage(R.string.download_message)
                         // Specifying a listener allows you to take an action before dismissing the dialog.
@@ -72,13 +72,14 @@ public class FreeReadingFragment extends Fragment {
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                     cm = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
                                 }
+                                assert cm != null;
                                 NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
                                 boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
                                 boolean isMetered = cm.isActiveNetworkMetered();
                                 if (isConnected && !isMetered) {
 
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                                        getContext().startForegroundService(downloadIntent);
+                                        requireContext().startForegroundService(downloadIntent);
                                     else
                                         ContextCompat.startForegroundService(getContext(), downloadIntent);
                                 } else {
@@ -118,7 +119,7 @@ public class FreeReadingFragment extends Fragment {
                 ));
             }
             if (list.size() != 0) {
-                surahAdapter = new SurahAdapter(getContext(), list);
+                SurahAdapter surahAdapter = new SurahAdapter(getContext(), list);
                 recyclerView.setAdapter(surahAdapter);
                 surahAdapter.notifyDataSetChanged();
             }
@@ -129,9 +130,9 @@ public class FreeReadingFragment extends Fragment {
     }
 
     private String JsonDataFromAsset() {
-        String json = null;
+        String json;
         try {
-            InputStream inputStream = getActivity().getAssets().open("surah.json");
+            InputStream inputStream = requireActivity().getAssets().open("surah.json");
             int sizeOfFile = inputStream.available();
             byte[] bufferData = new byte[sizeOfFile];
             inputStream.read(bufferData);

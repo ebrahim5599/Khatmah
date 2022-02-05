@@ -38,6 +38,7 @@ public class Constant{
     public static final String IS_TIME_CHANGED = "IS_TIME_CHANGED";
     public static final String STOP_DOWNLOAD = "STOP_DOWNLOAD";
     public static final String DOWNLOAD_IS_RUNNING = "DOWNLOAD_IS_RUNNING";
+    public static final String fireOnce ="fireOnce";
 
 
 

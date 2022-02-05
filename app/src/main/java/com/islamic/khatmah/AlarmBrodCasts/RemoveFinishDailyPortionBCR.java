@@ -16,6 +16,7 @@ public class RemoveFinishDailyPortionBCR extends BroadcastReceiver {
         Toast.makeText(context, "لا تنسَ قراءة الورد اليومي", Toast.LENGTH_SHORT).show();
         SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         sharedPreferences.edit().putBoolean(Constant.FINISH_DAILY_PROGRESS, false).apply();
+        sharedPreferences.edit().putBoolean(Constant.fireOnce, true).apply();
 
         if (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY)
             sharedPreferences.edit().putInt(Constant.WEEKLY_PROGRESS, 0).apply();
