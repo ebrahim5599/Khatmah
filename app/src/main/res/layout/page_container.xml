@@ -5,14 +5,6 @@
     android:background="#FFF8E1"
     android:layoutDirection="ltr">
 
-    <ImageView
-        android:id="@+id/image_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fontFamily="@font/arabic_type"
-        android:textColor="@color/purple_700"
-        android:textSize="19sp" />
-
     <TextView
         android:id="@+id/juz_number_textview"
         android:layout_width="wrap_content"
@@ -32,6 +24,16 @@
         android:fontFamily="@font/arabic_type"
         android:padding="8dp"
         android:text="القرآن الكريم"
+        android:textColor="@color/purple_700"
+        android:textSize="19sp" />
+
+    <ImageView
+        android:id="@+id/image_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/juz_number_textview"
+        android:layout_above="@id/page_number_textview"
+        android:fontFamily="@font/arabic_type"
         android:textColor="@color/purple_700"
         android:textSize="19sp" />
 
