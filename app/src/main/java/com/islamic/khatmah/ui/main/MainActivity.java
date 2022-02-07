@@ -13,21 +13,26 @@ import android.os.Bundle;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.tabs.TabLayout;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
 import androidx.appcompat.widget.Toolbar;
+
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.services.DownloadService;
 import com.islamic.khatmah.ui.first_start.StartActivity;
 import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.ui.setting.SettingActivity;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -81,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         }).start();
 
 
-        InputStream is ;
+        InputStream is;
         try {
             is = this.openFileInput("" + 604);
             Bitmap bit = BitmapFactory.decodeStream(is);
@@ -98,9 +103,9 @@ public class MainActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
 
                                 ConnectivityManager cm = null;
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                    cm = (ConnectivityManager) getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-                                }
+//                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                cm = (ConnectivityManager) getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+//                                }
                                 assert cm != null;
                                 NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
                                 boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
@@ -158,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), R.string.will_be_added_soon, Toast.LENGTH_SHORT).show();
 //            startActivity(new Intent(getBaseContext(), StartActivity.class));
             return true;
-        }else if(itemId == R.id.item_feedback){
+        } else if (itemId == R.id.item_feedback) {
 //            startActivity(new Intent(getBaseContext(), StartActivity.class));
             Toast.makeText(getBaseContext(), R.string.will_be_added_soon, Toast.LENGTH_SHORT).show();
             return true;
