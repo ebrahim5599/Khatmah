@@ -104,8 +104,15 @@ public class ProgressFragment extends Fragment {
 
         // 3rd progress bar [no. of read parts].
         totalPartsProgressBar.setProgress(totalProgress / 20);
-        txtTotalPartsProgress.setText(formatter.format(totalPagesProgressBar.getProgress() / 20.0) + " جزء");
-        txtTotalPartsProgressRatio.setText(formatter.format(((float) totalPartsProgressBar.getProgress()) / totalPartsProgressBar.getMax() * 100) + " % ");
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            txtTotalPartsProgress.setText(formatter.format(
+                    totalPagesProgressBar.getProgress() / 20.0) + " جزء");
+            txtTotalPartsProgressRatio.setText(formatter.format(
+                    ((float) totalPartsProgressBar.getProgress()) / totalPartsProgressBar.getMax() * 100) + " % ");
+        }else{
+            txtTotalPartsProgress.setText((totalPagesProgressBar.getProgress() / 20) + " جزء");
+            txtTotalPartsProgressRatio.setText(((float) totalPartsProgressBar.getProgress() / totalPartsProgressBar.getMax() * 100) + " % ");
+        }
 
         // Set no. of khatmah(s).
         khatmahCounterValue = preferences.getInt(Constant.KHATMAH_COUNTER, 0);

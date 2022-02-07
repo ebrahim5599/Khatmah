@@ -286,7 +286,7 @@
                 <FrameLayout
                     android:id="@+id/frameLayout"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:layout_below="@id/number_of_pages"
                     android:layout_centerHorizontal="true"
                     android:layout_margin="8dp"
@@ -295,7 +295,7 @@
                     <TextView
                         android:id="@+id/start"
                         android:layout_width="100dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:background="@drawable/button"
                         android:fontFamily="@font/arabic_type"
                         android:gravity="center"

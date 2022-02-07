@@ -38,8 +38,7 @@
             android:layout_height="match_parent"
             android:layout_below="@id/juz_number_daily_portion"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="64dp"
-            android:src="@drawable/p50" />
+            android:layout_marginBottom="64dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"

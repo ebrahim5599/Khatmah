@@ -145,12 +145,12 @@ public class StartActivity extends AppCompatActivity {
         spinnerJuz.setAdapter(adapterJuz);
 
         // Set surah adapter to surah spinner.
-        ArrayAdapter<String> adapterSurah = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_text, surah);
+        ArrayAdapter<String> adapterSurah = new ArrayAdapter<>(this, R.layout.spinner_text, surah);
         adapterSurah.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSurah.setAdapter(adapterSurah);
 
         // Set page adapter to page spinner.
-        ArrayAdapter<String> adapterPage = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_text, page);
+        ArrayAdapter<String> adapterPage = new ArrayAdapter<>(this, R.layout.spinner_text, page);
         adapterPage.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPage.setAdapter(adapterPage);
 
