@@ -102,16 +102,11 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton(R.string.download, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
 
-                                ConnectivityManager cm = null;
-//                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                cm = (ConnectivityManager) getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-//                                }
-                                assert cm != null;
+                                ConnectivityManager cm = (ConnectivityManager) getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
                                 NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
                                 boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
                                 boolean isMetered = cm.isActiveNetworkMetered();
                                 if (isConnected && !isMetered) {
-
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
                                         getBaseContext().startForegroundService(downloadIntent);
                                     else
