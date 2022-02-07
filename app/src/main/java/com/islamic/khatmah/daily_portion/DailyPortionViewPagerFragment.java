@@ -159,8 +159,10 @@ public class DailyPortionViewPagerFragment extends Fragment {
         view.setOnClickListener(view1 -> {
             if (layout.getVisibility() == View.GONE) {
                 layout.setVisibility(View.VISIBLE);
+                checkButton.setVisibility(View.VISIBLE);
             } else {
                 layout.setVisibility(View.GONE);
+                checkButton.setVisibility(View.GONE);
             }
         });
         return view;

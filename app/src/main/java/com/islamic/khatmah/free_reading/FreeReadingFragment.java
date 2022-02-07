@@ -1,34 +1,19 @@
 package com.islamic.khatmah.free_reading;
 
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.pojo.Surah;
-import com.islamic.khatmah.services.DownloadService;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -36,10 +21,8 @@ import java.util.List;
 
 public class FreeReadingFragment extends Fragment {
 
-    private SurahAdapter surahAdapter;
     private RecyclerView recyclerView;
     private List<Surah> list;
-    private SharedPreferences preferences;
 
     public static FreeReadingFragment newInstance() {
         return new FreeReadingFragment();
@@ -50,53 +33,6 @@ public class FreeReadingFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.free_reading_fragment, container, false);
-        SharedPreferences preferences = requireActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
-
-        InputStream is ;
-        try {
-            is = requireContext().openFileInput("" + 604);
-            Bitmap bit = BitmapFactory.decodeStream(is);
-        } catch (FileNotFoundException e) {
-
-            if (!preferences.getBoolean(Constant.DOWNLOAD_IS_RUNNING, false)) {
-                Intent downloadIntent = new Intent(getContext(), DownloadService.class);
-                new MaterialAlertDialogBuilder(requireContext(), R.style.Theme_MyApp_Dialog_Alert)
-                        .setTitle(R.string.download)
-                        .setMessage(R.string.download_message)
-                        // Specifying a listener allows you to take an action before dismissing the dialog.
-                        // The dialog is automatically dismissed when a dialog button is clicked.
-                        .setPositiveButton(R.string.download, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-
-                                ConnectivityManager cm = null;
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                    cm = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-                                }
-                                assert cm != null;
-                                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-                                boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-                                boolean isMetered = cm.isActiveNetworkMetered();
-                                if (isConnected && !isMetered) {
-
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                                        requireContext().startForegroundService(downloadIntent);
-                                    else
-                                        ContextCompat.startForegroundService(getContext(), downloadIntent);
-                                } else {
-                                    if (!isConnected)
-                                        Toast.makeText(requireContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
-                                    else
-                                        Toast.makeText(requireContext(), "", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        })
-                        // A null listener allows the button to dismiss the dialog and take no further action.
-                        .setNegativeButton(R.string.cancel, null)
-                        .setIcon(R.drawable.ic_baseline_cloud_download_24)
-                        .show();
-
-            }
-        }
 
         recyclerView = view.findViewById(R.id.surahRV);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());

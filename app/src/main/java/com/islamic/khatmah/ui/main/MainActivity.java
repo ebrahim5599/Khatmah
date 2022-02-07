@@ -1,11 +1,22 @@
 package com.islamic.khatmah.ui.main;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.tabs.TabLayout;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,12 +24,15 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.islamic.khatmah.R;
+import com.islamic.khatmah.services.DownloadService;
 import com.islamic.khatmah.ui.first_start.StartActivity;
 import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.ui.setting.SettingActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -30,10 +44,12 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     public static ArrayList<String> surahName;
+    private AlertDialog materialAlertDialogBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         // sharedPreference.
         preferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
         editor = preferences.edit();
@@ -64,6 +80,64 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
 
+
+        InputStream is ;
+        try {
+            is = this.openFileInput("" + 604);
+            Bitmap bit = BitmapFactory.decodeStream(is);
+        } catch (FileNotFoundException e) {
+
+            if (!preferences.getBoolean(Constant.DOWNLOAD_IS_RUNNING, false)) {
+                Intent downloadIntent = new Intent(this, DownloadService.class);
+                materialAlertDialogBuilder = new MaterialAlertDialogBuilder(this, R.style.Theme_MyApp_Dialog_Alert)
+                        .setTitle(R.string.download)
+                        .setMessage(R.string.download_message)
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(R.string.download, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                ConnectivityManager cm = null;
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                    cm = (ConnectivityManager) getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                                }
+                                assert cm != null;
+                                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                                boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+                                boolean isMetered = cm.isActiveNetworkMetered();
+                                if (isConnected && !isMetered) {
+
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                                        getBaseContext().startForegroundService(downloadIntent);
+                                    else
+                                        ContextCompat.startForegroundService(getBaseContext(), downloadIntent);
+                                } else {
+                                    if (!isConnected)
+                                        Toast.makeText(getBaseContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
+                                    else
+                                        Toast.makeText(getBaseContext(), "", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        })
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        })
+                        .setIcon(R.drawable.ic_baseline_cloud_download_24)
+                        .setCancelable(false)
+                        .show();
+            }
+
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        materialAlertDialogBuilder.dismiss();
     }
 
     @Override
@@ -72,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
 
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
