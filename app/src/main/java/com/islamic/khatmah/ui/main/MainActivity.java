@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                                         ContextCompat.startForegroundService(getBaseContext(), downloadIntent);
                                 } else {
                                     if (!isConnected)
-                                        Toast.makeText(getBaseContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getBaseContext(), R.string.connection_error, Toast.LENGTH_LONG).show();
                                     else
                                         Toast.makeText(getBaseContext(), "", Toast.LENGTH_SHORT).show();
                                 }
