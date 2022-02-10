@@ -161,17 +161,17 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
 
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        Log.i("test","onPause()");
-//    }
-//
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        Log.i("test","onStop()");
-//    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i("testMain","onPause()");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i("testMain","onStop()");
+    }
 
     @Override
     protected void onDestroy() {
