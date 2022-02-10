@@ -201,6 +201,7 @@ public class SettingActivity extends AppCompatActivity {
                                 reminderSwitch.setChecked(false);
                                 editor.apply();
                                 Intent intent = new Intent(SettingActivity.this, StartActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                                 finish();
                             }
@@ -305,5 +306,4 @@ public class SettingActivity extends AppCompatActivity {
         boolean[] arr = new boolean[no_of_pages];
         storeArray(arr, Constant.ARRAY_NAME, this);
     }
-
 }

@@ -261,6 +261,7 @@ public class StartActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         moveTaskToBack(true);
+//        System.exit(0);
     }
 
     private String JsonDataFromAsset(String fileName) {
