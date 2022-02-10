@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -251,6 +252,12 @@ public class StartActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        moveTaskToBack(true);
+    }
+
     private String JsonDataFromAsset(String fileName) {
         String json = null;
         try {
@@ -341,5 +348,24 @@ public class StartActivity extends AppCompatActivity {
                 break;
         }
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i("test","onPause()");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i("test","onStop()");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i("test","onDestroy()");
+    }
+
 
 }

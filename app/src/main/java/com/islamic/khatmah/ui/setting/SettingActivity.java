@@ -30,6 +30,8 @@ import com.islamic.khatmah.R;
 import com.islamic.khatmah.alarm.AlarmReminder;
 import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.ui.first_start.StartActivity;
+import com.islamic.khatmah.ui.main.MainActivity;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -200,6 +202,7 @@ public class SettingActivity extends AppCompatActivity {
                                 editor.apply();
                                 Intent intent = new Intent(SettingActivity.this, StartActivity.class);
                                 startActivity(intent);
+                                finish();
                             }
 
                         })
@@ -211,7 +214,6 @@ public class SettingActivity extends AppCompatActivity {
                             }
                         })
                         .show();
-
             }
         });
     }
@@ -284,6 +286,9 @@ public class SettingActivity extends AppCompatActivity {
             editor.putInt(Constant.DAILY_PROGRESS, 0).commit();
             resetValues();
         }
+        finish();
+//        MainActivity mainActivity = MainActivity.getInstance();
+//        mainActivity.finish();
     }
 
     public boolean storeArray(boolean[] array, String arrayName, Context mContext) {
@@ -302,4 +307,5 @@ public class SettingActivity extends AppCompatActivity {
         boolean[] arr = new boolean[no_of_pages];
         storeArray(arr, Constant.ARRAY_NAME, this);
     }
+
 }

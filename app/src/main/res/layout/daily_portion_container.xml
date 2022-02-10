@@ -9,8 +9,7 @@
         android:id="@+id/img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="12dp"
-        android:src="@drawable/p50" />
+        android:layout_marginBottom="12dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
