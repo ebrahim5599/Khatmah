@@ -20,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -52,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<String> surahName;
     private AlertDialog materialAlertDialogBuilder;
     private boolean isFirstRun;
-    public static MainActivity mainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         // sharedPreference.
         preferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
         editor = preferences.edit();
-        mainActivity = this;
         isFirstRun = preferences.getBoolean(Constant.FIRST_RUN, true);
         if (isFirstRun) {
             //show Start activity
@@ -88,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
                 preparingSurahNames();
             }
         }).start();
-
 
         InputStream is;
         try {
@@ -134,9 +130,9 @@ public class MainActivity extends AppCompatActivity {
                         .setCancelable(false)
                         .show();
             }
-
         }
     }
+
 
     @Override
     public void onBackPressed() {
@@ -144,13 +140,10 @@ public class MainActivity extends AppCompatActivity {
         moveTaskToBack(true);
     }
 
-    public static MainActivity getInstance(){
-        return mainActivity;
-    }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         if (isFirstRun) {
             //show Start activity
             startActivity(new Intent(MainActivity.this, StartActivity.class));
@@ -161,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(materialAlertDialogBuilder != null)
+        if (materialAlertDialogBuilder != null)
             materialAlertDialogBuilder.dismiss();
     }
 
@@ -179,15 +172,16 @@ public class MainActivity extends AppCompatActivity {
         if (itemId == R.id.item_setting) {
             startActivity(new Intent(getBaseContext(), SettingActivity.class));
             return true;
-        } else if (itemId == R.id.item_about_us) {
-            Toast.makeText(getBaseContext(), R.string.will_be_added_soon, Toast.LENGTH_SHORT).show();
-//            startActivity(new Intent(getBaseContext(), StartActivity.class));
-            return true;
-        } else if (itemId == R.id.item_feedback) {
-//            startActivity(new Intent(getBaseContext(), StartActivity.class));
-            Toast.makeText(getBaseContext(), R.string.will_be_added_soon, Toast.LENGTH_SHORT).show();
-            return true;
         }
+//        else if (itemId == R.id.item_about_us) {
+//            Toast.makeText(getBaseContext(), R.string.will_be_added_soon, Toast.LENGTH_SHORT).show();
+////            startActivity(new Intent(getBaseContext(), StartActivity.class));
+//            return true;
+//        } else if (itemId == R.id.item_feedback) {
+////            startActivity(new Intent(getBaseContext(), StartActivity.class));
+//            Toast.makeText(getBaseContext(), R.string.will_be_added_soon, Toast.LENGTH_SHORT).show();
+//            return true;
+//        }
         return super.onOptionsItemSelected(item);
     }
 
