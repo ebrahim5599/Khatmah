@@ -71,7 +71,7 @@ public class StartActivity extends AppCompatActivity {
         start_from_portion1_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(StartActivity.this, AlertActivity.class));
+//                startActivity(new Intent(StartActivity.this, AlertActivity.class));
                 editor.putInt(CURRENT_PAGE, 1);
                 editor.putString(CURRENT_SURAH, MainActivity.surahName.get(0));
                 editor.putString(CURRENT_JUZ,String.format("الجزء %s", convertToArbNum(1)));
@@ -256,7 +256,6 @@ public class StartActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         moveTaskToBack(true);
-//        System.exit(0);
     }
 
     private String JsonDataFromAsset(String fileName) {
@@ -350,23 +349,6 @@ public class StartActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.i("test","onPause()");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.i("test","onStop()");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.i("test","onDestroy()");
-    }
 
 
 }

@@ -243,4 +243,5 @@ public class AlertActivity extends AppCompatActivity {
         }
         return result;
     }
+
 }

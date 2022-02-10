@@ -138,6 +138,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        moveTaskToBack(true);
+    }
+
     public static MainActivity getInstance(){
         return mainActivity;
     }
@@ -151,32 +157,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        if (isFirstRun) {
-//            //show Start activity
-//            startActivity(new Intent(MainActivity.this, StartActivity.class));
-//        }
-//    }
-
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.i("testMain","onPause()");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.i("testMain","onStop()");
-    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        Log.i("test","onDestroy()");
         if(materialAlertDialogBuilder != null)
             materialAlertDialogBuilder.dismiss();
     }
