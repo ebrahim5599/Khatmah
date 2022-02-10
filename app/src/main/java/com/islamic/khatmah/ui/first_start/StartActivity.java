@@ -3,8 +3,10 @@ package com.islamic.khatmah.ui.first_start;
 import static com.islamic.khatmah.constants.Constant.CURRENT_JUZ;
 import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
 import static com.islamic.khatmah.constants.Constant.CURRENT_SURAH;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,13 +21,16 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.alarm.AlarmReminder;
 import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.ui.main.MainActivity;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -34,7 +39,7 @@ import java.util.Objects;
 public class StartActivity extends AppCompatActivity {
 
     private TextView specific_start_button, button_next, start_from_portion1_button, hadith, empty;
-    private LinearLayout  start_activity_buttons;
+    private LinearLayout start_activity_buttons;
     private CardView first_card_view;
     RelativeLayout first_linear_layout;
     Spinner spinnerJuz, spinnerPage, spinnerSurah, spinnerChoose;
@@ -74,7 +79,7 @@ public class StartActivity extends AppCompatActivity {
                 startActivity(new Intent(StartActivity.this, AlertActivity.class));
                 editor.putInt(CURRENT_PAGE, 1);
                 editor.putString(CURRENT_SURAH, MainActivity.surahName.get(0));
-                editor.putString(CURRENT_JUZ,String.format("الجزء %s", convertToArbNum(1)));
+                editor.putString(CURRENT_JUZ, String.format("الجزء %s", convertToArbNum(1)));
                 editor.commit();
                 startActivity(new Intent(StartActivity.this, AlertActivity.class));
             }
@@ -89,7 +94,7 @@ public class StartActivity extends AppCompatActivity {
                     first_linear_layout.setVisibility(View.VISIBLE);
                     TransitionManager.beginDelayedTransition(first_card_view, new AutoTransition());
                     first_card_view.setVisibility(View.GONE);
-                }else {
+                } else {
                     TransitionManager.beginDelayedTransition(first_linear_layout, new AutoTransition());
                     first_linear_layout.setVisibility(View.GONE);
                     TransitionManager.beginDelayedTransition(first_card_view, new AutoTransition());
@@ -348,24 +353,4 @@ public class StartActivity extends AppCompatActivity {
                 break;
         }
     }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.i("test","onPause()");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.i("test","onStop()");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.i("test","onDestroy()");
-    }
-
-
 }

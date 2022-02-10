@@ -12,12 +12,12 @@
             <item
                 android:id="@+id/item_setting"
                 android:title="@string/action_settings" />
-            <item
-                android:id="@+id/item_feedback"
-                android:title="@string/feedback" />
-            <item
-                android:id="@+id/item_about_us"
-                android:title="@string/about_us" />
+<!--            <item-->
+<!--                android:id="@+id/item_feedback"-->
+<!--                android:title="@string/feedback" />-->
+<!--            <item-->
+<!--                android:id="@+id/item_about_us"-->
+<!--                android:title="@string/about_us" />-->
         </menu>
     </item>
 

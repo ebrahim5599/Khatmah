@@ -287,8 +287,6 @@ public class SettingActivity extends AppCompatActivity {
             resetValues();
         }
         finish();
-//        MainActivity mainActivity = MainActivity.getInstance();
-//        mainActivity.finish();
     }
 
     public boolean storeArray(boolean[] array, String arrayName, Context mContext) {
