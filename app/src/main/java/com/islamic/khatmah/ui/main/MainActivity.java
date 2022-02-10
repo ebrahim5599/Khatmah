@@ -133,6 +133,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        moveTaskToBack(true);
+    }
+
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -141,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, StartActivity.class));
         }
     }
+
 
     @Override
     protected void onDestroy() {
