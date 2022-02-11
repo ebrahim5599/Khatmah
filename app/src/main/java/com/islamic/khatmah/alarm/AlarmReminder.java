@@ -38,9 +38,9 @@ public class AlarmReminder {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa", Locale.US);
-        String Time = simpleDateFormat.format(calendar.getTime());
-        Toast.makeText(context, Time, Toast.LENGTH_SHORT).show();
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa", Locale.US);
+//        String Time = simpleDateFormat.format(calendar.getTime());
+//        Toast.makeText(context, Time, Toast.LENGTH_SHORT).show();
         final long RUN_DAILY = 24 * 60 * 60 * 1000;
         alarmManager.setRepeating(
                 AlarmManager.RTC_WAKEUP,
@@ -79,7 +79,7 @@ public class AlarmReminder {
         );
     }
 
-    public static void removeFinishDailyPortion(Context context) {
+    public void removeFinishDailyPortion(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(context, RemoveFinishDailyPortionBCR.class);
@@ -95,6 +95,11 @@ public class AlarmReminder {
         if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
             calendar.set(Calendar.DAY_OF_WEEK, calendar.get(Calendar.DAY_OF_WEEK) + 1);
         }
+
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm aa", Locale.US);
+//        String Time = simpleDateFormat.format(calendar.getTime());
+//        Toast.makeText(context, Time, Toast.LENGTH_LONG).show();
+
         final long RUN_DAILY = 24 * 60 * 60 * 1000L;
         alarmManager.setRepeating(
                 AlarmManager.RTC_WAKEUP,
