@@ -61,6 +61,12 @@ public class DailyPortionFragment extends Fragment {
         // Define progressBar [Daily].
         progressBar_daily = view.findViewById(R.id.progressBar_daily);
 
+        // Load data from SharedPreferences.
+        current_page = preferences.getInt(CURRENT_PAGE, 1);
+        current_surah = preferences.getString(CURRENT_SURAH, "سورة الفاتحة");
+        current_juz = preferences.getString(CURRENT_JUZ, "الجزء الأول");
+        pages_per_day = preferences.getInt(PAGES_PER_DAY, 1);
+
         TextView start_btn = view.findViewById(R.id.start);
         start_btn.setOnClickListener(new View.OnClickListener() {
             @Override

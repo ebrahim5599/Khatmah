@@ -1,5 +1,7 @@
 package com.islamic.khatmah.services;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -10,7 +12,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
+import android.os.Message;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
@@ -28,6 +33,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import javax.net.ssl.SSLException;
+
 public class DownloadService extends Service {
 
     private SharedPreferences preferences;
@@ -40,24 +47,36 @@ public class DownloadService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        preferences = getBaseContext().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
+        editor = preferences.edit();
         Toast.makeText(getApplicationContext(), "Started", Toast.LENGTH_SHORT).show();
     }
 
+    @SuppressLint("UnspecifiedImmutableFlag")
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // load shared Preferences
-        preferences = getBaseContext().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
-        editor = preferences.edit();
         editor.putBoolean(Constant.STOP_DOWNLOAD, false).apply();
         editor.putBoolean(Constant.DOWNLOAD_IS_RUNNING, true).apply();
 
         // Notification intent & pendingIntent.
         Intent notificationIntent = new Intent(this, MainActivity.class);
-        PendingIntent notificationPendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent notificationPendingIntent = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            notificationPendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+        } else {
+            notificationPendingIntent = PendingIntent.getActivity(this, 0, notificationIntent,  PendingIntent.FLAG_UPDATE_CURRENT);
+        }
 
         // Action button intent & pendingIntent.
         Intent broadcastIntent = new Intent(this, NotificationReceiver.class);
-        PendingIntent actionIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        PendingIntent actionIntent = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            actionIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+        } else {
+            actionIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        }
 
         // This for displaying DownloadNotification.
         createNotificationChannel();
@@ -114,6 +133,8 @@ public class DownloadService extends Service {
                         }
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
+                    } catch (SSLException s){
+                        s.printStackTrace();
                     } catch (IOException e) {
                         e.printStackTrace();
                     } finally {
@@ -184,7 +205,10 @@ public class DownloadService extends Service {
                         }
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
-                    } catch (IOException e) {
+                    } catch (SSLException s){
+                        s.printStackTrace();
+//                        Toast.makeText(getBaseContext(), R.string.storage_full, Toast.LENGTH_SHORT).show();
+                    }catch (IOException e) {
                         e.printStackTrace();
                     } finally {
                         is = null;
