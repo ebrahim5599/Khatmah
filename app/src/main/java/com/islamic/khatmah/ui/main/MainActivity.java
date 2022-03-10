@@ -23,9 +23,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.transition.AutoTransition;
+import android.transition.ChangeBounds;
+import android.transition.ChangeScroll;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
@@ -78,6 +85,21 @@ public class MainActivity extends AppCompatActivity {
         ViewPager2 viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         viewPager.setCurrentItem(1);
+
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                super.onPageScrollStateChanged(state);
+                if (viewPager.getCurrentItem() == 0){
+//                    || viewPager.getCurrentItem() == 2
+                    TransitionManager.beginDelayedTransition(toolbar, new AutoTransition());
+                    toolbar.setVisibility(View.GONE);
+                }else{
+                    TransitionManager.beginDelayedTransition(toolbar, new AutoTransition());
+                    toolbar.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         TabLayout tabs = findViewById(R.id.tabs);
         new TabLayoutMediator(tabs, viewPager,
