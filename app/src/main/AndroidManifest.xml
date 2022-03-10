@@ -15,10 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Khatmah">
+
         <service
             android:name=".services.RemovingCardService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true"/>
 
         <service
             android:name=".services.DownloadService"
@@ -44,10 +45,6 @@
             android:enabled="true"
             android:exported="true" />
 
-        <receiver
-            android:name=".AlarmBrodCasts.ResetWeeklyProgressReceiver"
-            android:enabled="true"
-            android:exported="true" />
         <receiver
             android:name=".AlarmBrodCasts.OnRebootReceiver"
             android:enabled="true"

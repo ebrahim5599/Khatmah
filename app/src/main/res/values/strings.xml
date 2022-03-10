@@ -53,5 +53,6 @@
     <string name="no">No</string>
 
     <string name="will_be_added_soon">It will be added soon</string>
-    <string name="connection_error">Connection error,\nPlease connect to the internet and try again to download the pages of the Holy Qur’an</string>
+    <string name="connection_error">Make sure you have an internet connection</string>
+    <string name="storage_full">Storage full</string>
 </resources>

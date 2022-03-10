@@ -34,13 +34,13 @@ public class DailyPortionViewPagerFragment extends Fragment {
     private static final String ARG_PAGE_PER_DAY = "param4";
     private LinearLayout layout;
     private ImageButton checkButton;
-    private TextView counter_text, juz_number, surah_name, page_number;
+    private TextView juz_number, surah_name, page_number;
     private int juz;
 
     private static int counter = 0;
     private static boolean[] isChecked;
-    private int position;
-    private int currentPageNum;
+    private int position = 0;
+    private int currentPageNum = 0;
     private int pagesPerDay;
     private ProgressBar progressBar;
     private SharedPreferences sharedPreferences;
@@ -95,9 +95,9 @@ public class DailyPortionViewPagerFragment extends Fragment {
         surah_name = view.findViewById(R.id.surah_name_daily_portion);
         page_number = view.findViewById(R.id.page_number_daily_portion);
 
+
         ImageView img = view.findViewById(R.id.img);
         layout = view.findViewById(R.id.read_linear);
-        counter_text = view.findViewById(R.id.counter_text);
         checkButton = view.findViewById(R.id.read);
         int resources = isChecked[position] ? R.drawable.checked : R.drawable.unchecked;
         progressBar = view.findViewById(R.id.progress);
@@ -144,6 +144,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
                                 resetValues();
                                 requireActivity().finish();
                             }).show();
+//                    .setNegativeButton(, "إلى الورد التالي")
                 }
             }
             editor.putInt(Constant.WEEKLY_PROGRESS, weeklyProgress);
@@ -160,9 +161,14 @@ public class DailyPortionViewPagerFragment extends Fragment {
             if (layout.getVisibility() == View.GONE) {
                 layout.setVisibility(View.VISIBLE);
                 checkButton.setVisibility(View.VISIBLE);
+                juz_number.setVisibility(View.VISIBLE);
+                surah_name.setVisibility(View.VISIBLE);
+
             } else {
                 layout.setVisibility(View.GONE);
                 checkButton.setVisibility(View.GONE);
+                juz_number.setVisibility(View.GONE);
+                surah_name.setVisibility(View.GONE);
             }
         });
         return view;
@@ -170,14 +176,11 @@ public class DailyPortionViewPagerFragment extends Fragment {
 
     private void setImage(int picNum, ImageView img) {
 
-
         InputStream is;
         int currentPic = picNum;
         if (picNum > 604) {
             currentPic = picNum - 604;
         }
-
-
 
         juz = Math.min(((currentPic - 2) / 20) + 1, 30);
         juz_number.setText(String.format("الجزء %s", convertToArbNum(juz)));
@@ -185,8 +188,6 @@ public class DailyPortionViewPagerFragment extends Fragment {
         page_number.setText(String.format("صفحة  %s", convertToArbNum(currentPic)));
         sharedPreferences.edit().putString(CURRENT_JUZ, String.format("الجزء %s", convertToArbNum(juz))).apply();
         sharedPreferences.edit().putString(CURRENT_SURAH, MainActivity.surahName.get(currentPic - 1)).apply();
-
-
 
         try {
             if (getActivity() != null) {
@@ -197,7 +198,6 @@ public class DailyPortionViewPagerFragment extends Fragment {
         } catch (FileNotFoundException e) {
             Picasso.get().load("https://quran-images-api.herokuapp.com/show/page/" + (currentPic)).into(img);
         }
-
     }
 
     public void storeArray(boolean[] array, String arrayName, Context mContext) {
