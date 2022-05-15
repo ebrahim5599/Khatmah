@@ -96,7 +96,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
 
         ImageView img = view.findViewById(R.id.img);
         layout = view.findViewById(R.id.read_linear);
-        counter_text = view.findViewById(R.id.counter_text);
+//        counter_text = view.findViewById(R.id.counter_text);
         checkButton = view.findViewById(R.id.read);
         int resources = isChecked[position] ? R.drawable.checked : R.drawable.unchecked;
         progressBar = view.findViewById(R.id.progress);
