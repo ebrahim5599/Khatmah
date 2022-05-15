@@ -31,8 +31,8 @@
         android:id="@+id/image_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/juz_number_textview"
         android:layout_above="@id/page_number_textview"
+        android:layout_below="@id/juz_number_textview"
         android:fontFamily="@font/arabic_type"
         android:textColor="@color/purple_700"
         android:textSize="19sp" />
