@@ -118,9 +118,14 @@ public class DailyPortionViewPagerFragment extends Fragment {
             if (layout.getVisibility() == View.GONE) {
                 layout.setVisibility(View.VISIBLE);
                 checkButton.setVisibility(View.VISIBLE);
+                juz_number.setVisibility(View.VISIBLE);
+                surah_name.setVisibility(View.VISIBLE);
+
             } else {
                 layout.setVisibility(View.GONE);
                 checkButton.setVisibility(View.GONE);
+                juz_number.setVisibility(View.GONE);
+                surah_name.setVisibility(View.GONE);
             }
         });
         return view;
@@ -205,12 +210,14 @@ public class DailyPortionViewPagerFragment extends Fragment {
         }
 
 
+
         juz = Math.min(((currentPic - 2) / 20) + 1, 30);
         juz_number.setText(String.format("الجزء %s", convertToArbNum(juz)));
         surah_name.setText(MainActivity.surahName.get(currentPic - 1));
         page_number.setText(String.format("صفحة  %s", convertToArbNum(currentPic)));
         sharedPreferences.edit().putString(CURRENT_JUZ, String.format("الجزء %s", convertToArbNum(juz))).apply();
         sharedPreferences.edit().putString(CURRENT_SURAH, MainActivity.surahName.get(currentPic - 1)).apply();
+
 
 
         try {

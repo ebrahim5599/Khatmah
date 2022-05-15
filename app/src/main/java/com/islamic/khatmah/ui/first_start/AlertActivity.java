@@ -180,7 +180,6 @@ public class AlertActivity extends AppCompatActivity {
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 AlarmReminder alarmReminder = new AlarmReminder(sHour, sMinute);
                 if (aSwitch.isChecked()) {
                     alarmReminder.schedule(AlertActivity.this);
@@ -190,7 +189,7 @@ public class AlertActivity extends AppCompatActivity {
                 } else {
                     alarmReminder.cancelAlarm(AlertActivity.this);
                 }
-
+                alarmReminder.removeFinishDailyPortion(AlertActivity.this);
                 editor.putBoolean(Constant.FIRST_RUN, false).apply();
                 Intent intent = new Intent(AlertActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

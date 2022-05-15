@@ -78,7 +78,7 @@ public class StartActivity extends AppCompatActivity {
             public void onClick(View v) {
 //                startActivity(new Intent(StartActivity.this, AlertActivity.class));
                 editor.putInt(CURRENT_PAGE, 1);
-                editor.putString(CURRENT_SURAH, MainActivity.surahName.get(0));
+                editor.putString(CURRENT_SURAH, "\u0633\u064f\u0648\u0631\u064e\u0629\u064f \u0671\u0644\u0652\u0641\u064e\u0627\u062a\u0650\u062d\u064e\u0629\u0650");
                 editor.putString(CURRENT_JUZ, String.format("الجزء %s", convertToArbNum(1)));
                 editor.commit();
                 startActivity(new Intent(StartActivity.this, AlertActivity.class));

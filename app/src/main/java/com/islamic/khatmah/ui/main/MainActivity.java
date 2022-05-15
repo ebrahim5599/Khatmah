@@ -7,7 +7,10 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
+import android.net.NetworkRequest;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -20,8 +23,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.transition.AutoTransition;
+import android.transition.ChangeBounds;
+import android.transition.ChangeScroll;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
@@ -45,7 +56,6 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
-
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     public static ArrayList<String> surahName;
@@ -55,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        surahName = new ArrayList<>();
 
         // sharedPreference.
         preferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
@@ -73,6 +85,21 @@ public class MainActivity extends AppCompatActivity {
         ViewPager2 viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         viewPager.setCurrentItem(1);
+
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                super.onPageScrollStateChanged(state);
+                if (viewPager.getCurrentItem() == 0){
+//                    || viewPager.getCurrentItem() == 2
+                    TransitionManager.beginDelayedTransition(toolbar, new AutoTransition());
+                    toolbar.setVisibility(View.GONE);
+                }else{
+                    TransitionManager.beginDelayedTransition(toolbar, new AutoTransition());
+                    toolbar.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         TabLayout tabs = findViewById(R.id.tabs);
         new TabLayoutMediator(tabs, viewPager,
@@ -101,21 +128,17 @@ public class MainActivity extends AppCompatActivity {
                         // The dialog is automatically dismissed when a dialog button is clicked.
                         .setPositiveButton(R.string.download, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-
                                 ConnectivityManager cm = (ConnectivityManager) getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
                                 NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
                                 boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-                                boolean isMetered = cm.isActiveNetworkMetered();
-                                if (isConnected && !isMetered) {
+//                                boolean isMetered = cm.isActiveNetworkMetered();
+                                if (isConnected) {
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
                                         getBaseContext().startForegroundService(downloadIntent);
                                     else
                                         ContextCompat.startForegroundService(getBaseContext(), downloadIntent);
                                 } else {
-                                    if (!isConnected)
-                                        Toast.makeText(getBaseContext(), R.string.connection_error, Toast.LENGTH_LONG).show();
-                                    else
-                                        Toast.makeText(getBaseContext(), "", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getBaseContext(), R.string.connection_error, Toast.LENGTH_LONG).show();
                                 }
                             }
                         })
@@ -133,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -144,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.i("test", "onResume()");
         if (isFirstRun) {
             //show Start activity
             startActivity(new Intent(MainActivity.this, StartActivity.class));
@@ -200,10 +223,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void preparingSurahNames() {
-        surahName = new ArrayList<>();
         JSONObject jsonObject, pageData;
         JSONArray jsonArray;
-
         try {
             jsonObject = new JSONObject(Objects.requireNonNull(JsonDataFromAsset("page_details.json")));
             jsonArray = jsonObject.getJSONArray("page_details");

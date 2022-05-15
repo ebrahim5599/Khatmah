@@ -5,6 +5,7 @@ import static com.islamic.khatmah.constants.Constant.CURRENT_SURAH;
 import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
@@ -30,6 +31,7 @@ public class DailyPortionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_portion);
 
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         SharedPreferences preferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);

@@ -29,6 +29,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.alarm.AlarmReminder;
 import com.islamic.khatmah.constants.Constant;
+import com.islamic.khatmah.ui.first_start.AlertActivity;
 import com.islamic.khatmah.ui.first_start.StartActivity;
 import com.islamic.khatmah.ui.main.MainActivity;
 
@@ -42,7 +43,7 @@ public class SettingActivity extends AppCompatActivity {
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch reminderSwitch;
     private Spinner spinnerJuz, spinnerPage;
-    private TextView time_textView, reset_textView;
+    private TextView time_textView;
     private int no_of_pages, selected_juz, selected_page;
     private int sHour, sMinute;
     private SharedPreferences preferences;
@@ -68,7 +69,7 @@ public class SettingActivity extends AppCompatActivity {
         reminderSwitch = findViewById(R.id.reminder_switch);
         spinnerJuz = findViewById(R.id.setting_spinnerJuz);
         spinnerPage = findViewById(R.id.setting_spinnerPages);
-        reset_textView = findViewById(R.id.reset_textView);
+        TextView reset_textView = findViewById(R.id.reset_textView);
         time_textView = findViewById(R.id.time_textView);
 
         String[] juz = {"أقل من جزء", "جــــــزء", "جزء ونصف", "جــــزءان", "جزءان ونصف", "ثلاثة أجزاء"};
@@ -211,7 +212,6 @@ public class SettingActivity extends AppCompatActivity {
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-
                             }
                         })
                         .show();
