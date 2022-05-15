@@ -3,13 +3,16 @@ package com.islamic.khatmah.daily_portion;
 import static com.islamic.khatmah.constants.Constant.CURRENT_JUZ;
 import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
 import static com.islamic.khatmah.constants.Constant.CURRENT_SURAH;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +21,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.islamic.khatmah.ui.main.MainActivity;
 import com.islamic.khatmah.constants.Constant;
 import com.islamic.khatmah.R;
 import com.squareup.picasso.Picasso;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
@@ -79,12 +84,6 @@ public class DailyPortionViewPagerFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        progressBar.setProgress(counter);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -108,22 +107,47 @@ public class DailyPortionViewPagerFragment extends Fragment {
 
 
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+
         weeklyProgress = sharedPreferences.getInt(Constant.WEEKLY_PROGRESS, 0);
         totalProgress = sharedPreferences.getInt(Constant.TOTAL_PROGRESS, 0);
 
+
+
+
+        view.setOnClickListener(view1 -> {
+            if (layout.getVisibility() == View.GONE) {
+                layout.setVisibility(View.VISIBLE);
+                checkButton.setVisibility(View.VISIBLE);
+            } else {
+                layout.setVisibility(View.GONE);
+                checkButton.setVisibility(View.GONE);
+            }
+        });
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        progressBar.setProgress(counter);
+        int resources = isChecked[position] ? R.drawable.checked : R.drawable.unchecked;
+        checkButton.setImageResource(resources);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         checkButton.setOnClickListener(view12 -> {
             totalProgress = sharedPreferences.getInt(Constant.TOTAL_PROGRESS, 0);
             weeklyProgress = sharedPreferences.getInt(Constant.WEEKLY_PROGRESS, 0);
             if (isChecked[position]) {
                 counter--;
-                isChecked[position] = false;
+//                isChecked[position] = false;
+                makeIsChecked(position, isChecked, false);
                 weeklyProgress--;
                 totalProgress--;
                 checkButton.setImageResource(R.drawable.unchecked);
             } else {
                 counter++;
-                isChecked[position] = true;
+                counter++;
+//                isChecked[position] = true;
+                makeIsChecked(position, isChecked, true);
                 weeklyProgress++;
                 totalProgress++;
                 checkButton.setImageResource(R.drawable.checked);
@@ -139,7 +163,7 @@ public class DailyPortionViewPagerFragment extends Fragment {
                                 else
                                     editor.putInt(CURRENT_PAGE, pagesPerDay + currentPageNum);
                                 editor.putInt(Constant.DAILY_PROGRESS, 0);
-                                editor.putBoolean(Constant.FINISH_DAILY_PROGRESS,true);
+                                editor.putBoolean(Constant.FINISH_DAILY_PROGRESS, true);
                                 editor.apply();
                                 resetValues();
                                 requireActivity().finish();
@@ -154,18 +178,21 @@ public class DailyPortionViewPagerFragment extends Fragment {
             storeArray(isChecked, Constant.ARRAY_NAME, requireContext());
             progressBar.setProgress(counter);
         });
+    }
 
 
-        view.setOnClickListener(view1 -> {
-            if (layout.getVisibility() == View.GONE) {
-                layout.setVisibility(View.VISIBLE);
-                checkButton.setVisibility(View.VISIBLE);
-            } else {
-                layout.setVisibility(View.GONE);
-                checkButton.setVisibility(View.GONE);
+    private void makeIsChecked(int position, boolean[] isChecked, boolean state) {
+        if (state) {
+            for (int i = 0; i <= position; i++) {
+                isChecked[i] = true;
             }
-        });
-        return view;
+            counter = position + 1;
+        } else {
+            for (int i = position; i < isChecked.length; i++) {
+                isChecked[i] = false;
+            }
+            counter =  position;
+        }
     }
 
     private void setImage(int picNum, ImageView img) {
@@ -178,14 +205,12 @@ public class DailyPortionViewPagerFragment extends Fragment {
         }
 
 
-
         juz = Math.min(((currentPic - 2) / 20) + 1, 30);
         juz_number.setText(String.format("الجزء %s", convertToArbNum(juz)));
         surah_name.setText(MainActivity.surahName.get(currentPic - 1));
         page_number.setText(String.format("صفحة  %s", convertToArbNum(currentPic)));
         sharedPreferences.edit().putString(CURRENT_JUZ, String.format("الجزء %s", convertToArbNum(juz))).apply();
         sharedPreferences.edit().putString(CURRENT_SURAH, MainActivity.surahName.get(currentPic - 1)).apply();
-
 
 
         try {

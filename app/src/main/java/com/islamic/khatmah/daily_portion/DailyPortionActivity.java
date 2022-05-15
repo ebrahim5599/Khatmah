@@ -23,7 +23,6 @@ public class DailyPortionActivity extends AppCompatActivity {
 
     public static int currentPageNum;
     private int number_of_pages;
-    private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
 
     @Override
@@ -33,7 +32,7 @@ public class DailyPortionActivity extends AppCompatActivity {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        preferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
         editor = preferences.edit();
 
         // Receive intent from DailyPortionFragment.
@@ -125,7 +124,7 @@ public class DailyPortionActivity extends AppCompatActivity {
         return array;
     }
 
-    public boolean storeArray(boolean[] array, String arrayName, Context mContext) {
+    public void storeArray(boolean[] array, String arrayName, Context mContext) {
 
         SharedPreferences prefs = mContext.getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, 0);
         SharedPreferences.Editor editor = prefs.edit();
@@ -133,8 +132,7 @@ public class DailyPortionActivity extends AppCompatActivity {
 
         for (int i = 0; i < array.length; i++)
             editor.putBoolean(arrayName + "_" + i, array[i]);
-
-        return editor.commit();
+        editor.apply();
     }
 
     private void resetValues() {
