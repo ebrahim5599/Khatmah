@@ -112,8 +112,6 @@ public class DailyPortionViewPagerFragment extends Fragment {
         totalProgress = sharedPreferences.getInt(Constant.TOTAL_PROGRESS, 0);
 
 
-
-
         view.setOnClickListener(view1 -> {
             if (layout.getVisibility() == View.GONE) {
                 layout.setVisibility(View.VISIBLE);
