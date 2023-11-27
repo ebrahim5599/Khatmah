@@ -53,14 +53,12 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
     public void onBindViewHolder(@NonNull PageViewHolder holder, int position) {
 
         InputStream is = null;
-        JSONObject pageData = null;
-
         try {
-            is = context.openFileInput(String.valueOf(position + 1));
+            is = context.getAssets().open("quran_pages/page"+String.valueOf(position+1)+".png");
             Bitmap bit = BitmapFactory.decodeStream(is);
             holder.setBitmap(bit);
-        } catch (FileNotFoundException e) {
-            holder.setUrl("https://quran-images-api.herokuapp.com/show/page/" + (position + 1));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         holder.page_number.setText(convertToArbNum(holder.getAdapterPosition() + 1));
