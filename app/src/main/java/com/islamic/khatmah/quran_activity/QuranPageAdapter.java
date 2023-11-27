@@ -116,9 +116,6 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
             this.surah_name = itemView.findViewById(R.id.surah_name_textView);
         }
 
-        void setUrl(String url) {
-            Picasso.get().load(url).into(imageView);
-        }
         void setBitmap(Bitmap bitmap) {
             this.bitmap = bitmap;
             imageView.setImageBitmap(bitmap);

@@ -23,6 +23,7 @@ import com.islamic.khatmah.ui.main.MainActivity;
 public class DailyPortionActivity extends AppCompatActivity {
 
     public static int currentPageNum;
+    private String pageNumberString;
     private int number_of_pages;
     private SharedPreferences.Editor editor;
 
@@ -39,6 +40,7 @@ public class DailyPortionActivity extends AppCompatActivity {
         // Receive intent from DailyPortionFragment.
         Intent n = getIntent();
         currentPageNum = n.getIntExtra("PAGE_NUMBER", 0);
+        pageNumberString = "page" + currentPageNum + ".png";
 
         // Load sharedPreferences [number of pages per day].
         number_of_pages = preferences.getInt(PAGES_PER_DAY, 1);

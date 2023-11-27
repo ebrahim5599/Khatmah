@@ -29,6 +29,7 @@ import com.islamic.khatmah.R;
 import com.squareup.picasso.Picasso;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class DailyPortionViewPagerFragment extends Fragment {
@@ -208,7 +209,6 @@ public class DailyPortionViewPagerFragment extends Fragment {
         }
 
 
-
         juz = Math.min(((currentPic - 2) / 20) + 1, 30);
         juz_number.setText(String.format("الجزء %s", convertToArbNum(juz)));
         surah_name.setText(MainActivity.surahName.get(currentPic - 1));
@@ -217,20 +217,17 @@ public class DailyPortionViewPagerFragment extends Fragment {
         sharedPreferences.edit().putString(CURRENT_SURAH, MainActivity.surahName.get(currentPic - 1)).apply();
 
 
-
         try {
             if (getActivity() != null) {
-                is = getActivity().openFileInput(String.valueOf(currentPic));
+                is = getContext().getAssets().open("quran_pages/page" + String.valueOf(currentPic) + ".png");
                 Bitmap bit = BitmapFactory.decodeStream(is);
                 img.setImageBitmap(bit);
             }
-        } catch (FileNotFoundException e) {
-            Picasso.get().load("https://quran-images-api.herokuapp.com/show/page/" + (currentPic)).into(img);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
     }
-
-    public void storeArray(boolean[] array, String arrayName, Context mContext) {
+        public void storeArray(boolean[] array, String arrayName, Context mContext) {
 
         SharedPreferences prefs = mContext.getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, 0);
         SharedPreferences.Editor editor = prefs.edit();
