@@ -119,40 +119,40 @@ public class MainActivity extends AppCompatActivity {
             Bitmap bit = BitmapFactory.decodeStream(is);
         } catch (FileNotFoundException e) {
 
-            if (!preferences.getBoolean(Constant.DOWNLOAD_IS_RUNNING, false)) {
-                Intent downloadIntent = new Intent(this, DownloadService.class);
-                materialAlertDialogBuilder = new MaterialAlertDialogBuilder(this, R.style.Theme_MyApp_Dialog_Alert)
-                        .setTitle(R.string.download)
-                        .setMessage(R.string.download_message)
-                        // Specifying a listener allows you to take an action before dismissing the dialog.
-                        // The dialog is automatically dismissed when a dialog button is clicked.
-                        .setPositiveButton(R.string.download, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                ConnectivityManager cm = (ConnectivityManager) getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-                                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-                                boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-//                                boolean isMetered = cm.isActiveNetworkMetered();
-                                if (isConnected) {
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                                        getBaseContext().startForegroundService(downloadIntent);
-                                    else
-                                        ContextCompat.startForegroundService(getBaseContext(), downloadIntent);
-                                } else {
-                                    Toast.makeText(getBaseContext(), R.string.connection_error, Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        })
-                        // A null listener allows the button to dismiss the dialog and take no further action.
-                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                            }
-                        })
-                        .setIcon(R.drawable.ic_baseline_cloud_download_24)
-                        .setCancelable(false)
-                        .show();
-            }
+//            if (!preferences.getBoolean(Constant.DOWNLOAD_IS_RUNNING, false)) {
+//                Intent downloadIntent = new Intent(this, DownloadService.class);
+//                materialAlertDialogBuilder = new MaterialAlertDialogBuilder(this, R.style.Theme_MyApp_Dialog_Alert)
+//                        .setTitle(R.string.download)
+//                        .setMessage(R.string.download_message)
+//                        // Specifying a listener allows you to take an action before dismissing the dialog.
+//                        // The dialog is automatically dismissed when a dialog button is clicked.
+//                        .setPositiveButton(R.string.download, new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                ConnectivityManager cm = (ConnectivityManager) getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+//                                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+//                                boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+////                                boolean isMetered = cm.isActiveNetworkMetered();
+//                                if (isConnected) {
+//                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+//                                        getBaseContext().startForegroundService(downloadIntent);
+//                                    else
+//                                        ContextCompat.startForegroundService(getBaseContext(), downloadIntent);
+//                                } else {
+//                                    Toast.makeText(getBaseContext(), R.string.connection_error, Toast.LENGTH_LONG).show();
+//                                }
+//                            }
+//                        })
+//                        // A null listener allows the button to dismiss the dialog and take no further action.
+//                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                dialogInterface.dismiss();
+//                            }
+//                        })
+//                        .setIcon(R.drawable.ic_baseline_cloud_download_24)
+//                        .setCancelable(false)
+//                        .show();
+//            }
         }
     }
 
