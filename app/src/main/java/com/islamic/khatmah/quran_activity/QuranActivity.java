@@ -33,21 +33,4 @@ public class QuranActivity extends AppCompatActivity {
         viewPager.setCurrentItem(j - 1, true);
     }
 
-    // this method to fetch surah name from JSON file.
-    private String JsonDataFromAsset(String fileName) {
-        String json = null;
-        try {
-            InputStream inputStream = getBaseContext().getAssets().open(fileName);
-            int sizeOfFile = inputStream.available();
-            byte[] bufferData = new byte[sizeOfFile];
-            inputStream.read(bufferData);
-            inputStream.close();
-            json = new String(bufferData, "UTF-8");
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-        return json;
-    }
-
 }

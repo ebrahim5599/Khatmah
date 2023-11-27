@@ -41,7 +41,6 @@ public class DailyPortionFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-//        mViewModel = new ViewModelProvider(this).get(DailyPortionViewModel.class);
         View view = inflater.inflate(R.layout.daily_portion_fragment, container, false);
         finishProgressHint = view.findViewById(R.id.finish_progress_hint);
         preferences = requireActivity().getSharedPreferences(Constant.MAIN_SHARED_PREFERENCES, MODE_PRIVATE);
