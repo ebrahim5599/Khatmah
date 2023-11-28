@@ -10,7 +10,6 @@ import androidx.viewpager2.widget.ViewPager2;
 
 public class DailyPortionAdapter extends FragmentStateAdapter {
     int currentPageNum;
-    String pageNumberString;
     int pagesPerDay;
     private static boolean[] isChecked;
     private SharedPreferences preferences;
@@ -19,15 +18,6 @@ public class DailyPortionAdapter extends FragmentStateAdapter {
     public DailyPortionAdapter(@NonNull FragmentActivity fragmentActivity, int currentPageNum, boolean[] isChecked,int pagesPerDay, ViewPager2 viewPager2) {
         super(fragmentActivity);
         this.currentPageNum = currentPageNum;
-        this.pagesPerDay = pagesPerDay;
-        Log.d("pages_per_day", "" + pagesPerDay);
-        DailyPortionAdapter.isChecked = isChecked;
-        this.viewPager2 = viewPager2;
-    }
-
-    public DailyPortionAdapter(@NonNull FragmentActivity fragmentActivity, String currentPageNum, boolean[] isChecked,int pagesPerDay, ViewPager2 viewPager2) {
-        super(fragmentActivity);
-        this.pageNumberString = currentPageNum;
         this.pagesPerDay = pagesPerDay;
         Log.d("pages_per_day", "" + pagesPerDay);
         DailyPortionAdapter.isChecked = isChecked;

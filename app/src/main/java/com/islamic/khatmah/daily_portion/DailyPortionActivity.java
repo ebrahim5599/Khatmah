@@ -40,7 +40,6 @@ public class DailyPortionActivity extends AppCompatActivity {
         // Receive intent from DailyPortionFragment.
         Intent n = getIntent();
         currentPageNum = n.getIntExtra("PAGE_NUMBER", 0);
-        pageNumberString = "page" + currentPageNum + ".png";
 
         // Load sharedPreferences [number of pages per day].
         number_of_pages = preferences.getInt(PAGES_PER_DAY, 1);
