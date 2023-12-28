@@ -1,7 +1,6 @@
 package com.islamic.khatmah.services;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -12,10 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
-import android.os.Message;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
@@ -23,7 +19,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.islamic.khatmah.AlarmBrodCasts.NotificationReceiver;
 import com.islamic.khatmah.R;
-import com.islamic.khatmah.constants.Constant;
+import com.islamic.khatmah.pojo.Constant;
 import com.islamic.khatmah.ui.main.MainActivity;
 
 import java.io.FileOutputStream;

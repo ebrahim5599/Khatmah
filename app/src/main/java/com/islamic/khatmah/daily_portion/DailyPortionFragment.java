@@ -1,10 +1,10 @@
 package com.islamic.khatmah.daily_portion;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.islamic.khatmah.constants.Constant.CURRENT_JUZ;
-import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
-import static com.islamic.khatmah.constants.Constant.CURRENT_SURAH;
-import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
+import static com.islamic.khatmah.pojo.Constant.CURRENT_JUZ;
+import static com.islamic.khatmah.pojo.Constant.CURRENT_PAGE;
+import static com.islamic.khatmah.pojo.Constant.CURRENT_SURAH;
+import static com.islamic.khatmah.pojo.Constant.PAGES_PER_DAY;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,8 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.islamic.khatmah.R;
-import com.islamic.khatmah.constants.Constant;
-import java.util.Calendar;
+import com.islamic.khatmah.pojo.Constant;
 
 public class DailyPortionFragment extends Fragment {
 

@@ -1,11 +1,11 @@
 package com.islamic.khatmah.ui.setting;
 
-import static com.islamic.khatmah.constants.Constant.ALARM_HOUR;
-import static com.islamic.khatmah.constants.Constant.ALARM_MINUTE;
-import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
-import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
-import static com.islamic.khatmah.constants.Constant.TOTAL_PROGRESS;
-import static com.islamic.khatmah.constants.Constant.WEEKLY_PROGRESS;
+import static com.islamic.khatmah.pojo.Constant.ALARM_HOUR;
+import static com.islamic.khatmah.pojo.Constant.ALARM_MINUTE;
+import static com.islamic.khatmah.pojo.Constant.CURRENT_PAGE;
+import static com.islamic.khatmah.pojo.Constant.PAGES_PER_DAY;
+import static com.islamic.khatmah.pojo.Constant.TOTAL_PROGRESS;
+import static com.islamic.khatmah.pojo.Constant.WEEKLY_PROGRESS;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
@@ -28,10 +28,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.islamic.khatmah.R;
 import com.islamic.khatmah.alarm.AlarmReminder;
-import com.islamic.khatmah.constants.Constant;
-import com.islamic.khatmah.ui.first_start.AlertActivity;
+import com.islamic.khatmah.pojo.Constant;
 import com.islamic.khatmah.ui.first_start.StartActivity;
-import com.islamic.khatmah.ui.main.MainActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

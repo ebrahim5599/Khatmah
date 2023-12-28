@@ -7,7 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.islamic.khatmah.R;
@@ -64,6 +67,13 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
         holder.page_number.setText(convertToArbNum(holder.getAdapterPosition() + 1));
         holder.juz_number.setText("الجزء " + convertToArbNum((int) Math.min(((holder.getAdapterPosition() - 1) / 20) + 1, 30)));
         holder.surah_name.setText(surahName.get(position));
+
+//        holder.rl.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(context, "Toggle", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     // this method converts English numbers to Indian number [Arabic].
@@ -107,6 +117,7 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
         private ImageView imageView;
         private Bitmap bitmap;
         private TextView page_number, juz_number, surah_name;
+        private RelativeLayout rl;
 
         public PageViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -114,6 +125,7 @@ public class QuranPageAdapter extends RecyclerView.Adapter<QuranPageAdapter.Page
             this.page_number = itemView.findViewById(R.id.page_number_textview);
             this.juz_number = itemView.findViewById(R.id.juz_number_textview);
             this.surah_name = itemView.findViewById(R.id.surah_name_textView);
+            this.rl = itemView.findViewById(R.id.relativeContainer);
         }
 
         void setBitmap(Bitmap bitmap) {

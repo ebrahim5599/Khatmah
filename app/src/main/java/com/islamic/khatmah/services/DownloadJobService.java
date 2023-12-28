@@ -16,7 +16,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import com.islamic.khatmah.AlarmBrodCasts.NotificationReceiver;
 import com.islamic.khatmah.R;
-import com.islamic.khatmah.constants.Constant;
+import com.islamic.khatmah.pojo.Constant;
 import com.islamic.khatmah.ui.main.MainActivity;
 import java.io.FileOutputStream;
 import java.io.IOException;
