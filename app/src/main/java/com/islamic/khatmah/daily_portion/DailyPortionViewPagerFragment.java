@@ -1,8 +1,8 @@
 package com.islamic.khatmah.daily_portion;
 
-import static com.islamic.khatmah.constants.Constant.CURRENT_JUZ;
-import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
-import static com.islamic.khatmah.constants.Constant.CURRENT_SURAH;
+import static com.islamic.khatmah.pojo.Constant.CURRENT_JUZ;
+import static com.islamic.khatmah.pojo.Constant.CURRENT_PAGE;
+import static com.islamic.khatmah.pojo.Constant.CURRENT_SURAH;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -24,11 +24,9 @@ import android.widget.TextView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.islamic.khatmah.ui.main.MainActivity;
-import com.islamic.khatmah.constants.Constant;
+import com.islamic.khatmah.pojo.Constant;
 import com.islamic.khatmah.R;
-import com.squareup.picasso.Picasso;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 

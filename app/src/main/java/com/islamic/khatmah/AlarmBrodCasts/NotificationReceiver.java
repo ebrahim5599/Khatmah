@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import com.islamic.khatmah.constants.Constant;
+import com.islamic.khatmah.pojo.Constant;
 
 public class NotificationReceiver extends BroadcastReceiver {
 

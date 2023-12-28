@@ -1,4 +1,4 @@
-package com.islamic.khatmah.constants;
+package com.islamic.khatmah.pojo;
 
 public class Constant{
 

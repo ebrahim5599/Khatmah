@@ -3,15 +3,15 @@ plugins {
 }
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 33
     buildToolsVersion '30.0.3'
 
     defaultConfig {
         applicationId "com.islamic.khatmah"
         minSdkVersion 21
-        targetSdkVersion 31
-        versionCode 12
-        versionName "1.1.0"
+        targetSdkVersion 33
+        versionCode 15
+        versionName "1.1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

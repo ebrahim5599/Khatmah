@@ -1,47 +1,31 @@
 package com.islamic.khatmah.ui.main;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkCapabilities;
-import android.net.NetworkInfo;
-import android.net.NetworkRequest;
-import android.os.Build;
 import android.os.Bundle;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.transition.AutoTransition;
-import android.transition.ChangeBounds;
-import android.transition.ChangeScroll;
-import android.transition.Fade;
-import android.transition.Slide;
 import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.islamic.khatmah.R;
-import com.islamic.khatmah.services.DownloadService;
 import com.islamic.khatmah.ui.first_start.StartActivity;
-import com.islamic.khatmah.constants.Constant;
+import com.islamic.khatmah.pojo.Constant;
 import com.islamic.khatmah.ui.setting.SettingActivity;
 
 import org.json.JSONArray;

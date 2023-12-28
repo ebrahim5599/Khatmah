@@ -1,8 +1,8 @@
 package com.islamic.khatmah.ui.first_start;
 
-import static com.islamic.khatmah.constants.Constant.CURRENT_JUZ;
-import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
-import static com.islamic.khatmah.constants.Constant.CURRENT_SURAH;
+import static com.islamic.khatmah.pojo.Constant.CURRENT_JUZ;
+import static com.islamic.khatmah.pojo.Constant.CURRENT_PAGE;
+import static com.islamic.khatmah.pojo.Constant.CURRENT_SURAH;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -12,7 +12,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,9 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.islamic.khatmah.R;
-import com.islamic.khatmah.alarm.AlarmReminder;
-import com.islamic.khatmah.constants.Constant;
-import com.islamic.khatmah.ui.main.MainActivity;
+import com.islamic.khatmah.pojo.Constant;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -1,11 +1,10 @@
 package com.islamic.khatmah.daily_portion;
 
-import static com.islamic.khatmah.constants.Constant.CURRENT_PAGE;
-import static com.islamic.khatmah.constants.Constant.CURRENT_SURAH;
-import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
+import static com.islamic.khatmah.pojo.Constant.CURRENT_PAGE;
+import static com.islamic.khatmah.pojo.Constant.CURRENT_SURAH;
+import static com.islamic.khatmah.pojo.Constant.PAGES_PER_DAY;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
@@ -17,13 +16,12 @@ import android.view.WindowManager;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.islamic.khatmah.R;
-import com.islamic.khatmah.constants.Constant;
+import com.islamic.khatmah.pojo.Constant;
 import com.islamic.khatmah.ui.main.MainActivity;
 
 public class DailyPortionActivity extends AppCompatActivity {
 
     public static int currentPageNum;
-    private String pageNumberString;
     private int number_of_pages;
     private SharedPreferences.Editor editor;
 
@@ -40,7 +38,6 @@ public class DailyPortionActivity extends AppCompatActivity {
         // Receive intent from DailyPortionFragment.
         Intent n = getIntent();
         currentPageNum = n.getIntExtra("PAGE_NUMBER", 0);
-        pageNumberString = "page" + currentPageNum + ".png";
 
         // Load sharedPreferences [number of pages per day].
         number_of_pages = preferences.getInt(PAGES_PER_DAY, 1);

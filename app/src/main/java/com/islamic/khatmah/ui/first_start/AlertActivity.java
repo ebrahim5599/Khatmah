@@ -1,6 +1,6 @@
 package com.islamic.khatmah.ui.first_start;
 
-import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
+import static com.islamic.khatmah.pojo.Constant.PAGES_PER_DAY;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,7 +21,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.islamic.khatmah.R;
-import com.islamic.khatmah.constants.Constant;
+import com.islamic.khatmah.pojo.Constant;
 import com.islamic.khatmah.alarm.AlarmReminder;
 import com.islamic.khatmah.ui.main.MainActivity;
 

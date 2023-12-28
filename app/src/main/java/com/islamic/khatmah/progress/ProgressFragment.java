@@ -1,7 +1,7 @@
 package com.islamic.khatmah.progress;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.islamic.khatmah.constants.Constant.PAGES_PER_DAY;
+import static com.islamic.khatmah.pojo.Constant.PAGES_PER_DAY;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.icu.text.DecimalFormat;
@@ -19,7 +19,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.islamic.khatmah.R;
-import com.islamic.khatmah.constants.Constant;
+import com.islamic.khatmah.pojo.Constant;
 import java.util.Locale;
 
 public class ProgressFragment extends Fragment {
